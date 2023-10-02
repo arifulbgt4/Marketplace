@@ -13,9 +13,6 @@ const AppLayout: FC<AppLayoutProps> = ({ children }) => {
         <Header />
       </Grid>
       <Grid item xs={12}>
-        <Navigation />
-      </Grid>
-      <Grid item xs={12}>
         {children}
       </Grid>
       <Grid item xs={12}>
