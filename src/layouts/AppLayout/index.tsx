@@ -4,6 +4,7 @@ import { Grid } from "@mui/material";
 import { AppLayoutProps } from "./Types";
 import Header from "src/widgets/Header";
 import Navigation from "src/widgets/Navigation";
+import Footer from "src/widgets/Footer";
 
 const AppLayout: FC<AppLayoutProps> = ({ children }) => {
   return (
@@ -18,7 +19,7 @@ const AppLayout: FC<AppLayoutProps> = ({ children }) => {
         {children}
       </Grid>
       <Grid item xs={12}>
-        Footer
+        <Footer />
       </Grid>
     </Grid>
   );
