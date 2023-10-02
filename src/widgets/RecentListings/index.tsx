@@ -2,8 +2,9 @@ import { FC } from "react";
 import { useTranslations } from "next-intl";
 import { Grid, Typography } from "@mui/material";
 
+import Listing from "src/widgets/Listing";
+
 import { RecentListingsProps } from "./Types";
-import Listing from "../Listing";
 
 const RecentListings: FC<RecentListingsProps> = () => {
   const t = useTranslations();
