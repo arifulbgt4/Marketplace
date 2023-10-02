@@ -12,6 +12,7 @@ export async function signIn({
       redirect: false,
       email: email,
       password: password,
+      role: "user",
       callbackUrl,
     });
     return res;
