@@ -1,5 +1,6 @@
 import { useLocale } from "next-intl";
 import { notFound } from "next/navigation";
+import AppLayout from "src/layouts/AppLayout";
 import NextAuthProvider from "src/layouts/NextAuthProvider";
 import ThemeContextProvider from "src/theme";
 
@@ -28,7 +29,9 @@ export default function RootLayout({
     <html lang={locale}>
       <ThemeContextProvider>
         <body suppressHydrationWarning={true}>
-          <NextAuthProvider>{children}</NextAuthProvider>
+          <NextAuthProvider>
+            <AppLayout>{children}</AppLayout>
+          </NextAuthProvider>
         </body>
       </ThemeContextProvider>
     </html>
