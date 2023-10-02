@@ -3,7 +3,7 @@ import { HeaderProps } from "./Types";
 import { AppBar } from "@mui/material";
 
 const Header: FC<HeaderProps> = () => {
-  return <AppBar>Header</AppBar>;
+  return <AppBar position="sticky">Header</AppBar>;
 };
 
 export default Header;
