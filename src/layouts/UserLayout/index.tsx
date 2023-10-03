@@ -1,13 +1,15 @@
 "use client";
-import { FC, useState } from "react";
-import { Grid, Stack, Box, Avatar, Typography } from "@mui/material";
+import { FC } from "react";
+import { Grid, Stack, Box, Avatar, Typography, Link } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import { usePathname } from "next/navigation";
 
 import { UserLayoutProps } from "./Types";
 
 const UserLayout: FC<UserLayoutProps> = ({ children }) => {
-  const [value, setValue] = useState("two");
+  const pathname = usePathname();
+
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -25,17 +27,37 @@ const UserLayout: FC<UserLayoutProps> = ({ children }) => {
               member science, september,2023
             </Typography>
           </Box>
-          <Tabs
-            onChange={(a, b) => {
-              setValue(b);
-            }}
-            value={value}
-          >
-            <Tab label="DASHBOARD" value="one" />
-            <Tab label="PROFILE" value="two" />
-            <Tab label="LISTINGS" value="three" />
-            <Tab label="BOOKMARKS" value="four" />
-            <Tab label="SSETTINGS" value="five" />
+          <Tabs value={pathname}>
+            <Tab
+              component={Link}
+              href="/dashboard"
+              label="DASHBOARD"
+              value="/dashboard"
+            />
+            <Tab
+              component={Link}
+              href="/profile"
+              label="PROFILE"
+              value="/profile"
+            />
+            <Tab
+              component={Link}
+              href="/listing"
+              label="LISTINGS"
+              value="/listing"
+            />
+            <Tab
+              component={Link}
+              href="/bookmarks"
+              label="BOOKMARKS"
+              value="/bookmarks"
+            />
+            <Tab
+              component={Link}
+              href="/settings"
+              label="SSETTINGS"
+              value="/settings"
+            />
           </Tabs>
         </Stack>
       </Grid>
