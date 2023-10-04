@@ -1,10 +1,14 @@
 import { FC } from "react";
-import { FormControl } from "@mui/material";
+import { FormControl, Paper } from "@mui/material";
 
 import { SearchFilterFormProps } from "./Types";
 
 const SearchFilterForm: FC<SearchFilterFormProps> = () => {
-  return <FormControl>SearchFilterForm</FormControl>;
+  return (
+    <Paper>
+      <FormControl>SearchFilterForm</FormControl>;
+    </Paper>
+  );
 };
 
 export default SearchFilterForm;
