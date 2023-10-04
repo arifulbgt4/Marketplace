@@ -1,9 +1,9 @@
 import { Grid, Box, Typography, Stack } from "@mui/material";
 
+import SearchFilterForm from "src/forms/SearchFilterForm";
 import Listings from "src/widgets/Listings";
 import SearchCategoryFilter from "src/widgets/SearchCategoryFilter";
 import SearchFilter from "src/widgets/SearchFilter";
-import SearchFilterForm from "src/widgets/SearchFilterForm";
 
 const ListingAll = () => {
   return (
