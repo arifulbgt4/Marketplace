@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 
-import UserSettingForm from "src/widgets/UserSettingForm";
+import UserSettingForm from "src/forms/UserSettingForm";
 import UserSettingItem from "src/widgets/UserSettingItem";
 
 const Settings = () => {
