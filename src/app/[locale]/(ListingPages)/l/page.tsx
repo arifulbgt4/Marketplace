@@ -24,7 +24,6 @@ const ListingAll = () => {
           </Stack>
         </Grid>
         <Grid item xs={8}>
-          <Typography variant="h4">WE Found 91 Results</Typography>
           <Listings />
         </Grid>
       </Grid>
