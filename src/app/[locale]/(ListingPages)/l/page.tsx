@@ -1,8 +1,7 @@
-import { Grid, Box, Typography, Stack } from "@mui/material";
+import { Grid } from "@mui/material";
 
-import SearchFilterForm from "src/forms/SearchFilterForm";
 import Listings from "src/widgets/Listings";
-import SearchCategoryFilter from "src/widgets/SearchCategoryFilter";
+import ListingsSidebarFilter from "src/widgets/ListingsSidebarFilter";
 import SearchFilter from "src/widgets/SearchFilter";
 
 const ListingAll = () => {
@@ -13,15 +12,7 @@ const ListingAll = () => {
       </Grid>
       <Grid item xs={12} container>
         <Grid item xs={4}>
-          <Stack direction="column" justifyContent="space-evenly">
-            <Box>
-              <Typography variant="h4">Categories</Typography>
-              <SearchCategoryFilter />
-            </Box>
-            <Box>
-              <SearchFilterForm />
-            </Box>
-          </Stack>
+          <ListingsSidebarFilter />
         </Grid>
         <Grid item xs={8}>
           <Listings />

@@ -2,6 +2,7 @@ import { Grid, Paper, Typography } from "@mui/material";
 
 import ListingDetailsContent from "src/widgets/ListingDetailsContent/inedx";
 import PropertyDetailsBanner from "src/widgets/PropertyDetailsBanner";
+import PropertyDetailsSidebar from "src/widgets/PropertyDetailsSidebar";
 
 const Details = () => {
   return (
@@ -13,7 +14,7 @@ const Details = () => {
         <ListingDetailsContent />
       </Grid>
       <Grid item xs={4}>
-        PropertyDetailsSidebar
+        <PropertyDetailsSidebar />
       </Grid>
     </Grid>
   );
