@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 
-const SettingsMedia = () => {
+const Media = () => {
   return <Grid>SettingsMedia</Grid>;
 };
 
-export default SettingsMedia;
+export default Media;
