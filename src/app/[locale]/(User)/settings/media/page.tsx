@@ -1,7 +1,13 @@
 import { Grid } from "@mui/material";
 
+import UserMedia from "src/widgets/UserMedia";
+
 const Media = () => {
-  return <Grid>SettingsMedia</Grid>;
+  return (
+    <Grid>
+      <UserMedia />
+    </Grid>
+  );
 };
 
 export default Media;
