@@ -2,6 +2,7 @@ import { Grid, Typography, Paper } from "@mui/material";
 
 import ContactForm from "src/forms/ContactForm";
 import BreadcumbBanner from "src/widgets/BreadcumbBanner/inedx";
+import Question from "src/widgets/Question";
 
 const Conatact = () => {
   return (
@@ -13,8 +14,7 @@ const Conatact = () => {
         <ContactForm />
       </Grid>
       <Grid item xs={4}>
-        <Typography variant="h4">Frequently Asked Questions</Typography>
-        <Paper>questions</Paper>
+        <Question />
       </Grid>
     </Grid>
   );
