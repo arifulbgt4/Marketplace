@@ -1,7 +1,12 @@
 import { Grid } from "@mui/material";
+import SocilalFormChange from "src/widgets/SocilalFormChange";
 
 const Socilal = () => {
-  return <Grid>SocilalIcon Change</Grid>;
+  return (
+    <Grid>
+      <SocilalFormChange />
+    </Grid>
+  );
 };
 
 export default Socilal;
