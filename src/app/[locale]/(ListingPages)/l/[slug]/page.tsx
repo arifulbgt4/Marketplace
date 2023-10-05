@@ -1,20 +1,20 @@
 import { Grid, Paper, Typography } from "@mui/material";
 
 import ListingDetailsContent from "src/widgets/ListingDetailsContent/inedx";
-import PropertyDetailsBanner from "src/widgets/PropertyDetailsBanner";
-import PropertyDetailsSidebar from "src/widgets/PropertyDetailsSidebar";
+import ListingDetailsBanner from "src/widgets/ListingDetailsBanner";
+import ListingDetailsSidebar from "src/widgets/ListingDetailsSidebar";
 
 const Details = () => {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <PropertyDetailsBanner />
+        <ListingDetailsBanner />
       </Grid>
       <Grid item xs={8}>
         <ListingDetailsContent />
       </Grid>
       <Grid item xs={4}>
-        <PropertyDetailsSidebar />
+        <ListingDetailsSidebar />
       </Grid>
     </Grid>
   );
