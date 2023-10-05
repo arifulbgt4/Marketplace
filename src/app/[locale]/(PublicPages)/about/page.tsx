@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 
 import AboutDetails from "src/widgets/AboutDetails";
-import BreadcumbBanner from "src/widgets/BreadcumbBanner/inedx";
+import BreadcumbBanner from "src/widgets/BreadcumbBanner";
 import Question from "src/widgets/Question";
 
 const About = () => {

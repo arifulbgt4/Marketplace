@@ -1,7 +1,7 @@
 import { Grid, Typography, Paper } from "@mui/material";
 
 import ContactForm from "src/forms/ContactForm";
-import BreadcumbBanner from "src/widgets/BreadcumbBanner/inedx";
+import BreadcumbBanner from "src/widgets/BreadcumbBanner";
 import Question from "src/widgets/Question";
 
 const Conatact = () => {
