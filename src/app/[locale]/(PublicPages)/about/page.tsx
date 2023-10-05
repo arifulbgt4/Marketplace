@@ -1,14 +1,13 @@
 import { Grid, Paper, Typography } from "@mui/material";
 
 import AboutDetails from "src/widgets/AboutDetails";
+import BreadcumbBanner from "src/widgets/BreadcumbBanner/inedx";
 
 const About = () => {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <Paper>
-          <Typography variant="h3">About Us</Typography>
-        </Paper>
+        <BreadcumbBanner />
       </Grid>
       <Grid item xs={12} container>
         <Grid item xs={8}>
