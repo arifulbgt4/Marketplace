@@ -17,9 +17,9 @@ export const metadata: Metadata = {
   manifest: `${siteConfig.url}manifest.json`,
   metadataBase: new URL(siteConfig.url),
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
+    icon: "/icon/favicon.ico",
+    shortcut: "/icon/favicon-16x16.png",
+    apple: "/apple-icon/apple-touch-icon.png",
   },
   openGraph: {
     type: "website",
