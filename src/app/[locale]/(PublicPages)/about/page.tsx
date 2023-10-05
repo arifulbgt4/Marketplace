@@ -1,7 +1,8 @@
-import { Grid, Paper, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 
 import AboutDetails from "src/widgets/AboutDetails";
 import BreadcumbBanner from "src/widgets/BreadcumbBanner/inedx";
+import Question from "src/widgets/Question";
 
 const About = () => {
   return (
@@ -14,8 +15,7 @@ const About = () => {
           <AboutDetails />
         </Grid>
         <Grid item xs={4}>
-          <Typography variant="h4">Do you have any questions?</Typography>
-          <Paper>Qusestion</Paper>
+          <Question />
         </Grid>
       </Grid>
     </Grid>
