@@ -1,7 +1,7 @@
-import { Grid, Typography, Paper } from "@mui/material";
+import { Grid } from "@mui/material";
 
-import ContactForm from "src/forms/ContactForm";
 import BreadcumbBanner from "src/widgets/BreadcumbBanner";
+import ContactF from "src/widgets/Contact";
 import Question from "src/widgets/Question";
 
 const Conatact = () => {
@@ -11,7 +11,7 @@ const Conatact = () => {
         <BreadcumbBanner />
       </Grid>
       <Grid item xs={8}>
-        <ContactForm />
+        <ContactF />
       </Grid>
       <Grid item xs={4}>
         <Question />
