@@ -4,6 +4,9 @@ const siteAddress =
 export const siteConfig = {
   name: "B2C Marketplace System",
   shortName: "B2C Marketplace",
+  locale: "en",
+  localeUpper: "enUS",
+  localeUpperSpace: "en-US",
   url: siteAddress,
   ogImage: `${siteAddress}opengraph-image`,
   description:

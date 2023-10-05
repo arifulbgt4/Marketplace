@@ -8,7 +8,11 @@ import NextAuthProvider from "src/layouts/NextAuthProvider";
 import ThemeContextProvider from "src/theme";
 
 export const metadata: Metadata = {
-  viewport: "initial-scale=1, width=device-width",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+  },
   title: { default: siteConfig.name, template: `%s - ${siteConfig.name}` },
   description: siteConfig.description,
   keywords: siteConfig.keywords,
@@ -23,7 +27,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: siteConfig.localeUpperSpace,
     url: siteConfig.url,
     title: siteConfig.name,
     description: siteConfig.description,

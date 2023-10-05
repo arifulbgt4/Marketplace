@@ -15,11 +15,13 @@ import palette, { PaletteOptions } from "./palette";
 import typography from "./typography";
 import shadowsTheme from "./shadows";
 import componentsOverride from "./overrides";
+import { siteConfig } from "src/global/config";
 
 type SupportedLocales = keyof typeof locales;
 
-const DEFAULT_PALETTE_MODE: PaletteMode = "dark";
-const DEFAULT_LOCAL: SupportedLocales = "enUS";
+const DEFAULT_PALETTE_MODE: PaletteMode = siteConfig.themeColor as PaletteMode;
+const DEFAULT_LOCAL: SupportedLocales =
+  siteConfig.localeUpper as SupportedLocales;
 
 export const ColorModeContext = createContext<{
   toggleColorMode: () => void;
