@@ -1,19 +1,19 @@
 import { Grid, Paper, Typography } from "@mui/material";
-import ListingDetailsCard from "src/widgets/ListingDetailsCard/inedx";
+
+import ListingDetailsContent from "src/widgets/ListingDetailsContent/inedx";
+import PropertyDetailsBanner from "src/widgets/PropertyDetailsBanner";
 
 const Details = () => {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <Paper>
-          <Typography variant="h3">Property Details </Typography>
-        </Paper>
+        <PropertyDetailsBanner />
       </Grid>
       <Grid item xs={8}>
-        <ListingDetailsCard />
+        <ListingDetailsContent />
       </Grid>
       <Grid item xs={4}>
-        <Paper>property</Paper>
+        PropertyDetailsSidebar
       </Grid>
     </Grid>
   );
