@@ -1,4 +1,5 @@
 import { SvgIconComponent } from "@mui/icons-material";
+import { User } from "@prisma/client";
 
 export interface AnyObject {
   [key: string]: any;
@@ -31,4 +32,9 @@ export interface UserOptions {
 export interface UserRegisterOptions
   extends Omit<UserOptions, "id" | "role" | "createdAt" | "updatedAt"> {
   password: string;
+}
+
+export interface UserSigninOptions
+  extends Pick<UserRegisterOptions, "email" | "password"> {
+  callbackUrl: string;
 }
