@@ -5,7 +5,7 @@ import { LogoProps } from "./Types";
 
 const Logo: FC<LogoProps> = () => {
   return (
-    <Stack alignItems="center" direction="row">
+    <Stack alignItems="center" direction="row" component="a">
       <Box component={SvgIcon} alignItems="center" mr={2}>
         <svg
           width="40"
