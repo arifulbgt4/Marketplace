@@ -1,6 +1,6 @@
 import { Grid, Paper, Typography } from "@mui/material";
 
-import ListingDetailsContent from "src/widgets/ListingDetailsContent/inedx";
+import ListingDetailsContent from "src/widgets/ListingDetailsContent";
 import ListingDetailsBanner from "src/widgets/ListingDetailsBanner";
 import ListingDetailsSidebar from "src/widgets/ListingDetailsSidebar";
 
