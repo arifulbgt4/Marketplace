@@ -13,8 +13,7 @@ const SearchBanner: FC<SearchBannerProps> = () => {
     <Stack
       component="div"
       sx={{
-        width: "100%",
-        minheight: 500,
+        minHeight: 500,
         backgroundImage: `url(${bannaerimg})`,
         backgroundPosition: "center",
         backgroundSize: "cover",
@@ -24,12 +23,9 @@ const SearchBanner: FC<SearchBannerProps> = () => {
       direction="column"
       justifyContent="center"
       alignItems="center"
-      alignSelf="stretch"
     >
-      <Typography variant="h2" fontWeight="300">
-        Find Home Together
-      </Typography>
-      <Box>
+      <Box textAlign="center">
+        <Typography variant="h2">Find Home Together</Typography>
         <Typography variant="h4">
           25,000 rooms amd houses available now on Dream House{" "}
         </Typography>
