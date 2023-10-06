@@ -14,6 +14,7 @@ import {
   Menu,
   Avatar,
   Hidden,
+  Stack,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
@@ -48,9 +49,12 @@ const Header: FC<HeaderProps> = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Hidden xsDown>
-            <Logo />
+          <Hidden mdDown>
+            <Stack flexGrow={1}>
+              <Logo />
+            </Stack>
           </Hidden>
+
           <Hidden mdUp>
             <IconButton
               size="large"
@@ -87,10 +91,10 @@ const Header: FC<HeaderProps> = () => {
               ))}
             </Menu>
           </Hidden>
-          <Hidden mdDown>
+          <Hidden mdUp>
             <Logo />
           </Hidden>
-          <Hidden xsDown>
+          <Hidden mdDown>
             {pages.map((page) => (
               <Button
                 key={page}
@@ -104,9 +108,7 @@ const Header: FC<HeaderProps> = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             <Button onClick={handleOpenUserMenu}>Create Account</Button>
-            <Button sx={{ display: { xs: "none", md: "inline-block" } }}>
-              Create Account
-            </Button>
+            <Button variant="outlined">Create Account</Button>
             {/* <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
