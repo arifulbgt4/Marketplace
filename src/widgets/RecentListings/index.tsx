@@ -5,6 +5,7 @@ import { Grid, Typography } from "@mui/material";
 import Listing from "src/widgets/Listing";
 
 import { RecentListingsProps } from "./Types";
+import { ListingData } from "../ListingData/ListingData";
 
 const RecentListings: FC<RecentListingsProps> = () => {
   const t = useTranslations();
@@ -15,24 +16,23 @@ const RecentListings: FC<RecentListingsProps> = () => {
           {t("sectionTitle.recentProperties")}
         </Typography>
       </Grid>
-      <Grid item xs={4}>
-        <Listing />
-      </Grid>
-      <Grid item xs={4}>
-        <Listing />
-      </Grid>
-      <Grid item xs={4}>
-        <Listing />
-      </Grid>
-      <Grid item xs={4}>
-        <Listing />
-      </Grid>
-      <Grid item xs={4}>
-        <Listing />
-      </Grid>
-      <Grid item xs={4}>
-        <Listing />
-      </Grid>
+
+      {ListingData.map((data) => {
+        const { id, image, title, price, description, rating, slug } = data;
+        return (
+          <Grid item xs={4} key={id}>
+            <Listing
+              id={id}
+              slug={slug}
+              image={image}
+              title={title}
+              price={price}
+              description={description}
+              rating={rating}
+            />
+          </Grid>
+        );
+      })}
     </Grid>
   );
 };
