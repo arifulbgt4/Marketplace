@@ -12,8 +12,8 @@ import { ListingProps } from "./Types";
 
 const Listing: FC<ListingProps> = () => {
   return (
-    <Card sx={{ maxWidth: "400px" }}>
-      <CardMedia component="img" sx={{ minHeight: "240px" }} />
+    <Card>
+      <CardMedia component="img" sx={{ height: "240px" }} />
       <CardContent>
         <Typography variant="h5">Header</Typography>
         <Typography variant="body2">instance slot</Typography>
