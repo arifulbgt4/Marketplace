@@ -1,10 +1,10 @@
 import { Grid } from "@mui/material";
-import SocilalFormChange from "src/widgets/SocilalFormChange";
+import SocilalSettings from "src/widgets/SocilalSettings";
 
 const Socilal = () => {
   return (
     <Grid>
-      <SocilalFormChange />
+      <SocilalSettings />
     </Grid>
   );
 };
