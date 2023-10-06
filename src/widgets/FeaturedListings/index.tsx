@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useTranslations } from "next-intl";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography, Box } from "@mui/material";
 
 import Listing from "src/widgets/Listing";
 
@@ -9,9 +9,13 @@ import { FeaturedListingsProps } from "./Types";
 const FeaturedListings: FC<FeaturedListingsProps> = () => {
   const t = useTranslations();
   return (
-    <Grid container spacing={5}>
+    <Grid
+      container
+      spacing={{ xs: 2, md: 3 }}
+      columns={{ xs: 4, sm: 8, md: 12 }}
+    >
       <Grid item xs={12}>
-        <Typography variant="h3">
+        <Typography variant="h3" fontWeight="400">
           {t("sectionTitle.featuredProperties")}
         </Typography>
       </Grid>
