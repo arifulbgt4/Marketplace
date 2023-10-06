@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Typography, Box, Paper } from "@mui/material";
+import { Typography, Box, Paper, Stack } from "@mui/material";
 
 import SearchFilterForm from "src/forms/SearchFilterForm";
 
@@ -10,38 +10,32 @@ const bannaerimg =
 
 const SearchBanner: FC<SearchBannerProps> = () => {
   return (
-    <Paper sx={{ width: "100%", minHeight: 500, position: "relative" }}>
-      <Box
-        component="div"
-        sx={{
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          backgroundImage: `url(${bannaerimg})`,
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-        }}
-        gap={3}
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-        alignSelf="stretch"
-      >
-        <Typography variant="h2" fontWeight="300">
-          Find Home Together
-        </Typography>
+    <Stack
+      component="div"
+      sx={{
+        width: "100%",
+        minheight: 500,
+        backgroundImage: `url(${bannaerimg})`,
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+      }}
+      gap={3}
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+      alignSelf="stretch"
+    >
+      <Typography variant="h2" fontWeight="300">
+        Find Home Together
+      </Typography>
+      <Box>
         <Typography variant="h4">
           25,000 rooms amd houses available now on Dream House{" "}
         </Typography>
-        <Box position="relative">
-          <Box position="absolute">
-            <SearchFilterForm />
-          </Box>
-        </Box>
+        <SearchFilterForm />
       </Box>
-    </Paper>
+    </Stack>
   );
 };
 
