@@ -15,7 +15,7 @@ const FeaturedListings: FC<FeaturedListingsProps> = () => {
       columns={{ xs: 4, sm: 8, md: 12 }}
     >
       <Grid item xs={12}>
-        <Typography variant="h3" fontWeight="400">
+        <Typography variant="h3">
           {t("sectionTitle.featuredProperties")}
         </Typography>
       </Grid>
