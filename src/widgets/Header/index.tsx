@@ -13,27 +13,31 @@ import {
   Tooltip,
   Menu,
   Avatar,
+  Hidden,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
+import Logo from "src/components/Logo";
+
 import { HeaderProps } from "./Types";
-import Logo from "../Logo";
 
 const pages = ["All Properties", "Start selling", "Abou us", "Contact us"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+// const settings = ["Profile", "Account", "Dashboard", "Logout"];
+
 const Header: FC<HeaderProps> = () => {
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null);
+  const [anchorElUser, setAnchorElUser] = useState<HTMLElement | null>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+  };
+
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseUserMenu = () => {
@@ -44,22 +48,10 @@ const Header: FC<HeaderProps> = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box
-            flexGrow={{ xs: 0, md: 1 }}
-            sx={{
-              display: { xs: "none", md: "flex", alignItems: "center" },
-              mr: 1,
-            }}
-          >
+          <Hidden xsDown>
             <Logo />
-          </Box>
-          <Box
-            sx={{
-              flexGrow: 1,
-              alignItems: "end",
-              display: { xs: "flex", md: "none" },
-            }}
-          >
+          </Hidden>
+          <Hidden mdUp>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -94,11 +86,11 @@ const Header: FC<HeaderProps> = () => {
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
-          <Box sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}>
+          </Hidden>
+          <Hidden mdDown>
             <Logo />
-          </Box>
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          </Hidden>
+          <Hidden xsDown>
             {pages.map((page) => (
               <Button
                 key={page}
@@ -108,7 +100,7 @@ const Header: FC<HeaderProps> = () => {
                 {page}
               </Button>
             ))}
-          </Box>
+          </Hidden>
 
           <Box sx={{ flexGrow: 0 }}>
             <Button onClick={handleOpenUserMenu}>Create Account</Button>
