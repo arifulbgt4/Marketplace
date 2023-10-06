@@ -1,11 +1,11 @@
 import { FC } from "react";
-import { Box, Typography, SvgIcon } from "@mui/material";
+import { Stack, Box, Typography, SvgIcon } from "@mui/material";
 
 import { LogoProps } from "./Types";
 
 const Logo: FC<LogoProps> = () => {
   return (
-    <Box display="flex" alignItems="center">
+    <Stack alignItems="center">
       <Box component={SvgIcon} alignItems="center" mr={2}>
         <svg
           width="40"
@@ -38,7 +38,7 @@ const Logo: FC<LogoProps> = () => {
       >
         DREAM HOUSE
       </Typography>
-    </Box>
+    </Stack>
   );
 };
 
