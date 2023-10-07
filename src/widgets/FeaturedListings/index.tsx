@@ -10,7 +10,7 @@ import { FeaturedListingsProps } from "./Types";
 const FeaturedListings: FC<FeaturedListingsProps> = () => {
   const t = useTranslations();
   return (
-    <Stack justifyContent="center" alignItems="center">
+    <Stack alignItems="center">
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
