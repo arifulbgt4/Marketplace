@@ -22,7 +22,7 @@ const SocialIconLink: FC<SocialIconLinkProps> = () => {
         {linksicon.map((data) => {
           const { link, icon } = data;
           return (
-            <Box component={Link} href={link}>
+            <Box component={Link} target="_blank" href={link}>
               <Typography>{icon}</Typography>
             </Box>
           );
