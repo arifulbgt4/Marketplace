@@ -1,9 +1,10 @@
 import { FC } from "react";
 import { Box, Container, Grid, Stack, Typography } from "@mui/material";
 
-import { FooterProps } from "./Types";
 import SocialIconLink from "../SocialIconLink";
 import Logo from "src/components/Logo";
+
+import { FooterProps } from "./Types";
 
 const Footer: FC<FooterProps> = () => {
   return (
