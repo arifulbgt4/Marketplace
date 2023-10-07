@@ -1,1 +1,1 @@
-export interface ListingDetailsBannerProps {}
+export interface ListingBookingProps {}

@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { Paper, Typography } from "@mui/material";
 
-import { ListingDetailsBannerProps } from "./Types";
+import { ListingBookingProps } from "./Types";
 
-const ListingDetailsBanner: FC<ListingDetailsBannerProps> = () => {
+const ListingDetailsBanner: FC<ListingBookingProps> = () => {
   return (
     <Paper>
       <Typography>ListingDetailsBanner</Typography>
