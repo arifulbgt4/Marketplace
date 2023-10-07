@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 
 import { ListingProps } from "./Types";
-import { ListingData } from "../ListingData/ListingData";
 
 const Listing: FC<ListingProps> = ({
   id,

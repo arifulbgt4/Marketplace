@@ -3,9 +3,9 @@ import { useTranslations } from "next-intl";
 import { Grid, Typography, Box } from "@mui/material";
 
 import Listing from "src/widgets/Listing";
+import { listings } from "src/global/staticData";
 
 import { FeaturedListingsProps } from "./Types";
-import { ListingData } from "../ListingData/ListingData";
 
 const FeaturedListings: FC<FeaturedListingsProps> = () => {
   const t = useTranslations();
@@ -21,7 +21,7 @@ const FeaturedListings: FC<FeaturedListingsProps> = () => {
         </Typography>
       </Grid>
 
-      {ListingData.map((data) => {
+      {listings.map((data) => {
         const { id, image, title, price, description, rating, slug } = data;
         return (
           <Grid item xs={4} key={id}>
