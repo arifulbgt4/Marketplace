@@ -6,17 +6,35 @@ import {
   CardContent,
   CardMedia,
   Typography,
+  Rating,
+  Link,
 } from "@mui/material";
 
 import { ListingProps } from "./Types";
 
-const Listing: FC<ListingProps> = () => {
+const Listing: FC<ListingProps> = ({
+  id,
+  slug,
+  title,
+  image,
+  price,
+  description,
+  rating,
+}) => {
   return (
     <Card>
-      <CardMedia component="img" sx={{ height: "240px" }} />
+      <CardMedia component="img" sx={{ height: "240px" }} src={image} />
       <CardContent>
-        <Typography variant="h5">Header</Typography>
-        <Typography variant="body2">instance slot</Typography>
+        <Typography variant="h5" component={Link} href={`/l/${slug}`}>
+          ${price}/{title}
+        </Typography>
+        <Typography variant="body2">{description}</Typography>
+        <Rating
+          name="read-only"
+          defaultValue={rating}
+          precision={0.1}
+          readOnly
+        />
       </CardContent>
       <CardActions>
         <Button>card action</Button>
