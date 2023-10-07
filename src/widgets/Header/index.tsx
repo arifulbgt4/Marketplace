@@ -47,7 +47,7 @@ const Header: FC<HeaderProps> = () => {
 
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Container>
         <Toolbar disableGutters>
           <Hidden mdDown>
             <Stack flexGrow={1}>
