@@ -1,15 +1,18 @@
 import { FC } from "react";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Stack, Typography } from "@mui/material";
 
 import { FooterProps } from "./Types";
+import { siteConfig } from "src/global/config";
 
 const Footer: FC<FooterProps> = () => {
   return (
-    <Grid container>
-      <Grid item xs={12}>
-        <Typography>@copyright 2023</Typography>
+    <Stack justifyContent="center" alignItems="center">
+      <Grid container maxWidth={siteConfig.maxWidth}>
+        <Grid item xs={12}>
+          <Typography>@copyright 2023</Typography>
+        </Grid>
       </Grid>
-    </Grid>
+    </Stack>
   );
 };
 
