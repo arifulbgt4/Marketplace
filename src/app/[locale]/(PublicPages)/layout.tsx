@@ -13,9 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <Box>
-      <Container>
-        <main>{children}</main>
-      </Container>
+      <Container>{children}</Container>
     </Box>
   );
 }
