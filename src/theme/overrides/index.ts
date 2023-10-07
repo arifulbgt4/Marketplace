@@ -34,6 +34,7 @@ import Menu from "./Menu";
 import ToggleButton from "./ToggleButton";
 import Paper from "./Paper";
 import Grid from "./Grid";
+import Container from "./Container";
 
 export default Object.assign(
   Button,
@@ -70,5 +71,6 @@ export default Object.assign(
   Menu,
   ToggleButton,
   Paper,
-  Grid
+  Grid,
+  Container
 ) as Components<any>;

@@ -6,7 +6,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { siteConfig } from "src/global/config";
 
 const locales = ["en"];
-const publicPages = ["/", "/signin", "/signup", "/lab", "/faq","/l"];
+const publicPages = [
+  "/",
+  "/signin",
+  "/signup",
+  "/lab",
+  "/faq",
+  "/opengraph-image",
+  "/twitter-image",
+];
 
 const intlMiddleware = createIntlMiddleware({
   locales,
