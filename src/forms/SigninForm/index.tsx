@@ -4,6 +4,7 @@ import { FC } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 // @mui
 import { Box, Typography, Button, Grid, Container } from "@mui/material";
+
 // packages
 import { Form as FinalForm } from "react-final-form";
 import { FormApi } from "final-form";
@@ -11,13 +12,12 @@ import { FormApi } from "final-form";
 // components
 import { TextField, required, composeValidators } from "src/components/Input";
 
-// actions
+import { UserSigninOptions } from "src/global/types";
+
 import { signIn } from "./actions";
+import { SiginFormProps } from "./Types";
 
-// Types
-import { SiginFormProps, FormDataOptions } from "./Types";
-
-const INITIAL_VALUES: Omit<FormDataOptions, "callbackUrl"> = {
+const INITIAL_VALUES: Omit<UserSigninOptions, "callbackUrl"> = {
   email: "",
   password: "",
 };
@@ -28,8 +28,8 @@ const SigninForm: FC<SiginFormProps> = () => {
   const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   const onSubmitForm = async (
-    values: Omit<FormDataOptions, "callbackUrl">,
-    form: FormApi<FormDataOptions, Omit<FormDataOptions, "callbackUrl">>
+    values: Omit<UserSigninOptions, "callbackUrl">,
+    form: FormApi<UserSigninOptions, Omit<UserSigninOptions, "callbackUrl">>
   ) => {
     try {
       const res = (await signIn({ ...values, callbackUrl })) as unknown as any;

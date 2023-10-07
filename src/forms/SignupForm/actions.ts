@@ -1,6 +1,6 @@
-import { FormDataOptions } from "./Types";
+import { UserRegisterOptions } from "src/global/types";
 
-export async function signUp({ password, email, name }: FormDataOptions) {
+export async function signUp({ password, email, name }: UserRegisterOptions) {
   try {
     const res = await fetch("/api/register", {
       method: "POST",
