@@ -35,7 +35,7 @@ const ListingBooking: FC<ListingDetailsSidebarProps> = () => {
           <Typography variant="h5">Property details</Typography>
         </Box>
         <Divider />
-        <Box p={1} gap={1}>
+        <Box display="flex" p={1} gap={1} borderRadius={4}>
           <Button size="large" disabled>
             2 bed
           </Button>
@@ -46,19 +46,38 @@ const ListingBooking: FC<ListingDetailsSidebarProps> = () => {
             832 soft
           </Button>
         </Box>
-        <Box p={1} gap={1}>
-          <ButtonBase>
-            <PolylineRoundedIcon />
-            <Button>Apartment</Button>
-          </ButtonBase>
-          <ButtonBase>
-            <PolylineRoundedIcon />
-            <Button>2 days ago</Button>
-          </ButtonBase>
-          <ButtonBase>
-            <PolylineRoundedIcon />
-            <Button>(916) 426-8067</Button>
-          </ButtonBase>
+        <Box display="flex" flexDirection="row">
+          <Box p={1}>
+            <ButtonBase>
+              <IconButton disabled>
+                <PolylineRoundedIcon sx={{ height: 15, width: 15 }} />
+              </IconButton>
+              <Button size="small" disabled>
+                Apartment
+              </Button>
+            </ButtonBase>
+          </Box>
+          <Box p={1}>
+            <ButtonBase disabled>
+              <IconButton disabled>
+                <PolylineRoundedIcon sx={{ height: 15, width: 15 }} />
+              </IconButton>
+              <Button disabled>2 days ago</Button>
+            </ButtonBase>
+          </Box>
+          <Box p={1}>
+            <ButtonBase disabled>
+              <IconButton disabled>
+                <PolylineRoundedIcon sx={{ height: 15, width: 15 }} />
+              </IconButton>
+              <Button disabled>(916) 426-8067</Button>
+            </ButtonBase>
+          </Box>
+        </Box>
+        <Box p={1} gap={1} display="flex">
+          <Button variant="contained">Book now</Button>
+          <Button variant="outlined">Bookmark</Button>
+          <Button variant="outlined">Massage</Button>
         </Box>
       </Stack>
     </Paper>

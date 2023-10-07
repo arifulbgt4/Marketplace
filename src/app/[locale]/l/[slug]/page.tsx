@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Paper, Typography } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
 
 import ListingDetailsContent from "src/widgets/ListingDetailsContent";
 import ListingDetailsBanner from "src/widgets/ListingDetailsBanner";
