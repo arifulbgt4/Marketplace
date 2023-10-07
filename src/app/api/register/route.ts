@@ -2,11 +2,11 @@ import { hash } from "bcryptjs";
 import { NextResponse } from "next/server";
 
 import { prisma } from "src/lib/prisma";
-import { FormDataOptions } from "src/forms/SignupForm/Types";
+import { UserRegisterOptions } from "src/global/types";
 
 export async function POST(req: Request) {
   try {
-    const { name, email, password } = (await req.json()) as FormDataOptions;
+    const { name, email, password } = (await req.json()) as UserRegisterOptions;
 
     const hashed_password = await hash(password, 12);
 

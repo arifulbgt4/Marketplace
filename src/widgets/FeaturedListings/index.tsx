@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useTranslations } from "next-intl";
-import { Grid, Typography, Box } from "@mui/material";
+import { Grid, Typography, Box, Container } from "@mui/material";
 
 import Listing from "src/widgets/Listing";
 import { listings } from "src/global/staticData";
@@ -10,6 +10,8 @@ import { FeaturedListingsProps } from "./Types";
 const FeaturedListings: FC<FeaturedListingsProps> = () => {
   const t = useTranslations();
   return (
+    <Box>
+      <Container>
     <Grid
       container
       spacing={{ xs: 2, md: 3 }}
@@ -38,6 +40,9 @@ const FeaturedListings: FC<FeaturedListingsProps> = () => {
         );
       })}
     </Grid>
+        
+      </Container>
+    </Box>
   );
 };
 
