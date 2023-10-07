@@ -30,4 +30,5 @@ export const siteConfig = {
   creator: "Ariful",
   themeColor: "dark",
   backgroundColor: "#090c24",
+  maxWidth: 1520,
 };
