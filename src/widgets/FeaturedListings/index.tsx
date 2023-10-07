@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { useTranslations } from "next-intl";
-import { Grid, Typography, Box, Stack } from "@mui/material";
+import { Grid, Typography, Stack } from "@mui/material";
 
 import Listing from "src/widgets/Listing";
+import { siteConfig } from "src/global/config";
 
 import { FeaturedListingsProps } from "./Types";
-import { siteConfig } from "src/global/config";
 
 const FeaturedListings: FC<FeaturedListingsProps> = () => {
   const t = useTranslations();
