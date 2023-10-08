@@ -47,31 +47,30 @@ const ListingBooking: FC<ListingDetailsSidebarProps> = () => {
           </Button>
         </Box>
         <Box display="flex" flexDirection="row">
-          <Box p={1}>
-            <ButtonBase>
-              <IconButton disabled>
-                <PolylineRoundedIcon sx={{ height: 15, width: 15 }} />
-              </IconButton>
-              <Button size="small" disabled>
-                Apartment
-              </Button>
-            </ButtonBase>
+          <Box p={1} display="flex">
+            <IconButton disabled>
+              <PolylineRoundedIcon sx={{ height: 15, width: 15 }} />
+            </IconButton>
+            <Button size="small" disabled>
+              Apartment
+            </Button>
           </Box>
-          <Box p={1}>
-            <ButtonBase disabled>
-              <IconButton disabled>
-                <PolylineRoundedIcon sx={{ height: 15, width: 15 }} />
-              </IconButton>
-              <Button disabled>2 days ago</Button>
-            </ButtonBase>
+
+          <Box p={1} display="flex">
+            <IconButton disabled>
+              <PolylineRoundedIcon sx={{ height: 15, width: 15 }} />
+            </IconButton>
+            <Button size="small" disabled>
+              2 days ago
+            </Button>
           </Box>
-          <Box p={1}>
-            <ButtonBase disabled>
-              <IconButton disabled>
-                <PolylineRoundedIcon sx={{ height: 15, width: 15 }} />
-              </IconButton>
-              <Button disabled>(916) 426-8067</Button>
-            </ButtonBase>
+          <Box p={1} display="flex">
+            <IconButton disabled>
+              <PolylineRoundedIcon sx={{ height: 15, width: 15 }} />
+            </IconButton>
+            <Button size="small" disabled>
+              (916) 426-8067
+            </Button>
           </Box>
         </Box>
         <Box p={1} gap={1} display="flex">
