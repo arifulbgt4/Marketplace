@@ -12,9 +12,9 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PolylineRoundedIcon from "@mui/icons-material/PolylineRounded";
 
-import { ListingDetailsSidebarProps } from "./Types";
+import { ListingBookingProps } from "./Types";
 
-const ListingBooking: FC<ListingDetailsSidebarProps> = () => {
+const ListingBooking: FC<ListingBookingProps> = () => {
   return (
     <Paper>
       <Stack flex={1}>
