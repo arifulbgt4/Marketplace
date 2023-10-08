@@ -1,6 +1,7 @@
-import { Grid, MenuItem } from "@mui/material";
-import Info from "src/components/Info";
+import { Grid } from "@mui/material";
+
 import SignupForm from "src/forms/SignupForm";
+import SignupInfo from "src/widgets/SignupInfo";
 
 export default function SignUp() {
   return (
@@ -9,9 +10,7 @@ export default function SignUp() {
         <SignupForm />
       </Grid>
       <Grid item sm={12} md={4}>
-        <Info title="Why Sign Up?">
-          <MenuItem>recent properties</MenuItem>
-        </Info>
+        <SignupInfo />
       </Grid>
     </Grid>
   );
