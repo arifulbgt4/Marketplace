@@ -43,9 +43,16 @@ const Footer: FC<FooterProps> = () => {
             </Stack>
           </Grid>
           <Grid item xs={12}>
-            <Stack direction="column" alignItems="center" gap={4}>
+            <Stack
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+              gap={4}
+            >
               <SocialIconLink />
-              <Logo />
+              <Box pl={2}>
+                <Logo />
+              </Box>
             </Stack>
           </Grid>
         </Grid>
