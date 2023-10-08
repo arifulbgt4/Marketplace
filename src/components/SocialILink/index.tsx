@@ -6,9 +6,9 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
-import { SocialIconLinkProps } from "./Types";
+import { SocialLinkProps } from "./Types";
 
-const SocialIconLink: FC<SocialIconLinkProps> = () => {
+const SocialIconLink: FC<SocialLinkProps> = () => {
   return (
     <Stack direction="row" alignItems="center" justifyContent="center" gap={5}>
       <Link href="#" target="_blank">

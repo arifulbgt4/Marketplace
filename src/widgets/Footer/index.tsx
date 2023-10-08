@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Box, Container, Grid, Stack, Typography } from "@mui/material";
 
-import SocialIconLink from "../SocialIconLink";
+import SocialIconLink from "src/components/SocialILink";
 import Logo from "src/components/Logo";
 
 import { FooterProps } from "./Types";

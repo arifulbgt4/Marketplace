@@ -1,6 +1,6 @@
 import { Grid, Box, Typography, Container } from "@mui/material";
 
-import SocialIconLink from "src/widgets/SocialIconLink";
+import SocialIconLink from "src/components/SocialILink";
 import UserDetails from "src/widgets/UserDetails";
 
 export default function Profile() {
