@@ -4,7 +4,7 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import StarIcon from "@mui/icons-material/Star";
 
-import StatisticCard from "../StatisticCard";
+import Statistic from "../Statistic";
 
 import { StatisticsCardGroupProps } from "./Types";
 
@@ -26,14 +26,14 @@ const staticCardData = [
   },
 ];
 
-const StatisticsCardGroup: FC<StatisticsCardGroupProps> = () => {
+const StatisticsGroup: FC<StatisticsCardGroupProps> = () => {
   return (
     <Grid container columnSpacing={2}>
       {staticCardData.map((data) => {
         const { id, title, icon } = data;
         return (
           <Grid key={id} item xs={4}>
-            <StatisticCard id={id} icon={icon} title={title} />
+            <Statistic id={id} icon={icon} title={title} />
           </Grid>
         );
       })}
@@ -41,4 +41,4 @@ const StatisticsCardGroup: FC<StatisticsCardGroupProps> = () => {
   );
 };
 
-export default StatisticsCardGroup;
+export default StatisticsGroup;

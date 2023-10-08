@@ -1,7 +1,7 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
 import BannerCreateListing from "src/widgets/BannerCreateListing";
+import StatisticsGroup from "src/widgets/StatisticsGroup";
 
-import StatisticsCardGroup from "src/widgets/StatisticsCardGruop";
 import UserMap from "src/widgets/UserMap";
 
 const Dashboard = () => {
@@ -10,7 +10,7 @@ const Dashboard = () => {
       <Container>
         <Grid container>
           <Grid item xs={8}>
-            <StatisticsCardGroup />
+            <StatisticsGroup />
             <UserMap />
           </Grid>
           <Grid item xs={4}>

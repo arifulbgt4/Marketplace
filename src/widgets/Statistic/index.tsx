@@ -9,7 +9,7 @@ import {
 
 import { StatisticCardProps } from "./Types";
 
-const StatisticCard: FC<StatisticCardProps> = ({ id, title, icon }) => {
+const Statistic: FC<StatisticCardProps> = ({ id, title, icon }) => {
   return (
     <Card>
       <CardHeader
@@ -24,4 +24,4 @@ const StatisticCard: FC<StatisticCardProps> = ({ id, title, icon }) => {
   );
 };
 
-export default StatisticCard;
+export default Statistic;
