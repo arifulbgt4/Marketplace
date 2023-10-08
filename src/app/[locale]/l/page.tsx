@@ -4,7 +4,7 @@ import Listings from "src/widgets/Listings";
 import ListingsSidebarFilter from "src/widgets/ListingsSidebarFilter";
 import SearchFilter from "src/widgets/SearchFilter";
 
-const ListingAll = () => {
+const ListingPage = () => {
   return (
     <Box>
       <Container>
@@ -26,4 +26,4 @@ const ListingAll = () => {
   );
 };
 
-export default ListingAll;
+export default ListingPage;
