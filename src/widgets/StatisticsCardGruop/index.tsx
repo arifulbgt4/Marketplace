@@ -4,7 +4,7 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import StarIcon from "@mui/icons-material/Star";
 
-import StatisticsCard from "../StatisticsCard";
+import StatisticCard from "../StatisticCard";
 
 import { StatisticsCardGroupProps } from "./Types";
 
@@ -33,7 +33,7 @@ const StatisticsCardGroup: FC<StatisticsCardGroupProps> = () => {
         const { id, title, icon } = data;
         return (
           <Grid key={id} item xs={4}>
-            <StatisticsCard id={id} icon={icon} title={title} />
+            <StatisticCard id={id} icon={icon} title={title} />
           </Grid>
         );
       })}
