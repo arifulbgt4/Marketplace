@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Box, Paper, Stack, Typography } from "@mui/material";
+import { Paper, Stack, Typography } from "@mui/material";
 
 import { BreadcumbBannerProps } from "./Types";
 

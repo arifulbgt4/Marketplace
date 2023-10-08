@@ -1,3 +1,4 @@
+"use client";
 import { Box, Container, Grid } from "@mui/material";
 
 import AboutDetails from "src/widgets/AboutDetails";
@@ -12,7 +13,7 @@ const About = () => {
           <BreadcumbBanner title="About us" />
         </Grid>
       </Grid>
-      <Box mt={4}>
+      <Box sx={(theme) => ({ bgcolor: theme.palette.info.dark })} py={10}>
         <Container>
           <Grid container>
             <Grid item xs={8}>
