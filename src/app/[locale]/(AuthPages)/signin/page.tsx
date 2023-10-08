@@ -1,6 +1,7 @@
 import { Grid, MenuItem, Typography } from "@mui/material";
 import Info from "src/components/Info";
 import SigninForm from "src/forms/SigninForm";
+import SigninInfo from "src/widgets/SigninInfo";
 
 export default function SignIn() {
   return (
@@ -9,11 +10,7 @@ export default function SignIn() {
         <SigninForm />
       </Grid>
       <Grid item sm={12} md={4}>
-        <Info title="Registration benifits">
-          <MenuItem>
-            <Typography>recent properties</Typography>
-          </MenuItem>
-        </Info>
+        <SigninInfo />
       </Grid>
     </Grid>
   );
