@@ -26,7 +26,7 @@ export default {
     contrastText: "rgba(0, 0, 0, 0.87)",
   },
   info: {
-    dark: "#0288d1",
+    dark: "#263238",
     main: "#29b6f6",
     light: "#4fc3f7",
     contrastText: "rgba(0, 0, 0, 0.87)",
