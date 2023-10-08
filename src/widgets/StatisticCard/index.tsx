@@ -7,9 +7,9 @@ import {
   IconButton,
 } from "@mui/material";
 
-import { StatisticsCardProps } from "./Types";
+import { StatisticCardProps } from "./Types";
 
-const StatisticsCard: FC<StatisticsCardProps> = ({ id, title, icon }) => {
+const StatisticCard: FC<StatisticCardProps> = ({ id, title, icon }) => {
   return (
     <Card>
       <CardHeader
@@ -24,4 +24,4 @@ const StatisticsCard: FC<StatisticsCardProps> = ({ id, title, icon }) => {
   );
 };
 
-export default StatisticsCard;
+export default StatisticCard;
