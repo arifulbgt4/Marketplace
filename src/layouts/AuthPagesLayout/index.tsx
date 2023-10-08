@@ -1,6 +1,6 @@
 "use client";
 import { FC, useState } from "react";
-import { Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
@@ -11,16 +11,18 @@ const AuthPagesLayout: FC<AuthPagesLayoutOptions> = ({ children }) => {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <Typography>Create an account</Typography>
-        <Tabs
-          onChange={(a, b) => {
-            setValue(b);
-          }}
-          value={value}
-        >
-          <Tab label="CREATE ACCOUNT" value="one" />
-          <Tab label="SIGN IN" value="two" />
-        </Tabs>
+        <Container>
+          <Typography>Create an account</Typography>
+          <Tabs
+            onChange={(a, b) => {
+              setValue(b);
+            }}
+            value={value}
+          >
+            <Tab label="CREATE ACCOUNT" value="one" />
+            <Tab label="SIGN IN" value="two" />
+          </Tabs>
+        </Container>
       </Grid>
       <Grid item xs={12}>
         {children}
