@@ -1,12 +1,14 @@
 import { FC } from "react";
-import { Paper, Typography } from "@mui/material";
+import { Box, Paper, Stack, Typography } from "@mui/material";
 
 import { BreadcumbBannerProps } from "./Types";
 
-const BreadcumbBanner: FC<BreadcumbBannerProps> = () => {
+const BreadcumbBanner: FC<BreadcumbBannerProps> = ({ title }) => {
   return (
     <Paper>
-      <Typography variant="h3">BreadcumbBanner</Typography>
+      <Stack justifyContent="center" alignItems="center" height={217}>
+        <Typography variant="h3">{title}</Typography>
+      </Stack>
     </Paper>
   );
 };
