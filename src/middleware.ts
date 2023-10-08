@@ -6,6 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { siteConfig } from "src/global/config";
 
 const locales = ["en"];
+
 const publicPages = [
   "/",
   "/signin",
