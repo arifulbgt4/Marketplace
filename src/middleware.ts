@@ -15,6 +15,8 @@ const publicPages = [
   "/faq",
   "/opengraph-image",
   "/twitter-image",
+  "/about",
+  "/contact",
 ];
 
 const intlMiddleware = createIntlMiddleware({
