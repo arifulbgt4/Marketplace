@@ -1,18 +1,17 @@
 import { signIn as nextSignIn } from "next-auth/react";
 
-import { FormDataOptions } from "./Types";
+import { UserSigninOptions } from "src/global/types";
 
 export async function signIn({
   password,
   email,
   callbackUrl,
-}: FormDataOptions) {
+}: UserSigninOptions) {
   try {
     const res = await nextSignIn("credentials", {
       redirect: false,
       email: email,
       password: password,
-      role: "user",
       callbackUrl,
     });
     return res;
