@@ -1,34 +1,29 @@
 "use client";
 import { FC } from "react";
-import { Stack, Typography, Paper, Link, Box } from "@mui/material";
-import FacebookIcon from "@mui/icons-material/Facebook";
+import { Stack, Link, Box } from "@mui/material";
+import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 import { SocialIconLinkProps } from "./Types";
 
-const linksicon = [
-  { icon: <TwitterIcon sx={{ width: 32, height: 26 }} />, link: "#" },
-  { icon: <FacebookIcon sx={{ width: 32, height: 26 }} />, link: "#" },
-  { icon: <InstagramIcon sx={{ width: 32, height: 26 }} />, link: "#" },
-  { icon: <LinkedInIcon sx={{ width: 32, height: 26 }} />, link: "#" },
-];
-
 const SocialIconLink: FC<SocialIconLinkProps> = () => {
   return (
-    <Paper>
-      <Stack direction="row" gap={5}>
-        {linksicon.map((data) => {
-          const { link, icon } = data;
-          return (
-            <Box component={Link} target="_blank" href={link}>
-              <Typography>{icon}</Typography>
-            </Box>
-          );
-        })}
-      </Stack>
-    </Paper>
+    <Stack direction="row" alignItems="center" justifyContent="center" gap={5}>
+      <Link href="#" target="_blank">
+        <TwitterIcon sx={{ width: 32, height: 32 }} />
+      </Link>
+      <Link href="#" target="_blank">
+        <FacebookRoundedIcon sx={{ width: 32, height: 32 }} />
+      </Link>
+      <Link href="#" target="_blank">
+        <InstagramIcon sx={{ width: 32, height: 32 }} />
+      </Link>
+      <Link href="#" target="_blank">
+        <LinkedInIcon sx={{ width: 32, height: 32 }} />
+      </Link>
+    </Stack>
   );
 };
 
