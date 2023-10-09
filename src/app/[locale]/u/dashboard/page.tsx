@@ -1,8 +1,7 @@
-import { Box, Container, Grid, Typography } from "@mui/material";
-import Info from "src/components/Info";
-import BannerCreateListing from "src/widgets/BannerCreateListing";
-import StatisticsGroup from "src/widgets/StatisticsGroup";
+import { Box, Container, Grid } from "@mui/material";
 
+import DashboardHelpInfo from "src/widgets/DashboardHelpInfo";
+import StatisticsGroup from "src/widgets/StatisticsGroup";
 import UserMap from "src/widgets/UserMap";
 
 const DashboardPage = () => {
@@ -15,9 +14,7 @@ const DashboardPage = () => {
             <UserMap />
           </Grid>
           <Grid item xs={4}>
-            <Info title="Begin Upload">
-              <BannerCreateListing />
-            </Info>
+            <DashboardHelpInfo />
           </Grid>
         </Grid>
       </Container>

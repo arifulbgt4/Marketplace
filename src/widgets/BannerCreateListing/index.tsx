@@ -22,7 +22,7 @@ const BannerCreateListing: FC<BannerCreateListingProps> = () => {
 
   return (
     <Paper>
-      <Box p={4}>
+      <Box>
         <Typography variant="h5">Select a category for your upload:</Typography>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-filled-label">Label</InputLabel>
