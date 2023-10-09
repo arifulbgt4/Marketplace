@@ -26,7 +26,7 @@ export default {
     contrastText: "#fff",
   },
   info: {
-    dark: "#263238",
+    dark: "#01579b",
     main: "#0288d1",
     light: "#03a9f4",
     contrastText: "#fff",
