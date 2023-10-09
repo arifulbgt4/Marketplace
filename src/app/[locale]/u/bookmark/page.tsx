@@ -1,6 +1,6 @@
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, Paper, Typography } from "@mui/material";
 
-import BookmarksCardGroup from "src/widgets/BookmarksCardGroup";
+import BookmarkItemGroup from "src/widgets/BookmarkItemGroup";
 import UserMap from "src/widgets/UserMap";
 
 const BookmarkPage = () => {
@@ -9,7 +9,7 @@ const BookmarkPage = () => {
       <Container>
         <Grid container>
           <Grid item xs={8}>
-            <BookmarksCardGroup />
+            <BookmarkItemGroup />
           </Grid>
           <Grid item xs={4}>
             <Typography variant="h4">use Location Map</Typography>
