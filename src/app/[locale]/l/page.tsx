@@ -1,13 +1,13 @@
 import { Box, Container, Grid } from "@mui/material";
 
-import Listings from "src/widgets/Listings";
-import ListingsSidebarFilter from "src/widgets/ListingsSidebarFilter";
-import SearchFilter from "src/widgets/SearchFilter";
+// import Listings from "src/widgets/Listings";
+// import ListingsSidebarFilter from "src/widgets/ListingsSidebarFilter";
+// import SearchFilter from "src/widgets/SearchFilter";
 
 const ListingPage = () => {
   return (
     <Box>
-      <Container>
+      {/* <Container>
         <Grid container>
           <Grid item xs={12}>
             <SearchFilter />
@@ -21,7 +21,7 @@ const ListingPage = () => {
             </Grid>
           </Grid>
         </Grid>
-      </Container>
+      </Container> */}
     </Box>
   );
 };

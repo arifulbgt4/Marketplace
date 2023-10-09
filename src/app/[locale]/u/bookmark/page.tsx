@@ -3,7 +3,7 @@ import { Box, Container, Grid, Typography } from "@mui/material";
 import BookmarksCardGroup from "src/widgets/BookmarksCardGroup";
 import UserMap from "src/widgets/UserMap";
 
-const Bookmarks = () => {
+const BookmarkPage = () => {
   return (
     <Box>
       <Container>
