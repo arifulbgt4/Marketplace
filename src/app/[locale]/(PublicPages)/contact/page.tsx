@@ -2,7 +2,7 @@ import { Box, Container, Grid } from "@mui/material";
 
 import BreadcumbBanner from "src/widgets/BreadcumbBanner";
 import ContactF from "src/widgets/Contact";
-import Question from "src/widgets/Question";
+import ConatactHelpInfo from "src/widgets/ConatactHelpInfo";
 
 const Conatact = () => {
   return (
@@ -19,7 +19,7 @@ const Conatact = () => {
               <ContactF />
             </Grid>
             <Grid item xs={4}>
-              <Question />
+              <ConatactHelpInfo />
             </Grid>
           </Grid>
         </Container>
