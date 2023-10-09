@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { Grid } from "@mui/material";
 
-import BookmarkItem from "../BookmarkItem";
 import { bookMarkData } from "src/global/staticData";
+import BookmarkItem from "../BookmarkItem";
 
 import { BookmarkItemGroupProps } from "./Types";
 

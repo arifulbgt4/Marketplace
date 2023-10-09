@@ -23,7 +23,7 @@ const BookmarkItem: FC<BookmarkItemProps> = ({
         title={title}
         subheader={subheader}
         avatar={<Avatar>OP</Avatar>}
-      ></CardHeader>
+      />
       <CardContent>
         <Box px={2} py={0.5}>
           <Typography variant="body2">Bedrooms: {bedroom}</Typography>
