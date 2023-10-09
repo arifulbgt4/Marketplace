@@ -1,5 +1,5 @@
-import { Paper, Stack, Typography } from "@mui/material";
 import { FC } from "react";
+import { Paper, Stack, Typography } from "@mui/material";
 
 import { AboutDetailsProps } from "./Types";
 
