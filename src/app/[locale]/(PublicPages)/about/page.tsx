@@ -1,7 +1,7 @@
 "use client";
-import { Paper, Container, Grid } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
 
-import AboutDetails from "src/widgets/AboutDetails";
+import AboutContents from "src/widgets/AboutDetails";
 import BreadcumbBanner from "src/widgets/BreadcumbBanner";
 import Question from "src/widgets/Question";
 
@@ -13,18 +13,18 @@ const About = () => {
           <BreadcumbBanner title="About us" />
         </Grid>
       </Grid>
-      <Paper sx={{ py: 10 }}>
+      <Box sx={{ py: 10 }}>
         <Container>
-          <Grid container>
+          <Grid container columnSpacing={10}>
             <Grid item xs={8}>
-              <AboutDetails />
+              <AboutContents />
             </Grid>
             <Grid item xs={4}>
               <Question />
             </Grid>
           </Grid>
         </Container>
-      </Paper>
+      </Box>
     </>
   );
 };

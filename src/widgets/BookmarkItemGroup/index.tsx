@@ -1,0 +1,31 @@
+import { FC } from "react";
+import { Grid } from "@mui/material";
+
+import BookmarkItem from "../BookmarkItem";
+import { bookMarkData } from "src/global/staticData";
+
+import { BookmarkItemGroupProps } from "./Types";
+
+const BookmarkItemGroup: FC<BookmarkItemGroupProps> = () => {
+  return (
+    <Grid container spacing={4} p={5}>
+      {bookMarkData.map((data) => {
+        const { id, title, subheader, bedroom, bathroom, rent } = data;
+        return (
+          <Grid key={id} item xs={6}>
+            <BookmarkItem
+              id={id}
+              title={title}
+              subheader={subheader}
+              bedroom={bedroom}
+              bathroom={bathroom}
+              rent={rent}
+            />
+          </Grid>
+        );
+      })}
+    </Grid>
+  );
+};
+
+export default BookmarkItemGroup;

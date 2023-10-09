@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { Paper, Stack, Typography } from "@mui/material";
 
-import { AboutDetailsProps } from "./Types";
+import { AboutContentsProps } from "./Types";
 
-const AboutDetails: FC<AboutDetailsProps> = () => {
+const AboutContents: FC<AboutContentsProps> = () => {
   return (
     <Paper>
       <Stack p={5} alignItems="flex-start" gap={4}>
@@ -43,4 +43,4 @@ const AboutDetails: FC<AboutDetailsProps> = () => {
   );
 };
 
-export default AboutDetails;
+export default AboutContents;
