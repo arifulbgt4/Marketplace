@@ -1,14 +1,17 @@
 import { FC } from "react";
-import { Box, Paper, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 
 import { QuestionProps } from "./Types";
+import Info from "src/components/Info";
 
 const Question: FC<QuestionProps> = () => {
   return (
-    <Box>
-      <Typography variant="h4">Do you have any questions?</Typography>
-      <Paper>Qustions</Paper>
-    </Box>
+    <Info title="Do you have any questions?">
+      <Typography variant="h6">
+        If you need help please contact us through support. Just leave a ticket
+        and we will try to answer your question as soon as possible.
+      </Typography>
+    </Info>
   );
 };
 
