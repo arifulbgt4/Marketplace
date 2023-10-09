@@ -55,7 +55,7 @@ const SignupInfo: FC<SignupInfoProps> = () => {
               </Timeline>
             </Box>
             <Button size="large" variant="outlined">
-              Sign Up Now
+              Privacy Policy
             </Button>
           </Stack>
         </Box>
