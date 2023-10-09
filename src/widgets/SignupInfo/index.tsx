@@ -13,54 +13,52 @@ import { SignupInfoProps } from "./Types";
 
 const SignupInfo: FC<SignupInfoProps> = () => {
   return (
-    <Paper>
-      <Info title="Why Sign Up?">
-        <Box px={7} py={5}>
-          <Stack gap={5} alignItems="flex-start">
-            <Typography variant="h6">
-              Registering for an account is free and gives you access to:
-            </Typography>
-            <Box pl={4}>
-              <Timeline
-                sx={{
-                  [`& .${timelineItemClasses.root}:before`]: {
-                    flex: 0,
-                    px: 0,
-                  },
-                  [`& .${timelineItemClasses.root}`]: {
-                    flex: 0,
-                    minHeight: 35,
-                  },
-                }}
-              >
-                <TimelineItem>
-                  <TimelineSeparator>
-                    <TimelineDot />
-                  </TimelineSeparator>
-                  <TimelineContent>Rent properties</TimelineContent>
-                </TimelineItem>
-                <TimelineItem>
-                  <TimelineSeparator>
-                    <TimelineDot />
-                  </TimelineSeparator>
-                  <TimelineContent>Listing properties</TimelineContent>
-                </TimelineItem>
+    <Info title="Why Sign Up?">
+      <Box>
+        <Stack gap={5} alignItems="flex-start">
+          <Typography variant="h6">
+            Registering for an account is free and gives you access to:
+          </Typography>
+          <Box pl={4}>
+            <Timeline
+              sx={{
+                [`& .${timelineItemClasses.root}:before`]: {
+                  flex: 0,
+                  px: 0,
+                },
+                [`& .${timelineItemClasses.root}`]: {
+                  flex: 0,
+                  minHeight: 35,
+                },
+              }}
+            >
+              <TimelineItem>
+                <TimelineSeparator>
+                  <TimelineDot />
+                </TimelineSeparator>
+                <TimelineContent>Rent properties</TimelineContent>
+              </TimelineItem>
+              <TimelineItem>
+                <TimelineSeparator>
+                  <TimelineDot />
+                </TimelineSeparator>
+                <TimelineContent>Listing properties</TimelineContent>
+              </TimelineItem>
 
-                <TimelineItem>
-                  <TimelineSeparator>
-                    <TimelineDot />
-                  </TimelineSeparator>
-                  <TimelineContent>Custom profile page</TimelineContent>
-                </TimelineItem>
-              </Timeline>
-            </Box>
-            <Button size="large" variant="outlined">
-              Privacy Policy
-            </Button>
-          </Stack>
-        </Box>
-      </Info>
-    </Paper>
+              <TimelineItem>
+                <TimelineSeparator>
+                  <TimelineDot />
+                </TimelineSeparator>
+                <TimelineContent>Custom profile page</TimelineContent>
+              </TimelineItem>
+            </Timeline>
+          </Box>
+          <Button size="large" variant="outlined">
+            Privacy Policy
+          </Button>
+        </Stack>
+      </Box>
+    </Info>
   );
 };
 

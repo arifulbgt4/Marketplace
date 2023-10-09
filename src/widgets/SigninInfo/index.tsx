@@ -14,7 +14,7 @@ import { SigninInfoProps } from "./Types";
 const SigninInfo: FC<SigninInfoProps> = () => {
   return (
     <Info title="Registration benifits">
-      <Box px={7} py={5}>
+      <Box>
         <Stack gap={5} alignItems="flex-start">
           <Typography variant="h6">
             Registering for an account is free and gives you access to:
