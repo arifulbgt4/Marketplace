@@ -21,4 +21,4 @@ const BookmarkPage = () => {
   );
 };
 
-export default Bookmarks;
+export default BookmarkPage;
