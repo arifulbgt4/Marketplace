@@ -13,6 +13,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { usePathname } from "next/navigation";
 
+import routes from "src/global/routes";
+
 import { UserLayoutProps } from "./Types";
 
 const UserLayout: FC<UserLayoutProps> = ({ children }) => {
@@ -40,31 +42,31 @@ const UserLayout: FC<UserLayoutProps> = ({ children }) => {
               <Tabs value={pathname}>
                 <Tab
                   component={Link}
-                  href="/dashboard"
+                  href={routes.userDashboard}
                   label="DASHBOARD"
                   value="/dashboard"
                 />
                 <Tab
                   component={Link}
-                  href="/profile"
+                  href={routes.userProfile}
                   label="PROFILE"
                   value="/profile"
                 />
                 <Tab
                   component={Link}
-                  href="/listing"
+                  href={routes.userListing}
                   label="LISTINGS"
                   value="/listing"
                 />
                 <Tab
                   component={Link}
-                  href="/bookmarks"
+                  href={routes.userBookmark}
                   label="BOOKMARKS"
                   value="/bookmarks"
                 />
                 <Tab
                   component={Link}
-                  href="/settings"
+                  href={routes.userSetting}
                   label="SSETTINGS"
                   value="/settings"
                 />
