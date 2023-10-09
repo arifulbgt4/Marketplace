@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
-export interface InfoProps{
-    title:string;
-    children:ReactNode
+export interface InfoProps {
+  title?: string;
+  children: ReactNode;
 }
