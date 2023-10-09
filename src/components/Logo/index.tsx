@@ -1,6 +1,8 @@
 import { FC } from "react";
 import { Stack, Box, Typography, SvgIcon, Link } from "@mui/material";
 
+import routes from "src/global/routes";
+
 import { LogoProps } from "./Types";
 
 const Logo: FC<LogoProps> = () => {
@@ -9,7 +11,7 @@ const Logo: FC<LogoProps> = () => {
       alignItems="center"
       direction="row"
       component={Link}
-      href="/"
+      href={routes.home}
       underline="none"
     >
       <Box component={SvgIcon} alignItems="center" mr={2}>
