@@ -1,7 +1,7 @@
 import { Grid, Box, Container } from "@mui/material";
-import Info from "src/components/Info";
 
-import SocialIconLink from "src/components/SocialILink";
+import ProfileHelpInfo from "src/widgets/ProfileHelpInfo";
+
 import UserInfo from "src/widgets/UserInfo";
 
 export default function Profile() {
@@ -13,9 +13,7 @@ export default function Profile() {
             <UserInfo />
           </Grid>
           <Grid item xs={4}>
-            <Info title="Social Links">
-              <SocialIconLink />
-            </Info>
+            <ProfileHelpInfo />
           </Grid>
         </Grid>
       </Container>
