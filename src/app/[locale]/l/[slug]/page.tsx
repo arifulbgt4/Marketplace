@@ -4,7 +4,7 @@ import ListingDetailsContent from "src/widgets/ListingDetailsContent";
 import ListingDetailsBanner from "src/widgets/ListingDetailsBanner";
 import ListingBooking from "src/widgets/ListingBooking";
 
-const Details = () => {
+const ListingDetailsPage = () => {
   return (
     <Box>
       <Container>
@@ -24,4 +24,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default ListingDetailsPage;

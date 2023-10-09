@@ -4,7 +4,7 @@ import StatisticsGroup from "src/widgets/StatisticsGroup";
 
 import UserMap from "src/widgets/UserMap";
 
-const Dashboard = () => {
+const DashboardPage = () => {
   return (
     <Box>
       <Container>
