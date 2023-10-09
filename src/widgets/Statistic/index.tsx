@@ -12,10 +12,7 @@ import { StatisticCardProps } from "./Types";
 const Statistic: FC<StatisticCardProps> = ({ id, title, icon }) => {
   return (
     <Card>
-      <CardHeader
-        title={title}
-        action={<IconButton>{icon}</IconButton>}
-      ></CardHeader>
+      <CardHeader title={title} action={<IconButton>{icon}</IconButton>} />
       <CardActions>
         <Button>view all</Button>
         <Button>hide</Button>

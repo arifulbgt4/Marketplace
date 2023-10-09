@@ -9,11 +9,11 @@ import { UserListingProps } from "./Types";
 const UserListing: FC<UserListingProps> = () => {
   return (
     <Paper>
-      <Grid container gap={5}>
+      <Grid container spacing={5}>
         {listings.map((data) => {
           const { id, image, title, price, description, rating, slug } = data;
           return (
-            <Grid item xs={4} key={id}>
+            <Grid item xs={6} key={id}>
               <Listing
                 id={id}
                 slug={slug}
