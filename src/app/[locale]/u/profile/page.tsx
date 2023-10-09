@@ -1,4 +1,5 @@
-import { Grid, Box, Typography, Container } from "@mui/material";
+import { Grid, Box, Container } from "@mui/material";
+import Info from "src/components/Info";
 
 import SocialIconLink from "src/components/SocialILink";
 import UserInfo from "src/widgets/UserInfo";
@@ -7,15 +8,14 @@ export default function Profile() {
   return (
     <Box>
       <Container>
-        <Grid container>
+        <Grid container columnSpacing={10}>
           <Grid item xs={8}>
             <UserInfo />
           </Grid>
           <Grid item xs={4}>
-            <Box>
-              <Typography variant="h4">Social Links</Typography>
+            <Info title="Social Links">
               <SocialIconLink />
-            </Box>
+            </Info>
           </Grid>
         </Grid>
       </Container>

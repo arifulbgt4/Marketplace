@@ -1,8 +1,9 @@
 import { FC } from "react";
 import { Typography } from "@mui/material";
 
-import { AboutHelpInfoProps } from "./Types";
 import Info from "src/components/Info";
+
+import { AboutHelpInfoProps } from "./Types";
 
 const AboutHelpInfo: FC<AboutHelpInfoProps> = () => {
   return (
