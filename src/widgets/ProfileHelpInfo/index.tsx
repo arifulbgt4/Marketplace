@@ -1,0 +1,39 @@
+"use client";
+import { FC } from "react";
+import { Stack, Link } from "@mui/material";
+import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+
+import Info from "src/components/Info";
+
+import { ProfileHelpInfoProps } from "./Types";
+
+const ProfileHelpInfo: FC<ProfileHelpInfoProps> = () => {
+  return (
+    <Info title="Social Links">
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="center"
+        gap={5}
+      >
+        <Link href="#" target="_blank">
+          <TwitterIcon sx={{ width: 32, height: 32 }} />
+        </Link>
+        <Link href="#" target="_blank">
+          <FacebookRoundedIcon sx={{ width: 32, height: 32 }} />
+        </Link>
+        <Link href="#" target="_blank">
+          <InstagramIcon sx={{ width: 32, height: 32 }} />
+        </Link>
+        <Link href="#" target="_blank">
+          <LinkedInIcon sx={{ width: 32, height: 32 }} />
+        </Link>
+      </Stack>
+    </Info>
+  );
+};
+
+export default ProfileHelpInfo;
