@@ -65,7 +65,7 @@ const SigninInfo: FC<SigninInfoProps> = () => {
             </Timeline>
           </Box>
           <Button size="large" variant="outlined">
-            Privacy Policy
+            Sign Up Now
           </Button>
         </Stack>
       </Box>
