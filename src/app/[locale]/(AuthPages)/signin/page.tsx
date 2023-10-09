@@ -1,6 +1,5 @@
 import { Grid, Container } from "@mui/material";
 
-import Info from "src/components/Info";
 import SigninForm from "src/forms/SigninForm";
 import SigninInfo from "src/widgets/SigninInfo";
 
