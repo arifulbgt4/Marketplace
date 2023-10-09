@@ -39,36 +39,42 @@ const UserLayout: FC<UserLayoutProps> = ({ children }) => {
                   member science, september,2023
                 </Typography>
               </Box>
-              <Tabs value={pathname}>
+              <Tabs
+                value={
+                  pathname.includes(routes.userSetting)
+                    ? routes.userSetting
+                    : pathname
+                }
+              >
                 <Tab
                   component={Link}
                   href={routes.userDashboard}
                   label="DASHBOARD"
-                  value="/dashboard"
+                  value={routes.userDashboard}
                 />
                 <Tab
                   component={Link}
                   href={routes.userProfile}
                   label="PROFILE"
-                  value="/profile"
+                  value={routes.userProfile}
                 />
                 <Tab
                   component={Link}
                   href={routes.userListing}
                   label="LISTINGS"
-                  value="/listing"
+                  value={routes.userListing}
                 />
                 <Tab
                   component={Link}
                   href={routes.userBookmark}
                   label="BOOKMARKS"
-                  value="/bookmarks"
+                  value={routes.userBookmark}
                 />
                 <Tab
                   component={Link}
                   href={routes.userSetting}
                   label="SSETTINGS"
-                  value="/settings"
+                  value={routes.userSetting}
                 />
               </Tabs>
             </Stack>
