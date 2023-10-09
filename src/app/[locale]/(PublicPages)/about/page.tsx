@@ -1,5 +1,5 @@
 "use client";
-import { Box, Container, Grid } from "@mui/material";
+import { Paper, Container, Grid } from "@mui/material";
 
 import AboutDetails from "src/widgets/AboutDetails";
 import BreadcumbBanner from "src/widgets/BreadcumbBanner";
@@ -13,7 +13,7 @@ const About = () => {
           <BreadcumbBanner title="About us" />
         </Grid>
       </Grid>
-      <Box sx={(theme) => ({ bgcolor: theme.palette.info.dark })} py={10}>
+      <Paper sx={{ py: 10 }}>
         <Container>
           <Grid container>
             <Grid item xs={8}>
@@ -24,7 +24,7 @@ const About = () => {
             </Grid>
           </Grid>
         </Container>
-      </Box>
+      </Paper>
     </>
   );
 };
