@@ -1,90 +1,43 @@
 import { FC } from "react";
-import { Grid, Paper, Typography, Box, Stack } from "@mui/material";
+import { Grid, Paper, Typography } from "@mui/material";
 
-import { UserDetailsProps } from "./Types";
+import { ItemProps, UserDetailsProps } from "./Types";
 
 const UserInfo: FC<UserDetailsProps> = () => {
   return (
     <Paper sx={{ p: 5 }}>
       <Grid container rowGap={2.5}>
-        <Grid item xs={4}>
-          <Typography variant="h6">First Name</Typography>
-        </Grid>
-        <Grid item xs={8}>
-          <Box display="flex" gap={2.5} color="text.disabled">
-            <Typography variant="subtitle1">:</Typography>
-            <Typography variant="subtitle1">Jueal</Typography>
-          </Box>
-        </Grid>
-        <Grid item xs={4}>
-          <Typography variant="h6">Last Name</Typography>
-        </Grid>
-        <Grid item xs={8}>
-          <Box display="flex" gap={2.5} color="text.disabled">
-            <Typography variant="subtitle1">:</Typography>
-            <Typography variant="subtitle1">Hassan</Typography>
-          </Box>
-        </Grid>
-        <Grid item xs={4}>
-          <Typography variant="h6">User Name</Typography>
-        </Grid>
-        <Grid item xs={8}>
-          <Box display="flex" gap={2.5} color="text.disabled">
-            <Typography variant="subtitle1">:</Typography>
-            <Typography variant="subtitle1">Jueal JN</Typography>
-          </Box>
-        </Grid>
-
-        <Grid item xs={4}>
-          <Typography variant="h6">Address</Typography>
-        </Grid>
-        <Grid item xs={8}>
-          <Box display="flex" gap={2.5} color="text.disabled">
-            <Typography variant="subtitle1">:</Typography>
-            <Typography variant="subtitle1">
-              3891 Ranchview Dr. Richardson,California 62639
-            </Typography>
-          </Box>
-        </Grid>
-        <Grid item xs={4}>
-          <Typography variant="h6">Email Address</Typography>
-        </Grid>
-        <Grid item xs={8}>
-          <Box display="flex" gap={2.5} color="text.disabled">
-            <Typography variant="subtitle1">:</Typography>
-            <Typography variant="subtitle1">mdjueal920977@gmail.com</Typography>
-          </Box>
-        </Grid>
-        <Grid item xs={4}>
-          <Typography variant="h6">Phone Number</Typography>
-        </Grid>
-        <Grid item xs={8}>
-          <Box display="flex" gap={2.5} color="text.disabled">
-            <Typography variant="subtitle1">:</Typography>
-            <Typography variant="subtitle1">01753558014</Typography>
-          </Box>
-        </Grid>
-        <Grid item xs={4}>
-          <Typography variant="h6">Age</Typography>
-        </Grid>
-        <Grid item xs={8}>
-          <Box display="flex" gap={2.5} color="text.disabled">
-            <Typography variant="subtitle1">:</Typography>
-            <Typography variant="subtitle1">23</Typography>
-          </Box>
-        </Grid>
-        <Grid item xs={4}>
-          <Typography variant="h6">Gender</Typography>
-        </Grid>
-        <Grid item xs={8}>
-          <Stack gap={2.5} color="text.disabled">
-            <Typography variant="subtitle1">:</Typography>
-            <Typography variant="subtitle1">Male</Typography>
-          </Stack>
-        </Grid>
+        <Item property="First Name" value="Jueal" />
+        <Item property="Last Name" value="Hassan" />
+        <Item property="First Name" value="Jueal" />
+        <Item property="User Name" value="Jueal JN" />
+        <Item
+          property="Address"
+          value=" 3891 Ranchview Dr. Richardson,California 62639"
+        />
+        <Item property="Email Address" value="mdjueal920977@gmail.com" />
+        <Item property="Phone Number" value="Jueal JN" />
+        <Item property="Age" value="23" />
+        <Item property="Gender" value="Male" />
       </Grid>
     </Paper>
   );
 };
 
 export default UserInfo;
+
+const Item: FC<ItemProps> = ({ property, value }) => {
+  return (
+    <>
+      <Grid item xs={4}>
+        <Typography variant="h6">{property}</Typography>
+      </Grid>
+      <Grid item xs={1}>
+        <Typography variant="subtitle1">:</Typography>
+      </Grid>
+      <Grid item xs={7}>
+        <Typography variant="subtitle1">{value}</Typography>
+      </Grid>
+    </>
+  );
+};
