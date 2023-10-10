@@ -29,121 +29,119 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
   const onSubmitForm = async () => {};
 
   return (
-    <Box p={5} boxShadow={3}>
-      <FinalForm
-        onSubmit={onSubmitForm}
-        initialValues={INITIAL_VALUES}
-        render={({ handleSubmit, values, errors, submitting }) => {
-          return (
-            <Grid container rowSpacing={5}>
-              <Items property="First Name">
-                <TextField
-                  name="firstName"
-                  fullWidth
-                  id="full-width"
-                  label="First Name"
-                  variant="outlined"
-                  required
-                />
-              </Items>
-              <Items property="Last Name">
-                <TextField
-                  name="lastName"
-                  fullWidth
-                  id="full-width"
-                  label="Last Name"
-                  variant="outlined"
-                  required
-                />
-              </Items>
-              <Items property="Email Adress">
-                <TextField
-                  type="email"
-                  name="emailAdress"
-                  fullWidth
-                  id="full-width"
-                  label="Email"
-                  variant="outlined"
-                  required
-                />
-              </Items>
-              <Items property="Your Numbers">
-                <TextField
-                  name="number"
-                  fullWidth
-                  id="full-width"
-                  label="Your Numbers"
-                  variant="outlined"
-                  required
-                />
-              </Items>
-              <Items property="Adress">
-                <TextField
-                  name="adress"
-                  fullWidth
-                  id="full-width"
-                  label="Adress"
-                  variant="outlined"
-                  required
-                />
-              </Items>
-              <Items property="Country">
-                <TextField
-                  name="country"
-                  fullWidth
-                  id="full-width"
-                  label="Country"
-                  variant="outlined"
-                  required
-                />
-              </Items>
-              <Items property="Profile Text">
-                <TextField
-                  name="profileText"
-                  fullWidth
-                  multiline
-                  rows={4}
-                  id="full-width"
-                  label="Profile Text"
-                  variant="outlined"
-                  required
-                />
-              </Items>
-              <Items property="Gender">
-                <FormControl>
-                  <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue="female"
-                    name="radio-buttons-group"
-                  >
-                    <FormControlLabel
-                      value="female"
-                      control={<Radio />}
-                      label="Female"
-                    />
-                    <FormControlLabel
-                      value="male"
-                      control={<Radio />}
-                      label="Male"
-                    />
-                    <FormControlLabel
-                      value="other"
-                      control={<Radio />}
-                      label="Other"
-                    />
-                  </RadioGroup>
-                </FormControl>
-              </Items>
-              <Items property="">
-                <Button variant="outlined" type="submit">
-                  Update
-                </Button>
-              </Items>
-            </Grid>
-          );
-        }}
-      />
-    </Box>
+    <FinalForm
+      onSubmit={onSubmitForm}
+      initialValues={INITIAL_VALUES}
+      render={({ handleSubmit, values, errors, submitting }) => {
+        return (
+          <Grid container rowSpacing={5}>
+            <Items property="First Name">
+              <TextField
+                name="firstName"
+                fullWidth
+                id="full-width"
+                label="First Name"
+                variant="outlined"
+                required
+              />
+            </Items>
+            <Items property="Last Name">
+              <TextField
+                name="lastName"
+                fullWidth
+                id="full-width"
+                label="Last Name"
+                variant="outlined"
+                required
+              />
+            </Items>
+            <Items property="Email Adress">
+              <TextField
+                type="email"
+                name="emailAdress"
+                fullWidth
+                id="full-width"
+                label="Email"
+                variant="outlined"
+                required
+              />
+            </Items>
+            <Items property="Your Numbers">
+              <TextField
+                name="number"
+                fullWidth
+                id="full-width"
+                label="Your Numbers"
+                variant="outlined"
+                required
+              />
+            </Items>
+            <Items property="Adress">
+              <TextField
+                name="adress"
+                fullWidth
+                id="full-width"
+                label="Adress"
+                variant="outlined"
+                required
+              />
+            </Items>
+            <Items property="Country">
+              <TextField
+                name="country"
+                fullWidth
+                id="full-width"
+                label="Country"
+                variant="outlined"
+                required
+              />
+            </Items>
+            <Items property="Profile Text">
+              <TextField
+                name="profileText"
+                fullWidth
+                multiline
+                rows={4}
+                id="full-width"
+                label="Profile Text"
+                variant="outlined"
+                required
+              />
+            </Items>
+            <Items property="Gender">
+              <FormControl>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="female"
+                  name="radio-buttons-group"
+                >
+                  <FormControlLabel
+                    value="female"
+                    control={<Radio />}
+                    label="Female"
+                  />
+                  <FormControlLabel
+                    value="male"
+                    control={<Radio />}
+                    label="Male"
+                  />
+                  <FormControlLabel
+                    value="other"
+                    control={<Radio />}
+                    label="Other"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </Items>
+            <Items property="">
+              <Button variant="outlined" type="submit">
+                Update
+              </Button>
+            </Items>
+          </Grid>
+        );
+      }}
+    />
   );
 };
 
