@@ -15,14 +15,14 @@ import {
   Avatar,
   Hidden,
   Stack,
+  Link,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import Logo from "src/components/Logo";
+import routes from "src/global/routes";
 
 import { HeaderProps } from "./Types";
-
-const pages = ["All Properties", "Start selling", "Abou us", "Contact us"];
 
 const Header: FC<HeaderProps> = ({ user }) => {
   const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null);
@@ -80,11 +80,14 @@ const Header: FC<HeaderProps> = ({ user }) => {
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
               >
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
-                ))}
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Stack sx={{ p: 0.5 }}>
+                    <Link href={routes.listings}>All Properties</Link>
+                    <Link href={routes.listingCreate}>Start selling</Link>
+                    <Link href={routes.about}>Abou us</Link>
+                    <Link href={routes.contact}>Contact us</Link>
+                  </Stack>
+                </MenuItem>
               </Menu>
             </Hidden>
           </Hidden>
@@ -92,11 +95,34 @@ const Header: FC<HeaderProps> = ({ user }) => {
             <Logo />
           </Hidden>
           <Hidden mdDown>
-            {pages.map((page) => (
-              <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2 }}>
-                {page}
-              </Button>
-            ))}
+            <Button
+              href={routes.listings}
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2 }}
+            >
+              All Properties
+            </Button>
+            <Button
+              href={routes.listingCreate}
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2 }}
+            >
+              Start selling
+            </Button>
+            <Button
+              href={routes.about}
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2 }}
+            >
+              Abou us
+            </Button>
+            <Button
+              href={routes.contact}
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2 }}
+            >
+              Contact us
+            </Button>
           </Hidden>
           <Box sx={{ flexGrow: 0, ml: 4 }}>
             {!user ? (
@@ -114,7 +140,6 @@ const Header: FC<HeaderProps> = ({ user }) => {
                     />
                   </IconButton>
                 </Tooltip>
-
                 <Menu
                   sx={{ mt: "45px" }}
                   id="menu-appbar"
@@ -132,7 +157,9 @@ const Header: FC<HeaderProps> = ({ user }) => {
                   onClose={handleCloseUserMenu}
                 >
                   <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">profile</Typography>
+                    <Link href={routes.userProfile} textAlign="center">
+                      profile
+                    </Link>
                   </MenuItem>
                   <MenuItem
                     onClick={() => {
