@@ -38,3 +38,4 @@ export interface UserSigninOptions
   extends Pick<UserRegisterOptions, "email" | "password"> {
   callbackUrl: string;
 }
+
