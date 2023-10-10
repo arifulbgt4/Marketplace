@@ -2,12 +2,9 @@
 import { FC } from "react";
 import {
   Grid,
-  Box,
   Typography,
-  TextField,
   FormControl,
   Button,
-  RadioGroup,
   FormControlLabel,
   Radio,
 } from "@mui/material";
@@ -15,7 +12,9 @@ import {
 import { Form as FinalForm } from "react-final-form";
 import { FormApi } from "final-form";
 
-import { ItemsProps, UserSettingFormProps } from "./Types";
+import { RadioGroup, TextField } from "src/components/Input";
+
+import { UserSettingFormProps } from "./Types";
 
 const INITIAL_VALUES = {
   firstName: "",
@@ -35,7 +34,10 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
       render={({ handleSubmit, values, errors, submitting }) => {
         return (
           <Grid container rowSpacing={5}>
-            <Items property="First Name">
+            <Grid item xs={3}>
+              <Typography variant="h6">First Name</Typography>
+            </Grid>
+            <Grid item xs={8}>
               <TextField
                 name="firstName"
                 fullWidth
@@ -44,8 +46,11 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                 variant="outlined"
                 required
               />
-            </Items>
-            <Items property="Last Name">
+            </Grid>
+            <Grid item xs={3}>
+              <Typography variant="h6">Last Name</Typography>
+            </Grid>
+            <Grid item xs={8}>
               <TextField
                 name="lastName"
                 fullWidth
@@ -54,8 +59,11 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                 variant="outlined"
                 required
               />
-            </Items>
-            <Items property="Email Adress">
+            </Grid>
+            <Grid item xs={3}>
+              <Typography variant="h6">Email Adress</Typography>
+            </Grid>
+            <Grid item xs={8}>
               <TextField
                 type="email"
                 name="emailAdress"
@@ -65,8 +73,11 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                 variant="outlined"
                 required
               />
-            </Items>
-            <Items property="Your Numbers">
+            </Grid>
+            <Grid item xs={3}>
+              <Typography variant="h6">Your Numbers</Typography>
+            </Grid>
+            <Grid item xs={8}>
               <TextField
                 name="number"
                 fullWidth
@@ -75,8 +86,11 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                 variant="outlined"
                 required
               />
-            </Items>
-            <Items property="Adress">
+            </Grid>
+            <Grid item xs={3}>
+              <Typography variant="h6">Adress</Typography>
+            </Grid>
+            <Grid item xs={8}>
               <TextField
                 name="adress"
                 fullWidth
@@ -85,8 +99,11 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                 variant="outlined"
                 required
               />
-            </Items>
-            <Items property="Country">
+            </Grid>
+            <Grid item xs={3}>
+              <Typography variant="h6">Country</Typography>
+            </Grid>
+            <Grid item xs={8}>
               <TextField
                 name="country"
                 fullWidth
@@ -95,8 +112,11 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                 variant="outlined"
                 required
               />
-            </Items>
-            <Items property="Profile Text">
+            </Grid>
+            <Grid item xs={3}>
+              <Typography variant="h6">Profile Text</Typography>
+            </Grid>
+            <Grid item xs={8}>
               <TextField
                 name="profileText"
                 fullWidth
@@ -107,8 +127,11 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                 variant="outlined"
                 required
               />
-            </Items>
-            <Items property="Gender">
+            </Grid>
+            <Grid item xs={3}>
+              <Typography variant="h6">Gender</Typography>
+            </Grid>
+            <Grid item xs={8} container rowSpacing={2}>
               <FormControl>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
@@ -132,12 +155,12 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                   />
                 </RadioGroup>
               </FormControl>
-            </Items>
-            <Items property="">
-              <Button variant="outlined" type="submit">
-                Update
-              </Button>
-            </Items>
+              <Grid item xs={12}>
+                <Button variant="outlined" type="submit">
+                  Update
+                </Button>
+              </Grid>
+            </Grid>
           </Grid>
         );
       }}
@@ -146,16 +169,3 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
 };
 
 export default UserSettingForm;
-
-const Items: FC<ItemsProps> = ({ property, children }) => {
-  return (
-    <>
-      <Grid item xs={3}>
-        <Typography variant="h6">{property}</Typography>
-      </Grid>
-      <Grid item xs={8}>
-        {children}
-      </Grid>
-    </>
-  );
-};
