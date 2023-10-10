@@ -1,9 +1,9 @@
 "use client";
 import { FC, useState } from "react";
+import { signOut } from "next-auth/react";
 import {
   AppBar,
   Container,
-  SvgIcon,
   Toolbar,
   Typography,
   Box,
@@ -23,9 +23,8 @@ import Logo from "src/components/Logo";
 import { HeaderProps } from "./Types";
 
 const pages = ["All Properties", "Start selling", "Abou us", "Contact us"];
-// const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-const Header: FC<HeaderProps> = () => {
+const Header: FC<HeaderProps> = ({ user }) => {
   const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null);
   const [anchorElUser, setAnchorElUser] = useState<HTMLElement | null>(null);
 
@@ -54,7 +53,6 @@ const Header: FC<HeaderProps> = () => {
               <Logo />
             </Stack>
           </Hidden>
-
           <Hidden mdUp>
             <IconButton
               size="large"
@@ -100,32 +98,53 @@ const Header: FC<HeaderProps> = () => {
               </Button>
             ))}
           </Hidden>
-
           <Box sx={{ flexGrow: 0, ml: 4 }}>
-            <Button onClick={handleOpenUserMenu}>Create Account</Button>
-            <Button variant="outlined">SignIn</Button>
-            {/* <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>*/}
+            {!user ? (
+              <>
+                <Button>Create Account</Button>
+                <Button variant="outlined">SignIn</Button>
+              </>
+            ) : (
+              <>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar
+                      alt="Remy Sharp"
+                      src="/static/images/avatar/2.jpg"
+                    />
+                  </IconButton>
+                </Tooltip>
+
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">profile</Typography>
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      handleCloseUserMenu();
+                      signOut();
+                    }}
+                  >
+                    <Typography textAlign="center">Log out</Typography>
+                  </MenuItem>
+                </Menu>
+              </>
+            )}
           </Box>
         </Toolbar>
       </Container>
