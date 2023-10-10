@@ -3,6 +3,9 @@ const nextConfig = {
   experimental: {
     serverActions: true,
   },
+  compiler: {
+    styledComponents: true,
+  },
   transpilePackages: ["@mui/material", "@mui/lab", "@mui/icons-material"],
 };
 

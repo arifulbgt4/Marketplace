@@ -10,7 +10,7 @@ export const listings = [
     rating: 4.4,
   },
   {
-    id: 1,
+    id: 2,
     slug: "kik",
     image:
       "https://scontent.fdac151-1.fna.fbcdn.net/v/t1.15752-9/387322993_3592482771078341_828692085362318120_n.png?_nc_cat=110&ccb=1-7&_nc_sid=ae9488&_nc_eui2=AeEpsPwl78oNbl86uxi8rt4OhOsTSqGwIECE6xNKobAgQLHh6bPT_JjUSLYMgi5AlKD9SYXGwZUSxIrlS5Zwg8x5&_nc_ohc=9KpkJaqLel0AX-GVG5W&_nc_ht=scontent.fdac151-1.fna&oh=03_AdShqmWCSLEKdZ3i5T8KnAW7V0Xlippcz_gJpSqaA8bi4Q&oe=6547C25E",
@@ -20,7 +20,7 @@ export const listings = [
     rating: 4.4,
   },
   {
-    id: 1,
+    id: 3,
     slug: "kik",
     image:
       "https://scontent.fdac151-1.fna.fbcdn.net/v/t1.15752-9/387322993_3592482771078341_828692085362318120_n.png?_nc_cat=110&ccb=1-7&_nc_sid=ae9488&_nc_eui2=AeEpsPwl78oNbl86uxi8rt4OhOsTSqGwIECE6xNKobAgQLHh6bPT_JjUSLYMgi5AlKD9SYXGwZUSxIrlS5Zwg8x5&_nc_ohc=9KpkJaqLel0AX-GVG5W&_nc_ht=scontent.fdac151-1.fna&oh=03_AdShqmWCSLEKdZ3i5T8KnAW7V0Xlippcz_gJpSqaA8bi4Q&oe=6547C25E",
@@ -30,7 +30,7 @@ export const listings = [
     rating: 4.4,
   },
   {
-    id: 1,
+    id: 4,
     slug: "kik",
     image:
       "https://scontent.fdac151-1.fna.fbcdn.net/v/t1.15752-9/387322993_3592482771078341_828692085362318120_n.png?_nc_cat=110&ccb=1-7&_nc_sid=ae9488&_nc_eui2=AeEpsPwl78oNbl86uxi8rt4OhOsTSqGwIECE6xNKobAgQLHh6bPT_JjUSLYMgi5AlKD9SYXGwZUSxIrlS5Zwg8x5&_nc_ohc=9KpkJaqLel0AX-GVG5W&_nc_ht=scontent.fdac151-1.fna&oh=03_AdShqmWCSLEKdZ3i5T8KnAW7V0Xlippcz_gJpSqaA8bi4Q&oe=6547C25E",
@@ -40,7 +40,7 @@ export const listings = [
     rating: 4.4,
   },
   {
-    id: 1,
+    id: 15,
     slug: "kik",
     image:
       "https://scontent.fdac151-1.fna.fbcdn.net/v/t1.15752-9/387322993_3592482771078341_828692085362318120_n.png?_nc_cat=110&ccb=1-7&_nc_sid=ae9488&_nc_eui2=AeEpsPwl78oNbl86uxi8rt4OhOsTSqGwIECE6xNKobAgQLHh6bPT_JjUSLYMgi5AlKD9SYXGwZUSxIrlS5Zwg8x5&_nc_ohc=9KpkJaqLel0AX-GVG5W&_nc_ht=scontent.fdac151-1.fna&oh=03_AdShqmWCSLEKdZ3i5T8KnAW7V0Xlippcz_gJpSqaA8bi4Q&oe=6547C25E",
@@ -50,7 +50,7 @@ export const listings = [
     rating: 4.4,
   },
   {
-    id: 1,
+    id: 16,
     slug: "kik",
     image:
       "https://scontent.fdac151-1.fna.fbcdn.net/v/t1.15752-9/387322993_3592482771078341_828692085362318120_n.png?_nc_cat=110&ccb=1-7&_nc_sid=ae9488&_nc_eui2=AeEpsPwl78oNbl86uxi8rt4OhOsTSqGwIECE6xNKobAgQLHh6bPT_JjUSLYMgi5AlKD9SYXGwZUSxIrlS5Zwg8x5&_nc_ohc=9KpkJaqLel0AX-GVG5W&_nc_ht=scontent.fdac151-1.fna&oh=03_AdShqmWCSLEKdZ3i5T8KnAW7V0Xlippcz_gJpSqaA8bi4Q&oe=6547C25E",
@@ -60,7 +60,7 @@ export const listings = [
     rating: 4.4,
   },
   {
-    id: 1,
+    id: 17,
     slug: "kik",
     image:
       "https://scontent.fdac151-1.fna.fbcdn.net/v/t1.15752-9/387322993_3592482771078341_828692085362318120_n.png?_nc_cat=110&ccb=1-7&_nc_sid=ae9488&_nc_eui2=AeEpsPwl78oNbl86uxi8rt4OhOsTSqGwIECE6xNKobAgQLHh6bPT_JjUSLYMgi5AlKD9SYXGwZUSxIrlS5Zwg8x5&_nc_ohc=9KpkJaqLel0AX-GVG5W&_nc_ht=scontent.fdac151-1.fna&oh=03_AdShqmWCSLEKdZ3i5T8KnAW7V0Xlippcz_gJpSqaA8bi4Q&oe=6547C25E",
@@ -70,7 +70,7 @@ export const listings = [
     rating: 4.4,
   },
   {
-    id: 1,
+    id: 18,
     slug: "kik",
     image:
       "https://scontent.fdac151-1.fna.fbcdn.net/v/t1.15752-9/387322993_3592482771078341_828692085362318120_n.png?_nc_cat=110&ccb=1-7&_nc_sid=ae9488&_nc_eui2=AeEpsPwl78oNbl86uxi8rt4OhOsTSqGwIECE6xNKobAgQLHh6bPT_JjUSLYMgi5AlKD9SYXGwZUSxIrlS5Zwg8x5&_nc_ohc=9KpkJaqLel0AX-GVG5W&_nc_ht=scontent.fdac151-1.fna&oh=03_AdShqmWCSLEKdZ3i5T8KnAW7V0Xlippcz_gJpSqaA8bi4Q&oe=6547C25E",
@@ -80,7 +80,7 @@ export const listings = [
     rating: 4.4,
   },
   {
-    id: 1,
+    id: 19,
     slug: "kik",
     image:
       "https://scontent.fdac151-1.fna.fbcdn.net/v/t1.15752-9/387322993_3592482771078341_828692085362318120_n.png?_nc_cat=110&ccb=1-7&_nc_sid=ae9488&_nc_eui2=AeEpsPwl78oNbl86uxi8rt4OhOsTSqGwIECE6xNKobAgQLHh6bPT_JjUSLYMgi5AlKD9SYXGwZUSxIrlS5Zwg8x5&_nc_ohc=9KpkJaqLel0AX-GVG5W&_nc_ht=scontent.fdac151-1.fna&oh=03_AdShqmWCSLEKdZ3i5T8KnAW7V0Xlippcz_gJpSqaA8bi4Q&oe=6547C25E",
@@ -101,7 +101,7 @@ export const bookMarkData = [
     rent: "Rent from : $1,475 - $2,950",
   },
   {
-    id: 1,
+    id: 12,
     title: "1950 Sherbrooke W.",
     subheader: "Montreal",
     bedroom: 1,
@@ -109,7 +109,7 @@ export const bookMarkData = [
     rent: "Rent from : $1,475 - $2,950",
   },
   {
-    id: 1,
+    id: 13,
     title: "1950 Sherbrooke W.",
     subheader: "Montreal",
     bedroom: 1,
@@ -117,7 +117,7 @@ export const bookMarkData = [
     rent: "Rent from : $1,475 - $2,950",
   },
   {
-    id: 1,
+    id: 14,
     title: "1950 Sherbrooke W.",
     subheader: "Montreal",
     bedroom: 1,
@@ -125,7 +125,7 @@ export const bookMarkData = [
     rent: "Rent from : $1,475 - $2,950",
   },
   {
-    id: 1,
+    id: 15,
     title: "1950 Sherbrooke W.",
     subheader: "Montreal",
     bedroom: 1,

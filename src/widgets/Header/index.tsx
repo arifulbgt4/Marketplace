@@ -49,13 +49,13 @@ const Header: FC<HeaderProps> = () => {
     <AppBar position="static">
       <Container>
         <Toolbar disableGutters>
-          <Hidden mdDown>
+          <Hidden mdDown implementation="css">
             <Stack flexGrow={1}>
               <Logo />
             </Stack>
           </Hidden>
 
-          <Hidden mdUp>
+          <Hidden mdUp implementation="css">
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -93,7 +93,7 @@ const Header: FC<HeaderProps> = () => {
           <Hidden mdUp>
             <Logo />
           </Hidden>
-          <Hidden mdDown>
+          <Hidden mdDown implementation="css">
             {pages.map((page) => (
               <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2 }}>
                 {page}
