@@ -1,15 +1,7 @@
-import { Grid } from "@mui/material";
-
 import ChangePasswordForm from "src/forms/ChangePasswordForm";
 
 const ChangePassword = () => {
-  return (
-    <Grid container>
-      <Grid item xs={12}>
-        <ChangePasswordForm />
-      </Grid>
-    </Grid>
-  );
+  return <ChangePasswordForm />;
 };
 
 export default ChangePassword;
