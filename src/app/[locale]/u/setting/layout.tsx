@@ -10,7 +10,7 @@ export default function SettingsLayout({
   return (
     <Box>
       <Container>
-        <Grid container spacing={10}>
+        <Grid container py={5} spacing={10}>
           <Grid item xs={8}>
             {children}
           </Grid>
