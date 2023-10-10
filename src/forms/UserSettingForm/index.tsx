@@ -136,7 +136,7 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
               </Items>
               <Items property="">
                 <Button variant="outlined" type="submit">
-                  Save or Update
+                  Update
                 </Button>
               </Items>
             </Grid>
@@ -148,6 +148,7 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
 };
 
 export default UserSettingForm;
+
 const Items: FC<ItemsProps> = ({ property, children }) => {
   return (
     <>
