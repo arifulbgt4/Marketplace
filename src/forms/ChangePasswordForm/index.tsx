@@ -1,11 +1,11 @@
 "use client";
 import { FC } from "react";
+import { Button, Grid, Typography } from "@mui/material";
 
 import { Form as FinalForm } from "react-final-form";
 
-import { Button, Grid, TextField, Typography } from "@mui/material";
-
-import { CpItemProps } from "./Types";
+import { TextField } from "src/components/Input";
+import { ChangePasswordFormProps } from "./Types";
 
 const INITIAL_VALUES = {
   currentPassword: "",
@@ -13,7 +13,7 @@ const INITIAL_VALUES = {
   reTypePassword: "",
 };
 
-const ChangePasswordForm = () => {
+const ChangePasswordForm: FC<ChangePasswordFormProps> = () => {
   const onSubmitForm = async () => {};
 
   return (
@@ -23,7 +23,10 @@ const ChangePasswordForm = () => {
       render={({ handleSubmit, values, errors, submitting }) => {
         return (
           <Grid container rowSpacing={5}>
-            <Items property="Current Password">
+            <Grid item xs={3}>
+              <Typography variant="h6">Current Password</Typography>
+            </Grid>
+            <Grid item xs={8}>
               <TextField
                 name="currentPassword"
                 fullWidth
@@ -32,8 +35,11 @@ const ChangePasswordForm = () => {
                 variant="outlined"
                 required
               />
-            </Items>
-            <Items property="Change Password">
+            </Grid>
+            <Grid item xs={3}>
+              <Typography>Change Password</Typography>
+            </Grid>
+            <Grid item xs={8}>
               <TextField
                 name="changePassword"
                 fullWidth
@@ -42,23 +48,23 @@ const ChangePasswordForm = () => {
                 variant="outlined"
                 required
               />
-            </Items>
-            <Items property="Re Type Password">
+            </Grid>
+            <Grid item xs={3}>
+              <Typography variant="h6">Re Type Password</Typography>
+            </Grid>
+            <Grid item xs={8} container rowGap={2}>
               <TextField
-                name="reTypePassword"
+                name="changePassword"
                 fullWidth
                 id="full-width"
-                label="Re Type Password"
+                label="Change Password"
                 variant="outlined"
                 required
               />
-            </Items>
-
-            <Items property="">
               <Button variant="outlined" type="submit">
                 Update
               </Button>
-            </Items>
+            </Grid>
           </Grid>
         );
       }}
@@ -67,16 +73,3 @@ const ChangePasswordForm = () => {
 };
 
 export default ChangePasswordForm;
-
-const Items: FC<CpItemProps> = ({ property, children }) => {
-  return (
-    <>
-      <Grid item xs={3}>
-        <Typography variant="h6">{property}</Typography>
-      </Grid>
-      <Grid item xs={8}>
-        {children}
-      </Grid>
-    </>
-  );
-};

@@ -3,13 +3,15 @@ import { FC } from "react";
 
 import { Form as FinalForm } from "react-final-form";
 
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
-import { SItemProps, SocilalFormProps } from "./Types";
+import { TextField } from "src/components/Input";
+
+import { SocilalFormProps } from "./Types";
 
 const INITIAL_VALUES = {
   facebook: "",
@@ -28,7 +30,10 @@ const SocilalForm: FC<SocilalFormProps> = () => {
       render={({ handleSubmit, values, errors, submitting }) => {
         return (
           <Grid container rowSpacing={5}>
-            <Items property={<FacebookRoundedIcon />}>
+            <Grid item xs={2}>
+              <FacebookRoundedIcon sx={{ width: 40, height: 40 }} />
+            </Grid>
+            <Grid item xs={9}>
               <TextField
                 name="facebook"
                 fullWidth
@@ -36,8 +41,11 @@ const SocilalForm: FC<SocilalFormProps> = () => {
                 label="Facebook.com/"
                 variant="outlined"
               />
-            </Items>
-            <Items property={<LinkedInIcon />}>
+            </Grid>
+            <Grid item xs={2}>
+              <LinkedInIcon sx={{ width: 40, height: 40 }} />
+            </Grid>
+            <Grid item xs={9}>
               <TextField
                 name="linkedIn"
                 fullWidth
@@ -45,8 +53,11 @@ const SocilalForm: FC<SocilalFormProps> = () => {
                 label="LinkedIn.com/"
                 variant="outlined"
               />
-            </Items>
-            <Items property={<InstagramIcon />}>
+            </Grid>
+            <Grid item xs={2}>
+              <InstagramIcon sx={{ width: 40, height: 40 }} />
+            </Grid>
+            <Grid item xs={9}>
               <TextField
                 name="instragram"
                 fullWidth
@@ -54,9 +65,11 @@ const SocilalForm: FC<SocilalFormProps> = () => {
                 label="Instagram.com/"
                 variant="outlined"
               />
-            </Items>
-
-            <Items property={<TwitterIcon />}>
+            </Grid>
+            <Grid item xs={2}>
+              <TwitterIcon sx={{ width: 40, height: 40 }} />
+            </Grid>
+            <Grid item xs={9} container rowSpacing={2}>
               <TextField
                 name="twitter"
                 fullWidth
@@ -65,12 +78,12 @@ const SocilalForm: FC<SocilalFormProps> = () => {
                 variant="outlined"
                 required
               />
-            </Items>
-            <Items property="">
-              <Button variant="outlined" type="submit">
-                Update
-              </Button>
-            </Items>
+              <Grid item xs={12}>
+                <Button variant="outlined" type="submit">
+                  Update
+                </Button>
+              </Grid>
+            </Grid>
           </Grid>
         );
       }}
@@ -79,16 +92,3 @@ const SocilalForm: FC<SocilalFormProps> = () => {
 };
 
 export default SocilalForm;
-
-const Items: FC<SItemProps> = ({ property, children }) => {
-  return (
-    <>
-      <Grid item xs={3}>
-        <Box ml={5}>{property}</Box>
-      </Grid>
-      <Grid item xs={8}>
-        {children}
-      </Grid>
-    </>
-  );
-};
