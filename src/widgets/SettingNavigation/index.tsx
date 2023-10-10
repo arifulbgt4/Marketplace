@@ -21,50 +21,48 @@ import { SettingNavigationProps } from "./Types";
 const SettingNavigation: FC<SettingNavigationProps> = () => {
   const pathname = usePathname();
   return (
-    <Paper sx={{ width: 320, maxWidth: "100%" }}>
-      <MenuList>
-        <MenuItem
-          component={Link}
-          href={routes.userSetting}
-          selected={routes.userSetting === pathname}
-        >
-          <ListItemIcon>
-            <AccountCircleIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Personal Information</ListItemText>
-        </MenuItem>
-        <MenuItem
-          component={Link}
-          href={routes.userSecuritySetting}
-          selected={routes.userSecuritySetting === pathname}
-        >
-          <ListItemIcon>
-            <LockIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Change Your Password</ListItemText>
-        </MenuItem>
-        <MenuItem
-          component={Link}
-          href={routes.userMediaSetting}
-          selected={routes.userMediaSetting === pathname}
-        >
-          <ListItemIcon>
-            <InsertPhotoOutlinedIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Avatar & Home page Image</ListItemText>
-        </MenuItem>
-        <MenuItem
-          component={Link}
-          href={routes.userSocialSetting}
-          selected={routes.userSocialSetting === pathname}
-        >
-          <ListItemIcon>
-            <PeopleIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Social Links</ListItemText>
-        </MenuItem>
-      </MenuList>
-    </Paper>
+    <MenuList>
+      <MenuItem
+        component={Link}
+        href={routes.userSetting}
+        selected={routes.userSetting === pathname}
+      >
+        <ListItemIcon>
+          <AccountCircleIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText>Personal Information</ListItemText>
+      </MenuItem>
+      <MenuItem
+        component={Link}
+        href={routes.userSecuritySetting}
+        selected={routes.userSecuritySetting === pathname}
+      >
+        <ListItemIcon>
+          <LockIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText>Change Your Password</ListItemText>
+      </MenuItem>
+      <MenuItem
+        component={Link}
+        href={routes.userMediaSetting}
+        selected={routes.userMediaSetting === pathname}
+      >
+        <ListItemIcon>
+          <InsertPhotoOutlinedIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText>Avatar & Home page Image</ListItemText>
+      </MenuItem>
+      <MenuItem
+        component={Link}
+        href={routes.userSocialSetting}
+        selected={routes.userSocialSetting === pathname}
+      >
+        <ListItemIcon>
+          <PeopleIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText>Social Links</ListItemText>
+      </MenuItem>
+    </MenuList>
   );
 };
 
