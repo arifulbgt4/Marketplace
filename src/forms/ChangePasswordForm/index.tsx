@@ -22,50 +22,56 @@ const ChangePasswordForm: FC<ChangePasswordFormProps> = () => {
       initialValues={INITIAL_VALUES}
       render={({ handleSubmit, values, errors, submitting }) => {
         return (
-          <Grid container rowSpacing={5}>
-            <Grid item xs={3}>
-              <Typography variant="h6">Current Password</Typography>
+          <form onSubmit={handleSubmit}>
+            <Grid container rowSpacing={5}>
+              <Grid item xs={3}>
+                <Typography variant="h6">Current Password</Typography>
+              </Grid>
+              <Grid item xs={8}>
+                <TextField
+                  name="currentPassword"
+                  fullWidth
+                  id="full-width"
+                  label="Current Password"
+                  variant="outlined"
+                  required
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <Typography variant="h6">Change Password</Typography>
+              </Grid>
+              <Grid item xs={8}>
+                <TextField
+                  name="changePassword"
+                  fullWidth
+                  id="full-width"
+                  label="Change Password"
+                  variant="outlined"
+                  required
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <Typography variant="h6">Re Type Password</Typography>
+              </Grid>
+              <Grid item xs={8} container rowGap={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    name="reTypePassword"
+                    fullWidth
+                    id="full-width"
+                    label="Re Type Password"
+                    variant="outlined"
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button variant="outlined" type="submit">
+                    Update
+                  </Button>
+                </Grid>
+              </Grid>
             </Grid>
-            <Grid item xs={8}>
-              <TextField
-                name="currentPassword"
-                fullWidth
-                id="full-width"
-                label="Current Password"
-                variant="outlined"
-                required
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <Typography>Change Password</Typography>
-            </Grid>
-            <Grid item xs={8}>
-              <TextField
-                name="changePassword"
-                fullWidth
-                id="full-width"
-                label="Change Password"
-                variant="outlined"
-                required
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <Typography variant="h6">Re Type Password</Typography>
-            </Grid>
-            <Grid item xs={8} container rowGap={2}>
-              <TextField
-                name="changePassword"
-                fullWidth
-                id="full-width"
-                label="Change Password"
-                variant="outlined"
-                required
-              />
-              <Button variant="outlined" type="submit">
-                Update
-              </Button>
-            </Grid>
-          </Grid>
+          </form>
         );
       }}
     />
