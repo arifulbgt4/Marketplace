@@ -23,7 +23,7 @@ const Listing: FC<ListingProps> = ({
 }) => {
   return (
     <Card>
-      <CardMedia component="img" sx={{ height: "240px" }} src={image} />
+      <CardMedia component="img" height={240} src={image} />
       <CardContent>
         <Typography variant="h5" component={Link} href={`/l/${slug}`}>
           ${price}/{title}
