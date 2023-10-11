@@ -50,9 +50,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
       <Container>
         <Toolbar disableGutters>
           <Hidden mdDown>
-            <Stack flexGrow={1}>
-              <Logo />
-            </Stack>
+            <Logo />
           </Hidden>
           <Hidden mdUp>
             <IconButton

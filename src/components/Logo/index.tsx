@@ -9,6 +9,7 @@ const Logo: FC<LogoProps> = () => {
   return (
     <Stack
       alignItems="center"
+      flexGrow={1}
       direction="row"
       component={Link}
       href={routes.home}
