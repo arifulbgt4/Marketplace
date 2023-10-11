@@ -84,7 +84,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
               >
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Stack sx={{ p: 0.5 }}>
-                    <Link color="text.primary" href={routes.listings}>
+                    <Link color="text.primary" href={routes.search}>
                       All Properties
                     </Link>
                     <Link color="text.primary" href={routes.listingCreate}>
@@ -107,7 +107,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
           <Hidden mdDown>
             <Box px={{ md: 1, lg: 2 }} py={0.75}>
               <Link
-                href={routes.listings}
+                href={routes.search}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2 }}
                 color="text.primary"
