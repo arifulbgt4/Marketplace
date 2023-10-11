@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Box, Paper, Container, Grid, Stack, Typography } from "@mui/material";
+import { Box, Container, Grid, Stack, Typography } from "@mui/material";
 
 import SocialIconLink from "src/components/SocialILink";
 import Logo from "src/components/Logo";
@@ -8,7 +8,7 @@ import { FooterProps } from "./Types";
 
 const Footer: FC<FooterProps> = () => {
   return (
-    <Paper>
+    <Box>
       <Container>
         <Grid container gap={10} pt={15} pb={10}>
           <Grid item xs={12} container>
@@ -65,7 +65,7 @@ const Footer: FC<FooterProps> = () => {
           </Grid>
         </Grid>
       </Container>
-    </Paper>
+    </Box>
   );
 };
 
