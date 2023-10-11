@@ -1,5 +1,7 @@
 import { Box, Container, Grid } from "@mui/material";
 
+import SettingNavigation from "src/widgets/SettingNavigation";
+
 export default function SettingsLayout({
   children,
 }: {
@@ -8,12 +10,12 @@ export default function SettingsLayout({
   return (
     <Box>
       <Container>
-        <Grid container>
-          <Grid item xs={8}>
+        <Grid container py={5} spacing={10}>
+          <Grid item xs={12} md={8}>
             {children}
           </Grid>
-          <Grid item xs={4}>
-            secuirityitem
+          <Grid item xs={12} md={4}>
+            <SettingNavigation />
           </Grid>
         </Grid>
       </Container>

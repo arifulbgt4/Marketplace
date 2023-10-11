@@ -11,36 +11,50 @@ const Footer: FC<FooterProps> = () => {
     <Paper>
       <Container>
         <Grid container gap={10} pt={15} pb={10}>
-          <Grid item xs={12}>
-            <Stack direction="row" justifyContent="space-between" gap={24}>
-              <Stack gap={2}>
+          <Grid
+            item
+            xs={12}
+            container
+            columnSpacing={{ sm: 15 }}
+            rowSpacing={{ xs: 5, lg: 0 }}
+          >
+            <Grid item lg={3} sm={6} xs={12}>
+              <Stack gap={2} padding={{ xs: 1, md: 0 }}>
                 <Typography variant="h6">PRIVACY POLICY</Typography>
-                <Typography>
+                <Typography color="text.secondary">
                   Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
                   odit aut fugit, sed quia consequuntur ma
                 </Typography>
-                <Typography> Louis Vuitton</Typography>
+                <Typography color="text.secondary"> Louis Vuitton</Typography>
               </Stack>
-              <Stack gap={2}>
+            </Grid>
+            <Grid item lg={3} sm={6} xs={12}>
+              <Stack gap={2} padding={{ xs: 1, md: 0 }}>
                 <Typography variant="h6">LOCATION</Typography>
-                <Typography>
+                <Typography color="text.secondary">
                   2972 Westheimer Rd. Santa Ana, Illinois 85486
                 </Typography>
               </Stack>
-              <Stack gap={2}>
+            </Grid>
+            <Grid item lg={3} sm={6} xs={12}>
+              <Stack gap={2} padding={{ xs: 1, md: 0 }}>
                 <Typography variant="h6">CONTACT US</Typography>
-                <Typography>michelle.rivera@example.com</Typography>
-                <Typography> (480) 555-0103</Typography>
+                <Typography color="text.secondary">
+                  michelle.rivera@example.com
+                </Typography>
+                <Typography color="text.secondary"> (480) 555-0103</Typography>
               </Stack>
-              <Stack gap={2}>
+            </Grid>
+            <Grid item lg={3} sm={6} xs={12}>
+              <Stack gap={2} padding={{ xs: 1, md: 0 }}>
                 <Typography variant="h6">COMMUNITIES</Typography>
                 <Typography>
                   3517 W. Gray St. Utica, Pennsylvania 57867
                 </Typography>
-                <Typography> (217) 555-0113</Typography>
-                <Typography>Acme Co.</Typography>
+                <Typography color="text.secondary"> (217) 555-0113</Typography>
+                <Typography color="text.secondary">Acme Co.</Typography>
               </Stack>
-            </Stack>
+            </Grid>
           </Grid>
           <Grid item xs={12}>
             <Stack

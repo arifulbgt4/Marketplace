@@ -1,7 +1,7 @@
-import { Grid } from "@mui/material";
+import ChangePasswordForm from "src/forms/ChangePasswordForm";
 
 const ChangePassword = () => {
-  return <Grid>ChangePassword</Grid>;
+  return <ChangePasswordForm />;
 };
 
 export default ChangePassword;
