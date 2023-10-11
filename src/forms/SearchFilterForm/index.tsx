@@ -3,11 +3,11 @@ import { FC, useState } from "react";
 import {
   Paper,
   FormControl,
-  FilledInput,
   Button,
   Grid,
   InputLabel,
   InputAdornment,
+  OutlinedInput,
 } from "@mui/material";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import LocationOnSharpIcon from "@mui/icons-material/LocationOnSharp";
@@ -21,20 +21,20 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({}) => {
   const onSubmitForm = async () => {};
 
   return (
-    <Paper>
+    <Paper sx={{ p: 1 }}>
       <FinalForm
         onSubmit={onSubmitForm}
         render={({ handleSubmit, values, errors, submitting }) => {
           return (
             <form onSubmit={handleSubmit}>
               <Grid container>
-                <Grid item xs={12} md={4}>
-                  <FormControl sx={{ p: 1, width: "25ch" }} variant="filled">
-                    <InputLabel htmlFor="filled-adornment-location">
+                <Grid item xs={12} md={5}>
+                  <FormControl variant="outlined" fullWidth>
+                    <InputLabel htmlFor="outlined-adornment-location">
                       Location
                     </InputLabel>
-                    <FilledInput
-                      id="filled-adornment-location"
+                    <OutlinedInput
+                      id="outlined-adornment-location"
                       endAdornment={
                         <InputAdornment position="end">
                           <IconButton>
@@ -45,13 +45,13 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({}) => {
                     />
                   </FormControl>
                 </Grid>
-                <Grid item xs={12} md={4}>
-                  <FormControl sx={{ m: 1, width: "25ch" }} variant="filled">
-                    <InputLabel htmlFor="filled-adornment-password">
+                <Grid item xs={12} md={5}>
+                  <FormControl variant="outlined" fullWidth>
+                    <InputLabel htmlFor="outlined-adornment-listing">
                       Key
                     </InputLabel>
-                    <FilledInput
-                      id="filled-adornment-password"
+                    <OutlinedInput
+                      id="outlined-adornment-password"
                       endAdornment={
                         <InputAdornment position="end">
                           <IconButton>
@@ -62,8 +62,10 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({}) => {
                     />
                   </FormControl>
                 </Grid>
-                <Grid item xs={12} md={4} pt={2}>
-                  <Button variant="contained">Search</Button>
+                <Grid item xs={12} md={2}>
+                  <Button fullWidth variant="contained" sx={{ py: 2 }}>
+                    Search
+                  </Button>
                 </Grid>
               </Grid>
             </form>
