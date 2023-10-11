@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 // @mui
 import {
   TextFieldProps as MuiTextFieldProps,
@@ -6,6 +7,7 @@ import {
   SelectProps as MuiSelectProps,
   RadioGroupProps as MuiRadioGroupProps,
   CheckboxProps as MuiCheckboxProps,
+  SxProps as MuiSxProps,
 } from "@mui/material";
 // packages
 import { FieldProps, FieldRenderProps, FieldMetaState } from "react-final-form";
@@ -18,6 +20,22 @@ export interface TextFieldProps
 
 export interface TextFieldWrapperProps
   extends FieldRenderProps<MuiTextFieldProps> {}
+
+export interface UploadImageProps {
+  name: string;
+  children: ReactNode;
+  previewRender: (
+    value: [],
+    onRemoveImage: (index: number) => void
+  ) => ReactNode;
+  multiple?: boolean;
+  sx?: MuiSxProps;
+  fieldProps?: Partial<FieldProps<any, any>>;
+}
+
+export interface UploadImageWrapperProps extends FieldRenderProps<any> {
+  sx?: MuiSxProps;
+}
 
 export interface SliderProps extends Partial<Omit<MuiSliderProps, "onChange">> {
   name: string;

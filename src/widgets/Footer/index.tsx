@@ -11,13 +11,7 @@ const Footer: FC<FooterProps> = () => {
     <Paper>
       <Container>
         <Grid container gap={10} pt={15} pb={10}>
-          <Grid
-            item
-            xs={12}
-            container
-            columnSpacing={{ sm: 15 }}
-            rowSpacing={{ xs: 5, lg: 0 }}
-          >
+          <Grid item xs={12} container>
             <Grid item lg={3} sm={6} xs={12}>
               <Stack gap={2} padding={{ xs: 1, md: 0 }}>
                 <Typography variant="h6">PRIVACY POLICY</Typography>

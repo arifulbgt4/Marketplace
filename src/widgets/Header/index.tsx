@@ -49,10 +49,13 @@ const Header: FC<HeaderProps> = ({ user }) => {
     <AppBar position="sticky">
       <Container>
         <Toolbar disableGutters>
-          <Hidden mdDown>
-            <Logo />
+          <Hidden mdDown implementation="css">
+            <Stack flexGrow={1}>
+              <Logo />
+            </Stack>
           </Hidden>
-          <Hidden mdUp>
+
+          <Hidden mdUp implementation="css">
             <IconButton
               size="large"
               aria-label="account of current user"
