@@ -11,7 +11,7 @@ const Footer: FC<FooterProps> = () => {
     <Box>
       <Container>
         <Grid container gap={10} pt={15} pb={10}>
-          <Grid item xs={12} container>
+          <Grid item xs={12} container columnSpacing={5} rowSpacing={5}>
             <Grid item lg={3} sm={6} xs={12}>
               <Stack gap={2} padding={{ xs: 1, md: 0 }}>
                 <Typography variant="h6">PRIVACY POLICY</Typography>
