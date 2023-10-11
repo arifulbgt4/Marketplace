@@ -14,7 +14,7 @@ const Conatact = () => {
       </Grid>
       <Box>
         <Container>
-          <Grid container>
+          <Grid container spacing={5} py={5}>
             <Grid item xs={8}>
               <ContactF />
             </Grid>

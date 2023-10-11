@@ -33,135 +33,58 @@ const ContactForm: FC<ContactFormProps> = () => {
       render={({ handleSubmit, values, errors, submitting }) => {
         return (
           <form onSubmit={handleSubmit}>
-            <Grid container rowSpacing={5}>
-              <Grid item xs={3}>
-                <Typography variant="h6">First Name</Typography>
-              </Grid>
-              <Grid item xs={8}>
+            <Grid container rowGap={5}>
+              <Grid item xs={12}>
                 <TextField
-                  name="firstName"
+                  name="name"
                   fullWidth
                   id="full-width"
-                  label="First Name"
+                  label="Your name"
                   variant="outlined"
                   required
                 />
               </Grid>
-              <Grid item xs={3}>
-                <Typography variant="h6">Last Name</Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  name="lastName"
-                  fullWidth
-                  id="full-width"
-                  label="Last Name"
-                  variant="outlined"
-                  required
-                />
-              </Grid>
-              <Grid item xs={3}>
-                <Typography variant="h6">Email Adress</Typography>
-              </Grid>
-              <Grid item xs={8}>
+
+              <Grid item xs={12}>
                 <TextField
                   type="email"
-                  name="emailAdress"
+                  name="email"
                   fullWidth
                   id="full-width"
-                  label="Email"
+                  label="Your Email"
                   variant="outlined"
                   required
                 />
               </Grid>
-              <Grid item xs={3}>
-                <Typography variant="h6">Your Numbers</Typography>
-              </Grid>
-              <Grid item xs={8}>
+
+              <Grid item xs={12}>
                 <TextField
-                  name="number"
+                  name="subect"
                   fullWidth
                   id="full-width"
-                  label="Your Numbers"
+                  label="Subject"
                   variant="outlined"
                   required
                 />
               </Grid>
-              <Grid item xs={3}>
-                <Typography variant="h6">Adress</Typography>
-              </Grid>
-              <Grid item xs={8}>
+
+              <Grid item xs={12}>
                 <TextField
-                  name="adress"
-                  fullWidth
-                  id="full-width"
-                  label="Adress"
-                  variant="outlined"
-                  required
-                />
-              </Grid>
-              <Grid item xs={3}>
-                <Typography variant="h6">Country</Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  name="country"
-                  fullWidth
-                  id="full-width"
-                  label="Country"
-                  variant="outlined"
-                  required
-                />
-              </Grid>
-              <Grid item xs={3}>
-                <Typography variant="h6">Profile Text</Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  name="profileText"
+                  name="message"
                   fullWidth
                   multiline
                   rows={4}
                   id="full-width"
-                  label="Profile Text"
+                  label="message"
                   variant="outlined"
                   required
                 />
               </Grid>
-              <Grid item xs={3}>
-                <Typography variant="h6">Gender</Typography>
-              </Grid>
-              <Grid item xs={8} container rowSpacing={2}>
-                <Grid item xs={12}>
-                  <FormControl>
-                    <RadioGroup
-                      aria-labelledby="demo-radio-buttons-group-label"
-                      defaultValue="female"
-                      name="radio-buttons-group"
-                    >
-                      <FormControlLabel
-                        value="female"
-                        control={<Radio />}
-                        label="Female"
-                      />
-                      <FormControlLabel
-                        value="male"
-                        control={<Radio />}
-                        label="Male"
-                      />
-                      <FormControlLabel
-                        value="other"
-                        control={<Radio />}
-                        label="Other"
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                  <Button variant="outlined" type="submit">
-                    Update
-                  </Button>
-                </Grid>
+
+              <Grid item xs={12}>
+                <Button variant="outlined" type="submit">
+                  Update
+                </Button>
               </Grid>
             </Grid>
           </form>
