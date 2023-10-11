@@ -17,6 +17,7 @@ const publicPages = [
   "/twitter-image",
   "/about",
   "/contact",
+  "/s",
 ];
 
 const intlMiddleware = createIntlMiddleware({

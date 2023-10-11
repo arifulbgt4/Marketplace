@@ -5,7 +5,6 @@ import {
   AppBar,
   Container,
   Toolbar,
-  Typography,
   Box,
   IconButton,
   MenuItem,
@@ -28,7 +27,15 @@ import { HeaderProps } from "./Types";
 const Header: FC<HeaderProps> = ({ user }) => {
   const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null);
   const [anchorElUser, setAnchorElUser] = useState<HTMLElement | null>(null);
+  const [anchorElAvat, setAnchorElAvat] = useState<HTMLElement | null>(null);
 
+  const handleOpenNavAvatar = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElAvat(event.currentTarget);
+  };
+
+  const handleCloseNavAvatar = () => {
+    setAnchorElAvat(null);
+  };
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -48,108 +55,131 @@ const Header: FC<HeaderProps> = ({ user }) => {
   return (
     <AppBar position="sticky">
       <Container>
-        <Toolbar disableGutters>
-          <Hidden mdDown implementation="css">
-            <Stack flexGrow={1}>
-              <Logo />
-            </Stack>
-          </Hidden>
-
+        <Toolbar
+          disableGutters
+          sx={{ display: "flex", justifyContent: "space-between" }}
+        >
           <Hidden mdUp implementation="css">
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Hidden mdUp>
+            <Stack>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenNavMenu}>
+                  <Avatar>AD</Avatar>
+                </IconButton>
+              </Tooltip>
               <Menu
+                sx={{ mt: "45px" }}
                 id="menu-appbar"
                 anchorEl={anchorElNav}
                 anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
+                  vertical: "top",
+                  horizontal: "right",
                 }}
                 keepMounted
                 transformOrigin={{
                   vertical: "top",
-                  horizontal: "left",
+                  horizontal: "right",
                 }}
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
               >
                 <MenuItem onClick={handleCloseNavMenu}>
-                  <Stack sx={{ p: 0.5 }}>
-                    <Link color="text.primary" href={routes.search}>
-                      All Properties
-                    </Link>
-                    <Link color="text.primary" href={routes.listingCreate}>
-                      Start selling
-                    </Link>
-                    <Link color="text.primary" href={routes.about}>
-                      Abou us
-                    </Link>
-                    <Link color="text.primary" href={routes.contact}>
-                      Contact us
-                    </Link>
-                  </Stack>
+                  <Link
+                    color="text.primary"
+                    href={routes.listingCreate}
+                    onClick={handleCloseNavMenu}
+                  >
+                    All Property
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link
+                    color="text.primary"
+                    href={routes.listingCreate}
+                    onClick={handleCloseNavMenu}
+                  >
+                    Start selling
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link
+                    color="text.primary"
+                    href={routes.listingCreate}
+                    onClick={handleCloseNavMenu}
+                  >
+                    About us
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Link
+                    color="text.primary"
+                    href={routes.listingCreate}
+                    onClick={handleCloseNavMenu}
+                  >
+                    Contact
+                  </Link>
                 </MenuItem>
               </Menu>
+            </Stack>
+          </Hidden>
+          <Hidden mdUp implementation="css">
+            <Stack flexGrow={0.5}>
+              <Logo />
+            </Stack>
+          </Hidden>
+          <Stack flexGrow={1} display={{ xs: "none", md: "flex" }}>
+            <Hidden mdDown implementation="css">
+              <Logo />
             </Hidden>
+          </Stack>
+          <Hidden mdDown implementation="css">
+            <Stack flexDirection="row">
+              <Box px={{ md: 1, lg: 2 }} py={0.75}>
+                <Link
+                  href={routes.search}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2 }}
+                  color="text.primary"
+                >
+                  All Properties
+                </Link>
+              </Box>
+              <Box px={{ md: 1, lg: 2 }} py={0.75}>
+                <Link
+                  color="text.primary"
+                  href={routes.listingCreate}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2 }}
+                >
+                  Start selling
+                </Link>
+              </Box>
+              <Box px={{ md: 1, lg: 2 }} py={0.75}>
+                <Link
+                  color="text.primary"
+                  href={routes.about}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2 }}
+                >
+                  Abou us
+                </Link>
+              </Box>
+              <Box px={{ md: 1, lg: 2 }} py={0.75}>
+                <Link
+                  color="text.primary"
+                  href={routes.contact}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2 }}
+                >
+                  Contact us
+                </Link>
+              </Box>
+            </Stack>
           </Hidden>
-          <Hidden mdUp>
-            <Logo />
-          </Hidden>
-          <Hidden mdDown>
-            <Box px={{ md: 1, lg: 2 }} py={0.75}>
-              <Link
-                href={routes.search}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2 }}
-                color="text.primary"
-              >
-                All Properties
-              </Link>
-            </Box>
-            <Box px={{ md: 1, lg: 2 }} py={0.75}>
-              <Link
-                color="text.primary"
-                href={routes.listingCreate}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2 }}
-              >
-                Start selling
-              </Link>
-            </Box>
-            <Box px={{ md: 1, lg: 2 }} py={0.75}>
-              <Link
-                color="text.primary"
-                href={routes.about}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2 }}
-              >
-                Abou us
-              </Link>
-            </Box>
-            <Box px={{ md: 1, lg: 2 }} py={0.75}>
-              <Link
-                color="text.primary"
-                href={routes.contact}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2 }}
-              >
-                Contact us
-              </Link>
-            </Box>
-          </Hidden>
-          <Box sx={{ flexGrow: 0, ml: 4 }}>
+
+          <Box>
             {!user ? (
               <>
-                <Hidden smDown>
+                <Hidden mdDown implementation="css">
                   <Stack flexDirection="row">
                     <Box p={1}>
                       <Link href={routes.signup} color="text.primary">
@@ -157,6 +187,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
                       </Link>
                     </Box>
                     <Button
+                      component={Link}
                       href={routes.signin}
                       variant="outlined"
                       size="small"
@@ -165,7 +196,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
                     </Button>
                   </Stack>
                 </Hidden>
-                <Hidden smUp>
+                <Hidden mdUp implementation="css">
                   <Tooltip title="Open settings">
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                       <AccountCircleOutlinedIcon />
@@ -188,65 +219,122 @@ const Header: FC<HeaderProps> = ({ user }) => {
                     onClose={handleCloseUserMenu}
                   >
                     <MenuItem onClick={handleCloseUserMenu}>
-                      <Box>
-                        <Link color="text.primary" href={routes.signup}>
-                          Create Account
-                        </Link>
-                      </Box>
+                      <Link color="text.primary" href={routes.signup}>
+                        Create Account
+                      </Link>
                     </MenuItem>
-                    <MenuItem>
+                    <MenuItem onClick={handleCloseUserMenu}>
                       <Link color="text.primary" href={routes.signin}>
-                        SignIn
+                        Sign In
                       </Link>
                     </MenuItem>
                   </Menu>
                 </Hidden>
               </>
             ) : (
-              <>
-                <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="/static/images/avatar/2.jpg"
-                    />
+              <Stack>
+                <Hidden mdUp implementation="css">
+                  <IconButton onClick={handleOpenNavMenu}>
+                    <MenuIcon />
                   </IconButton>
-                </Tooltip>
-                <Menu
-                  sx={{ mt: "45px" }}
-                  id="menu-appbar"
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
-                  <MenuItem onClick={handleCloseUserMenu}>
-                    <Link
-                      color="text.primary"
-                      href={routes.userProfile}
-                      textAlign="center"
-                    >
-                      profile
-                    </Link>
-                  </MenuItem>
-                  <MenuItem
-                    onClick={() => {
-                      handleCloseUserMenu();
-                      signOut();
+                  <Menu
+                    sx={{ mt: "45px" }}
+                    id="menu-appbar"
+                    anchorEl={anchorElNav}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
                     }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    open={Boolean(anchorElNav)}
+                    onClose={handleCloseNavMenu}
                   >
-                    <Typography textAlign="center">Log out</Typography>
-                  </MenuItem>
-                </Menu>
-              </>
+                    <MenuItem onClick={handleCloseNavMenu}>
+                      <Link
+                        color="text.primary"
+                        href={routes.listingCreate}
+                        onClick={handleCloseNavMenu}
+                      >
+                        All Property
+                      </Link>
+                    </MenuItem>
+                    <MenuItem onClick={handleCloseNavMenu}>
+                      <Link
+                        color="text.primary"
+                        href={routes.listingCreate}
+                        onClick={handleCloseNavMenu}
+                      >
+                        Start selling
+                      </Link>
+                    </MenuItem>
+                    <MenuItem onClick={handleCloseNavMenu}>
+                      <Link
+                        color="text.primary"
+                        href={routes.listingCreate}
+                        onClick={handleCloseNavMenu}
+                      >
+                        About us
+                      </Link>
+                    </MenuItem>
+                    <MenuItem onClick={handleCloseUserMenu}>
+                      <Link
+                        color="text.primary"
+                        href={routes.listingCreate}
+                        onClick={handleCloseNavMenu}
+                      >
+                        Contact
+                      </Link>
+                    </MenuItem>
+                  </Menu>
+                </Hidden>
+                <Hidden mdDown implementation="css">
+                  <Tooltip title="Open settings">
+                    <IconButton onClick={handleOpenNavAvatar} sx={{ p: 0 }}>
+                      <Avatar>AD</Avatar>
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                    sx={{ mt: "45px" }}
+                    id="menu-appbar"
+                    anchorEl={anchorElAvat}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    open={Boolean(anchorElAvat)}
+                    onClose={handleCloseNavAvatar}
+                  >
+                    <MenuItem onClick={handleCloseNavAvatar}>
+                      <Link
+                        color="text.primary"
+                        href={routes.userProfile}
+                        textAlign="center"
+                      >
+                        profile
+                      </Link>
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        handleCloseUserMenu();
+                        signOut();
+                      }}
+                    >
+                      <Button component={Link} href={routes.signup}>
+                        Log out
+                      </Button>
+                    </MenuItem>
+                  </Menu>
+                </Hidden>
+              </Stack>
             )}
           </Box>
         </Toolbar>
