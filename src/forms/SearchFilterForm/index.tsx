@@ -28,7 +28,7 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({}) => {
           return (
             <form onSubmit={handleSubmit}>
               <Grid container>
-                <Grid item xs={4}>
+                <Grid item xs={12} md={4}>
                   <FormControl sx={{ p: 1, width: "25ch" }} variant="filled">
                     <InputLabel htmlFor="filled-adornment-location">
                       Location
@@ -45,7 +45,7 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({}) => {
                     />
                   </FormControl>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={12} md={4}>
                   <FormControl sx={{ m: 1, width: "25ch" }} variant="filled">
                     <InputLabel htmlFor="filled-adornment-password">
                       Key
@@ -62,7 +62,7 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({}) => {
                     />
                   </FormControl>
                 </Grid>
-                <Grid item xs={4} pt={2}>
+                <Grid item xs={12} md={4} pt={2}>
                   <Button variant="contained">Search</Button>
                 </Grid>
               </Grid>
