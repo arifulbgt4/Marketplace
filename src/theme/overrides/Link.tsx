@@ -18,6 +18,7 @@ const MuiLink: Components<Theme>["MuiLink"] = {
   },
   defaultProps: {
     component: LinkBehavior,
+    underline: "none",
   } as unknown as LinkMUIProps,
 };
 
