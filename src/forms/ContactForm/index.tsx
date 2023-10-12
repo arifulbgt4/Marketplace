@@ -19,7 +19,6 @@ import { ContactFormProps } from "./Types";
 const INITIAL_VALUES = {
   name: "",
   email: "",
-  password: "",
   subject: "",
   message: "",
 };
@@ -83,7 +82,7 @@ const ContactForm: FC<ContactFormProps> = () => {
 
               <Grid item xs={12}>
                 <Button variant="outlined" type="submit">
-                  Update
+                  Send
                 </Button>
               </Grid>
             </Grid>
