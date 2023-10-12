@@ -6,4 +6,5 @@ export interface ListingProps {
   price: number;
   description: string;
   rating: number;
+  address: string;
 }

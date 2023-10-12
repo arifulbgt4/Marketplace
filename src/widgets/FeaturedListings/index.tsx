@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { Grid, Typography, Box, Container } from "@mui/material";
 
 import Listing from "src/widgets/Listing";
-import { listings } from "src/global/staticData";
+import { featurePostData } from "src/global/staticData";
 
 import { FeaturedListingsProps } from "./Types";
 
@@ -23,12 +23,22 @@ const FeaturedListings: FC<FeaturedListingsProps> = () => {
             </Typography>
           </Grid>
 
-          {listings.map((data) => {
-            const { id, image, title, price, description, rating, slug } = data;
+          {featurePostData.map((data) => {
+            const {
+              id,
+              image,
+              title,
+              price,
+              description,
+              rating,
+              slug,
+              address,
+            } = data;
             return (
               <Grid item xs={4} key={id}>
                 <Listing
                   id={id}
+                  address={address}
                   slug={slug}
                   image={image}
                   title={title}

@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { Box, Container, Grid, Typography } from "@mui/material";
 
 import Listing from "src/widgets/Listing";
-import { listings } from "src/global/staticData";
+import { recentPostData } from "src/global/staticData";
 
 import { RecentListingsProps } from "./Types";
 
@@ -23,8 +23,17 @@ const RecentListings: FC<RecentListingsProps> = () => {
             </Typography>
           </Grid>
 
-          {listings.map((data) => {
-            const { id, image, title, price, description, rating, slug } = data;
+          {recentPostData.map((data) => {
+            const {
+              id,
+              image,
+              title,
+              price,
+              description,
+              rating,
+              slug,
+              address,
+            } = data;
             return (
               <Grid item xs={4} key={id}>
                 <Listing
@@ -33,8 +42,9 @@ const RecentListings: FC<RecentListingsProps> = () => {
                   image={image}
                   title={title}
                   price={price}
-                  description={description}
+                  address={address}
                   rating={rating}
+                  description={description}
                 />
               </Grid>
             );
