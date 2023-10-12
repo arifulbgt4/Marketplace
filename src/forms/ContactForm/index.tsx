@@ -1,18 +1,11 @@
 "use client";
 import { FC } from "react";
-import {
-  Grid,
-  Typography,
-  FormControl,
-  Button,
-  FormControlLabel,
-  Radio,
-} from "@mui/material";
+import { Grid, Button } from "@mui/material";
 
 import { Form as FinalForm } from "react-final-form";
 import { FormApi } from "final-form";
 
-import { RadioGroup, TextField } from "src/components/Input";
+import { TextField } from "src/components/Input";
 
 import { ContactFormProps } from "./Types";
 
@@ -37,7 +30,7 @@ const ContactForm: FC<ContactFormProps> = () => {
                 <TextField
                   name="name"
                   fullWidth
-                  id="full-width"
+                  id="name"
                   label="Your name"
                   variant="outlined"
                   required
@@ -49,7 +42,7 @@ const ContactForm: FC<ContactFormProps> = () => {
                   type="email"
                   name="email"
                   fullWidth
-                  id="full-width"
+                  id="email"
                   label="Your Email"
                   variant="outlined"
                   required
@@ -60,7 +53,7 @@ const ContactForm: FC<ContactFormProps> = () => {
                 <TextField
                   name="subect"
                   fullWidth
-                  id="full-width"
+                  id="subject"
                   label="Subject"
                   variant="outlined"
                   required
@@ -73,7 +66,7 @@ const ContactForm: FC<ContactFormProps> = () => {
                   fullWidth
                   multiline
                   rows={4}
-                  id="full-width"
+                  id="message"
                   label="message"
                   variant="outlined"
                   required

@@ -1,1 +1,1 @@
-export interface ContactFProps {}
+export interface ContactFormContainerProps {}

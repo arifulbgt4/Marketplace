@@ -3,9 +3,9 @@ import { Paper } from "@mui/material";
 
 import ContactForm from "src/forms/ContactForm";
 
-import { ContactFProps } from "./Types";
+import { ContactFormContainerProps } from "./Types";
 
-const ContactF: FC<ContactFProps> = () => {
+const ContactFormContainer: FC<ContactFormContainerProps> = () => {
   return (
     <Paper>
       <ContactForm />
@@ -13,4 +13,4 @@ const ContactF: FC<ContactFProps> = () => {
   );
 };
 
-export default ContactF;
+export default ContactFormContainer;
