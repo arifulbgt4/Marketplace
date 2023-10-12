@@ -61,75 +61,58 @@ const Header: FC<HeaderProps> = ({ user }) => {
         >
           <Hidden mdUp implementation="css">
             <Stack>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenNavMenu}>
-                  <Avatar>AD</Avatar>
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-              >
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Link
-                    color="text.primary"
-                    href={routes.listingCreate}
-                    onClick={handleCloseNavMenu}
+              {user ? (
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenNavAvatar}>
+                    <Avatar>AD</Avatar>
+                  </IconButton>
+                </Tooltip>
+              ) : (
+                <>
+                  <Tooltip title="Menu">
+                    <IconButton onClick={handleOpenUserMenu}>
+                      <AccountCircleOutlinedIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                    sx={{ mt: "45px" }}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+
+                      horizontal: "right",
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
                   >
-                    All Property
-                  </Link>
-                </MenuItem>
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Link
-                    color="text.primary"
-                    href={routes.listingCreate}
-                    onClick={handleCloseNavMenu}
-                  >
-                    Start selling
-                  </Link>
-                </MenuItem>
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Link
-                    color="text.primary"
-                    href={routes.listingCreate}
-                    onClick={handleCloseNavMenu}
-                  >
-                    About us
-                  </Link>
-                </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Link
-                    color="text.primary"
-                    href={routes.listingCreate}
-                    onClick={handleCloseNavMenu}
-                  >
-                    Contact
-                  </Link>
-                </MenuItem>
-              </Menu>
+                    <MenuItem
+                      component={Link}
+                      onClick={handleCloseUserMenu}
+                      href={routes.signup}
+                    >
+                      Create Account
+                    </MenuItem>
+                    <MenuItem
+                      onClick={handleCloseUserMenu}
+                      href={routes.signin}
+                      component={Link}
+                    >
+                      Sign In
+                    </MenuItem>
+                  </Menu>
+                </>
+              )}
             </Stack>
           </Hidden>
-          <Hidden mdUp implementation="css">
-            <Stack flexGrow={0.5}>
-              <Logo />
-            </Stack>
-          </Hidden>
-          <Stack flexGrow={1} display={{ xs: "none", md: "flex" }}>
-            <Hidden mdDown implementation="css">
-              <Logo />
-            </Hidden>
+
+          <Stack flexGrow={{ xs: 0, md: 1 }}>
+            <Logo />
           </Stack>
           <Hidden mdDown implementation="css">
             <Stack flexDirection="row">
@@ -198,14 +181,14 @@ const Header: FC<HeaderProps> = ({ user }) => {
                 </Hidden>
                 <Hidden mdUp implementation="css">
                   <Tooltip title="Open settings">
-                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                      <AccountCircleOutlinedIcon />
+                    <IconButton onClick={handleOpenNavMenu} sx={{ p: 0 }}>
+                      <MenuIcon />
                     </IconButton>
                   </Tooltip>
                   <Menu
                     sx={{ mt: "45px" }}
                     id="menu-appbar"
-                    anchorEl={anchorElUser}
+                    anchorEl={anchorElNav}
                     anchorOrigin={{
                       vertical: "top",
                       horizontal: "right",
@@ -215,18 +198,36 @@ const Header: FC<HeaderProps> = ({ user }) => {
                       vertical: "top",
                       horizontal: "right",
                     }}
-                    open={Boolean(anchorElUser)}
-                    onClose={handleCloseUserMenu}
+                    open={Boolean(anchorElNav)}
+                    onClose={handleCloseNavMenu}
                   >
-                    <MenuItem onClick={handleCloseUserMenu}>
-                      <Link color="text.primary" href={routes.signup}>
-                        Create Account
-                      </Link>
+                    <MenuItem
+                      component={Link}
+                      onClick={handleCloseNavMenu}
+                      href={routes.search}
+                    >
+                      All Property
                     </MenuItem>
-                    <MenuItem onClick={handleCloseUserMenu}>
-                      <Link color="text.primary" href={routes.signin}>
-                        Sign In
-                      </Link>
+                    <MenuItem
+                      onClick={handleCloseNavMenu}
+                      component={Link}
+                      href={routes.listingCreate}
+                    >
+                      Start selling
+                    </MenuItem>
+                    <MenuItem
+                      onClick={handleCloseNavMenu}
+                      href={routes.about}
+                      component={Link}
+                    >
+                      About us
+                    </MenuItem>
+                    <MenuItem
+                      onClick={handleCloseUserMenu}
+                      href={routes.contact}
+                      component={Link}
+                    >
+                      Contact us
                     </MenuItem>
                   </Menu>
                 </Hidden>
@@ -253,41 +254,33 @@ const Header: FC<HeaderProps> = ({ user }) => {
                     open={Boolean(anchorElNav)}
                     onClose={handleCloseNavMenu}
                   >
-                    <MenuItem onClick={handleCloseNavMenu}>
-                      <Link
-                        color="text.primary"
-                        href={routes.listingCreate}
-                        onClick={handleCloseNavMenu}
-                      >
-                        All Property
-                      </Link>
+                    <MenuItem
+                      onClick={handleCloseNavMenu}
+                      component={Link}
+                      href={routes.search}
+                    >
+                      All Property
                     </MenuItem>
-                    <MenuItem onClick={handleCloseNavMenu}>
-                      <Link
-                        color="text.primary"
-                        href={routes.listingCreate}
-                        onClick={handleCloseNavMenu}
-                      >
-                        Start selling
-                      </Link>
+                    <MenuItem
+                      onClick={handleCloseNavMenu}
+                      href={routes.listingCreate}
+                      component={Link}
+                    >
+                      Start selling
                     </MenuItem>
-                    <MenuItem onClick={handleCloseNavMenu}>
-                      <Link
-                        color="text.primary"
-                        href={routes.listingCreate}
-                        onClick={handleCloseNavMenu}
-                      >
-                        About us
-                      </Link>
+                    <MenuItem
+                      onClick={handleCloseNavMenu}
+                      href={routes.about}
+                      component={Link}
+                    >
+                      About us
                     </MenuItem>
-                    <MenuItem onClick={handleCloseUserMenu}>
-                      <Link
-                        color="text.primary"
-                        href={routes.listingCreate}
-                        onClick={handleCloseNavMenu}
-                      >
-                        Contact
-                      </Link>
+                    <MenuItem
+                      onClick={handleCloseUserMenu}
+                      href={routes.contact}
+                      component={Link}
+                    >
+                      Contact us
                     </MenuItem>
                   </Menu>
                 </Hidden>
@@ -313,24 +306,42 @@ const Header: FC<HeaderProps> = ({ user }) => {
                     open={Boolean(anchorElAvat)}
                     onClose={handleCloseNavAvatar}
                   >
-                    <MenuItem onClick={handleCloseNavAvatar}>
-                      <Link
-                        color="text.primary"
-                        href={routes.userProfile}
-                        textAlign="center"
-                      >
-                        profile
-                      </Link>
+                    <MenuItem
+                      component={Link}
+                      href={routes.userProfile}
+                      onClick={handleCloseNavAvatar}
+                    >
+                      Profile
                     </MenuItem>
+                    <MenuItem
+                      component={Link}
+                      href={routes.userSetting}
+                      onClick={handleCloseNavAvatar}
+                    >
+                      Setting
+                    </MenuItem>
+                    <MenuItem
+                      component={Link}
+                      href={routes.userListing}
+                      onClick={handleCloseNavAvatar}
+                    >
+                      Listing
+                    </MenuItem>
+                    <MenuItem
+                      component={Link}
+                      href={routes.userDashboard}
+                      onClick={handleCloseNavAvatar}
+                    >
+                      Dashboard
+                    </MenuItem>
+
                     <MenuItem
                       onClick={() => {
                         handleCloseUserMenu();
                         signOut();
                       }}
                     >
-                      <Button component={Link} href={routes.signup}>
-                        Log out
-                      </Button>
+                      Log out
                     </MenuItem>
                   </Menu>
                 </Hidden>
