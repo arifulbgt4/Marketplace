@@ -1,6 +1,6 @@
 "use client";
 import { FC } from "react";
-import { Button, Stack, Typography, Box } from "@mui/material";
+import { Button, Stack, Typography, Box, Link } from "@mui/material";
 import Timeline from "@mui/lab/Timeline";
 import TimelineItem, { timelineItemClasses } from "@mui/lab/TimelineItem";
 import TimelineSeparator from "@mui/lab/TimelineSeparator";
@@ -8,6 +8,7 @@ import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineDot from "@mui/lab/TimelineDot";
 
 import Info from "src/components/Info";
+import routes from "src/global/routes";
 
 import { SigninInfoProps } from "./Types";
 
@@ -64,7 +65,12 @@ const SigninInfo: FC<SigninInfoProps> = () => {
               </TimelineItem>
             </Timeline>
           </Box>
-          <Button size="large" variant="outlined">
+          <Button
+            component={Link}
+            href={routes.signup}
+            size="large"
+            variant="outlined"
+          >
             Sign Up Now
           </Button>
         </Stack>

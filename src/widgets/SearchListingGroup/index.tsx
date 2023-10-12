@@ -15,7 +15,7 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
           {listings.map((data) => {
             const { id, image, title, price, description, rating, slug } = data;
             return (
-              <Grid item xs={4} key={id}>
+              <Grid item xs={12} md={6} lg={4} key={id}>
                 <Listing
                   id={id}
                   slug={slug}

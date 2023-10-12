@@ -1,25 +1,35 @@
 "use client";
-import { FC, useState } from "react";
-import { Grid, Container, Stack, Typography, Tabs, Tab } from "@mui/material";
+import { FC } from "react";
+import { usePathname } from "next/navigation";
+import { Grid, Container, Stack, Typography, Link } from "@mui/material";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+
+import routes from "src/global/routes";
 
 import { AuthPagesLayoutOptions } from "./Types";
 
 const AuthPagesLayout: FC<AuthPagesLayoutOptions> = ({ children }) => {
-  const [value, setValue] = useState("one");
+  const pathname = usePathname();
   return (
     <Grid container>
       <Grid item xs={12}>
         <Container>
           <Stack pt={10} gap={10}>
             <Typography variant="h3">Create an account</Typography>
-            <Tabs
-              onChange={(a, b) => {
-                setValue(b);
-              }}
-              value={value}
-            >
-              <Tab label="CREATE ACCOUNT" value="one" />
-              <Tab label="SIGN IN" value="two" />
+            <Tabs value={pathname}>
+              <Tab
+                label="SIGN IN"
+                value={routes.signin}
+                component={Link}
+                href={routes.signin}
+              />
+              <Tab
+                component={Link}
+                label="CREATE ACCOUNT"
+                value={routes.signup}
+                href={routes.signup}
+              />
             </Tabs>
           </Stack>
         </Container>
