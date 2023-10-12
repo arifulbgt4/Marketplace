@@ -3,7 +3,7 @@ import { FC } from "react";
 import {
   Grid,
   Stack,
-  Box,
+  Button,
   Avatar,
   Typography,
   Link,
@@ -32,15 +32,18 @@ const UserLayout: FC<UserLayoutProps> = ({ children }) => {
               justifyContent="space-between"
               alignSelf="stretch"
             >
-              <Box>
-                <Stack direction="row" alignItems="center" gap={1}>
-                  <Avatar>pp</Avatar>
-                  <Typography variant="h4">User Name</Typography>
+              <Stack>
+                <Stack flexDirection="row" justifyContent="space-between">
+                  <Stack direction="row" alignItems="center" gap={1}>
+                    <Avatar>pp</Avatar>
+                    <Typography variant="h4">User Name</Typography>
+                  </Stack>
+                  <Button variant="outlined">create Listing +</Button>
                 </Stack>
                 <Typography variant="subtitle1">
                   member science, september,2023
                 </Typography>
-              </Box>
+              </Stack>
               <Tabs
                 value={
                   pathname.includes(routes.userSetting)

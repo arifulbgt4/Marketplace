@@ -6,7 +6,9 @@ import {
   CardContent,
   Typography,
   Box,
+  IconButton,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 import { BookmarkItemProps } from "./Types";
 
@@ -23,6 +25,11 @@ const BookmarkItem: FC<BookmarkItemProps> = ({
         title={title}
         subheader={subheader}
         avatar={<Avatar>OP</Avatar>}
+        action={
+          <IconButton>
+            <CloseIcon />
+          </IconButton>
+        }
       />
       <CardContent>
         <Box px={2} py={0.5}>
