@@ -1,13 +1,13 @@
-import { Box, Container, Grid } from "@mui/material";
+import { Paper, Container, Grid } from "@mui/material";
 
 import BookmarkItemGroup from "src/widgets/BookmarkItemGroup";
 import LocationsMap from "src/widgets/LocationsMap";
 
 const BookmarkPage = () => {
   return (
-    <Box>
+    <Paper>
       <Container>
-        <Grid container>
+        <Grid container columnSpacing={10}>
           <Grid item xs={8}>
             <BookmarkItemGroup />
           </Grid>
@@ -16,7 +16,7 @@ const BookmarkPage = () => {
           </Grid>
         </Grid>
       </Container>
-    </Box>
+    </Paper>
   );
 };
 
