@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Grid, Box, Stack } from "@mui/material";
 
-import { listings } from "src/global/staticData";
+import { searchListingData } from "src/global/staticData";
 import Listing from "../Listing";
 import ListingPagination from "../ListingPagination";
 
@@ -12,8 +12,17 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
     <Box py={5}>
       <Grid container rowSpacing={5}>
         <Grid item container xs={12} columnSpacing={4} rowSpacing={4}>
-          {listings.map((data) => {
-            const { id, image, title, price, description, rating, slug } = data;
+          {searchListingData.map((data) => {
+            const {
+              id,
+              image,
+              title,
+              price,
+              description,
+              rating,
+              slug,
+              address,
+            } = data;
             return (
               <Grid item xs={12} md={6} lg={4} key={id}>
                 <Listing
@@ -24,6 +33,7 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
                   price={price}
                   description={description}
                   rating={rating}
+                  address={address}
                 />
               </Grid>
             );

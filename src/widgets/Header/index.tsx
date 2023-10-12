@@ -334,6 +334,13 @@ const Header: FC<HeaderProps> = ({ user }) => {
                     >
                       Dashboard
                     </MenuItem>
+                    <MenuItem
+                      component={Link}
+                      href={routes.userBookmark}
+                      onClick={handleCloseNavAvatar}
+                    >
+                      Bookmark
+                    </MenuItem>
 
                     <MenuItem
                       onClick={() => {
