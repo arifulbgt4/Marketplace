@@ -39,7 +39,7 @@ const BookmarkItem: FC<BookmarkItemProps> = ({
           <Typography variant="body2">Bathrooms: {bathroom}</Typography>
         </Box>
         <Box px={2} py={0.5}>
-          <Typography variant="body2">Rent from : {rent}</Typography>
+          <Typography variant="body2">Rent from : $ {rent}</Typography>
         </Box>
       </CardContent>
     </Card>
