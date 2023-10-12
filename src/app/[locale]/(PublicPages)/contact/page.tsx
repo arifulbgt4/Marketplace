@@ -1,7 +1,7 @@
 import { Box, Container, Grid } from "@mui/material";
 
 import BreadcumbBanner from "src/widgets/BreadcumbBanner";
-import ContactF from "src/widgets/Contact";
+import ContactFormContainer from "src/widgets/Contact";
 import ConatactHelpInfo from "src/widgets/ConatactHelpInfo";
 
 const Conatact = () => {
@@ -16,7 +16,7 @@ const Conatact = () => {
         <Container>
           <Grid container spacing={5} py={5}>
             <Grid item xs={8}>
-              <ContactF />
+              <ContactFormContainer />
             </Grid>
             <Grid item xs={4}>
               <ConatactHelpInfo />
