@@ -26,12 +26,14 @@ const UserLayout: FC<UserLayoutProps> = ({ children }) => {
         <Grid container>
           <Grid item xs={12}>
             <Stack
+              pt={10}
+              gap={10}
               direction="column"
               justifyContent="space-between"
               alignSelf="stretch"
             >
               <Box>
-                <Stack direction="row" alignItems="center">
+                <Stack direction="row" alignItems="center" gap={1}>
                   <Avatar>pp</Avatar>
                   <Typography variant="h4">User Name</Typography>
                 </Stack>

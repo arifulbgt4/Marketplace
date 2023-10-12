@@ -15,11 +15,11 @@ const About = () => {
       </Grid>
       <Box sx={{ py: 10 }}>
         <Container>
-          <Grid container columnSpacing={10}>
-            <Grid item xs={8}>
+          <Grid container columnSpacing={10} rowSpacing={10}>
+            <Grid item xs={12} lg={8}>
               <AboutContents />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} lg={4}>
               <AboutHelpInfo />
             </Grid>
           </Grid>
