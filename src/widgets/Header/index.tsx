@@ -163,7 +163,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
             {!user ? (
               <>
                 <Hidden mdDown implementation="css">
-                  <Stack flexDirection="row">
+                  <Stack flexDirection="row" gap={0.5}>
                     <Box p={1}>
                       <Link href={routes.signup} color="text.primary">
                         Create Account

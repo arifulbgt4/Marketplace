@@ -13,7 +13,7 @@ const UserListing: FC<UserListingProps> = () => {
         {listings.map((data) => {
           const { id, image, title, price, description, rating, slug } = data;
           return (
-            <Grid item xs={6} key={id}>
+            <Grid item xs={12} md={6} key={id}>
               <Listing
                 id={id}
                 slug={slug}
