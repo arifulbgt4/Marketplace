@@ -325,3 +325,41 @@ export const searchListingData = [
     address: "6391 Elgin St. Celina, Delaware 10299",
   },
 ];
+
+export const checkbox=[
+  {
+    label:'show all',
+    value:'show'
+  },
+  {
+    label:'semi-detached',
+    value:'sdetached'
+
+  },
+  {
+    label:'flats',
+    value:'flats'
+  },
+  {
+    label:'farms/land',
+    value:'farms'
+  },
+  {
+    label:'detached',
+    value:'detached'
+  },
+  {
+    label:'terasts',
+    value:'terasts'
+  },
+  {
+    label:'banglows',
+    value:'banglows'
+  },
+  {
+    label:'parkhomes',
+    value:'parkhomes'
+  }
+
+  
+]
