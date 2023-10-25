@@ -1,4 +1,4 @@
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Container, Divider, Grid } from "@mui/material";
 
 import ListSearchFilters from "src/widgets/ListSearchFilters";
 import SearchListingGroup from "src/widgets/SearchListingGroup";
@@ -11,7 +11,9 @@ const SearchPage = () => {
         <Grid container>
           <Grid item xs={3}>
             <ListSearchFilters />
+            <Divider />
             <FilterCheckbox title="property type" />
+            <Divider />
           </Grid>
           <Grid item xs={9}>
             <SearchListingGroup />
