@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { Checkbox } from "src/components/Input";
 import { Form as FinalForm } from "react-final-form";
-import { checkbox } from "../../global/staticData/index";
+import { checkbox } from "src/global/staticData/index";
 
 import { FilterCheckboxFormProps } from "./Types";
 
