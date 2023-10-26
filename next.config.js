@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images:{
+    domains:["react-photo-album.com","source.unsplash.com"]
+  },
   experimental: {
     serverActions: true,
   },
