@@ -1,9 +1,10 @@
 import { FC } from "react";
 
 import { ListSearchFiltersProps } from "./Types";
+import FilterCheckbox from "src/widgets/FilterCheckbox";
 
 const ListSearchFilters: FC<ListSearchFiltersProps> = () => {
-  return <div>ListSearchFilters</div>;
+  return <FilterCheckbox title="property type" />;
 };
 
 export default ListSearchFilters;
