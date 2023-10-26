@@ -1,3 +1,9 @@
-export interface FilterCheckboxFormProps{
+type CheckboxOption = {
+    label: string;
+    value: string;
+  };
   
-}
+  export type FilterCheckboxFormProps = {
+    checkbox: CheckboxOption[];
+    
+  };

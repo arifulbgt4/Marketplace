@@ -8,11 +8,10 @@ import {
 } from "@mui/material";
 import { Checkbox } from "src/components/Input";
 import { Form as FinalForm } from "react-final-form";
-import { checkbox } from "src/global/staticData/index";
 
 import { FilterCheckboxFormProps } from "./Types";
 
-const FilterCheckboxForm: FC<FilterCheckboxFormProps> = () => {
+const FilterCheckboxForm: FC<FilterCheckboxFormProps> = ({ checkbox }) => {
   const onSubmitForm = async () => {};
   return (
     <FinalForm
