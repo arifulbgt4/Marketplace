@@ -25,7 +25,7 @@ const FilterCheckboxForm: FC<FilterCheckboxFormProps> = () => {
               {checkbox.map((data) => {
                 const { label, value } = data;
                 return (
-                  <Grid item xs={6}>
+                  <Grid item xs={6} key={value}>
                     <FormControl component="fieldset" variant="standard">
                       <FormGroup>
                         <FormControlLabel
