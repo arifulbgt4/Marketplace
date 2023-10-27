@@ -326,63 +326,131 @@ export const searchListingData = [
   },
 ];
 
-export const checkbox=[
+export const checkbox = [
   {
-    label:'show all',
-    value:'show'
+    label: "show all",
+    value: "show",
   },
   {
-    label:'semi-detached',
-    value:'sdetached'
+    label: "semi-detached",
+    value: "sdetached",
+  },
+  {
+    label: "flats",
+    value: "flats",
+  },
+  {
+    label: "farms/land",
+    value: "farms",
+  },
+  {
+    label: "detached",
+    value: "detached",
+  },
+  {
+    label: "terasts",
+    value: "terasts",
+  },
+  {
+    label: "banglows",
+    value: "banglows",
+  },
+  {
+    label: "parkhomes",
+    value: "parkhomes",
+  },
+];
+export const checkbox2 = [
+  {
+    label: "Garden",
+    value: "garden",
+  },
+  {
+    label: "Parking/garage",
+    value: "parking",
+  },
+  {
+    label: "Balcony/terrace",
+    value: "balcony",
+  },
+  {
+    label: "Pets allowed",
+    value: "pets",
+  },
+  {
+    label: "Bills included",
+    value: "bills",
+  },
+];
 
+export const radio = [
+  {
+    label: "Any",
+    value: "any",
   },
   {
-    label:'flats',
-    value:'flats'
+    label: "Furnished",
+    value: "furnished",
   },
   {
-    label:'farms/land',
-    value:'farms'
+    label: "Part furnished",
+    value: "partfurnishd",
   },
   {
-    label:'detached',
-    value:'detached'
+    label: "Unfurnished",
+    value: "unfurnished",
   },
-  {
-    label:'terasts',
-    value:'terasts'
-  },
-  {
-    label:'banglows',
-    value:'banglows'
-  },
-  {
-    label:'parkhomes',
-    value:'parkhomes'
-  }
+];
 
-  
-]
-export const checkbox2=[
+export const radio2 = [
   {
-    label:'Garden',
-    value:'garden'
+    label: "Available anytime",
+    value: "avilable",
   },
   {
-    label:'Parking/garage',
-    value:'parking'
-
+    label: "Immediately",
+    value: "immediately",
   },
   {
-    label:'Balcony/terrace',
-    value:'balcony'
+    label: "Within 1 month",
+    value: "w1month",
   },
   {
-    label:'Pets allowed',
-    value:'pets'
+    label: "Within 3 month",
+    value: "w3month",
   },
   {
-    label:'Bills included',
-    value:'bills'
+    label: "Within 6 month",
+    value: "w6month",
   },
-]
+  {
+    label: "Within 1 year",
+    value: "w1year",
+  },
+];
+export const radio3 = [
+  {
+    label: "Anytime",
+    value: "anytime",
+  },
+  {
+    label: "Last 24 hours",
+    value: "lasthour",
+  },
+  {
+    label: "Last 3 days",
+    value: "last3days",
+  },
+  {
+    label: "Last 7 days",
+    value: "last7days",
+  },
+  {
+    label: "Last 14 days",
+    value: "last14days",
+  },
+  {
+    label: "Last 30 days",
+    value: "last30days",
+  },
+];
