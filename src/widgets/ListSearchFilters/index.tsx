@@ -1,10 +1,11 @@
 "use client";
 import { FC } from "react";
 
-import { ListSearchFiltersProps } from "./Types";
 import FilterCheckbox from "src/widgets/FilterCheckbox";
 import { Form as FinalForm } from "react-final-form";
-import { checkbox } from "src/global/staticData";
+import { checkbox, checkbox2 } from "src/global/staticData";
+
+import { ListSearchFiltersProps } from "./Types";
 
 const ListSearchFilters: FC<ListSearchFiltersProps> = () => {
   const onSubmitForm = async () => {};
@@ -17,6 +18,7 @@ const ListSearchFilters: FC<ListSearchFiltersProps> = () => {
         return (
           <form onSubmit={handleSubmit}>
             <FilterCheckbox title="property type" checkbox={checkbox} />
+            <FilterCheckbox title="Must-haves" checkbox={checkbox2} />
           </form>
         );
       }}

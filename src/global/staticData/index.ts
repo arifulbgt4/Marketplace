@@ -363,3 +363,26 @@ export const checkbox=[
 
   
 ]
+export const checkbox2=[
+  {
+    label:'Garden',
+    value:'garden'
+  },
+  {
+    label:'Parking/garage',
+    value:'parking'
+
+  },
+  {
+    label:'Balcony/terrace',
+    value:'balcony'
+  },
+  {
+    label:'Pets allowed',
+    value:'pets'
+  },
+  {
+    label:'Bills included',
+    value:'bills'
+  },
+]
