@@ -1,4 +1,1 @@
-
-export interface FilterRadioProps{
-    
-}
+export interface FilterRadioProps {}

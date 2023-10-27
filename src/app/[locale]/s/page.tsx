@@ -1,4 +1,4 @@
-import { Box, Container, Divider, Grid } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
 
 import ListSearchFilters from "src/widgets/ListSearchFilters";
 import SearchListingGroup from "src/widgets/SearchListingGroup";
