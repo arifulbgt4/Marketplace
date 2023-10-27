@@ -11,6 +11,7 @@ import {
   radio3,
 } from "src/global/staticData";
 import FilterRadio from "src/widgets/FilterRadio";
+import SelectSearchFilter from "src/widgets/SelectSearchFilter";
 
 import { ListSearchFiltersProps } from "./Types";
 
@@ -24,6 +25,7 @@ const ListSearchFilters: FC<ListSearchFiltersProps> = () => {
         console.log(values);
         return (
           <form onSubmit={handleSubmit}>
+            <SelectSearchFilter />
             <FilterCheckbox title="property type" checkbox={checkbox} />
             <FilterCheckbox title="Must-haves" checkbox={checkbox2} />
             <FilterRadio title="Furnishing" radio={radio} />
