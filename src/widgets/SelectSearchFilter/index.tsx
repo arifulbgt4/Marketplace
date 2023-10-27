@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 
 import {
   FormControl,
@@ -19,7 +19,6 @@ const SelectSearchFilter: FC<SelectSearchFilterProps> = () => {
       <Grid item xs={12}>
         <Typography variant="h5">Bedrooms</Typography>
       </Grid>
-
       <Grid item xs={5}>
         <Typography variant="subtitle1">Min beds</Typography>
         <FormControl fullWidth>
