@@ -1,9 +1,16 @@
 "use client";
 import { FC } from "react";
+import { Form as FinalForm } from "react-final-form";
 
 import FilterCheckbox from "src/widgets/FilterCheckbox";
-import { Form as FinalForm } from "react-final-form";
-import { checkbox, checkbox2 } from "src/global/staticData";
+import {
+  checkbox,
+  checkbox2,
+  radio,
+  radio2,
+  radio3,
+} from "src/global/staticData";
+import FilterRadio from "src/widgets/FilterRadio";
 
 import { ListSearchFiltersProps } from "./Types";
 
@@ -19,6 +26,9 @@ const ListSearchFilters: FC<ListSearchFiltersProps> = () => {
           <form onSubmit={handleSubmit}>
             <FilterCheckbox title="property type" checkbox={checkbox} />
             <FilterCheckbox title="Must-haves" checkbox={checkbox2} />
+            <FilterRadio title="Furnishing" radio={radio} />
+            <FilterRadio title="Availability" radio={radio2} />
+            <FilterRadio title="Added to site" radio={radio3} />
           </form>
         );
       }}
