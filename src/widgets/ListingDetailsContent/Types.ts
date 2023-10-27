@@ -1,1 +1,3 @@
-export interface ListingDetailsCardProps {}
+export interface ListingContentsProps {}
+
+export interface OfferProps {}
