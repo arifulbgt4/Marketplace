@@ -20,10 +20,10 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Grid item xs={6}>
+          <Grid item xs={12} lg={6}>
             <SearchFilterForm />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} lg={3}>
             <FitlerButtonGroup />
           </Grid>
         </Grid>
