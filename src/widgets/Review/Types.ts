@@ -4,5 +4,4 @@ export interface ReviewProps {
   subheader: string;
   img: string;
   description?: string;
-  action?: string;
 }

@@ -3,14 +3,11 @@ import { FC } from "react";
 import { ReviewProps } from "./Types";
 import {
   Avatar,
-  Button,
   Card,
-  CardActions,
   CardContent,
   CardHeader,
   Typography,
 } from "@mui/material";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 const Review: FC<ReviewProps> = ({
   id,
@@ -18,7 +15,6 @@ const Review: FC<ReviewProps> = ({
   subheader,
   img,
   description,
-  action,
 }) => {
   return (
     <Card elevation={0}>
@@ -31,17 +27,6 @@ const Review: FC<ReviewProps> = ({
         <CardContent>
           <Typography variant="subtitle1">{description}</Typography>
         </CardContent>
-      )}
-      {action && (
-        <CardActions>
-          <Button
-            size="large"
-            color="inherit"
-            endIcon={<ArrowForwardIosIcon />}
-          >
-            {action}
-          </Button>
-        </CardActions>
       )}
     </Card>
   );

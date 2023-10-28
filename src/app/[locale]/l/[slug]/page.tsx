@@ -1,6 +1,6 @@
 import { Box, Container, Grid } from "@mui/material";
 
-import ListingContents from "src/widgets/ListingDetailsContent";
+import ListingContents from "src/widgets/ListingContents";
 import ListingBooking from "src/widgets/ListingBooking";
 import ListingRatings from "src/widgets/ListingRatings";
 import { Album } from "src/widgets/Album";
