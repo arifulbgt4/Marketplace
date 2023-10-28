@@ -1,6 +1,7 @@
 "use client";
 import { FC } from "react";
 import { Form as FinalForm } from "react-final-form";
+import { Box } from "@mui/material";
 
 import FilterCheckbox from "src/widgets/FilterCheckbox";
 import {
@@ -20,23 +21,25 @@ const ListSearchFilters: FC<ListSearchFiltersProps> = () => {
   const onSubmitForm = async () => {};
 
   return (
-    <FinalForm
-      onSubmit={onSubmitForm}
-      render={({ handleSubmit, values, errors, submitting }) => {
-        console.log(values);
-        return (
-          <form onSubmit={handleSubmit}>
-            <SelectSearchFilter />
-            <AutocompleteSearchFilter />
-            <FilterCheckbox title="property type" checkbox={checkbox} />
-            <FilterCheckbox title="Must-haves" checkbox={checkbox2} />
-            <FilterRadio title="Furnishing" radio={radio} />
-            <FilterRadio title="Availability" radio={radio2} />
-            <FilterRadio title="Added to site" radio={radio3} />
-          </form>
-        );
-      }}
-    />
+    <Box py={5}>
+      <FinalForm
+        onSubmit={onSubmitForm}
+        render={({ handleSubmit, values, errors, submitting }) => {
+          console.log(values);
+          return (
+            <form onSubmit={handleSubmit}>
+              <SelectSearchFilter />
+              <AutocompleteSearchFilter />
+              <FilterCheckbox title="property type" checkbox={checkbox} />
+              <FilterCheckbox title="Must-haves" checkbox={checkbox2} />
+              <FilterRadio title="Furnishing" radio={radio} />
+              <FilterRadio title="Availability" radio={radio2} />
+              <FilterRadio title="Added to site" radio={radio3} />
+            </form>
+          );
+        }}
+      />
+    </Box>
   );
 };
 
