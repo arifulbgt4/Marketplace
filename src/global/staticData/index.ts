@@ -513,6 +513,5 @@ export const radio3 = [
   {
     label: "Last 30 days",
     value: "last30days",
-
   },
 ];
