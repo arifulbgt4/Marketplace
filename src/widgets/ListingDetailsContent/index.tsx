@@ -200,21 +200,6 @@ const Offer: FC<OfferProps> = () => {
         <Typography variant="h4">What this place offers</Typography>
       </Stack>
       <Stack gap={4} flexDirection={{ sm: "row" }}>
-        <Stack>
-          {offerData.slice(5).map((data) => {
-            const { id, name, icon } = data;
-            return (
-              <List key={id}>
-                <ListItem disablePadding>
-                  <ListItemButton>
-                    <ListItemIcon>{icon}</ListItemIcon>
-                    <ListItemText primary={name} />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-            );
-          })}
-        </Stack>
         <Stack flexDirection="row" alignItems="center">
           <Stack>
             {offerData.slice(0, 5).map((data) => {
@@ -231,6 +216,21 @@ const Offer: FC<OfferProps> = () => {
               );
             })}
           </Stack>
+        </Stack>
+        <Stack>
+          {offerData.slice(5).map((data) => {
+            const { id, name, icon } = data;
+            return (
+              <List key={id}>
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>{icon}</ListItemIcon>
+                    <ListItemText primary={name} />
+                  </ListItemButton>
+                </ListItem>
+              </List>
+            );
+          })}
         </Stack>
       </Stack>
       <Box>

@@ -1,10 +1,10 @@
 import { Box, Container, Grid } from "@mui/material";
 
 import ListingContents from "src/widgets/ListingDetailsContent";
-import ListingDetailsBanner from "src/widgets/ListingDetailsBanner";
 import ListingBooking from "src/widgets/ListingBooking";
 import ListingRatings from "src/widgets/ListingRatings";
 import { Album } from "src/widgets/Album";
+import Reviews from "src/widgets/Reviews";
 
 const albumImg = [
   "https://source.unsplash.com/8gVv6nxq6gY",
@@ -19,7 +19,7 @@ const ListingDetailsPage = () => {
   return (
     <Box>
       <Container>
-        <Grid container columnSpacing={5}>
+        <Grid container rowSpacing={10} columnSpacing={8.7}>
           <Grid item xs={12}>
             <Album albumImg={albumImg} />
           </Grid>
@@ -52,7 +52,7 @@ const ListingDetailsPage = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            Review components
+            <Reviews />
           </Grid>
         </Grid>
       </Container>
