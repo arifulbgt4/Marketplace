@@ -18,7 +18,7 @@ const ListingHeader: FC<ListingHeaderProps> = ({ listingheader }) => {
         <Typography>{review} reviews</Typography>
         <Typography>{"."}</Typography>
         <Stack gap={1} flexDirection="row" alignItems="center">
-          <PersonIcon color="action" />
+          <PersonIcon />
 
           <Typography>{creator}</Typography>
         </Stack>
