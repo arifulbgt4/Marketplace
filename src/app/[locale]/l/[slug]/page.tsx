@@ -24,13 +24,11 @@ const ListingDetailsPage = () => {
         <Grid container rowSpacing={5} columnSpacing={8.7}>
           <Grid item xs={12}>
             <ListingHeader
-              listingheader={{
-                title: "Bungalow 15 : Calm:Serene:Soulful",
-                rating: 4.92,
-                review: 12,
-                creator: "Superhost",
-                address: "2118 Thornridge Cir. Syracuse, Connecticut 35624",
-              }}
+              title="Bungalow 15 : Calm:Serene:Soulful"
+              rating={4.92}
+              review={12}
+              creator="Superhost"
+              address="2118 Thornridge Cir. Syracuse, Connecticut 35624"
             />
           </Grid>
           <Grid item xs={12}>
