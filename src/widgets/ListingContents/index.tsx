@@ -1,14 +1,6 @@
 "use client";
 import { FC } from "react";
-import {
-  Box,
-  Grid,
-  IconButton,
-  Stack,
-  Typography,
-  Button,
-  Divider,
-} from "@mui/material";
+import { Box, Grid, Stack, Typography, Button, Divider } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import ImageIcon from "@mui/icons-material/Image";
 import WifiIcon from "@mui/icons-material/Wifi";
@@ -57,7 +49,7 @@ const ListingContents: FC<ListingContentsProps> = () => {
               borderRadius={1}
               gap={3}
             >
-              <BedIcon color="action" sx={{ height: 60, width: 60 }} />
+              <BedIcon sx={{ height: 60, width: 60 }} />
               <Typography variant="subtitle1">3 bedrooms 6 beds</Typography>
             </Stack>
           </Grid>
@@ -74,7 +66,7 @@ const ListingContents: FC<ListingContentsProps> = () => {
               borderRadius={1}
               gap={3}
             >
-              <BedIcon color="action" sx={{ height: 60, width: 60 }} />
+              <BedIcon sx={{ height: 60, width: 60 }} />
               <Typography variant="subtitle1">3 bedrooms 6 beds</Typography>
             </Stack>
           </Grid>
@@ -91,7 +83,7 @@ const ListingContents: FC<ListingContentsProps> = () => {
               borderRadius={1}
               gap={3}
             >
-              <BathtubIcon color="action" sx={{ height: 60, width: 60 }} />
+              <BathtubIcon sx={{ height: 60, width: 60 }} />
               <Typography variant="subtitle1">Shared bathroom</Typography>
             </Stack>
           </Grid>
@@ -108,7 +100,7 @@ const ListingContents: FC<ListingContentsProps> = () => {
               borderRadius={1}
               gap={3}
             >
-              <PeopleAltIcon color="action" sx={{ height: 60, width: 60 }} />
+              <PeopleAltIcon sx={{ height: 60, width: 60 }} />
               <Typography variant="subtitle1">
                 Host lives here with family
               </Typography>
@@ -118,7 +110,7 @@ const ListingContents: FC<ListingContentsProps> = () => {
       </Grid>
       <Stack gap={3} mb={3}>
         <Stack flexDirection="row" gap={3} alignItems="flex-start">
-          <MeetingRoomIcon color="action" />
+          <MeetingRoomIcon />
           <Box maxWidth={260}>
             <Typography variant="body2">Room in a bungalow</Typography>
             <Typography variant="body2" color="text.secondary">
@@ -127,7 +119,7 @@ const ListingContents: FC<ListingContentsProps> = () => {
           </Box>
         </Stack>
         <Stack flexDirection="row" gap={3}>
-          <PersonIcon color="action" />
+          <PersonIcon />
           <Box maxWidth={260}>
             <Typography variant="body2">Ramita is a Superhost</Typography>
             <Typography variant="body2" color="text.secondary">
@@ -136,7 +128,7 @@ const ListingContents: FC<ListingContentsProps> = () => {
           </Box>
         </Stack>
         <Stack flexDirection="row" gap={3}>
-          <LocationOnIcon color="action" />
+          <LocationOnIcon />
           <Box maxWidth={260}>
             <Typography variant="body2">Great location</Typography>
             <Typography variant="body2" color="text.secondary">
