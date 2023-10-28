@@ -55,11 +55,9 @@ const ListingContents: FC<ListingContentsProps> = () => {
               px={5}
               py={2.5}
               borderRadius={1}
-              gap={1}
+              gap={3}
             >
-              <IconButton sx={{ p: 0 }}>
-                <BedIcon sx={{ height: 60, width: 60 }} />
-              </IconButton>
+              <BedIcon color="action" sx={{ height: 60, width: 60 }} />
               <Typography variant="subtitle1">3 bedrooms 6 beds</Typography>
             </Stack>
           </Grid>
@@ -74,11 +72,9 @@ const ListingContents: FC<ListingContentsProps> = () => {
               px={5}
               py={2.5}
               borderRadius={1}
-              gap={1}
+              gap={3}
             >
-              <IconButton sx={{ p: 0 }}>
-                <BedIcon sx={{ height: 60, width: 60 }} />
-              </IconButton>
+              <BedIcon color="action" sx={{ height: 60, width: 60 }} />
               <Typography variant="subtitle1">3 bedrooms 6 beds</Typography>
             </Stack>
           </Grid>
@@ -93,11 +89,9 @@ const ListingContents: FC<ListingContentsProps> = () => {
               px={5}
               py={2.5}
               borderRadius={1}
-              gap={1}
+              gap={3}
             >
-              <IconButton sx={{ p: 0 }}>
-                <BathtubIcon sx={{ height: 60, width: 60 }} />
-              </IconButton>
+              <BathtubIcon color="action" sx={{ height: 60, width: 60 }} />
               <Typography variant="subtitle1">Shared bathroom</Typography>
             </Stack>
           </Grid>
@@ -112,11 +106,9 @@ const ListingContents: FC<ListingContentsProps> = () => {
               px={5}
               py={2.5}
               borderRadius={1}
-              gap={1}
+              gap={3}
             >
-              <IconButton sx={{ p: 0 }}>
-                <PeopleAltIcon sx={{ height: 60, width: 60 }} />
-              </IconButton>
+              <PeopleAltIcon color="action" sx={{ height: 60, width: 60 }} />
               <Typography variant="subtitle1">
                 Host lives here with family
               </Typography>
@@ -126,9 +118,7 @@ const ListingContents: FC<ListingContentsProps> = () => {
       </Grid>
       <Stack gap={3} mb={3}>
         <Stack flexDirection="row" gap={3} alignItems="flex-start">
-          <IconButton>
-            <MeetingRoomIcon />
-          </IconButton>
+          <MeetingRoomIcon color="action" />
           <Box maxWidth={260}>
             <Typography variant="body2">Room in a bungalow</Typography>
             <Typography variant="body2" color="text.secondary">
@@ -137,9 +127,7 @@ const ListingContents: FC<ListingContentsProps> = () => {
           </Box>
         </Stack>
         <Stack flexDirection="row" gap={3}>
-          <IconButton>
-            <PersonIcon />
-          </IconButton>
+          <PersonIcon color="action" />
           <Box maxWidth={260}>
             <Typography variant="body2">Ramita is a Superhost</Typography>
             <Typography variant="body2" color="text.secondary">
@@ -148,9 +136,7 @@ const ListingContents: FC<ListingContentsProps> = () => {
           </Box>
         </Stack>
         <Stack flexDirection="row" gap={3}>
-          <IconButton>
-            <LocationOnIcon />
-          </IconButton>
+          <LocationOnIcon color="action" />
           <Box maxWidth={260}>
             <Typography variant="body2">Great location</Typography>
             <Typography variant="body2" color="text.secondary">
