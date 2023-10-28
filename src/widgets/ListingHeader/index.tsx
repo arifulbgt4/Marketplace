@@ -4,8 +4,13 @@ import PersonIcon from "@mui/icons-material/Person";
 
 import { ListingHeaderProps } from "./Types";
 
-const ListingHeader: FC<ListingHeaderProps> = ({ listingheader }) => {
-  const { title, rating, review, creator, address } = listingheader;
+const ListingHeader: FC<ListingHeaderProps> = ({
+  title,
+  rating,
+  review,
+  creator,
+  address,
+}) => {
   return (
     <Stack gap={1}>
       <Typography variant="h4">{title}</Typography>

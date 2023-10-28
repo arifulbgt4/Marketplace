@@ -60,7 +60,7 @@ export default {
     icon: "rgba(255, 255, 255, 0.5)",
   },
   action: {
-    active: "rgba(255,255,255,0.56)",
+    active: "#fff",
     hover: "rgba(255, 255, 255, 0.08)",
     hoverOpacity: 0.08,
     selected: "rgba(255, 255, 255, 0.16)",
