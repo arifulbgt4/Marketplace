@@ -19,7 +19,7 @@ const albumImg = [
 
 const ListingDetailsPage = () => {
   return (
-    <Box>
+    <Box pt={5}>
       <Container>
         <Grid container rowSpacing={5} columnSpacing={8.7}>
           <Grid item xs={12}>
