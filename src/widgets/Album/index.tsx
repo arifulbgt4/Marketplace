@@ -1,7 +1,7 @@
 "use client";
 import { FC } from "react";
 import Image from "next/image";
-import { Box, Grid, Button, Stack, Typography } from "@mui/material";
+import { Box, Grid, Button, Typography } from "@mui/material";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 
 import { AlbumProps } from "./Types";
@@ -77,13 +77,12 @@ export const Album: FC<AlbumProps> = ({ albumImg }) => {
     {
       return (
         <>
-          <Grid container spacing={3}>
+          <Grid container spacing={3} position="relative">
             <Grid item xs={6}>
               <Image src={albumImg[0]} alt="albm" width={744} height={744} />
             </Grid>
             <Grid container item xs={6} spacing={3}>
               {albumImg.slice(1, 5).map((img) => {
-                console.log("object", img);
                 return (
                   <Grid item xs={6} key={img}>
                     <Image src={img} alt="albm" width={360} height={360} />
@@ -91,11 +90,14 @@ export const Album: FC<AlbumProps> = ({ albumImg }) => {
                 );
               })}
             </Grid>
-            <Box position="absolute" right={246} bottom={165}>
-              <Button variant="contained" size="large" color="inherit">
-                <Stack gap={1.275} flexDirection="row">
-                  <WidgetsIcon /> Show all photos
-                </Stack>
+            <Box position="absolute" right={40} bottom={40}>
+              <Button
+                startIcon={<WidgetsIcon />}
+                variant="contained"
+                size="large"
+                color="inherit"
+              >
+                Show all photos
               </Button>
             </Box>
           </Grid>
