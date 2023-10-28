@@ -6,6 +6,7 @@ import ListingRatings from "src/widgets/ListingRatings";
 import { Album } from "src/widgets/Album";
 import Reviews from "src/widgets/Reviews";
 import ListingHeader from "src/widgets/ListingHeader";
+import ListingLocation from "src/widgets/ListingLocation";
 
 const albumImg = [
   "https://source.unsplash.com/8gVv6nxq6gY",
@@ -39,7 +40,7 @@ const ListingDetailsPage = () => {
             <Grid item xs={12}>
               <ListingContents />
             </Grid>
-            Listing Map
+            <ListingLocation address="2118 Thornridge Cir. Syracuse, Connecticut 35624" />
           </Grid>
           <Grid item container xs={3}>
             <Grid item xs={12}>
