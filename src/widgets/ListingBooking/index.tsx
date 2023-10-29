@@ -1,82 +1,84 @@
+"use client";
 import { FC } from "react";
 import {
-  IconButton,
   Paper,
   Stack,
   Typography,
-  Box,
   Divider,
   Button,
+  Rating,
 } from "@mui/material";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import PolylineRoundedIcon from "@mui/icons-material/PolylineRounded";
+import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import { LocalizationProvider } from "@mui/x-date-pickers-pro";
+import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
+import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 
 import { ListingBookingProps } from "./Types";
 
 const ListingBooking: FC<ListingBookingProps> = () => {
   return (
     <Paper>
-      <Stack flex={1}>
-        <Stack flexDirection="row" p={2} justifyContent="space-between">
-          <Box>
-            <Typography variant="h5">$500/mo</Typography>
-            <Typography variant="body2" color="text.secondary">
-              6240 Gold Dust Dr, Sacramento, CA 95842
-            </Typography>
-          </Box>
-          <IconButton>
-            <ShoppingCartIcon sx={{ height: 38, width: 38 }} />
-          </IconButton>
+      <Stack py={5} px={3} gap={3}>
+        <Stack
+          flexDirection="row"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Typography variant="h5">$500/month</Typography>
+          <Stack flexDirection="row">
+            <Rating defaultValue={1} max={1} />
+            <Typography>12 reviews</Typography>
+          </Stack>
         </Stack>
-        <Divider />
+        <Stack>
+          <Stack flexDirection="row" justifyContent="space-between" pr={5.8}>
+            <Typography>Check-in</Typography>
+            <Typography>Checkout</Typography>
+          </Stack>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateRangePicker
+              defaultRangePosition="end"
+              localeText={{ start: "", end: "" }}
+            />
+          </LocalizationProvider>
+        </Stack>
+        <FormControl fullWidth>
+          <Typography>Gestes</Typography>
 
-        <Box p={2}>
-          <Typography variant="h5">Property details</Typography>
-        </Box>
-        <Divider />
-        <Box display="flex" p={1} gap={1} borderRadius={4}>
-          <Button size="large" disabled>
-            2 bed
-          </Button>
-          <Button size="large" disabled>
-            2 batch
-          </Button>
-          <Button size="large" disabled>
-            832 soft
-          </Button>
-        </Box>
-        <Box display="flex" flexDirection="row">
-          <Box p={1} display="flex">
-            <IconButton disabled>
-              <PolylineRoundedIcon sx={{ height: 15, width: 15 }} />
-            </IconButton>
-            <Button size="small" disabled>
-              Apartment
-            </Button>
-          </Box>
-
-          <Box p={1} display="flex">
-            <IconButton disabled>
-              <PolylineRoundedIcon sx={{ height: 15, width: 15 }} />
-            </IconButton>
-            <Button size="small" disabled>
-              2 days ago
-            </Button>
-          </Box>
-          <Box p={1} display="flex">
-            <IconButton disabled>
-              <PolylineRoundedIcon sx={{ height: 15, width: 15 }} />
-            </IconButton>
-            <Button size="small" disabled>
-              (916) 426-8067
-            </Button>
-          </Box>
-        </Box>
-        <Box p={1} gap={1} display="flex">
-          <Button variant="contained">Book now</Button>
-          <Button variant="outlined">Bookmark</Button>
-          <Button variant="outlined">Massage</Button>
-        </Box>
+          <TextField select defaultValue="3" variant="outlined">
+            <MenuItem value={1}>1</MenuItem>
+            <MenuItem value={2}>2</MenuItem>
+            <MenuItem value={3}>3</MenuItem>
+            <MenuItem value={4}>4</MenuItem>
+            <MenuItem value={5}>5</MenuItem>
+            <MenuItem value={6}>6</MenuItem>
+          </TextField>
+        </FormControl>
+        <Button variant="contained" size="large">
+          reserve
+        </Button>
+        <Typography textAlign="center">You won't be charged yet</Typography>
+        <Stack gap={2}>
+          <Stack flexDirection="row" justifyContent="space-between">
+            <Typography>$500 x 5 month</Typography>
+            <Typography>$2500</Typography>
+          </Stack>
+          <Stack flexDirection="row" justifyContent="space-between">
+            <Typography>Long stay discount</Typography>
+            <Typography>-$100</Typography>
+          </Stack>
+          <Stack flexDirection="row" justifyContent="space-between">
+            <Typography>Airbnb service fee</Typography>
+            <Typography>$150</Typography>
+          </Stack>
+        </Stack>
+        <Divider></Divider>
+        <Stack flexDirection="row" justifyContent="space-between">
+          <Typography variant="h6">Total before taxes</Typography>
+          <Typography>$2550</Typography>
+        </Stack>
       </Stack>
     </Paper>
   );
