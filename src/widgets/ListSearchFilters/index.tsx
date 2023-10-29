@@ -14,6 +14,7 @@ import {
 import FilterRadio from "src/widgets/FilterRadio";
 import SelectSearchFilter from "src/widgets/SelectSearchFilter";
 import AutocompleteSearchFilter from "src/widgets/AutocompleteSearchFilter";
+import SearchFilterButtons from "src/widgets/SearchFilterButtons";
 
 import { ListSearchFiltersProps } from "./Types";
 
@@ -28,6 +29,7 @@ const ListSearchFilters: FC<ListSearchFiltersProps> = () => {
           console.log(values);
           return (
             <form onSubmit={handleSubmit}>
+              <SearchFilterButtons />
               <SelectSearchFilter />
               <AutocompleteSearchFilter />
               <FilterCheckbox title="property type" checkbox={checkbox} />
