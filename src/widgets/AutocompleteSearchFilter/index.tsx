@@ -1,11 +1,9 @@
-import { FC, useState } from "react";
-import { Autocomplete, Chip, TextField, Box, Typography } from "@mui/material";
+import { FC } from "react";
+import { Autocomplete, TextField, Box, Typography } from "@mui/material";
 
 import { AutocompleteSearchFilterProps } from "./Types";
 
 const AutocompleteSearchFilter: FC<AutocompleteSearchFilterProps> = () => {
-  const fixedOptions = [top100Flats[0]];
-  const [value, setValue] = useState([...fixedOptions]);
   return (
     <Box py={2}>
       <Typography variant="h5" pb={2}>
@@ -13,31 +11,11 @@ const AutocompleteSearchFilter: FC<AutocompleteSearchFilterProps> = () => {
       </Typography>
       <Autocomplete
         multiple
-        id="fixed-tags-demo"
-        value={value}
-        onChange={(event, newValue) => {
-          setValue([
-            ...fixedOptions,
-            ...newValue.filter((option) => fixedOptions.indexOf(option) === -1),
-          ]);
-        }}
+        id="multiple-limit-tags"
         options={top100Flats}
         getOptionLabel={(option) => option.title}
-        renderTags={(tagValue, getTagProps) =>
-          tagValue.map((option, index) => (
-            <Chip
-              label={option.title}
-              {...getTagProps({ index })}
-              disabled={fixedOptions.indexOf(option) !== -1}
-            />
-          ))
-        }
         renderInput={(params) => (
-          <TextField
-            {...params}
-            placeholder="Keywords"
-            helperText="Helper text"
-          />
+          <TextField {...params} placeholder="Keyword" />
         )}
       />
     </Box>
