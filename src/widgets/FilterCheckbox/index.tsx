@@ -18,24 +18,23 @@ const FilterCheckbox: FC<FilterCheckboxProps> = ({ title, checkbox }) => {
       <Grid item xs={12}>
         <Typography variant="h5">{title}</Typography>
       </Grid>
-      <Grid xs={12}>
-        <Grid container rowGap={2}>
-          {checkbox.map((data) => {
-            const { label, value } = data;
-            return (
-              <Grid item xs={6} key={value}>
-                <FormControl component="fieldset" variant="standard">
-                  <FormGroup>
-                    <FormControlLabel
-                      control={<Checkbox name={value} />}
-                      label={label}
-                    />
-                  </FormGroup>
-                </FormControl>
-              </Grid>
-            );
-          })}
-        </Grid>
+
+      <Grid item xs={12} container rowGap={2}>
+        {checkbox.map((data) => {
+          const { label, value } = data;
+          return (
+            <Grid item xs={6} key={value}>
+              <FormControl component="fieldset" variant="standard">
+                <FormGroup>
+                  <FormControlLabel
+                    control={<Checkbox name={value} />}
+                    label={label}
+                  />
+                </FormGroup>
+              </FormControl>
+            </Grid>
+          );
+        })}
       </Grid>
     </Grid>
   );
