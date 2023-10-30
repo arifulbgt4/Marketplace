@@ -1,12 +1,9 @@
 import React from "react";
 import type { Meta, StoryObj, StoryContext } from "@storybook/react";
-import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepButton from "@mui/material/StepButton";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { useArgs, useState } from "@storybook/addons";
+import { useArgs, useState } from "@storybook/client-api";
 import { argProps, overView } from "./utils/formatArgs";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction

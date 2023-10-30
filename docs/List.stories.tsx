@@ -12,7 +12,7 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import { argProps, overView } from "./utils/formatArgs";
 import Paper from "@mui/material/Paper";
-import { useArgs, useState } from "@storybook/addons";
+import { useArgs, useState } from "@storybook/client-api";
 import { SvgIconComponent } from "@mui/icons-material";
 
 // Icons
