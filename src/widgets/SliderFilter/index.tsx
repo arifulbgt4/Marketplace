@@ -16,7 +16,9 @@ const SliderFilter: FC<SliderFilterProps> = () => {
   };
   return (
     <Box pt={2}>
-      <Typography variant="h5">Price</Typography>
+      <Typography variant="h5" pb={1}>
+        Price
+      </Typography>
       <Slider
         getAriaLabel={() => "Price range"}
         value={value}
