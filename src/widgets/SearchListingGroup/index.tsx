@@ -5,7 +5,7 @@ import { searchListingData } from "src/global/staticData";
 import Listing from "../Listing";
 import ListingPagination from "../ListingPagination";
 import SearchFilterForm from "src/forms/SearchFilterForm";
-import FitlerButtonGroup from "src/widgets/FilterButtonGroup";
+import ListGridView from "src/widgets/ListGridView";
 
 import { SearchListingGroupProps } from "./Types";
 
@@ -24,7 +24,7 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
             <SearchFilterForm />
           </Grid>
           <Grid item xs={12} lg={3}>
-            <FitlerButtonGroup />
+            <ListGridView />
           </Grid>
         </Grid>
         <Grid item container xs={12} columnSpacing={4} rowSpacing={4}>
