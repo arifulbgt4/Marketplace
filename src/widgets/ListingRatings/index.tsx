@@ -10,7 +10,7 @@ const ListingRatings: FC<ListingRatingsProps> = ({
   review,
 }) => {
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={3} pb={5}>
       <Grid item xs={12}>
         <Stack flexDirection="row" gap={1}>
           <Rating max={1} defaultValue={1} size="large" />
