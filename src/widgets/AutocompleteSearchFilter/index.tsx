@@ -1,7 +1,8 @@
 import { FC } from "react";
-import { Autocomplete, TextField, Box, Typography } from "@mui/material";
+import { Autocomplete, Box, Typography } from "@mui/material";
 
 import { AutocompleteSearchFilterProps } from "./Types";
+import { TextField } from "src/components/Input";
 
 const AutocompleteSearchFilter: FC<AutocompleteSearchFilterProps> = () => {
   return (
@@ -15,7 +16,7 @@ const AutocompleteSearchFilter: FC<AutocompleteSearchFilterProps> = () => {
         options={top100Flats}
         getOptionLabel={(option) => option.title}
         renderInput={(params) => (
-          <TextField {...params} placeholder="Keyword" />
+          <TextField {...params} name="keyword" placeholder="Keyword" />
         )}
       />
     </Box>
