@@ -1,8 +1,9 @@
 import { FC } from "react";
 import { Autocomplete, Box, Typography } from "@mui/material";
 
-import { AutocompleteSearchFilterProps } from "./Types";
 import { TextField } from "src/components/Input";
+
+import { AutocompleteSearchFilterProps } from "./Types";
 
 const AutocompleteSearchFilter: FC<AutocompleteSearchFilterProps> = () => {
   return (
