@@ -21,7 +21,7 @@ const ListingDetailsPage = () => {
   return (
     <Box pt={5}>
       <Container>
-        <Grid container rowSpacing={5} columnSpacing={8.7}>
+        <Grid container rowSpacing={5}>
           <Grid item xs={12}>
             <ListingHeader
               title="Bungalow 15 : Calm:Serene:Soulful"
@@ -34,18 +34,22 @@ const ListingDetailsPage = () => {
           <Grid item xs={12}>
             <Album albumImg={albumImg} />
           </Grid>
-          <Grid container item xs={9}>
-            <Grid item xs={12}>
-              <ListingContents />
+          <Grid item container xs={12} columnSpacing={8.7} pb={5}>
+            <Grid container item xs={9}>
+              <Grid item xs={12}>
+                <ListingContents />
+              </Grid>
+              <Grid item xs={12}>
+                <ListingLocation address="2118 Thornridge Cir. Syracuse, Connecticut 35624" />
+              </Grid>
             </Grid>
-            <ListingLocation address="2118 Thornridge Cir. Syracuse, Connecticut 35624" />
-          </Grid>
-          <Grid item container xs={3}>
-            <Grid item xs={12}>
-              <ListingBooking />
-            </Grid>
-            <Grid item xs={12}>
-              sellerMiniProfile
+            <Grid item container xs={3}>
+              <Grid item xs={12}>
+                <ListingBooking />
+              </Grid>
+              <Grid item xs={12}>
+                sellerMiniProfile
+              </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12}>
