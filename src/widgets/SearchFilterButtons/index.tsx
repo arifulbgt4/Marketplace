@@ -8,7 +8,7 @@ import { SearchFilterButtonsProps } from "./Types";
 
 const SearchFilterButtons: FC<SearchFilterButtonsProps> = () => {
   return (
-    <Stack direction="row" justifyContent="space-between">
+    <Stack direction="row" justifyContent="space-between" pb={2}>
       <IconButton>
         <FilterAltIcon />
         Filter

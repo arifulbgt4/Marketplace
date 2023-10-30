@@ -7,7 +7,7 @@ const SearchPage = () => {
   return (
     <Box>
       <Container>
-        <Grid container>
+        <Grid container columnSpacing={10}>
           <Grid item xs={3}>
             <ListSearchFilters />
           </Grid>

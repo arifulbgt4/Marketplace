@@ -19,7 +19,7 @@ const FilterRadio: FC<FilterRadioProps> = ({ title, radio }) => {
         <Typography variant="h5">{title}</Typography>
       </Grid>
       <Grid xs={12}>
-        <Grid container rowGap={2}>
+        <Grid container rowSpacing={2} pb={2}>
           {radio.map((data) => {
             const { label, value } = data;
             return (

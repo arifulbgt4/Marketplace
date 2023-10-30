@@ -1,7 +1,7 @@
 "use client";
 import { FC } from "react";
 import { Form as FinalForm } from "react-final-form";
-import { Box } from "@mui/material";
+import { Box, Divider } from "@mui/material";
 
 import FilterCheckbox from "src/widgets/FilterCheckbox";
 import {
@@ -32,12 +32,19 @@ const ListSearchFilters: FC<ListSearchFiltersProps> = () => {
             <form onSubmit={handleSubmit}>
               <SearchFilterButtons />
               <SelectSearchFilter />
+              <Divider sx={{ py: 2 }} />
               <SliderFilter />
+              <Divider />
               <AutocompleteSearchFilter />
+              <Divider />
               <FilterCheckbox title="property type" checkbox={checkbox} />
+              <Divider />
               <FilterCheckbox title="Must-haves" checkbox={checkbox2} />
+              <Divider />
               <FilterRadio title="Furnishing" radio={radio} />
+              <Divider />
               <FilterRadio title="Availability" radio={radio2} />
+              <Divider />
               <FilterRadio title="Added to site" radio={radio3} />
             </form>
           );
