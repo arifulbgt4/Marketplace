@@ -34,7 +34,7 @@ const SliderWrapper: FC<SlideWrapperProps> = ({
       onBlur={onBlur}
       onFocus={onFocus}
       name={name}
-      value={value as any}
+      value={value as number[] | number}
       {...rest}
     />
   );
