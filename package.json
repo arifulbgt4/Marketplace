@@ -96,7 +96,7 @@
     "muistory"
   ],
   "engines": {
-    "node": ">=18.18.0"
+    "node": ">=18.17.0"
   },
   "readme": "ERROR: No README data found!",
   "_id": "MuiStory@1.0.0"
