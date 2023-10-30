@@ -1,8 +1,7 @@
 import "@fontsource/material-icons";
 import type { Preview } from "@storybook/react";
 import { PaletteMode } from "@mui/material";
-import { AppRouterContext } from "next/dist/shared/lib/app-router-context";
-
+import { AppRouterContext } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { withThemeFromJSXProvider } from "@storybook/addon-styling";
 import { themes } from "@storybook/theming";

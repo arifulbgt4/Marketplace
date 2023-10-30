@@ -2572,6 +2572,14 @@
     ts-dedent "^2.0.0"
     util-deprecate "^1.0.2"
 
+"@storybook/client-api@^7.5.1":
+  version "7.5.1"
+  resolved "https://registry.yarnpkg.com/@storybook/client-api/-/client-api-7.5.1.tgz#6500ad8a8dc8a30fe0530f62b6c9fc03b0fcce5a"
+  integrity sha512-oP/f5Bq7G4IXfjWShDA912YmJIb1VMe25ekqzHxTkRctu1Ng7feDQoooCHMng7Kyk7A1rm5vtSgF7W2ELR0Uug==
+  dependencies:
+    "@storybook/client-logger" "7.5.1"
+    "@storybook/preview-api" "7.5.1"
+
 "@storybook/client-logger@7.5.1":
   version "7.5.1"
   resolved "https://registry.yarnpkg.com/@storybook/client-logger/-/client-logger-7.5.1.tgz#dc4c693900ae1f7ebda9f7faeea46956e70ef184"

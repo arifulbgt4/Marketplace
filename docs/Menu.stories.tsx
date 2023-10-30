@@ -2,7 +2,7 @@ import type { Meta, StoryObj, StoryContext } from "@storybook/react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
-import { useArgs } from "@storybook/addons";
+import { useArgs } from "@storybook/client-api";
 import { argProps, overView } from "./utils/formatArgs";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
