@@ -1,5 +1,5 @@
 "use client";
-import { FC } from "react";
+import { FC, useState } from "react";
 import {
   Paper,
   Stack,
@@ -7,6 +7,9 @@ import {
   Divider,
   Button,
   Rating,
+  Select,
+  InputLabel,
+  Box,
 } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
@@ -18,6 +21,12 @@ import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import { ListingBookingProps } from "./Types";
 
 const ListingBooking: FC<ListingBookingProps> = () => {
+  const [gest, setGest] = useState("");
+
+  const handleChange = (event: any) => {
+    setGest(event.target.value as string);
+  };
+
   return (
     <Paper>
       <Stack py={5} px={3} gap={3}>
@@ -44,18 +53,22 @@ const ListingBooking: FC<ListingBookingProps> = () => {
             />
           </LocalizationProvider>
         </Stack>
-        <FormControl fullWidth>
-          <Typography>Gestes</Typography>
-
-          <TextField select defaultValue="3" variant="outlined">
-            <MenuItem value={1}>1</MenuItem>
-            <MenuItem value={2}>2</MenuItem>
-            <MenuItem value={3}>3</MenuItem>
-            <MenuItem value={4}>4</MenuItem>
-            <MenuItem value={5}>5</MenuItem>
-            <MenuItem value={6}>6</MenuItem>
-          </TextField>
-        </FormControl>
+        <Box>
+          <InputLabel>Gestes</InputLabel>
+          <FormControl fullWidth>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={gest}
+              onChange={handleChange}
+            >
+              <MenuItem value={1}>1</MenuItem>
+              <MenuItem value={2}>2</MenuItem>
+              <MenuItem value={3}>3</MenuItem>
+              <MenuItem value={4}>4</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
         <Button variant="contained" size="large">
           reserve
         </Button>
