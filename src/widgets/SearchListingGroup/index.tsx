@@ -1,4 +1,5 @@
-import { FC } from "react";
+"use client";
+import { FC, useState } from "react";
 import { Grid, Box, Stack } from "@mui/material";
 
 import { searchListingData } from "src/global/staticData";
@@ -10,6 +11,16 @@ import ListGridView from "src/widgets/ListGridView";
 import { SearchListingGroupProps } from "./Types";
 
 const SearchListingGroup: FC<SearchListingGroupProps> = () => {
+  const [isGrid, setIsGrid] = useState(true);
+
+  const handleGrid = (event: boolean) => {
+    setIsGrid(event);
+  };
+
+  const handleList = (event: boolean) => {
+    setIsGrid(event);
+  };
+
   return (
     <Box py={5}>
       <Grid container rowSpacing={5}>
@@ -24,7 +35,11 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
             <SearchFilterForm />
           </Grid>
           <Grid item xs={12} lg={3}>
-            <ListGridView />
+            <ListGridView
+              isGrid={isGrid}
+              handleGrid={handleGrid}
+              handleList={handleList}
+            />
           </Grid>
         </Grid>
         <Grid item container xs={12} columnSpacing={4} rowSpacing={4}>
@@ -40,9 +55,10 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
               address,
             } = data;
             return (
-              <Grid item xs={12} md={6} lg={4} key={id}>
+              <Grid item xs={12} md={isGrid && 6} lg={isGrid && 4} key={id}>
                 <Listing
                   id={id}
+                  isGrid={isGrid}
                   slug={slug}
                   image={image}
                   title={title}
