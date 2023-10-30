@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 import { useLocale } from "next-intl";
 import { notFound } from "next/navigation";
 
@@ -7,12 +7,17 @@ import AppLayout from "src/layouts/AppLayout";
 import NextAuthProvider from "src/layouts/NextAuthProvider";
 import ThemeContextProvider from "src/theme";
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
+};
+
 export const metadata: Metadata = {
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-  },
   title: { default: siteConfig.name, template: `%s - ${siteConfig.name}` },
   description: siteConfig.description,
   keywords: siteConfig.keywords,
@@ -48,10 +53,6 @@ export const metadata: Metadata = {
     images: [siteConfig.ogImage],
     creator: "@ArifulI60735491",
   },
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
 };
 
 export default function RootLayout({

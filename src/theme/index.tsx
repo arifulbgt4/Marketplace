@@ -19,7 +19,8 @@ import { siteConfig } from "src/global/config";
 
 type SupportedLocales = keyof typeof locales;
 
-const DEFAULT_PALETTE_MODE: PaletteMode = siteConfig.themeColor as PaletteMode;
+const DEFAULT_PALETTE_MODE: PaletteMode =
+  siteConfig.defaultTheme as PaletteMode;
 const DEFAULT_LOCAL: SupportedLocales =
   siteConfig.localeUpper as SupportedLocales;
 
