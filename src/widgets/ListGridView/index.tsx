@@ -4,9 +4,9 @@ import AutoAwesomeMosaicIcon from "@mui/icons-material/AutoAwesomeMosaic";
 import MenuIcon from "@mui/icons-material/Menu";
 import LanguageIcon from "@mui/icons-material/Language";
 
-import { FilterButtonGroupProps } from "./Types";
+import { ListGridViewProps } from "./Types";
 
-const FitlerButtonGroup: FC<FilterButtonGroupProps> = () => {
+const ListGridView: FC<ListGridViewProps> = () => {
   return (
     <ButtonGroup
       variant="contained"
@@ -20,4 +20,4 @@ const FitlerButtonGroup: FC<FilterButtonGroupProps> = () => {
   );
 };
 
-export default FitlerButtonGroup;
+export default ListGridView;
