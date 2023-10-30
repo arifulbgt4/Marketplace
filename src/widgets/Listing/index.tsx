@@ -9,7 +9,6 @@ import {
   Typography,
   Link,
   Stack,
-  Box,
   IconButton,
   Grid,
 } from "@mui/material";

@@ -3,10 +3,10 @@ import { FC, useState } from "react";
 import { Grid, Box, Stack } from "@mui/material";
 
 import { searchListingData } from "src/global/staticData";
-import Listing from "../Listing";
-import ListingPagination from "../ListingPagination";
 import SearchFilterForm from "src/forms/SearchFilterForm";
 import ListGridView from "src/widgets/ListGridView";
+import Listing from "../Listing";
+import ListingPagination from "../ListingPagination";
 
 import { SearchListingGroupProps } from "./Types";
 
