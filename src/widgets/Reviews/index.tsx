@@ -8,11 +8,11 @@ import { ReviewsProps } from "./Types";
 
 const Reviews: FC<ReviewsProps> = () => {
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={4.5}>
       {reviewerData.map((data) => {
         const { id, title, subheader, description, img } = data;
         return (
-          <Grid key={id} item xs={4} spacing={3}>
+          <Grid key={id} item xs={4}>
             <Review
               id={id}
               title={title}
