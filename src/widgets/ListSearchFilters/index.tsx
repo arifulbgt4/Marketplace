@@ -15,7 +15,7 @@ import FilterRadio from "src/widgets/FilterRadio";
 import SelectSearchFilter from "src/widgets/SelectSearchFilter";
 import AutocompleteSearchFilter from "src/widgets/AutocompleteSearchFilter";
 import SearchFilterButtons from "src/widgets/SearchFilterButtons";
-import SliderFilter from "src/widgets/SliderFilter";
+import RangeFilter from "src/widgets/RangeFilter";
 
 import { ListSearchFiltersProps } from "./Types";
 
@@ -25,15 +25,15 @@ const ListSearchFilters: FC<ListSearchFiltersProps> = () => {
   return (
     <Box py={5}>
       <FinalForm
+        initialValues={{ priceRange: [16, 81] }}
         onSubmit={onSubmitForm}
         render={({ handleSubmit, values, errors, submitting }) => {
-          console.log(values);
           return (
             <form onSubmit={handleSubmit}>
               <SearchFilterButtons />
               <SelectSearchFilter />
               <Divider sx={{ py: 2 }} />
-              <SliderFilter />
+              <RangeFilter title="Price" />
               <Divider />
               <AutocompleteSearchFilter />
               <Divider />
