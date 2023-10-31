@@ -19,7 +19,9 @@ const ListGridView: FC<ListGridViewProps> = ({
     >
       <Button
         sx={(theme) => ({
-          bgcolor: isGrid ? theme.palette.primary.dark : "",
+          bgcolor: isGrid
+            ? theme.palette.primary.dark
+            : theme.palette.error.contrastText,
         })}
         startIcon={<AutoAwesomeMosaicIcon />}
         onClick={() => {
@@ -30,7 +32,9 @@ const ListGridView: FC<ListGridViewProps> = ({
       </Button>
       <Button
         sx={(theme) => ({
-          bgcolor: !isGrid ? theme.palette.primary.dark : "",
+          bgcolor: !isGrid
+            ? theme.palette.primary.dark
+            : theme.palette.error.contrastText,
         })}
         startIcon={<MenuIcon />}
         onClick={() => {
@@ -39,7 +43,12 @@ const ListGridView: FC<ListGridViewProps> = ({
       >
         List
       </Button>
-      <Button startIcon={<LanguageIcon />}>Map</Button>
+      <Button
+        startIcon={<LanguageIcon />}
+        sx={(theme) => ({ bgcolor: theme.palette.error.contrastText })}
+      >
+        Map
+      </Button>
     </ButtonGroup>
   );
 };
