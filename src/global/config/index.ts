@@ -29,6 +29,6 @@ export const siteConfig = {
   author: "Ariful",
   creator: "Ariful",
   themeColor: "#090c24",
-  defaultTheme: "light",
+  defaultTheme: "dark",
   backgroundColor: "#090c24",
 };

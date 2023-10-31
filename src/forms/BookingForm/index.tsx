@@ -23,8 +23,8 @@ import { BookingFormProps } from "./Types";
 
 const BookingForm: FC<BookingFormProps> = () => {
   const gest = "";
-
   const onSubmitForm = async () => {};
+
   return (
     <Paper>
       <FinalForm
