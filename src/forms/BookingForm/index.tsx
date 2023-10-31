@@ -17,9 +17,9 @@ import { LocalizationProvider } from "@mui/x-date-pickers-pro";
 import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
 import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 
-import { ListingBookingProps } from "./Types";
+import { BookingFormProps } from "./Types";
 
-const ListingBooking: FC<ListingBookingProps> = () => {
+const BookingForm: FC<BookingFormProps> = () => {
   const [gest, setGest] = useState("");
 
   const handleChange = (event: any) => {
@@ -96,4 +96,4 @@ const ListingBooking: FC<ListingBookingProps> = () => {
   );
 };
 
-export default ListingBooking;
+export default BookingForm;
