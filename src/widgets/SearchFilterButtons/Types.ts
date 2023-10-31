@@ -1,1 +1,3 @@
-export interface SearchFilterButtonsProps {}
+export interface SearchFilterButtonsProps {
+  onClose?: () => void;
+}

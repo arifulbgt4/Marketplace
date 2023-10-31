@@ -19,18 +19,18 @@ import RangeFilter from "src/widgets/RangeFilter";
 
 import { ListSearchFiltersProps } from "./Types";
 
-const ListSearchFilters: FC<ListSearchFiltersProps> = () => {
+const ListSearchFilters: FC<ListSearchFiltersProps> = ({ onClose }) => {
   const onSubmitForm = async () => {};
 
   return (
-    <Box py={5}>
+    <Box p={{ xs: 1, md: 0 }} py={{ md: 5 }}>
       <FinalForm
         initialValues={{ priceRange: [16, 81] }}
         onSubmit={onSubmitForm}
         render={({ handleSubmit, values, errors, submitting }) => {
           return (
             <form onSubmit={handleSubmit}>
-              <SearchFilterButtons />
+              <SearchFilterButtons onClose={onClose} />
               <SelectSearchFilter />
               <Divider sx={{ py: 2 }} />
               <RangeFilter title="Price" />
