@@ -9,13 +9,15 @@ import Footer from "src/widgets/Footer";
 import { AppLayoutProps } from "./Types";
 
 const AppLayout: FC<AppLayoutProps> = async ({ children }) => {
+  const headerHeight = 64;
+
   const session = await getServerSession(authOptions);
   return (
     <Grid container>
-      <Grid item xs={12} height={56.7}>
+      <Grid item xs={12} height={headerHeight}>
         <Header user={session?.user} />
       </Grid>
-      <Grid item xs={12} height="calc(100% - 56.7px)">
+      <Grid item xs={12}>
         {children}
       </Grid>
       <Grid item xs={12}>
