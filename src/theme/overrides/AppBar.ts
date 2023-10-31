@@ -9,6 +9,9 @@ const MuiAppBar: Components<Theme>["MuiAppBar"] = {
 const MuiToolbar: Components<Theme>["MuiToolbar"] = {
   styleOverrides: {
     root: ({ theme, ownerState }) => ({}),
+    dense: ({ theme, ownerState }) => ({
+      minHeight: 64,
+    }),
   },
 };
 
