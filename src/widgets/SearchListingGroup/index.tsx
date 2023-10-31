@@ -1,6 +1,6 @@
 "use client";
 import { FC, useState } from "react";
-import { Grid, Box, Stack } from "@mui/material";
+import { Grid, Box, Stack, Hidden } from "@mui/material";
 
 import { searchListingData } from "src/global/staticData";
 import SearchFilterForm from "src/forms/SearchFilterForm";
@@ -34,12 +34,14 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
           <Grid item xs={12} lg={6}>
             <SearchFilterForm />
           </Grid>
-          <Grid item xs={12} lg={3}>
-            <ListGridView
-              isGrid={isGrid}
-              handleGrid={handleGrid}
-              handleList={handleList}
-            />
+          <Grid item md={12} lg={3}>
+            <Hidden mdDown>
+              <ListGridView
+                isGrid={isGrid}
+                handleGrid={handleGrid}
+                handleList={handleList}
+              />
+            </Hidden>
           </Grid>
         </Grid>
         <Grid item container xs={12} columnSpacing={4} rowSpacing={4}>

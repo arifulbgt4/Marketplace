@@ -57,7 +57,11 @@ const Listing: FC<ListingProps> = ({
               </Stack>
             </Grid>
             <Grid item xs={6}>
-              <Stack flexDirection="row" alignItems="center">
+              <Stack
+                flexDirection="row"
+                alignItems="center"
+                justifyContent="flex-end"
+              >
                 <IconButton>
                   <BathtubIcon fontSize="small" />
                 </IconButton>
@@ -78,7 +82,11 @@ const Listing: FC<ListingProps> = ({
               </Stack>
             </Grid>
             <Grid item xs={6}>
-              <Stack flexDirection="row" alignItems="center">
+              <Stack
+                flexDirection="row"
+                alignItems="center"
+                justifyContent="flex-end"
+              >
                 <IconButton>
                   <ApartmentIcon fontSize="small" />
                 </IconButton>
