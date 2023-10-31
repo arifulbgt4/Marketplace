@@ -53,10 +53,11 @@ const Header: FC<HeaderProps> = ({ user }) => {
   };
 
   return (
-    <AppBar position="fixed">
+    <AppBar position="fixed" elevation={1}>
       <Container>
         <Toolbar
           disableGutters
+          variant="dense"
           sx={{ display: "flex", justifyContent: "space-between" }}
         >
           <Hidden mdUp implementation="css">
