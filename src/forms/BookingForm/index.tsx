@@ -1,6 +1,9 @@
 "use client";
-import { FC, useState } from "react";
+import { FC, useState, ReactNode } from "react";
 import { Form as FinalForm } from "react-final-form";
+import moment, { Moment } from "moment";
+
+import { DateRangePicker, FocusedInputShape } from "react-dates";
 import {
   Paper,
   Stack,
@@ -13,18 +16,34 @@ import {
   MenuItem,
   FormControl,
 } from "@mui/material";
-import { LocalizationProvider } from "@mui/x-date-pickers-pro";
-import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
-import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 
 import { Select } from "src/components/Input";
+
+import "react-dates/initialize";
+import "react-dates/lib/css/_datepicker.css";
 
 import { BookingFormProps } from "./Types";
 
 const BookingForm: FC<BookingFormProps> = () => {
   const gest = "";
   const onSubmitForm = async () => {};
+  const [startDate, setStartDate] = useState<Moment | null>(moment());
+  const [endDate, setEndDate] = useState<Moment | null>(null);
+  const [focusedInput, setFocusedInput] = useState<FocusedInputShape | null>(
+    null
+  );
 
+  const handlendDatesChange = (arg: {
+    startDate: Moment | null;
+    endDate: Moment | null;
+  }) => {
+    setStartDate(arg.startDate);
+    setEndDate(arg.endDate);
+  };
+
+  const handleFocusChange = (arg: FocusedInputShape | null) => {
+    setFocusedInput(arg);
+  };
   return (
     <Paper>
       <FinalForm
@@ -53,12 +72,15 @@ const BookingForm: FC<BookingFormProps> = () => {
                     <Typography>Check-in</Typography>
                     <Typography>Checkout</Typography>
                   </Stack>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DateRangePicker
-                      defaultRangePosition="end"
-                      localeText={{ start: "", end: "" }}
-                    />
-                  </LocalizationProvider>
+                  <DateRangePicker
+                    startDate={startDate} // moment.Moment | null;
+                    startDateId="your_unique_start_date_id" // moment.Moment | null;
+                    endDate={endDate} // momentPropTypes.momentObj or null,
+                    endDateId="your_unique_end_date_id" // string;
+                    onDatesChange={handlendDatesChange} // (arg: { startDate: moment.Moment | null; endDate: moment.Moment | null }) => void;
+                    focusedInput={focusedInput} // FocusedInputShape | null;
+                    onFocusChange={handleFocusChange} // (arg: FocusedInputShape | null) => void;
+                  />
                 </Stack>
                 <Box>
                   <InputLabel>Gestes</InputLabel>
