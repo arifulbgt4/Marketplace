@@ -19,7 +19,9 @@ import RangeFilter from "src/widgets/RangeFilter";
 
 import { ListSearchFiltersProps } from "./Types";
 
-const ListSearchFilters: FC<ListSearchFiltersProps> = ({ onClose }) => {
+const ListSearchFilters: FC<ListSearchFiltersProps> = ({
+  onCloseMobileDrawer,
+}) => {
   const onSubmitForm = async () => {};
 
   return (
@@ -30,7 +32,7 @@ const ListSearchFilters: FC<ListSearchFiltersProps> = ({ onClose }) => {
         render={({ handleSubmit, values, errors, submitting }) => {
           return (
             <form onSubmit={handleSubmit}>
-              <SearchFilterButtons onClose={onClose} />
+              <SearchFilterButtons onCloseMobileDrawer={onCloseMobileDrawer} />
               <SelectSearchFilter />
               <Divider sx={{ py: 2 }} />
               <RangeFilter title="Price" />

@@ -6,7 +6,9 @@ import CheckIcon from "@mui/icons-material/Check";
 
 import { SearchFilterButtonsProps } from "./Types";
 
-const SearchFilterButtons: FC<SearchFilterButtonsProps> = ({ onClose }) => {
+const SearchFilterButtons: FC<SearchFilterButtonsProps> = ({
+  onCloseMobileDrawer,
+}) => {
   return (
     <Stack flexDirection="column" pb={2}>
       <IconButton
@@ -19,11 +21,15 @@ const SearchFilterButtons: FC<SearchFilterButtonsProps> = ({ onClose }) => {
         Filter
       </IconButton>
       <Stack direction="row" gap={1} justifyContent="space-between">
-        <Button startIcon={<RestartAltIcon />} onClick={onClose}>
+        <Button startIcon={<RestartAltIcon />} onClick={onCloseMobileDrawer}>
           Reset
         </Button>
 
-        <Button startIcon={<CheckIcon />} onClick={onClose} variant="contained">
+        <Button
+          startIcon={<CheckIcon />}
+          onClick={onCloseMobileDrawer}
+          variant="contained"
+        >
           Result
         </Button>
       </Stack>

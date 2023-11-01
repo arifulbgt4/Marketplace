@@ -57,8 +57,8 @@ const Header: FC<HeaderProps> = ({ user }) => {
       <Container>
         <Toolbar
           disableGutters
-          variant="dense"
           sx={{ display: "flex", justifyContent: "space-between" }}
+          variant="dense"
         >
           <Hidden mdUp implementation="css">
             <Stack>

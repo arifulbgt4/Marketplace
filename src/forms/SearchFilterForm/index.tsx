@@ -56,7 +56,9 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({}) => {
                   </Grid>
                   <Drawer open={open} onClose={() => setOpen(false)}>
                     <Box width={{ xs: 250, sm: 300 }}>
-                      <ListSearchFilters onClose={() => setOpen(false)} />
+                      <ListSearchFilters
+                        onCloseMobileDrawer={() => setOpen(false)}
+                      />
                     </Box>
                   </Drawer>
                 </Hidden>
