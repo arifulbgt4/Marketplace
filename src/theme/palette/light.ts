@@ -54,9 +54,9 @@ export default {
     A700: "#616161",
   },
   text: {
-    primary: "rgba(0, 0, 0, 0.87)",
-    secondary: "rgba(0, 0, 0, 0.6)",
-    disabled: "rgba(0, 0, 0, 0.38)",
+    primary: "rgb(10, 37, 64)",
+    secondary: "rgb(66, 84, 102)",
+    disabled: "rgb(26, 31, 54)",
   },
   action: {
     active: "rgba(0, 0, 0, 0.54)",
