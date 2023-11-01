@@ -6,7 +6,7 @@ import LanguageIcon from "@mui/icons-material/Language";
 
 import { ListGridViewProps } from "./Types";
 
-const ListGridView: FC<ListGridViewProps> = ({ handleGridList, isGrid }) => {
+const ListGridView: FC<ListGridViewProps> = ({ toggleGridList, isGrid }) => {
   return (
     <ButtonGroup
       variant="contained"
@@ -21,7 +21,7 @@ const ListGridView: FC<ListGridViewProps> = ({ handleGridList, isGrid }) => {
         })}
         startIcon={<AutoAwesomeMosaicIcon />}
         onClick={() => {
-          handleGridList(true);
+          toggleGridList(true);
         }}
       >
         Grid
@@ -34,7 +34,7 @@ const ListGridView: FC<ListGridViewProps> = ({ handleGridList, isGrid }) => {
         })}
         startIcon={<MenuIcon />}
         onClick={() => {
-          handleGridList(false);
+          toggleGridList(false);
         }}
       >
         List

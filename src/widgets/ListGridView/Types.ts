@@ -1,4 +1,4 @@
 export interface ListGridViewProps {
   isGrid: boolean;
-  handleGridList: (event: boolean) => void;
+  toggleGridList: (event: boolean) => void;
 }

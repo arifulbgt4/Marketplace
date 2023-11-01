@@ -1,3 +1,3 @@
 export interface SearchFilterButtonsProps {
-  onClose?: () => void;
+  onCloseMobileDrawer?: () => void;
 }
