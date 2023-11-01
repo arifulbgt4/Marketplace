@@ -13,11 +13,7 @@ import { SearchListingGroupProps } from "./Types";
 const SearchListingGroup: FC<SearchListingGroupProps> = () => {
   const [isGrid, setIsGrid] = useState(true);
 
-  const handleGrid = (event: boolean) => {
-    setIsGrid(event);
-  };
-
-  const handleList = (event: boolean) => {
+  const handleGridList = (event: boolean) => {
     setIsGrid(event);
   };
 
@@ -36,11 +32,7 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
           </Grid>
           <Grid item md={12} lg={3}>
             <Hidden mdDown>
-              <ListGridView
-                isGrid={isGrid}
-                handleGrid={handleGrid}
-                handleList={handleList}
-              />
+              <ListGridView isGrid={isGrid} handleGridList={handleGridList} />
             </Hidden>
           </Grid>
         </Grid>
