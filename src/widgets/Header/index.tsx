@@ -64,7 +64,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
             <Stack>
               {user ? (
                 <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenNavAvatar}>
+                  <IconButton sx={{ p: 0 }} onClick={handleOpenNavAvatar}>
                     <Avatar>AD</Avatar>
                   </IconButton>
                 </Tooltip>
@@ -236,7 +236,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
             ) : (
               <Stack>
                 <Hidden mdUp implementation="css">
-                  <IconButton onClick={handleOpenNavMenu}>
+                  <IconButton onClick={handleOpenNavMenu} sx={{ p: 0 }}>
                     <MenuIcon />
                   </IconButton>
                   <Menu
