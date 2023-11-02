@@ -54,10 +54,10 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
             <Grid item xs={12} display="flex">
               <IconButton
                 onClick={() => setOpen(true)}
-                sx={{
-                  border: "1px solid #fff",
-                  px: 2.2,
-                }}
+                sx={(theme) => ({
+                  border: `1px solid ${theme.palette.grey[700]}`,
+                  px: 2,
+                })}
               >
                 <FilterAltIcon />
               </IconButton>
@@ -72,13 +72,15 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
               <Paper sx={{ width: "100%" }}>
                 <Stack
                   component={ButtonBase}
+                  sx={(theme) => ({
+                    border: `1px solid ${theme.palette.grey[700]}`,
+                  })}
                   width="100%"
                   flexDirection="row"
                   justifyContent="flex-start"
-                  border="1px solid #fff"
                   borderRadius={12.5}
                   py={0.5}
-                  ml={{ xs: 1.3 }}
+                  ml={1.3}
                   onClick={() => {
                     setOpenModal(true);
                   }}
@@ -105,64 +107,53 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
                   aria-labelledby="modal-modal-title"
                   aria-describedby="modal-modal-description"
                 >
-                  <Stack
-                    gap={1}
-                    sx={{
-                      position: "absolute" as "absolute",
-                      top: "50%",
-                      left: "50%",
-                      transform: "translate(-50%, -50%)",
-                      width: "100vw",
-                      height: "100%",
-                      bgcolor: "background.paper",
-
-                      boxShadow: 24,
-                      p: 2,
-                    }}
-                  >
-                    <IconButton
-                      onClick={() => {
-                        setOpenModal(false);
-                      }}
-                      sx={{ justifyContent: "flex-start" }}
-                    >
-                      <CloseIcon />
-                    </IconButton>
-                    <Typography variant="h5">Where to ?</Typography>
-                    <FormControl variant="outlined" fullWidth>
-                      <InputLabel htmlFor="outlined-adornment-location">
-                        Location
-                      </InputLabel>
-                      <OutlinedInput
-                        id="outlined-adornment-location"
-                        endAdornment={
-                          <InputAdornment position="end">
-                            <IconButton>
-                              <LocationOnSharpIcon />
-                            </IconButton>
-                          </InputAdornment>
-                        }
-                      />
-                    </FormControl>
-                    <FormControl variant="outlined" fullWidth>
-                      <InputLabel htmlFor="outlined-adornment-listing">
-                        Key
-                      </InputLabel>
-                      <OutlinedInput
-                        id="outlined-adornment-password"
-                        endAdornment={
-                          <InputAdornment position="start">
-                            <IconButton>
-                              <SearchSharpIcon />
-                            </IconButton>
-                          </InputAdornment>
-                        }
-                      />
-                    </FormControl>
-                    <Button fullWidth variant="contained" sx={{ py: 2 }}>
-                      Search
-                    </Button>
-                  </Stack>
+                  <Paper sx={{ minHeight: "100vh" }}>
+                    <Stack gap={1} px={3} py={8} position="relative">
+                      <Box position="absolute" top={0} left={0}>
+                        <IconButton
+                          onClick={() => {
+                            setOpenModal(false);
+                          }}
+                        >
+                          <CloseIcon />
+                        </IconButton>
+                      </Box>
+                      <Typography variant="h5">Where to ?</Typography>
+                      <FormControl variant="outlined" fullWidth>
+                        <InputLabel htmlFor="outlined-adornment-location">
+                          Location
+                        </InputLabel>
+                        <OutlinedInput
+                          id="outlined-adornment-location"
+                          endAdornment={
+                            <InputAdornment position="end">
+                              <IconButton>
+                                <LocationOnSharpIcon />
+                              </IconButton>
+                            </InputAdornment>
+                          }
+                        />
+                      </FormControl>
+                      <FormControl variant="outlined" fullWidth>
+                        <InputLabel htmlFor="outlined-adornment-listing">
+                          Key
+                        </InputLabel>
+                        <OutlinedInput
+                          id="outlined-adornment-password"
+                          endAdornment={
+                            <InputAdornment position="start">
+                              <IconButton>
+                                <SearchSharpIcon />
+                              </IconButton>
+                            </InputAdornment>
+                          }
+                        />
+                      </FormControl>
+                      <Button fullWidth variant="contained" sx={{ py: 2 }}>
+                        Search
+                      </Button>
+                    </Stack>
+                  </Paper>
                 </Modal>
               </Paper>
             </Grid>
@@ -191,7 +182,7 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
               address,
             } = data;
             return (
-              <Grid item xs={12} md={isGrid && 6} lg={isGrid && 4} key={id}>
+              <Grid item xs={12} sm={isGrid && 6} lg={isGrid && 4} key={id}>
                 <Listing
                   id={id}
                   isGrid={isGrid}
