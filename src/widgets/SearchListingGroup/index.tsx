@@ -47,7 +47,7 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
           container
           item
           xs={12}
-          justifyContent={{ xs: "space-between" }}
+          justifyContent="space-between"
           alignItems="center"
         >
           <Hidden mdUp>

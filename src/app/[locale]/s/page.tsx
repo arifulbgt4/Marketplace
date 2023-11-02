@@ -7,7 +7,6 @@ const SearchPage = () => {
   return (
     <Box>
       <Container>
-        <Hidden mdUp></Hidden>
         <Grid container columnSpacing={10}>
           <Hidden mdDown>
             <Grid item md={3}>
