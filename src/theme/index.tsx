@@ -15,6 +15,7 @@ import palette, { PaletteOptions } from "./palette";
 import typography from "./typography";
 import shadowsTheme from "./shadows";
 import componentsOverride from "./overrides";
+import breakpoints from "./breakpoints";
 import { siteConfig } from "src/global/config";
 
 type SupportedLocales = keyof typeof locales;
@@ -63,6 +64,7 @@ const ThemeContextProvider = ({ children }: ThemeContextProviderProps) => {
           typography,
           shadows: shadowsTheme(palette(mode) as PaletteOptions),
           components: componentsOverride,
+          breakpoints,
         },
         locales[locale]
       ),
