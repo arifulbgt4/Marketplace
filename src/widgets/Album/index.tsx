@@ -61,7 +61,6 @@ export const Album: FC<AlbumProps> = ({ albumImg }) => {
         </Grid>
         <Grid container item xs={6} spacing={3}>
           {albumImg.slice(1).map((img) => {
-            console.log("object", img);
             return (
               <Grid item xs={6} key={img}>
                 <Box>

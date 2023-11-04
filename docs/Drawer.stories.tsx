@@ -121,7 +121,6 @@ export const Template: Story = {
       const [args, updateArgs] = useArgs();
 
       const toggleDrawer = (anchor: Anchor, open: boolean) => {
-        console.log("first");
         updateArgs({
           open: open,
           anchor: anchor,

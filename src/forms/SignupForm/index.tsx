@@ -33,7 +33,6 @@ const SignupForm: FC<SignupFormProps> = () => {
   ) => {
     try {
       const res = (await signUp(values)) as unknown as any;
-      console.log(res);
       if (!res?.ok) return;
       router.push("/");
     } catch (error) {
