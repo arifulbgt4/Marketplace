@@ -6,7 +6,7 @@ import { Album } from "src/widgets/Album";
 import Reviews from "src/widgets/Reviews";
 import ListingHeader from "src/widgets/ListingHeader";
 import ListingLocation from "src/widgets/ListingLocation";
-import ListingBooking from "src/widgets/ListingBooking";
+import BookingForm from "src/widgets/ListingBooking";
 
 const albumImg = [
   "https://source.unsplash.com/8gVv6nxq6gY",
@@ -45,7 +45,7 @@ const ListingDetailsPage = () => {
             </Grid>
             <Grid item container xs={3}>
               <Grid item xs={12}>
-                <ListingBooking />
+                <BookingForm />
               </Grid>
               <Grid item xs={12}>
                 sellerMiniProfile
