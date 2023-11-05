@@ -6,7 +6,7 @@ import { Album } from "src/widgets/Album";
 import Reviews from "src/widgets/Reviews";
 import ListingHeader from "src/widgets/ListingHeader";
 import ListingLocation from "src/widgets/ListingLocation";
-import BookingForm from "src/widgets/ListingBooking";
+import BookingForm from "src/forms/BookingForm";
 
 const albumImg = [
   "https://source.unsplash.com/8gVv6nxq6gY",
