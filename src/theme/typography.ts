@@ -94,6 +94,7 @@ export default {
     fontSize: "0.938rem",
     lineHeight: 1.6,
     letterSpacing: "0.013em",
+    textTransform: "capitalize",
   },
   caption: {
     ...dm_sans.style,
