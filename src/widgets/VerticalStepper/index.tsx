@@ -1,6 +1,7 @@
 "use client";
 import { FC, useState } from "react";
 import {
+  Grid,
   Box,
   Stepper,
   Step,
@@ -9,11 +10,18 @@ import {
   Button,
   Paper,
   Typography,
+  FormControl,
+  MenuItem,
+  InputLabel,
+  InputAdornment,
+  OutlinedInput,
 } from "@mui/material";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 
-import { TextField } from "src/components/Input";
+import { Select, TextField } from "src/components/Input";
 
 import { VerticalStepperProps } from "./Types";
+import CalendarComp from "../CalendarComp/index";
 
 const VerticalStepper: FC<VerticalStepperProps> = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -32,7 +40,7 @@ const VerticalStepper: FC<VerticalStepperProps> = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: 600 }}>
+    <Box sx={{ maxWidth: 800 }}>
       <Stepper activeStep={activeStep} orientation="vertical">
         <Step>
           <StepLabel
@@ -84,7 +92,7 @@ const VerticalStepper: FC<VerticalStepperProps> = () => {
             ) : null}
           </StepLabel>
           <StepContent>
-            <Typography>description</Typography>
+            <PriceInformation />
             <Box sx={{ mb: 2 }}>
               <div>
                 <Button
@@ -197,6 +205,79 @@ const VerticalStepper: FC<VerticalStepperProps> = () => {
         </Paper>
       )}
     </Box>
+  );
+};
+
+const PriceInformation = () => {
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={6}>
+        <FormControl fullWidth sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel>category</InputLabel>
+          <Select name="category" input={<OutlinedInput label="category" />}>
+            <MenuItem value="">
+              <em>None Selected</em>
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} container spacing={2}>
+        <Grid item xs={6}>
+          <FormControl fullWidth sx={{ m: 1 }}>
+            <TextField
+              name="monthlyrent"
+              label="Monthly Rent"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <AttachMoneyIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </FormControl>
+        </Grid>
+        <Grid item xs={6}>
+          <FormControl fullWidth sx={{ m: 1 }}>
+            <InputLabel id="demo-simple-select-label">
+              Sequrity Deposit
+            </InputLabel>
+            <Select
+              name="sdeposit"
+              input={<OutlinedInput label="Sequrity Deposit" />}
+            >
+              <MenuItem value="1">1/2 Month</MenuItem>
+              <MenuItem value="2">Ten</MenuItem>
+              <MenuItem value="3">Twenty</MenuItem>
+              <MenuItem value="4">Thirty</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+      </Grid>
+      <Grid item xs={12} container spacing={2}>
+        <Grid item xs={6}>
+          <FormControl fullWidth>
+            <CalendarComp />
+          </FormControl>
+        </Grid>
+        <Grid item xs={6}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Lease term</InputLabel>
+            <Select
+              fullWidth
+              name="sdeposit"
+              input={<OutlinedInput label="lease term" />}
+            >
+              <MenuItem value="1">long term</MenuItem>
+              <MenuItem value="2">short term</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 
