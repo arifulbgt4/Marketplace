@@ -1,5 +1,8 @@
 import { Box, Container, Grid } from "@mui/material";
-import React from "react";
+
+import UserListings from "src/widgets/UserListings";
+import UserProfile from "src/widgets/UserProfile";
+import UserReviews from "src/widgets/UserReviews";
 
 const HostProfile = () => {
   return (
@@ -7,13 +10,13 @@ const HostProfile = () => {
       <Container>
         <Grid container>
           <Grid item xs={4}>
-            UserProfile
+            <UserProfile />
           </Grid>
           <Grid item xs={4}>
-            UserListings
+            <UserListings />
           </Grid>
           <Grid item xs={4}>
-            UserReviews
+            <UserReviews />
           </Grid>
         </Grid>
       </Container>
