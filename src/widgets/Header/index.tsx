@@ -309,7 +309,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
                   >
                     <MenuItem
                       component={Link}
-                      href={routes.userProfile}
+                      href={routes.userAccount}
                       onClick={handleCloseNavAvatar}
                     >
                       Profile

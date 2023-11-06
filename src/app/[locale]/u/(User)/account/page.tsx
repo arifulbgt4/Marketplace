@@ -1,19 +1,19 @@
 import { Grid, Box, Container } from "@mui/material";
 
-import ProfileHelpInfo from "src/widgets/ProfileHelpInfo";
+import AccountHelpInfo from "src/widgets/ProfileHelpInfo";
 
-import UserInfo from "src/widgets/UserInfo";
+import AccountDetails from "src/widgets/AccountDetails";
 
-export default function Profile() {
+export default function Account() {
   return (
     <Box>
       <Container>
         <Grid container columnSpacing={10}>
           <Grid item xs={8}>
-            <UserInfo />
+            <AccountDetails />
           </Grid>
           <Grid item xs={4}>
-            <ProfileHelpInfo />
+            <AccountHelpInfo />
           </Grid>
         </Grid>
       </Container>

@@ -1,1 +1,1 @@
-export interface ProfileHelpInfoProps {}
+export interface AccountHelpInfoProps {}

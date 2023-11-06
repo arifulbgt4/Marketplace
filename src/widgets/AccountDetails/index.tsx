@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { Grid, Paper, Typography } from "@mui/material";
 
-import { ItemProps, UserDetailsProps } from "./Types";
+import { ItemProps, AccountDetailsProps } from "./Types";
 
-const UserInfo: FC<UserDetailsProps> = () => {
+const AccountDetails: FC<AccountDetailsProps> = () => {
   return (
     <Paper sx={{ p: 5 }}>
       <Grid container rowGap={2.5}>
@@ -24,7 +24,7 @@ const UserInfo: FC<UserDetailsProps> = () => {
   );
 };
 
-export default UserInfo;
+export default AccountDetails;
 
 const Item: FC<ItemProps> = ({ property, value }) => {
   return (

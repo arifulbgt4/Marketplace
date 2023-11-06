@@ -3,9 +3,9 @@ import { FC } from "react";
 import Info from "src/components/Info";
 import SocialIconLink from "src/components/SocialILink";
 
-import { ProfileHelpInfoProps } from "./Types";
+import { AccountHelpInfoProps } from "./Types";
 
-const ProfileHelpInfo: FC<ProfileHelpInfoProps> = () => {
+const AccountHelpInfo: FC<AccountHelpInfoProps> = () => {
   return (
     <Info title="Social Links">
       <SocialIconLink />
@@ -13,4 +13,4 @@ const ProfileHelpInfo: FC<ProfileHelpInfoProps> = () => {
   );
 };
 
-export default ProfileHelpInfo;
+export default AccountHelpInfo;
