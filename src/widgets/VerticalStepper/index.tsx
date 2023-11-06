@@ -1,3 +1,4 @@
+"use client";
 import { FC, useState } from "react";
 import {
   Box,
@@ -10,12 +11,13 @@ import {
   Typography,
 } from "@mui/material";
 
-import { VerticalStepperProps } from "./Types";
 import { TextField } from "src/components/Input";
+
+import { VerticalStepperProps } from "./Types";
 
 const VerticalStepper: FC<VerticalStepperProps> = () => {
   const [activeStep, setActiveStep] = useState(0);
-  const [isActiveStep, setIsActiveStep] = useState(false);
+  console.log(activeStep);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -28,25 +30,29 @@ const VerticalStepper: FC<VerticalStepperProps> = () => {
   const handleReset = () => {
     setActiveStep(0);
   };
-  const handleactive = () => {
-    setIsActiveStep(!false);
-  };
 
   return (
-    <Box sx={{ maxWidth: 400 }}>
+    <Box sx={{ maxWidth: 600 }}>
       <Stepper activeStep={activeStep} orientation="vertical">
         <Step>
-          <StepLabel>
+          <StepLabel
+            optional={
+              activeStep === 0 ? <Typography>step pending</Typography> : null
+            }
+          >
             <Typography>Basic Information</Typography>
-            {activeStep == 0 ? (
-              <Typography variant="caption">complete</Typography>
-            ) : (
-              <Typography>pending</Typography>
-            )}
+            {activeStep > 0 ? <Typography>complete</Typography> : null}
           </StepLabel>
-
           <StepContent>
             <Box sx={{ mb: 2 }}>
+              <TextField
+                fullWidth
+                name="address"
+                label="Address"
+                placeholder="Location"
+                type="text"
+              />
+              <Typography>Loaction Map</Typography>
               <div>
                 <Button
                   variant="contained"
@@ -67,13 +73,15 @@ const VerticalStepper: FC<VerticalStepperProps> = () => {
           </StepContent>
         </Step>
         <Step>
-          <StepLabel>
-            <Typography>Basic Information</Typography>
-            {activeStep === 1 ? (
-              <Typography variant="caption">pending</Typography>
-            ) : (
-              <Typography>complete</Typography>
-            )}
+          <StepLabel
+            optional={
+              activeStep === 1 ? <Typography>pending</Typography> : null
+            }
+          >
+            <Typography>Price Information</Typography>
+            {activeStep > 1 ? (
+              <Typography variant="caption">complete</Typography>
+            ) : null}
           </StepLabel>
           <StepContent>
             <Typography>description</Typography>
@@ -94,13 +102,15 @@ const VerticalStepper: FC<VerticalStepperProps> = () => {
           </StepContent>
         </Step>
         <Step>
-          <StepLabel>
-            <Typography>Basic Information</Typography>
-            {activeStep === 2 ? (
-              <Typography variant="caption">pending</Typography>
-            ) : (
-              <Typography>complete</Typography>
-            )}
+          <StepLabel
+            optional={
+              activeStep === 2 ? <Typography>step pending</Typography> : null
+            }
+          >
+            <Typography>Contact Method</Typography>
+            {activeStep > 2 ? (
+              <Typography variant="caption">complete</Typography>
+            ) : null}
           </StepLabel>
           <StepContent>
             <Typography>description</Typography>
@@ -121,7 +131,16 @@ const VerticalStepper: FC<VerticalStepperProps> = () => {
           </StepContent>
         </Step>
         <Step>
-          <StepLabel>Basic Information</StepLabel>
+          <StepLabel
+            optional={
+              activeStep === 3 ? <Typography>step pending</Typography> : null
+            }
+          >
+            <Typography>Home Features</Typography>
+            {activeStep > 3 ? (
+              <Typography variant="caption">complete</Typography>
+            ) : null}
+          </StepLabel>
           <StepContent>
             <Typography>description</Typography>
             <Box sx={{ mb: 2 }}>
@@ -141,7 +160,14 @@ const VerticalStepper: FC<VerticalStepperProps> = () => {
           </StepContent>
         </Step>
         <Step>
-          <StepLabel>Basic Information</StepLabel>
+          <StepLabel
+            optional={
+              activeStep === 4 ? <Typography>step pending</Typography> : null
+            }
+          >
+            <Typography>Upload Images</Typography>
+            {activeStep > 4 ? <Typography>complete</Typography> : null}
+          </StepLabel>
           <StepContent>
             <Typography>description</Typography>
             <Box sx={{ mb: 2 }}>

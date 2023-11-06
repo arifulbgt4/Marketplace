@@ -1,7 +1,7 @@
 "use client";
 import { FC } from "react";
 import { Form as FinalForm } from "react-final-form";
-import { Grid, Paper, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 
 import VerticalStepper from "src/widgets/VerticalStepper";
 
