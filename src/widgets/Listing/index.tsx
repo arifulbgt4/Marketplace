@@ -34,7 +34,7 @@ const Listing: FC<ListingProps> = ({
 }) => {
   return (
     <Card
-      elevation={2}
+      elevation={1}
       sx={{
         display: "flex",
         flexDirection: isGrid ? "column" : "row",
