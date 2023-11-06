@@ -62,7 +62,7 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({}) => {
                     />
                   </FormControl>
                 </Grid>
-                <Grid xs={1} md={2}>
+                <Grid item xs={1} md={2}>
                   <Hidden mdDown>
                     <Button fullWidth variant="contained" sx={{ py: 2 }}>
                       Search
