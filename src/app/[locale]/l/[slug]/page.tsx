@@ -3,7 +3,7 @@ import { Box, Container, Grid } from "@mui/material";
 import ListingContents from "src/widgets/ListingContents";
 import ListingRatings from "src/widgets/ListingRatings";
 import { Album } from "src/widgets/Album";
-import Reviews from "src/widgets/Reviews";
+import ListingReviews from "src/widgets/ListingReviews";
 import ListingHeader from "src/widgets/ListingHeader";
 import ListingLocation from "src/widgets/ListingLocation";
 import BookingForm from "src/forms/BookingForm";
@@ -67,7 +67,7 @@ const ListingDetailsPage = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Reviews />
+            <ListingReviews />
           </Grid>
         </Grid>
       </Container>
