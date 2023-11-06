@@ -21,7 +21,6 @@ import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import { BookingFormProps } from "./Types";
 
 const BookingForm: FC<BookingFormProps> = () => {
-  const gest = "";
   const onSubmitForm = async () => {};
 
   return (
@@ -65,7 +64,6 @@ const BookingForm: FC<BookingFormProps> = () => {
                     <Select
                       labelId="gestes-select-label"
                       id="gestes-select"
-                      value={gest}
                       name="gestes"
                     >
                       <MenuItem value={1}>1</MenuItem>
