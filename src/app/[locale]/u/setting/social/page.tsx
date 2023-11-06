@@ -1,8 +1,8 @@
 import { Grid } from "@mui/material";
 import SocilalSetting from "src/widgets/SocilalSetting";
 
-const Socilal = () => {
+const Social = () => {
   return <SocilalSetting />;
 };
 
-export default Socilal;
+export default Social;

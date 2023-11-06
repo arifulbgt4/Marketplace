@@ -2,7 +2,7 @@ import { TypographyVariants as TypographyVariantsOption } from "@mui/material/st
 import { DM_Sans } from "next/font/google";
 
 export const dm_sans = DM_Sans({
-  weight: ["300", "400", "500", "700"],
+  weight: ["300", "400", "500", "600", "700"],
   style: ["normal", "italic"],
   subsets: ["latin"],
   display: "swap",
@@ -20,42 +20,42 @@ export default {
   fontWeightBold: 700,
   h1: {
     ...dm_sans.style,
-    fontWeight: 700,
-    fontSize: "2.5rem",
+    fontWeight: 500,
+    fontSize: "3.5rem",
     lineHeight: 1.167,
     letterSpacing: "-0.02em",
   },
   h2: {
     ...dm_sans.style,
-    fontWeight: 700,
+    fontWeight: 500,
     fontSize: "2.5rem",
     lineHeight: 1.263157895,
     letterSpacing: "-0.013",
   },
   h3: {
     ...dm_sans.style,
-    fontWeight: 700,
+    fontWeight: 400,
     fontSize: "1.62rem",
     lineHeight: 1.384615385,
     letterSpacing: "0em",
   },
   h4: {
     ...dm_sans.style,
-    fontWeight: 700,
+    fontWeight: 500,
     fontSize: "1.5rem",
     lineHeight: 1.33333,
     letterSpacing: "0.006",
   },
   h5: {
     ...dm_sans.style,
-    fontWeight: 700,
+    fontWeight: 500,
     fontSize: "1.25rem",
     lineHeight: 1.334,
     letterSpacing: "0em",
   },
   h6: {
     ...dm_sans.style,
-    fontWeight: 700,
+    fontWeight: 500,
     fontSize: "1.125rem",
     lineHeight: 1.6,
     letterSpacing: "0.0075em",
