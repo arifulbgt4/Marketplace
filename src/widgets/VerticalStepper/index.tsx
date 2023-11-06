@@ -28,6 +28,9 @@ const VerticalStepper: FC<VerticalStepperProps> = () => {
   const handleReset = () => {
     setActiveStep(0);
   };
+  const handleactive = () => {
+    setIsActiveStep(!false);
+  };
 
   return (
     <Box sx={{ maxWidth: 400 }}>
@@ -36,9 +39,9 @@ const VerticalStepper: FC<VerticalStepperProps> = () => {
           <StepLabel>
             <Typography>Basic Information</Typography>
             {activeStep == 0 ? (
-              <Typography variant="caption">pending</Typography>
+              <Typography variant="caption">complete</Typography>
             ) : (
-              <Typography>complete</Typography>
+              <Typography>pending</Typography>
             )}
           </StepLabel>
 
@@ -91,7 +94,14 @@ const VerticalStepper: FC<VerticalStepperProps> = () => {
           </StepContent>
         </Step>
         <Step>
-          <StepLabel>Basic Information</StepLabel>
+          <StepLabel>
+            <Typography>Basic Information</Typography>
+            {activeStep === 2 ? (
+              <Typography variant="caption">pending</Typography>
+            ) : (
+              <Typography>complete</Typography>
+            )}
+          </StepLabel>
           <StepContent>
             <Typography>description</Typography>
             <Box sx={{ mb: 2 }}>
