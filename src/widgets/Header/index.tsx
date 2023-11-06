@@ -53,7 +53,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
   };
 
   return (
-    <AppBar position="fixed">
+    <AppBar position="fixed" color="inherit">
       <Container>
         <Toolbar
           disableGutters
