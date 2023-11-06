@@ -1,5 +1,11 @@
+import { format } from "date-fns";
+
 // Types
-import { FieldShowErrorOptions, FieldMetaOptions } from "./Types";
+import {
+  FieldShowErrorOptions,
+  FieldMetaOptions,
+  FormatDateOptions,
+} from "./Types";
 
 // ||---------------------------||
 // ||  Field validate composer  ||
@@ -46,3 +52,14 @@ export const showErrorOnChange: FieldShowErrorOptions = ({
     ((submitError && !dirtySinceLastSubmit) || error) &&
     (touched || modified)
   );
+
+// ||---------------------------------------||
+// ||  Format Dates                         ||
+// ||---------------------------------------||
+export const formatDate: FormatDateOptions = (date) => {
+  if (date !== undefined) {
+    return format(date, "MM/dd/yyy");
+  }
+  const localDate = new Date();
+  return format(localDate, "MM/dd/yyy");
+};

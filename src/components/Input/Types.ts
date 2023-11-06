@@ -21,6 +21,16 @@ export interface TextFieldProps
 export interface TextFieldWrapperProps
   extends FieldRenderProps<MuiTextFieldProps> {}
 
+export interface DateRangePickerProps {
+  name: string;
+  renderPreview: (startDate: string, endDate: string) => ReactNode;
+  fieldProps?: Partial<FieldProps<any, any>>;
+}
+
+export interface DateRangePickerWrapperProps extends FieldRenderProps<any> {
+  renderPreview: (startDate: string, endDate: string) => ReactNode;
+}
+
 export interface UploadImageProps {
   name: string;
   children: ReactNode;
@@ -81,3 +91,5 @@ export type FieldShowErrorOptions = (props: FieldMetaOptions) => boolean;
 export interface FieldMetaOptions {
   meta: FieldMetaState<any>;
 }
+
+export type FormatDateOptions = (date: Date | undefined) => string;
