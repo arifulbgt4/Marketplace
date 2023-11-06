@@ -8,7 +8,7 @@ import { FooterProps } from "./Types";
 
 const Footer: FC<FooterProps> = () => {
   return (
-    <Box>
+    <Box bgcolor="action.hover" boxShadow={2}>
       <Container>
         <Grid container gap={10} pt={15} pb={10}>
           <Grid item xs={12} container columnSpacing={5} rowSpacing={5}>
