@@ -78,7 +78,7 @@ const UserLayout: FC<UserLayoutProps> = ({ children }) => {
                 <Tab
                   component={Link}
                   href={routes.userSetting}
-                  label="SSETTINGS"
+                  label="SSETTING"
                   value={routes.userSetting}
                 />
               </Tabs>

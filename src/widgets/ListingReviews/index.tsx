@@ -4,9 +4,9 @@ import { Grid } from "@mui/material";
 import { reviewerData } from "src/global/staticData";
 import Review from "../Review";
 
-import { ReviewsProps } from "./Types";
+import { ListingReviewsProps } from "./Types";
 
-const Reviews: FC<ReviewsProps> = () => {
+const ListingReviews: FC<ListingReviewsProps> = () => {
   return (
     <Grid container spacing={4.5}>
       {reviewerData.map((data) => {
@@ -27,4 +27,4 @@ const Reviews: FC<ReviewsProps> = () => {
   );
 };
 
-export default Reviews;
+export default ListingReviews;
