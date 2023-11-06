@@ -50,7 +50,34 @@ const BookingForm: FC<BookingFormProps> = () => {
                         justifyContent="space-between"
                         alignItems="center"
                       >
-                        <Box>{startDate}</Box>-<Box>{endDate}</Box>
+                        <Box>
+                          <Typography variant="subtitle1">Check-in</Typography>
+                          <Stack
+                            p={2}
+                            alignItems="center"
+                            border={(theme) =>
+                              `1px solid ${theme.palette.action.focus}`
+                            }
+                            width="100%"
+                            color="text.secondary"
+                          >
+                            {startDate}
+                          </Stack>
+                        </Box>
+                        <Box>
+                          <Typography variant="subtitle1">Checkout</Typography>
+                          <Stack
+                            p={2}
+                            alignItems="center"
+                            border={(theme) =>
+                              `1px solid ${theme.palette.action.focus}`
+                            }
+                            width="100%"
+                            color="text.secondary"
+                          >
+                            {endDate}
+                          </Stack>
+                        </Box>
                       </Stack>
                     )}
                   />
