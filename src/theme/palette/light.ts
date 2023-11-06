@@ -72,7 +72,7 @@ export default {
     activatedOpacity: 0.12,
   },
   background: {
-    default: "#fff",
+    default: "#f6f9fc",
     paper: "#fff",
   },
   common: {
