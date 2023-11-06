@@ -7,16 +7,14 @@ import {
   Divider,
   Button,
   Rating,
-  Select,
   InputLabel,
   Box,
 } from "@mui/material";
 import { Form as FinalForm } from "react-final-form";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import { LocalizationProvider } from "@mui/x-date-pickers-pro";
-import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
-import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
+
+import { Select, DateRangePicker } from "src/components/Input";
 
 import { BookingFormProps } from "./Types";
 
@@ -28,6 +26,7 @@ const BookingForm: FC<BookingFormProps> = () => {
       <FinalForm
         onSubmit={onSubmitForm}
         render={({ handleSubmit, values, errors, submitting }) => {
+          console.log("valu: ", values);
           return (
             <form onSubmit={handleSubmit}>
               <Stack py={5} px={3} gap={3}>
@@ -43,20 +42,18 @@ const BookingForm: FC<BookingFormProps> = () => {
                   </Stack>
                 </Stack>
                 <Stack>
-                  <Stack
-                    flexDirection="row"
-                    justifyContent="space-between"
-                    pr={5.8}
-                  >
-                    <Typography>Check-in</Typography>
-                    <Typography>Checkout</Typography>
-                  </Stack>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DateRangePicker
-                      defaultRangePosition="end"
-                      localeText={{ start: "", end: "" }}
-                    />
-                  </LocalizationProvider>
+                  <DateRangePicker
+                    name="dateRange"
+                    renderPreview={(startDate, endDate) => (
+                      <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box>{startDate}</Box>-<Box>{endDate}</Box>
+                      </Stack>
+                    )}
+                  />
                 </Stack>
                 <Box>
                   <InputLabel>Gestes</InputLabel>
