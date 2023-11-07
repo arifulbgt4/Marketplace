@@ -2,15 +2,15 @@ import { FC } from "react";
 import { Grid, Paper } from "@mui/material";
 
 import Listing from "src/widgets/Listing";
-import { featurePostData } from "src/global/staticData";
+import { ownListingData } from "src/global/staticData";
 
-import { UserListingProps } from "./Types";
+import { OwnListingProps } from "./Types";
 
-const UserListing: FC<UserListingProps> = () => {
+const OwnListing: FC<OwnListingProps> = () => {
   return (
     <Paper>
       <Grid container spacing={5}>
-        {featurePostData.map((data) => {
+        {ownListingData.map((data) => {
           const {
             id,
             image,
@@ -41,4 +41,4 @@ const UserListing: FC<UserListingProps> = () => {
   );
 };
 
-export default UserListing;
+export default OwnListing;

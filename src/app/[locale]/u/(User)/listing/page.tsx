@@ -2,7 +2,7 @@ import { Grid, Box, Container } from "@mui/material";
 
 import ListingHelpInfo from "src/widgets/ListingHelpInfo";
 
-import UserListing from "src/widgets/UserListing";
+import OwnListing from "src/widgets/OwnListing";
 
 const Listing = () => {
   return (
@@ -10,7 +10,7 @@ const Listing = () => {
       <Container>
         <Grid container columnSpacing={10}>
           <Grid item xs={8}>
-            <UserListing />
+            <OwnListing />
           </Grid>
           <Grid item xs={4}>
             <ListingHelpInfo />
