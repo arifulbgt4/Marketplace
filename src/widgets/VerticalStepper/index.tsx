@@ -1,5 +1,6 @@
 "use client";
 import { FC, useState } from "react";
+import Image from "next/image";
 import {
   Grid,
   Box,
@@ -15,13 +16,19 @@ import {
   InputLabel,
   InputAdornment,
   OutlinedInput,
+  FormControlLabel,
+  Stack,
+  Input,
+  IconButton,
 } from "@mui/material";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-import { Select, TextField } from "src/components/Input";
+import { Checkbox, Select, TextField, UploadImage } from "src/components/Input";
+import CalendarComp from "../CalendarComp/index";
 
 import { VerticalStepperProps } from "./Types";
-import CalendarComp from "../CalendarComp/index";
 
 const VerticalStepper: FC<VerticalStepperProps> = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -121,9 +128,9 @@ const VerticalStepper: FC<VerticalStepperProps> = () => {
             ) : null}
           </StepLabel>
           <StepContent>
-            <Typography>description</Typography>
+            <ContactMethod />
             <Box sx={{ mb: 2 }}>
-              <div>
+              <Box pt={5}>
                 <Button
                   variant="contained"
                   onClick={handleNext}
@@ -134,7 +141,7 @@ const VerticalStepper: FC<VerticalStepperProps> = () => {
                 <Button onClick={handleBack} sx={{ mt: 1, mr: 1 }}>
                   Back
                 </Button>
-              </div>
+              </Box>
             </Box>
           </StepContent>
         </Step>
@@ -150,9 +157,9 @@ const VerticalStepper: FC<VerticalStepperProps> = () => {
             ) : null}
           </StepLabel>
           <StepContent>
-            <Typography>description</Typography>
+            <HomeFeatures />
             <Box sx={{ mb: 2 }}>
-              <div>
+              <Box pt={5}>
                 <Button
                   variant="contained"
                   onClick={handleNext}
@@ -163,7 +170,7 @@ const VerticalStepper: FC<VerticalStepperProps> = () => {
                 <Button onClick={handleBack} sx={{ mt: 1, mr: 1 }}>
                   Back
                 </Button>
-              </div>
+              </Box>
             </Box>
           </StepContent>
         </Step>
@@ -177,7 +184,7 @@ const VerticalStepper: FC<VerticalStepperProps> = () => {
             {activeStep > 4 ? <Typography>complete</Typography> : null}
           </StepLabel>
           <StepContent>
-            <Typography>description</Typography>
+            <UploadImages />
             <Box sx={{ mb: 2 }}>
               <div>
                 <Button
@@ -207,6 +214,8 @@ const VerticalStepper: FC<VerticalStepperProps> = () => {
     </Box>
   );
 };
+
+export default VerticalStepper;
 
 const PriceInformation = () => {
   return (
@@ -281,4 +290,211 @@ const PriceInformation = () => {
   );
 };
 
-export default VerticalStepper;
+const ContactMethod = () => {
+  return (
+    <Grid container gap={5}>
+      <Grid item xs={12}>
+        <Stack direction="row" justifyContent="space-between">
+          <Box>
+            <FormControlLabel
+              value="end"
+              control={<Checkbox name="phone" />}
+              label="Phone"
+              labelPlacement="end"
+            />
+          </Box>
+          <Box>
+            <FormControlLabel
+              value="end"
+              control={<Checkbox name="email" />}
+              label="Email"
+              labelPlacement="end"
+            />
+          </Box>
+          <Box>
+            <FormControlLabel
+              value="end"
+              control={<Checkbox name="text" />}
+              label="Text"
+              labelPlacement="end"
+            />
+          </Box>
+        </Stack>
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        container
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <Grid item xs={6}>
+          <TextField fullWidth name="phonenumber" label="Phone Number" />
+        </Grid>
+        <Grid item xs={3}>
+          <Button startIcon={<AddIcon />} size="medium">
+            Add Another
+          </Button>
+        </Grid>
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        container
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <Grid item xs={6}>
+          <TextField fullWidth name="emailaddress" label="Email Address" />
+        </Grid>
+        <Grid item xs={3}>
+          <Button startIcon={<AddIcon />} size="medium">
+            Add Another
+          </Button>
+        </Grid>
+      </Grid>
+    </Grid>
+  );
+};
+
+const HomeFeatures = () => {
+  return (
+    <Grid container spacing={5}>
+      <Grid item xs={12}>
+        <FormControl sx={{ m: 1 }} variant="standard" fullWidth>
+          <InputLabel htmlFor="demo-customized-textbox">
+            About Property
+          </InputLabel>
+          <Select
+            fullWidth
+            name="aboutproperty"
+            label="Property Details"
+            multiline
+            input={<Input />}
+          >
+            <MenuItem>item1</MenuItem>
+            <MenuItem>item1</MenuItem>
+            <MenuItem>item1</MenuItem>
+          </Select>
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} container spacing={5}>
+        <Grid item xs={4}>
+          <FormControl sx={{ m: 1 }} variant="standard" fullWidth>
+            <InputLabel htmlFor="demo-customized-textbox">Bedroom</InputLabel>
+            <Select fullWidth name="bedroom" input={<Input />} label="Bedroom">
+              <MenuItem>item1</MenuItem>
+              <MenuItem>item1</MenuItem>
+              <MenuItem>item1</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={4}>
+          <FormControl sx={{ m: 1 }} variant="standard" fullWidth>
+            <InputLabel htmlFor="demo-customized-textbox">Bathroom</InputLabel>
+            <Select
+              fullWidth
+              name="bathroom"
+              input={<Input />}
+              label="Bathroom"
+            >
+              <MenuItem>item1</MenuItem>
+              <MenuItem>item1</MenuItem>
+              <MenuItem>item1</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={4}>
+          <TextField
+            fullWidth
+            sx={{ m: 1 }}
+            name="size"
+            label="Size"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Typography>squre feet</Typography>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
+      </Grid>
+
+      <Grid item xs={12} container spacing={5}>
+        <Grid item xs={4}>
+          <FormControl sx={{ m: 1 }} variant="standard" fullWidth>
+            <InputLabel htmlFor="demo-customized-textbox">Smoking</InputLabel>
+            <Select fullWidth name="smoking" input={<Input />} label="smoking">
+              <MenuItem>item1</MenuItem>
+              <MenuItem>item1</MenuItem>
+              <MenuItem>item1</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={4}>
+          <FormControl sx={{ m: 1 }} variant="standard" fullWidth>
+            <InputLabel htmlFor="demo-customized-textbox">Pet</InputLabel>
+            <Select fullWidth name="pet" input={<Input />} label="Pet">
+              <MenuItem>item1</MenuItem>
+              <MenuItem>item1</MenuItem>
+              <MenuItem>item1</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={4}>
+          <FormControl sx={{ m: 1 }} variant="standard" fullWidth>
+            <InputLabel htmlFor="demo-customized-textbox">Parking</InputLabel>
+            <Select fullWidth name="parking" input={<Input />} label="Parking">
+              <MenuItem>item1</MenuItem>
+              <MenuItem>item1</MenuItem>
+              <MenuItem>item1</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+      </Grid>
+    </Grid>
+  );
+};
+
+const UploadImages = () => {
+  return (
+    <Grid container>
+      <Grid item>
+        <UploadImage
+          multiple
+          name="image"
+          previewRender={(src, onRemove) => {
+            return src.map((data, index) => {
+              return (
+                <Stack key={index} position="relative">
+                  <Box sx={{ ":hover": {} }}>
+                    <Image src={data} width={100} height={100} alt="upload" />
+                  </Box>
+                  <IconButton
+                    color="error"
+                    onClick={() => onRemove(index)}
+                    sx={{ position: "absolute", width: 100 }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </Stack>
+              );
+            });
+          }}
+        >
+          <Stack
+            direction="row"
+            p={1}
+            bgcolor="gray"
+            borderRadius={2}
+            width={100}
+            sx={{ cursor: "pointer" }}
+          >
+            <AddIcon />
+          </Stack>
+        </UploadImage>
+      </Grid>
+    </Grid>
+  );
+};
