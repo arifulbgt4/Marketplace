@@ -6,16 +6,16 @@ import UserReviews from "src/widgets/UserReviews";
 
 const HostProfile = () => {
   return (
-    <Box>
+    <Box pt={5}>
       <Container>
-        <Grid container>
-          <Grid item xs={4}>
+        <Grid container columnSpacing={8.75}>
+          <Grid item xs={3}>
             <UserProfile />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={6}>
             <UserListings />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <UserReviews />
           </Grid>
         </Grid>
