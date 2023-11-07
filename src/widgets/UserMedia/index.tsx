@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Paper } from "@mui/material";
 
-import UserMediaForm from "../UserMediaForm";
+import UserMediaForm from "src/forms/UserMediaForm";
 
 import { UserMediaProps } from "./Types";
 
