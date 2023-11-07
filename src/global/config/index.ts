@@ -1,6 +1,7 @@
 const siteAddress =
   process.env.NEXT_PUBLIC_DOMAIN_URL || "http://localhost:3000/";
-const marketPlaceName = process.env.MARKETPLACE_NAME || "MarketplaceSystem";
+const marketPlaceName =
+  process.env.NEXT_PUBLIC_MARKETPLACE_NAME || "MarketplaceSystem";
 
 export const siteConfig = {
   name: marketPlaceName,

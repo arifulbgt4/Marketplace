@@ -25,7 +25,7 @@ import { siteConfig } from "src/global/config";
 type SupportedLocales = keyof typeof locales;
 
 ClassNameGenerator.configure((componentName) =>
-  componentName.replace("Mui", `${process.env.MARKETPLACE_NAME}_`)
+  componentName.replace("Mui", `${process.env.NEXT_PUBLIC_MARKETPLACE_NAME}_`)
 );
 
 const DEFAULT_PALETTE_MODE: PaletteMode =
