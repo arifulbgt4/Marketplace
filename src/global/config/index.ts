@@ -1,9 +1,10 @@
 const siteAddress =
   process.env.NEXT_PUBLIC_DOMAIN_URL || "http://localhost:3000/";
+const marketPlaceName = process.env.MARKETPLACE_NAME || "MarketplaceSystem";
 
 export const siteConfig = {
-  name: "B2C Marketplace System",
-  shortName: "B2C Marketplace",
+  name: marketPlaceName,
+  shortName: "B2C Marketplace System",
   locale: "en",
   localeUpper: "enUS",
   localeUpperSpace: "en-US",
