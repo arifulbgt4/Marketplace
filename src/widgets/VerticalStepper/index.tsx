@@ -94,7 +94,7 @@ const VerticalStepper: FC<VerticalStepperProps> = () => {
           <StepContent>
             <PriceInformation />
             <Box sx={{ mb: 2 }}>
-              <div>
+              <Box pt={5}>
                 <Button
                   variant="contained"
                   onClick={handleNext}
@@ -105,7 +105,7 @@ const VerticalStepper: FC<VerticalStepperProps> = () => {
                 <Button onClick={handleBack} sx={{ mt: 1, mr: 1 }}>
                   Back
                 </Button>
-              </div>
+              </Box>
             </Box>
           </StepContent>
         </Step>
@@ -210,7 +210,7 @@ const VerticalStepper: FC<VerticalStepperProps> = () => {
 
 const PriceInformation = () => {
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={5}>
       <Grid item xs={6}>
         <FormControl fullWidth sx={{ m: 1, minWidth: 120 }}>
           <InputLabel>category</InputLabel>
@@ -224,7 +224,7 @@ const PriceInformation = () => {
           </Select>
         </FormControl>
       </Grid>
-      <Grid item xs={12} container spacing={2}>
+      <Grid item xs={12} container spacing={5}>
         <Grid item xs={6}>
           <FormControl fullWidth sx={{ m: 1 }}>
             <TextField
@@ -257,7 +257,7 @@ const PriceInformation = () => {
           </FormControl>
         </Grid>
       </Grid>
-      <Grid item xs={12} container spacing={2}>
+      <Grid item xs={12} container spacing={5}>
         <Grid item xs={6}>
           <FormControl fullWidth>
             <CalendarComp />
