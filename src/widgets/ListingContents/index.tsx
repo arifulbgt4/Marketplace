@@ -35,8 +35,8 @@ const ListingContents: FC<ListingContentsProps> = () => {
             Room in a bungalow hosted by Ramita
           </Typography>
         </Grid>
-        <Grid container item xs={12} columnSpacing={3}>
-          <Grid item xs={6} md={3} lg={3}>
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={6}>
             <Stack
               sx={(theme) => ({
                 border: `1px solid ${theme.palette.divider}`,
@@ -44,16 +44,15 @@ const ListingContents: FC<ListingContentsProps> = () => {
               flexDirection="row"
               justifyContent="center"
               alignItems="center"
-              px={5}
-              py={2.5}
+              p={2}
               borderRadius={1}
-              gap={3}
+              gap={2}
             >
-              <BedIcon sx={{ height: 60, width: 60 }} />
+              <BedIcon fontSize="large" />
               <Typography variant="subtitle1">3 bedrooms 6 beds</Typography>
             </Stack>
           </Grid>
-          <Grid item xs={6} md={3} lg={3}>
+          <Grid item xs={6}>
             <Stack
               sx={(theme) => ({
                 border: `1px solid ${theme.palette.divider}`,
@@ -61,16 +60,15 @@ const ListingContents: FC<ListingContentsProps> = () => {
               flexDirection="row"
               justifyContent="center"
               alignItems="center"
-              px={5}
-              py={2.5}
+              p={2}
               borderRadius={1}
-              gap={3}
+              gap={2}
             >
-              <BedIcon sx={{ height: 60, width: 60 }} />
+              <BedIcon fontSize="large" />
               <Typography variant="subtitle1">3 bedrooms 6 beds</Typography>
             </Stack>
           </Grid>
-          <Grid item xs={6} md={3} lg={3}>
+          <Grid item xs={6}>
             <Stack
               sx={(theme) => ({
                 border: `1px solid ${theme.palette.divider}`,
@@ -78,16 +76,15 @@ const ListingContents: FC<ListingContentsProps> = () => {
               flexDirection="row"
               justifyContent="center"
               alignItems="center"
-              px={5}
-              py={2.5}
+              p={2}
               borderRadius={1}
-              gap={3}
+              gap={2}
             >
-              <BathtubIcon sx={{ height: 60, width: 60 }} />
+              <BathtubIcon fontSize="large" />
               <Typography variant="subtitle1">Shared bathroom</Typography>
             </Stack>
           </Grid>
-          <Grid item xs={6} md={4} lg={3}>
+          <Grid item xs={6}>
             <Stack
               sx={(theme) => ({
                 border: `1px solid ${theme.palette.divider}`,
@@ -95,12 +92,11 @@ const ListingContents: FC<ListingContentsProps> = () => {
               flexDirection="row"
               justifyContent="center"
               alignItems="center"
-              px={5}
-              py={2.5}
+              p={2}
               borderRadius={1}
-              gap={3}
+              gap={2}
             >
-              <PeopleAltIcon sx={{ height: 60, width: 60 }} />
+              <PeopleAltIcon fontSize="large" />
               <Typography variant="subtitle1">
                 Host lives here with family
               </Typography>

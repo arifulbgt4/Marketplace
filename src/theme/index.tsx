@@ -6,7 +6,6 @@ import {
   StyledEngineProvider,
 } from "@mui/material/styles";
 import { PaletteMode } from "@mui/material";
-import { unstable_ClassNameGenerator as ClassNameGenerator } from "@mui/material/className";
 import CssBaseline from "@mui/material/CssBaseline";
 import { useMemo, useState, createContext } from "react";
 import * as locales from "@mui/material/locale";
@@ -23,10 +22,6 @@ import breakpoints from "./breakpoints";
 import { siteConfig } from "src/global/config";
 
 type SupportedLocales = keyof typeof locales;
-
-ClassNameGenerator.configure((componentName) =>
-  componentName.replace("Mui", `${process.env.NEXT_PUBLIC_MARKETPLACE_NAME}_`)
-);
 
 const DEFAULT_PALETTE_MODE: PaletteMode =
   siteConfig.defaultTheme as PaletteMode;
