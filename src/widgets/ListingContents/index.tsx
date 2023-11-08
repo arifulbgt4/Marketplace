@@ -181,10 +181,8 @@ const Offer: FC<OfferProps> = () => {
               return (
                 <List key={id}>
                   <ListItem disablePadding>
-                    <ListItemButton>
-                      <ListItemIcon>{icon}</ListItemIcon>
-                      <ListItemText primary={name} />
-                    </ListItemButton>
+                    <ListItemIcon>{icon}</ListItemIcon>
+                    <ListItemText primary={name} />
                   </ListItem>
                 </List>
               );
@@ -197,10 +195,8 @@ const Offer: FC<OfferProps> = () => {
             return (
               <List key={id}>
                 <ListItem disablePadding>
-                  <ListItemButton>
-                    <ListItemIcon>{icon}</ListItemIcon>
-                    <ListItemText primary={name} />
-                  </ListItemButton>
+                  <ListItemIcon>{icon}</ListItemIcon>
+                  <ListItemText primary={name} />
                 </ListItem>
               </List>
             );
