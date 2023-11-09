@@ -85,7 +85,7 @@ export default {
     ...dm_sans.style,
     fontWeight: 400,
     fontSize: "0.938rem",
-    lineHeight: 1.2,
+    lineHeight: 1.4,
     letterSpacing: "0.01071em",
   },
   button: {
