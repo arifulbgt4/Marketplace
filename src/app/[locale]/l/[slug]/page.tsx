@@ -43,7 +43,16 @@ const ListingDetailsPage = () => {
                 <ListingLocation address="2118 Thornridge Cir. Syracuse, Connecticut 35624" />
               </Grid>
             </Grid>
-            <Grid item container xs={4}>
+            <Grid
+              item
+              container
+              xs={4}
+              sx={{
+                height: "fit-content",
+                position: "sticky",
+                top: 80,
+              }}
+            >
               <Grid item xs={12}>
                 <BookingForm />
               </Grid>
