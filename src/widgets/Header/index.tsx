@@ -21,6 +21,7 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 
 import Logo from "src/components/Logo";
 import routes from "src/global/routes";
+import useSticky from "src/global/hooks";
 
 import { HeaderProps } from "./Types";
 
@@ -28,6 +29,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
   const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null);
   const [anchorElUser, setAnchorElUser] = useState<HTMLElement | null>(null);
   const [anchorElAvat, setAnchorElAvat] = useState<HTMLElement | null>(null);
+  const { sticky, stickyRef } = useSticky(10);
 
   const handleOpenNavAvatar = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElAvat(event.currentTarget);

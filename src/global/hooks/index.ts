@@ -1,28 +1,20 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-const useSticky = (offSet?: number) => {
+const useSticky = (offset: number) => {
   const stickyRef = useRef<HTMLElement>(null);
   const [sticky, setSticky] = useState<boolean>(false);
-  const [offset, setOffset] = useState<number>(offSet || 0);
 
-  useEffect(() => {
+  const handleScroll = useCallback(() => {
     if (!stickyRef.current) {
       return;
     }
-    setOffset(stickyRef.current.offsetTop);
-  }, [stickyRef, setOffset]);
+    setSticky(window.scrollY > offset);
+  }, [offset]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (!stickyRef.current) {
-        return;
-      }
-
-      setSticky(window.scrollY > offset);
-    };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [setSticky, stickyRef, offset]);
+  }, [handleScroll, setSticky, stickyRef]);
   return { stickyRef, sticky };
 };
 
