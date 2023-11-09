@@ -1,5 +1,12 @@
+import ListingForm from "src/forms/ListingForm";
+import { Container } from "@mui/material";
+
 const ListingCreatePage = () => {
-  return <div>ListingCreatePage</div>;
+  return (
+    <Container>
+      <ListingForm />
+    </Container>
+  );
 };
 
 export default ListingCreatePage;

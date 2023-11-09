@@ -34,7 +34,7 @@
     "next-auth": "^4.24.3",
     "next-intl": "3.0.0-beta.9",
     "nodemailer": "^6.9.7",
-    "react": "18.2.0",
+    "react": "^18.2.0",
     "react-date-range": "^1.4.0",
     "react-dom": "18.2.0",
     "react-final-form": "^6.5.9",
