@@ -1,9 +1,11 @@
 const siteAddress =
   process.env.NEXT_PUBLIC_DOMAIN_URL || "http://localhost:3000/";
+const marketPlaceName =
+  process.env.NEXT_PUBLIC_MARKETPLACE_NAME || "MarketplaceSystem";
 
 export const siteConfig = {
-  name: "B2C Marketplace System",
-  shortName: "B2C Marketplace",
+  name: marketPlaceName,
+  shortName: "B2C Marketplace System",
   locale: "en",
   localeUpper: "enUS",
   localeUpperSpace: "en-US",
@@ -29,6 +31,6 @@ export const siteConfig = {
   author: "Ariful",
   creator: "Ariful",
   themeColor: "#090c24",
-  defaultTheme: "dark",
+  defaultTheme: "light",
   backgroundColor: "#090c24",
 };

@@ -13,7 +13,7 @@ const SearchBanner: FC<SearchBannerProps> = () => {
     <Stack
       component="div"
       sx={{
-        minHeight: 500,
+        minHeight: 600,
         backgroundImage: `url(${bannaerimg})`,
         backgroundPosition: "center",
         backgroundSize: "cover",
@@ -25,14 +25,21 @@ const SearchBanner: FC<SearchBannerProps> = () => {
       alignItems="center"
     >
       <Box textAlign="center">
-        <Typography variant="h2">Find Home Together</Typography>
+        <Typography variant="h1" color="common.white">
+          Find Home Together
+        </Typography>
       </Box>
-      <Box>
-        <Typography variant="h4" pb={2}>
+      <Stack>
+        <Typography
+          variant="h3"
+          pb={4}
+          color="common.white"
+          sx={{ opacity: 0.8 }}
+        >
           25,000 rooms amd houses available now on Dream House{" "}
         </Typography>
         <SearchFilterForm />
-      </Box>
+      </Stack>
     </Stack>
   );
 };

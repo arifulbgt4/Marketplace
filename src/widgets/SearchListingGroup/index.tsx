@@ -164,7 +164,7 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
             </Grid>
           </Hidden>
           <Hidden mdDown>
-            <Grid md={3}>
+            <Grid item md={3}>
               <ListGridView isGrid={isGrid} toggleGridList={toggleGridList} />
             </Grid>
           </Hidden>

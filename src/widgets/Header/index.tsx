@@ -53,7 +53,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
   };
 
   return (
-    <AppBar position="fixed">
+    <AppBar position="fixed" color="inherit" elevation={2}>
       <Container>
         <Toolbar
           disableGutters
@@ -309,7 +309,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
                   >
                     <MenuItem
                       component={Link}
-                      href={routes.userProfile}
+                      href={routes.userAccount}
                       onClick={handleCloseNavAvatar}
                     >
                       Profile

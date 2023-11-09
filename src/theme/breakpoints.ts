@@ -18,7 +18,7 @@ export default {
     xs: 0,
     sm: 600,
     md: 900,
-    lg: 1200,
-    xl: 1536,
+    lg: 1170,
+    xl: 1530,
   },
 } as BreakpointsOptions;

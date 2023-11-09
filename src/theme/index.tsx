@@ -10,6 +10,9 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { useMemo, useState, createContext } from "react";
 import * as locales from "@mui/material/locale";
 
+// external css
+import "react-date-range/dist/styles.css";
+
 import GlobalStyles from "./utils/GlobalStyles";
 import palette, { PaletteOptions } from "./palette";
 import typography from "./typography";

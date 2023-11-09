@@ -1,24 +1,22 @@
 import { Grid, Box, Container } from "@mui/material";
 
-import ListingHelpInfo from "src/widgets/ListingHelpInfo";
+import AccountHelpInfo from "src/widgets/ProfileHelpInfo";
 
-import UserListing from "src/widgets/UserListing";
+import AccountDetails from "src/widgets/AccountDetails";
 
-const Listing = () => {
+export default function Account() {
   return (
     <Box>
       <Container>
         <Grid container columnSpacing={10}>
           <Grid item xs={8}>
-            <UserListing />
+            <AccountDetails />
           </Grid>
           <Grid item xs={4}>
-            <ListingHelpInfo />
+            <AccountHelpInfo />
           </Grid>
         </Grid>
       </Container>
     </Box>
   );
-};
-
-export default Listing;
+}

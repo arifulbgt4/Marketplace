@@ -18,7 +18,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: { default: siteConfig.name, template: `%s - ${siteConfig.name}` },
+  title: { default: siteConfig.name, template: `${siteConfig.name} - %s` },
   description: siteConfig.description,
   keywords: siteConfig.keywords,
   authors: [{ name: siteConfig.author, url: siteConfig.url }],
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: siteConfig.localeUpperSpace,
     url: siteConfig.url,
-    title: siteConfig.name,
+    title: siteConfig.shortName,
     description: siteConfig.description,
     siteName: siteConfig.name,
     images: [
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.name,
+    title: siteConfig.shortName,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
     creator: "@ArifulI60735491",

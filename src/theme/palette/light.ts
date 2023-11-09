@@ -72,7 +72,7 @@ export default {
     activatedOpacity: 0.12,
   },
   background: {
-    default: "#fff",
+    default: "#f6f9fc",
     paper: "#fff",
   },
   common: {
@@ -80,8 +80,8 @@ export default {
     white: "#fff",
   },
   shadows: {
-    transparentOne: "rgba(0,0,0,0.2)",
-    transparentTwo: "rgba(0,0,0,0.14)",
+    transparentOne: "rgba(0,0,0,0.1)",
+    transparentTwo: "rgba(50,50,93,0.25)",
     transparentThree: "rgba(0,0,0,0.12)",
   },
   divider: "rgba(0, 0, 0, 0.12)",

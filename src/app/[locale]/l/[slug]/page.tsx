@@ -3,10 +3,10 @@ import { Box, Container, Grid } from "@mui/material";
 import ListingContents from "src/widgets/ListingContents";
 import ListingRatings from "src/widgets/ListingRatings";
 import { Album } from "src/widgets/Album";
-import Reviews from "src/widgets/Reviews";
+import ListingReviews from "src/widgets/ListingReviews";
 import ListingHeader from "src/widgets/ListingHeader";
 import ListingLocation from "src/widgets/ListingLocation";
-import ListingBooking from "src/widgets/ListingBooking";
+import BookingForm from "src/forms/BookingForm";
 
 const albumImg = [
   "https://source.unsplash.com/8gVv6nxq6gY",
@@ -20,7 +20,7 @@ const albumImg = [
 const ListingDetailsPage = () => {
   return (
     <Box pt={5}>
-      <Container>
+      <Container maxWidth="lg">
         <Grid container rowSpacing={5}>
           <Grid item xs={12}>
             <ListingHeader
@@ -35,7 +35,7 @@ const ListingDetailsPage = () => {
             <Album albumImg={albumImg} />
           </Grid>
           <Grid item container xs={12} columnSpacing={8.7} pb={5}>
-            <Grid container item xs={9}>
+            <Grid container item xs={8}>
               <Grid item xs={12}>
                 <ListingContents />
               </Grid>
@@ -43,9 +43,9 @@ const ListingDetailsPage = () => {
                 <ListingLocation address="2118 Thornridge Cir. Syracuse, Connecticut 35624" />
               </Grid>
             </Grid>
-            <Grid item container xs={3}>
+            <Grid item container xs={4}>
               <Grid item xs={12}>
-                <ListingBooking />
+                <BookingForm />
               </Grid>
               <Grid item xs={12}>
                 sellerMiniProfile
@@ -67,7 +67,7 @@ const ListingDetailsPage = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Reviews />
+            <ListingReviews />
           </Grid>
         </Grid>
       </Container>
