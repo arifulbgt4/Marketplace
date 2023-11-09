@@ -19,9 +19,9 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 
+import { useSticky } from "src/global/hooks";
 import Logo from "src/components/Logo";
 import routes from "src/global/routes";
-import useSticky from "src/global/hooks";
 
 import { HeaderProps } from "./Types";
 
