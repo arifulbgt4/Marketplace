@@ -12,6 +12,7 @@ const AutocompleteSearchFilter: FC<AutocompleteSearchFilterProps> = () => {
         Keywords
       </Typography>
       <Autocomplete
+        size="small"
         multiple
         id="multiple-limit-tags"
         options={top100Flats}
