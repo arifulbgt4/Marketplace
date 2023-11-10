@@ -12,6 +12,7 @@ const SearchFilterButtons: FC<SearchFilterButtonsProps> = ({
   return (
     <Stack flexDirection="column" pb={2}>
       <IconButton
+        size="small"
         sx={{
           display: "flex",
           justifyContent: "flex-start",
@@ -21,11 +22,16 @@ const SearchFilterButtons: FC<SearchFilterButtonsProps> = ({
         Filter
       </IconButton>
       <Stack direction="row" gap={1} justifyContent="space-between">
-        <Button startIcon={<RestartAltIcon />} onClick={onCloseMobileDrawer}>
+        <Button
+          size="small"
+          startIcon={<RestartAltIcon />}
+          onClick={onCloseMobileDrawer}
+        >
           Reset
         </Button>
 
         <Button
+          size="small"
           startIcon={<CheckIcon />}
           onClick={onCloseMobileDrawer}
           variant="contained"
