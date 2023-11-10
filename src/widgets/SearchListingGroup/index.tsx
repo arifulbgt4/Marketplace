@@ -1,5 +1,6 @@
 "use client";
 import { FC, useState } from "react";
+import { Form as FinalForm } from "react-final-form";
 import {
   Grid,
   Box,
@@ -13,9 +14,6 @@ import {
   ButtonBase,
   Button,
   InputAdornment,
-  FormControl,
-  InputLabel,
-  OutlinedInput,
 } from "@mui/material";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
@@ -28,6 +26,7 @@ import ListGridView from "src/widgets/ListGridView";
 import Listing from "../Listing";
 import ListingPagination from "../ListingPagination";
 import ListSearchFilters from "../ListSearchFilters";
+import { TextField } from "src/components/Input";
 
 import { SearchListingGroupProps } from "./Types";
 
@@ -39,6 +38,7 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
   const toggleGridList = () => {
     setIsGrid(!isGrid);
   };
+  const onSubmitForm = async () => {};
 
   return (
     <Box py={5}>
@@ -119,39 +119,55 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
                         </IconButton>
                       </Box>
                       <Typography variant="h5">Where to ?</Typography>
-                      <FormControl variant="outlined" fullWidth>
-                        <InputLabel htmlFor="outlined-adornment-location">
-                          Location
-                        </InputLabel>
-                        <OutlinedInput
-                          id="outlined-adornment-location"
-                          endAdornment={
-                            <InputAdornment position="end">
-                              <IconButton>
-                                <LocationOnSharpIcon />
-                              </IconButton>
-                            </InputAdornment>
-                          }
-                        />
-                      </FormControl>
-                      <FormControl variant="outlined" fullWidth>
-                        <InputLabel htmlFor="outlined-adornment-listing">
-                          Key
-                        </InputLabel>
-                        <OutlinedInput
-                          id="outlined-adornment-password"
-                          endAdornment={
-                            <InputAdornment position="start">
-                              <IconButton>
-                                <SearchSharpIcon />
-                              </IconButton>
-                            </InputAdornment>
-                          }
-                        />
-                      </FormControl>
-                      <Button fullWidth variant="contained" sx={{ py: 2 }}>
-                        Search
-                      </Button>
+                      <FinalForm
+                        onSubmit={onSubmitForm}
+                        render={({
+                          handleSubmit,
+                          values,
+                          errors,
+                          submitting,
+                        }) => {
+                          return (
+                            <form onSubmit={handleSubmit}>
+                              <TextField
+                                margin="dense"
+                                fullWidth
+                                label="Location"
+                                name="location"
+                                id="outlined-adornment-location"
+                                InputProps={{
+                                  endAdornment: (
+                                    <InputAdornment position="start">
+                                      <LocationOnSharpIcon />
+                                    </InputAdornment>
+                                  ),
+                                }}
+                              />
+                              <TextField
+                                margin="dense"
+                                fullWidth
+                                name="key"
+                                id="outlined-adornment-key"
+                                label="Keyword"
+                                InputProps={{
+                                  endAdornment: (
+                                    <InputAdornment position="start">
+                                      <SearchSharpIcon />
+                                    </InputAdornment>
+                                  ),
+                                }}
+                              />
+                              <Button
+                                fullWidth
+                                variant="contained"
+                                sx={{ py: 2 }}
+                              >
+                                Search
+                              </Button>
+                            </form>
+                          );
+                        }}
+                      />
                     </Stack>
                   </Paper>
                 </Modal>
