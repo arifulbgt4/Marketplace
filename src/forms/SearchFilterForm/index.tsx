@@ -1,19 +1,12 @@
 "use client";
 import { FC } from "react";
 import { Form as FinalForm } from "react-final-form";
-import {
-  Paper,
-  FormControl,
-  Hidden,
-  Button,
-  Grid,
-  InputLabel,
-  InputAdornment,
-  OutlinedInput,
-} from "@mui/material";
+import { Paper, Hidden, Button, Grid, InputAdornment } from "@mui/material";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import LocationOnSharpIcon from "@mui/icons-material/LocationOnSharp";
 import IconButton from "@mui/material/IconButton";
+
+import { TextField } from "src/components/Input";
 
 import { SearchFilterFormProps } from "./Types";
 
@@ -29,38 +22,32 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({}) => {
             <form onSubmit={handleSubmit}>
               <Grid container>
                 <Grid item xs={5.5} md={5}>
-                  <FormControl variant="outlined" fullWidth>
-                    <InputLabel htmlFor="outlined-adornment-location">
-                      Location
-                    </InputLabel>
-                    <OutlinedInput
-                      id="outlined-adornment-location"
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton>
-                            <LocationOnSharpIcon />
-                          </IconButton>
+                  <TextField
+                    label="Location"
+                    name="location"
+                    id="outlined-adornment-location"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="start">
+                          <LocationOnSharpIcon />
                         </InputAdornment>
-                      }
-                    />
-                  </FormControl>
+                      ),
+                    }}
+                  />
                 </Grid>
                 <Grid item xs={5.5} md={5}>
-                  <FormControl variant="outlined" fullWidth>
-                    <InputLabel htmlFor="outlined-adornment-listing">
-                      Key
-                    </InputLabel>
-                    <OutlinedInput
-                      id="outlined-adornment-password"
-                      endAdornment={
+                  <TextField
+                    name="key"
+                    id="outlined-adornment-key"
+                    label="Keyword"
+                    InputProps={{
+                      endAdornment: (
                         <InputAdornment position="start">
-                          <IconButton>
-                            <SearchSharpIcon />
-                          </IconButton>
+                          <SearchSharpIcon />
                         </InputAdornment>
-                      }
-                    />
-                  </FormControl>
+                      ),
+                    }}
+                  />
                 </Grid>
                 <Grid item xs={1} md={2}>
                   <Hidden mdDown>
