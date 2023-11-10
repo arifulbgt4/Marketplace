@@ -24,11 +24,15 @@ const FilterRadio: FC<FilterRadioProps> = ({ title, radio }) => {
             const { label, value } = data;
             return (
               <Grid item xs={6} key={label}>
-                <FormControl component="fieldset" variant="standard">
+                <FormControl
+                  component="fieldset"
+                  variant="standard"
+                  size="small"
+                >
                   <RadioGroup name="customized-radios">
                     <FormControlLabel
                       value={value}
-                      control={<Radio />}
+                      control={<Radio size="small" />}
                       label={label}
                     />
                   </RadioGroup>
