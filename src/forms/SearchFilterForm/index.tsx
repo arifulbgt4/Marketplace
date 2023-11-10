@@ -23,6 +23,7 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({}) => {
               <Grid container>
                 <Grid item xs={5.5} md={5}>
                   <TextField
+                    fullWidth
                     label="Location"
                     name="location"
                     id="outlined-adornment-location"
@@ -37,6 +38,7 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({}) => {
                 </Grid>
                 <Grid item xs={5.5} md={5}>
                   <TextField
+                    fullWidth
                     name="key"
                     id="outlined-adornment-key"
                     label="Keyword"
