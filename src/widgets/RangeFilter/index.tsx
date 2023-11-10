@@ -11,7 +11,12 @@ const RangeFilter: FC<SliderFilterProps> = ({ title, ...rest }) => {
       <Typography variant="h5" pb={1}>
         {title}
       </Typography>
-      <Slider name="priceRange" valueLabelDisplay="auto" {...rest} />
+      <Slider
+        name="priceRange"
+        valueLabelDisplay="auto"
+        {...rest}
+        size="small"
+      />
     </Box>
   );
 };
