@@ -24,10 +24,10 @@ const FilterCheckbox: FC<FilterCheckboxProps> = ({ title, checkbox }) => {
           const { label, value } = data;
           return (
             <Grid item xs={6} key={value}>
-              <FormControl component="fieldset" variant="standard">
+              <FormControl component="fieldset" variant="standard" size="small">
                 <FormGroup>
                   <FormControlLabel
-                    control={<Checkbox name={value} />}
+                    control={<Checkbox size="small" name={value} />}
                     label={label}
                   />
                 </FormGroup>
