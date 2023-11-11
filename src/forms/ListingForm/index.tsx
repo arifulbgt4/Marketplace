@@ -1,32 +1,36 @@
 "use client";
 import { FC } from "react";
 import { Form as FinalForm } from "react-final-form";
-import { Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 
-import VerticalStepper from "src/widgets/VerticalStepper";
+import Staper from "./Staper";
 
 import { ListingFormProps } from "./Types";
 
 const ListingForm: FC<ListingFormProps> = () => {
   const onSubmitForm = async () => {};
   return (
-    <FinalForm
-      onSubmit={onSubmitForm}
-      render={({ handleSubmit, values, errors, submitting }) => {
-        return (
-          <form onSubmit={handleSubmit}>
-            <Grid container>
-              <Grid item xs={12}>
-                <Typography>Add Item</Typography>
+    <Box p={5}>
+      <FinalForm
+        onSubmit={onSubmitForm}
+        render={({ handleSubmit, values, errors, submitting }) => {
+          return (
+            <form onSubmit={handleSubmit}>
+              <Grid container rowSpacing={9}>
+                <Grid item xs={12}>
+                  <Typography variant="h4" textAlign="center">
+                    Add a New Listing
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Staper />
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <VerticalStepper />
-              </Grid>
-            </Grid>
-          </form>
-        );
-      }}
-    />
+            </form>
+          );
+        }}
+      />
+    </Box>
   );
 };
 

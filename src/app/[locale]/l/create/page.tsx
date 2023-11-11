@@ -1,11 +1,14 @@
+import { Box, Container } from "@mui/material";
+
 import ListingForm from "src/forms/ListingForm";
-import { Container } from "@mui/material";
 
 const ListingCreatePage = () => {
   return (
-    <Container>
-      <ListingForm />
-    </Container>
+    <Box pt={5}>
+      <Container maxWidth="md">
+        <ListingForm />
+      </Container>
+    </Box>
   );
 };
 
