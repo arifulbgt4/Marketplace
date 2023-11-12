@@ -14,16 +14,23 @@ import {
   Avatar,
   Hidden,
   Stack,
+  Grid,
   Link,
+  Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import LogoutIcon from "@mui/icons-material/Logout";
+import SettingsIcon from "@mui/icons-material/Settings";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
 
 import { useSticky } from "src/global/hooks";
 import Logo from "src/components/Logo";
 import routes from "src/global/routes";
 
-import { HeaderProps } from "./Types";
+import { AvatarPopProps, HeaderProps } from "./Types";
 
 const Header: FC<HeaderProps> = ({ user }) => {
   const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null);
@@ -65,11 +72,12 @@ const Header: FC<HeaderProps> = ({ user }) => {
           <Hidden mdUp implementation="css">
             <Stack>
               {user ? (
-                <Tooltip title="Open settings">
-                  <IconButton sx={{ p: 0 }} onClick={handleOpenNavAvatar}>
-                    <Avatar>AD</Avatar>
-                  </IconButton>
-                </Tooltip>
+                <AvatarPop
+                  handleCloseUserMenu={handleCloseUserMenu}
+                  handleCloseNavAvatar={handleCloseNavAvatar}
+                  anchorElAvat={anchorElAvat}
+                  handleOpenNavAvatar={handleOpenNavAvatar}
+                />
               ) : (
                 <>
                   <Tooltip title="Menu">
@@ -288,72 +296,12 @@ const Header: FC<HeaderProps> = ({ user }) => {
                   </Menu>
                 </Hidden>
                 <Hidden mdDown implementation="css">
-                  <Tooltip title="Open settings">
-                    <IconButton onClick={handleOpenNavAvatar} sx={{ p: 0 }}>
-                      <Avatar>AD</Avatar>
-                    </IconButton>
-                  </Tooltip>
-                  <Menu
-                    sx={{ mt: "45px" }}
-                    id="menu-appbar"
-                    anchorEl={anchorElAvat}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    open={Boolean(anchorElAvat)}
-                    onClose={handleCloseNavAvatar}
-                  >
-                    <MenuItem
-                      component={Link}
-                      href={routes.userAccount}
-                      onClick={handleCloseNavAvatar}
-                    >
-                      Profile
-                    </MenuItem>
-                    <MenuItem
-                      component={Link}
-                      href={routes.userSetting}
-                      onClick={handleCloseNavAvatar}
-                    >
-                      Setting
-                    </MenuItem>
-                    <MenuItem
-                      component={Link}
-                      href={routes.userListing}
-                      onClick={handleCloseNavAvatar}
-                    >
-                      Listing
-                    </MenuItem>
-                    <MenuItem
-                      component={Link}
-                      href={routes.userDashboard}
-                      onClick={handleCloseNavAvatar}
-                    >
-                      Dashboard
-                    </MenuItem>
-                    <MenuItem
-                      component={Link}
-                      href={routes.userBookmark}
-                      onClick={handleCloseNavAvatar}
-                    >
-                      Bookmark
-                    </MenuItem>
-
-                    <MenuItem
-                      onClick={() => {
-                        handleCloseUserMenu();
-                        signOut();
-                      }}
-                    >
-                      Log out
-                    </MenuItem>
-                  </Menu>
+                  <AvatarPop
+                    handleCloseUserMenu={handleCloseUserMenu}
+                    handleCloseNavAvatar={handleCloseNavAvatar}
+                    anchorElAvat={anchorElAvat}
+                    handleOpenNavAvatar={handleOpenNavAvatar}
+                  />
                 </Hidden>
               </Stack>
             )}
@@ -364,3 +312,158 @@ const Header: FC<HeaderProps> = ({ user }) => {
   );
 };
 export default Header;
+
+const AvatarPop: FC<AvatarPopProps> = ({
+  handleCloseUserMenu,
+  handleCloseNavAvatar,
+  anchorElAvat,
+  handleOpenNavAvatar,
+}) => {
+  return (
+    <>
+      <IconButton onClick={handleOpenNavAvatar} sx={{ p: 0 }}>
+        <Avatar>AD</Avatar>
+      </IconButton>
+      <Menu
+        sx={{ mt: "45px" }}
+        id="menu-appbar"
+        anchorEl={anchorElAvat}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        open={Boolean(anchorElAvat)}
+        onClose={handleCloseNavAvatar}
+      >
+        <Grid container width={280} maxWidth="100%">
+          <Grid
+            item
+            xs={4}
+            display="flex"
+            justifyContent="center"
+            alignItems="end"
+          >
+            <MenuItem
+              component={Link}
+              href={routes.userAccount}
+              onClick={handleCloseNavAvatar}
+            >
+              <Stack justifyContent="center" alignItems="center">
+                <Avatar sx={{ width: 26, height: 26, fontSize: 12, mb: 1 }}>
+                  M
+                </Avatar>
+                <Typography variant="caption">Profile</Typography>
+              </Stack>
+            </MenuItem>
+          </Grid>
+          <Grid
+            item
+            xs={4}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <MenuItem
+              component={Link}
+              href={routes.userSetting}
+              onClick={handleCloseNavAvatar}
+            >
+              <Stack justifyContent="center" alignItems="center">
+                <IconButton>
+                  <SettingsIcon />
+                </IconButton>
+                <Typography variant="caption">Setting</Typography>
+              </Stack>
+            </MenuItem>
+          </Grid>
+          <Grid
+            item
+            xs={4}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <MenuItem
+              component={Link}
+              href={routes.userListing}
+              onClick={handleCloseNavAvatar}
+            >
+              <Stack justifyContent="center" alignItems="center">
+                <IconButton>
+                  <ListAltIcon />
+                </IconButton>
+                <Typography variant="caption">Listing</Typography>
+              </Stack>
+            </MenuItem>
+          </Grid>
+          <Grid
+            item
+            xs={4}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <MenuItem
+              component={Link}
+              href={routes.userDashboard}
+              onClick={handleCloseNavAvatar}
+            >
+              <Stack justifyContent="center" alignItems="center">
+                <IconButton>
+                  <DashboardIcon />
+                </IconButton>
+                <Typography variant="caption">Dashboard</Typography>
+              </Stack>
+            </MenuItem>
+          </Grid>
+          <Grid
+            item
+            xs={4}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <MenuItem
+              component={Link}
+              href={routes.userBookmark}
+              onClick={handleCloseNavAvatar}
+            >
+              <Stack justifyContent="center" alignItems="center">
+                <IconButton>
+                  <BookmarksIcon />
+                </IconButton>
+                <Typography variant="caption">Bookmark</Typography>
+              </Stack>
+            </MenuItem>
+          </Grid>
+          <Grid
+            item
+            xs={4}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <MenuItem
+              onClick={() => {
+                handleCloseUserMenu();
+                signOut();
+              }}
+            >
+              <Stack justifyContent="center" alignItems="center">
+                <IconButton>
+                  <LogoutIcon />
+                </IconButton>
+                <Typography variant="caption"> Log out</Typography>
+              </Stack>
+            </MenuItem>
+          </Grid>
+        </Grid>
+      </Menu>
+    </>
+  );
+};
