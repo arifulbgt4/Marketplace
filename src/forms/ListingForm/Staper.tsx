@@ -43,7 +43,7 @@ const Staper: FC<StaperProps> = () => {
 
       <Box maxWidth={400} marginX="auto" pt={3}>
         <MobileStepper
-          variant="text"
+          variant="progress"
           steps={5}
           position="static"
           activeStep={activeStep}
