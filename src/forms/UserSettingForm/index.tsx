@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 
 import { Form as FinalForm } from "react-final-form";
-import { FormApi } from "final-form";
 
 import { RadioGroup, TextField } from "src/components/Input";
 
@@ -36,7 +35,7 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
           <form onSubmit={handleSubmit}>
             <Grid container spacing={3}>
               <Grid item container xs={12} columnSpacing={5}>
-                <Grid item xs={3}>
+                <Grid item xs={3} display="flex" alignItems="center">
                   <Typography variant="h6">First Name</Typography>
                 </Grid>
                 <Grid item xs={7}>
@@ -51,7 +50,7 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                 </Grid>
               </Grid>
               <Grid item container xs={12} columnSpacing={5}>
-                <Grid item xs={3}>
+                <Grid item xs={3} display="flex" alignItems="center">
                   <Typography variant="h6">Last Name</Typography>
                 </Grid>
                 <Grid item xs={7}>
@@ -66,7 +65,7 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                 </Grid>
               </Grid>
               <Grid item container xs={12} columnSpacing={5}>
-                <Grid item xs={3}>
+                <Grid item xs={3} display="flex" alignItems="center">
                   <Typography variant="h6">Email Adress</Typography>
                 </Grid>
                 <Grid item xs={7}>
@@ -82,7 +81,7 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                 </Grid>
               </Grid>
               <Grid item container xs={12} columnSpacing={5}>
-                <Grid item xs={3}>
+                <Grid item xs={3} display="flex" alignItems="center">
                   <Typography variant="h6">Your Numbers</Typography>
                 </Grid>
                 <Grid item xs={7}>
@@ -97,7 +96,7 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                 </Grid>
               </Grid>
               <Grid item container xs={12} columnSpacing={5}>
-                <Grid item xs={3}>
+                <Grid item xs={3} display="flex" alignItems="center">
                   <Typography variant="h6">Adress</Typography>
                 </Grid>
                 <Grid item xs={7}>
@@ -112,7 +111,7 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                 </Grid>
               </Grid>
               <Grid item container xs={12} columnSpacing={5}>
-                <Grid item xs={3}>
+                <Grid item xs={3} display="flex" alignItems="center">
                   <Typography variant="h6">Country</Typography>
                 </Grid>
                 <Grid item xs={7}>
@@ -127,7 +126,7 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                 </Grid>
               </Grid>
               <Grid item container xs={12} columnSpacing={5}>
-                <Grid item xs={3}>
+                <Grid item xs={3} pt={2}>
                   <Typography variant="h6">Profile Text</Typography>
                 </Grid>
                 <Grid item xs={7}>
@@ -144,7 +143,7 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                 </Grid>
               </Grid>
               <Grid item container xs={12} columnSpacing={5}>
-                <Grid item xs={3}>
+                <Grid item xs={3} pt={1.1}>
                   <Typography variant="h6">Gender</Typography>
                 </Grid>
                 <Grid item xs={7} container rowSpacing={2}>
