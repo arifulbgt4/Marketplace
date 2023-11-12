@@ -1,12 +1,12 @@
 import { FC } from "react";
-import { Grid, Paper, Typography } from "@mui/material";
+import { Box, Grid, Paper, Typography } from "@mui/material";
 
 import { ItemProps, AccountDetailsProps } from "./Types";
 
 const AccountDetails: FC<AccountDetailsProps> = () => {
   return (
-    <Paper sx={{ p: 5 }}>
-      <Grid container rowGap={2.5}>
+    <Box sx={{ p: 5 }}>
+      <Grid container rowGap={3}>
         <Item property="First Name" value="Jueal" />
         <Item property="Last Name" value="Hassan" />
         <Item property="First Name" value="Jueal" />
@@ -20,7 +20,7 @@ const AccountDetails: FC<AccountDetailsProps> = () => {
         <Item property="Age" value="23" />
         <Item property="Gender" value="Male" />
       </Grid>
-    </Paper>
+    </Box>
   );
 };
 
@@ -35,7 +35,7 @@ const Item: FC<ItemProps> = ({ property, value }) => {
       <Grid item xs={1}>
         <Typography variant="subtitle1">:</Typography>
       </Grid>
-      <Grid item xs={7}>
+      <Grid item xs={5}>
         <Typography variant="subtitle1">{value}</Typography>
       </Grid>
     </>
