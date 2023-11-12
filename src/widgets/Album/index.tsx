@@ -13,7 +13,7 @@ const SPACING = 1;
 export const Album: FC<AlbumProps> = ({ albumImg }) => {
   if (albumImg.length > 5) {
     return (
-      <Grid container spacing={SPACING} position="relative">
+      <Grid container spacing={SPACING}>
         <Grid item xs={6}>
           <AlbumImage spacing={SPACING} src={albumImg[0]} />
         </Grid>
@@ -27,21 +27,27 @@ export const Album: FC<AlbumProps> = ({ albumImg }) => {
           <Grid item xs={6}>
             <AlbumImage spacing={SPACING} src={albumImg[3]} />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} position="relative">
             <AlbumImage spacing={SPACING} src={albumImg[4]} />
+            <Box
+              position="absolute"
+              sx={(theme) => ({
+                ml: theme.spacing(SPACING + 1),
+                right: theme.spacing(SPACING + 1),
+                bottom: theme.spacing(SPACING + 1),
+              })}
+            >
+              <Button
+                startIcon={<WidgetsIcon />}
+                variant="contained"
+                size="large"
+                color="inherit"
+              >
+                Show all photos
+              </Button>
+            </Box>
           </Grid>
         </Grid>
-
-        <Box position="absolute" right={40} bottom={40}>
-          <Button
-            startIcon={<WidgetsIcon />}
-            variant="contained"
-            size="large"
-            color="inherit"
-          >
-            Show all photos
-          </Button>
-        </Box>
       </Grid>
     );
   } else if (albumImg.length === 5) {
