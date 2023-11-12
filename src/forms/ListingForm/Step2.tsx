@@ -10,8 +10,8 @@ import {
   Typography,
 } from "@mui/material";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import { TextField } from "src/components/Input";
 
+import { TextField } from "src/components/Input";
 import CalendarComp from "src/widgets/CalendarComp";
 
 import { Step2Props } from "./Types";
@@ -37,7 +37,7 @@ const Step2: FC<Step2Props> = () => {
           </Select>
         </FormControl>
       </Grid>
-      <Grid item xs={12} container spacing={5}>
+      <Grid item xs={12} container spacing={2}>
         <Grid item xs={6}>
           <FormControl fullWidth>
             <TextField
@@ -59,7 +59,7 @@ const Step2: FC<Step2Props> = () => {
               Sequrity Deposit
             </InputLabel>
             <Select
-              name="sdeposit"
+              name="deposit"
               input={<OutlinedInput label="Sequrity Deposit" />}
             >
               <MenuItem value="1">1/2 Month</MenuItem>
@@ -70,7 +70,7 @@ const Step2: FC<Step2Props> = () => {
           </FormControl>
         </Grid>
       </Grid>
-      <Grid item xs={12} container spacing={5}>
+      <Grid item xs={12} container spacing={2}>
         <Grid item xs={6}>
           <FormControl fullWidth>
             <CalendarComp />
