@@ -24,7 +24,7 @@ const OwnListing: FC<OwnListingProps> = () => {
           }}
         />
       </Grid>
-      <Grid item xs={12} container spacing={5}>
+      <Grid item xs={12} container spacing={3}>
         {ownListingData.map((data) => {
           const {
             id,
@@ -37,7 +37,7 @@ const OwnListing: FC<OwnListingProps> = () => {
             address,
           } = data;
           return (
-            <Grid item xs={12} md={4} key={id}>
+            <Grid item xs={12} sm={6} md={4} key={id}>
               <Listing
                 id={id}
                 slug={slug}

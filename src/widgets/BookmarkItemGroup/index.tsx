@@ -8,7 +8,7 @@ import { BookmarkItemGroupProps } from "./Types";
 
 const BookmarkItemGroup: FC<BookmarkItemGroupProps> = () => {
   return (
-    <Grid container spacing={4}>
+    <Grid container spacing={3}>
       {bookMarkData.map((data) => {
         const { id, title, subheader, bedroom, bathroom, rent } = data;
         return (

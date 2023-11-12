@@ -35,7 +35,6 @@ const UserLayout: FC<UserLayoutProps> = ({ children }) => {
               <Stack
                 flexDirection={{ md: "row" }}
                 justifyContent="space-between"
-                alignItems="center"
                 gap={{ xs: 2, md: 0 }}
               >
                 <Stack gap={0.5}>
@@ -47,7 +46,6 @@ const UserLayout: FC<UserLayoutProps> = ({ children }) => {
                     member science, september,2023
                   </Typography>
                 </Stack>
-
                 <Box width={{ xs: "100%", md: "auto" }}>
                   <Button
                     component={Link}
