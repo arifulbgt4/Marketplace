@@ -1,8 +1,8 @@
 export interface HeaderProps {
-  user: {
-    id: string;
-    name: string;
-    email: string;
+  user?: {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
   };
 }
 
