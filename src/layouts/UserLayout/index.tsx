@@ -22,28 +22,41 @@ const UserLayout: FC<UserLayoutProps> = ({ children }) => {
   const pathname = usePathname();
 
   return (
-    <>
+    <Box pt={10}>
       <Container>
         <Grid container>
           <Grid item xs={12}>
             <Stack
-              pt={10}
               gap={10}
               direction="column"
               justifyContent="space-between"
               alignSelf="stretch"
             >
-              <Stack>
-                <Stack flexDirection="row" justifyContent="space-between">
+              <Stack
+                flexDirection="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Stack>
                   <Stack direction="row" alignItems="center" gap={1}>
                     <Avatar>pp</Avatar>
                     <Typography variant="h4">User Name</Typography>
                   </Stack>
-                  <Button variant="outlined">create Listing +</Button>
+                  <Typography variant="subtitle1">
+                    member science, september,2023
+                  </Typography>
                 </Stack>
-                <Typography variant="subtitle1">
-                  member science, september,2023
-                </Typography>
+
+                <Box>
+                  <Button
+                    component={Link}
+                    href={`${routes.ListingCreatePage}`}
+                    variant="outlined"
+                    size="large"
+                  >
+                    create Listing +
+                  </Button>
+                </Box>
               </Stack>
               <Tabs
                 value={
@@ -79,7 +92,7 @@ const UserLayout: FC<UserLayoutProps> = ({ children }) => {
                 <Tab
                   component={Link}
                   href={routes.userSetting}
-                  label="SSETTING"
+                  label="SETTINGS"
                   value={routes.userSetting}
                 />
               </Tabs>
@@ -87,8 +100,10 @@ const UserLayout: FC<UserLayoutProps> = ({ children }) => {
           </Grid>
         </Grid>
       </Container>
-      <Box pt={10}>{children}</Box>
-    </>
+      <Container>
+        <Box pt={5}>{children}</Box>
+      </Container>
+    </Box>
   );
 };
 

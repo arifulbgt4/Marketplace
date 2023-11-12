@@ -12,6 +12,7 @@ const OwnListing: FC<OwnListingProps> = () => {
     <Grid container spacing={5}>
       <Grid item xs={12}>
         <TextField
+          size="small"
           fullWidth
           placeholder="Search"
           InputProps={{
@@ -36,7 +37,7 @@ const OwnListing: FC<OwnListingProps> = () => {
             address,
           } = data;
           return (
-            <Grid item xs={12} md={6} key={id}>
+            <Grid item xs={12} md={4} key={id}>
               <Listing
                 id={id}
                 slug={slug}

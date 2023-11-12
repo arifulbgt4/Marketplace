@@ -6,7 +6,7 @@ import { InfoProps } from "./Types";
 
 const Info: FC<InfoProps> = ({ title, children }) => {
   return (
-    <Box sx={{ boxShadow: 11 }}>
+    <Box>
       {title && (
         <Box
           py={3}
@@ -19,7 +19,9 @@ const Info: FC<InfoProps> = ({ title, children }) => {
           <Typography variant="h4">{title}</Typography>
         </Box>
       )}
-      <Paper sx={{ p: 5 }}>{children}</Paper>
+      <Paper sx={{ p: 5 }} elevation={0}>
+        {children}
+      </Paper>
     </Box>
   );
 };
