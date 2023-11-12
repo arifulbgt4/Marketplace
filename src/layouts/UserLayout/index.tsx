@@ -22,24 +22,25 @@ const UserLayout: FC<UserLayoutProps> = ({ children }) => {
   const pathname = usePathname();
 
   return (
-    <Box pt={10}>
+    <Box pt={{ xs: 3, md: 8 }}>
       <Container>
         <Grid container>
           <Grid item xs={12}>
             <Stack
-              gap={10}
+              gap={{ xs: 3, md: 8 }}
               direction="column"
               justifyContent="space-between"
               alignSelf="stretch"
             >
               <Stack
-                flexDirection="row"
+                flexDirection={{ md: "row" }}
                 justifyContent="space-between"
                 alignItems="center"
+                gap={{ xs: 2, md: 0 }}
               >
-                <Stack>
+                <Stack gap={0.5}>
                   <Stack direction="row" alignItems="center" gap={1}>
-                    <Avatar>pp</Avatar>
+                    <Avatar />
                     <Typography variant="h4">User Name</Typography>
                   </Stack>
                   <Typography variant="subtitle1">
@@ -47,12 +48,13 @@ const UserLayout: FC<UserLayoutProps> = ({ children }) => {
                   </Typography>
                 </Stack>
 
-                <Box>
+                <Box width={{ xs: "100%", md: "auto" }}>
                   <Button
                     component={Link}
                     href={`${routes.ListingCreatePage}`}
                     variant="outlined"
                     size="large"
+                    fullWidth
                   >
                     create Listing +
                   </Button>
@@ -101,7 +103,7 @@ const UserLayout: FC<UserLayoutProps> = ({ children }) => {
         </Grid>
       </Container>
       <Container>
-        <Box pt={5}>{children}</Box>
+        <Box pt={{ xs: 3, md: 5 }}>{children}</Box>
       </Container>
     </Box>
   );

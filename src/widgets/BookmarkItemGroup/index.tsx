@@ -12,7 +12,7 @@ const BookmarkItemGroup: FC<BookmarkItemGroupProps> = () => {
       {bookMarkData.map((data) => {
         const { id, title, subheader, bedroom, bathroom, rent } = data;
         return (
-          <Grid key={id} item xs={6}>
+          <Grid key={id} item xs={12} sm={6}>
             <BookmarkItem
               id={id}
               title={title}

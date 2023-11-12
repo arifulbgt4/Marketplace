@@ -34,12 +34,18 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
         return (
           <form onSubmit={handleSubmit}>
             <Grid container spacing={3}>
-              <Grid item container xs={12} columnSpacing={5}>
+              <Grid
+                item
+                container
+                xs={12}
+                justifyContent={{ xs: "space-between", md: "flex-start" }}
+              >
                 <Grid item xs={3} display="flex" alignItems="center">
                   <Typography variant="h6">First Name</Typography>
                 </Grid>
                 <Grid item xs={7}>
                   <TextField
+                    size="small"
                     name="firstName"
                     fullWidth
                     id="full-width"
@@ -49,12 +55,18 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                   />
                 </Grid>
               </Grid>
-              <Grid item container xs={12} columnSpacing={5}>
+              <Grid
+                item
+                container
+                xs={12}
+                justifyContent={{ xs: "space-between", md: "flex-start" }}
+              >
                 <Grid item xs={3} display="flex" alignItems="center">
                   <Typography variant="h6">Last Name</Typography>
                 </Grid>
                 <Grid item xs={7}>
                   <TextField
+                    size="small"
                     name="lastName"
                     fullWidth
                     id="full-width"
@@ -64,13 +76,19 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                   />
                 </Grid>
               </Grid>
-              <Grid item container xs={12} columnSpacing={5}>
+              <Grid
+                item
+                container
+                xs={12}
+                justifyContent={{ xs: "space-between", md: "flex-start" }}
+              >
                 <Grid item xs={3} display="flex" alignItems="center">
                   <Typography variant="h6">Email Adress</Typography>
                 </Grid>
                 <Grid item xs={7}>
                   <TextField
                     type="email"
+                    size="small"
                     name="emailAdress"
                     fullWidth
                     id="full-width"
@@ -80,7 +98,12 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                   />
                 </Grid>
               </Grid>
-              <Grid item container xs={12} columnSpacing={5}>
+              <Grid
+                item
+                container
+                xs={12}
+                justifyContent={{ xs: "space-between", md: "flex-start" }}
+              >
                 <Grid item xs={3} display="flex" alignItems="center">
                   <Typography variant="h6">Your Numbers</Typography>
                 </Grid>
@@ -88,6 +111,7 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                   <TextField
                     name="number"
                     fullWidth
+                    size="small"
                     id="full-width"
                     label="Your Numbers"
                     variant="outlined"
@@ -95,13 +119,19 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                   />
                 </Grid>
               </Grid>
-              <Grid item container xs={12} columnSpacing={5}>
+              <Grid
+                item
+                container
+                xs={12}
+                justifyContent={{ xs: "space-between", md: "flex-start" }}
+              >
                 <Grid item xs={3} display="flex" alignItems="center">
                   <Typography variant="h6">Adress</Typography>
                 </Grid>
                 <Grid item xs={7}>
                   <TextField
                     name="adress"
+                    size="small"
                     fullWidth
                     id="full-width"
                     label="Adress"
@@ -110,13 +140,19 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                   />
                 </Grid>
               </Grid>
-              <Grid item container xs={12} columnSpacing={5}>
+              <Grid
+                item
+                container
+                xs={12}
+                justifyContent={{ xs: "space-between", md: "flex-start" }}
+              >
                 <Grid item xs={3} display="flex" alignItems="center">
                   <Typography variant="h6">Country</Typography>
                 </Grid>
                 <Grid item xs={7}>
                   <TextField
                     name="country"
+                    size="small"
                     fullWidth
                     id="full-width"
                     label="Country"
@@ -125,7 +161,12 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                   />
                 </Grid>
               </Grid>
-              <Grid item container xs={12} columnSpacing={5}>
+              <Grid
+                item
+                container
+                xs={12}
+                justifyContent={{ xs: "space-between", md: "flex-start" }}
+              >
                 <Grid item xs={3} pt={2}>
                   <Typography variant="h6">Profile Text</Typography>
                 </Grid>
@@ -135,6 +176,7 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                     fullWidth
                     multiline
                     rows={4}
+                    size="small"
                     id="full-width"
                     label="Profile Text"
                     variant="outlined"
@@ -142,7 +184,12 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                   />
                 </Grid>
               </Grid>
-              <Grid item container xs={12} columnSpacing={5}>
+              <Grid
+                item
+                container
+                xs={12}
+                justifyContent={{ xs: "space-between", md: "flex-start" }}
+              >
                 <Grid item xs={3} pt={1.1}>
                   <Typography variant="h6">Gender</Typography>
                 </Grid>

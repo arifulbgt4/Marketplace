@@ -32,7 +32,7 @@ const StatisticsGroup: FC<StatisticsCardGroupProps> = () => {
       {staticCardData.map((data) => {
         const { id, title, icon } = data;
         return (
-          <Grid key={id} item xs={4}>
+          <Grid key={id} item xs={12} sm={6} md={4}>
             <Statistic id={id} icon={icon} title={title} />
           </Grid>
         );

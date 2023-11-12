@@ -5,7 +5,7 @@ import { ItemProps, AccountDetailsProps } from "./Types";
 
 const AccountDetails: FC<AccountDetailsProps> = () => {
   return (
-    <Box sx={{ p: 5 }}>
+    <Box sx={{ p: { md: 5 } }}>
       <Grid container rowGap={3}>
         <Item property="First Name" value="Jueal" />
         <Item property="Last Name" value="Hassan" />
@@ -35,8 +35,10 @@ const Item: FC<ItemProps> = ({ property, value }) => {
       <Grid item xs={1}>
         <Typography variant="subtitle1">:</Typography>
       </Grid>
-      <Grid item xs={5}>
-        <Typography variant="subtitle1">{value}</Typography>
+      <Grid item container xs={7} justifyContent="flex-end" display="flex">
+        <Grid item xs={12}>
+          <Typography variant="subtitle1">{value}</Typography>
+        </Grid>
       </Grid>
     </>
   );
