@@ -15,9 +15,15 @@ const ListGridView: FC<ListGridViewProps> = ({ toggleGridList, isGrid }) => {
     >
       <Button
         sx={(theme) => ({
+          color: isGrid
+            ? theme.palette.common.white
+            : theme.palette.common.black,
           bgcolor: isGrid
             ? theme.palette.primary.dark
             : theme.palette.error.contrastText,
+          ":hover": {
+            bgcolor: !isGrid && "Background",
+          },
         })}
         startIcon={<AutoAwesomeMosaicIcon />}
         onClick={() => {
@@ -28,9 +34,15 @@ const ListGridView: FC<ListGridViewProps> = ({ toggleGridList, isGrid }) => {
       </Button>
       <Button
         sx={(theme) => ({
+          color: !isGrid
+            ? theme.palette.common.white
+            : theme.palette.common.black,
           bgcolor: !isGrid
             ? theme.palette.primary.dark
             : theme.palette.error.contrastText,
+          ":hover": {
+            bgcolor: isGrid && "Background",
+          },
         })}
         startIcon={<MenuIcon />}
         onClick={() => {
@@ -41,7 +53,13 @@ const ListGridView: FC<ListGridViewProps> = ({ toggleGridList, isGrid }) => {
       </Button>
       <Button
         startIcon={<LanguageIcon />}
-        sx={(theme) => ({ bgcolor: theme.palette.error.contrastText })}
+        sx={(theme) => ({
+          bgcolor: theme.palette.error.contrastText,
+          color: theme.palette.common.black,
+          ":hover": {
+            bgcolor: "Background",
+          },
+        })}
       >
         Map
       </Button>
