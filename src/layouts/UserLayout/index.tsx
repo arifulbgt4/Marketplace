@@ -8,6 +8,7 @@ import {
   Typography,
   Link,
   Container,
+  Box,
 } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -86,7 +87,7 @@ const UserLayout: FC<UserLayoutProps> = ({ children }) => {
           </Grid>
         </Grid>
       </Container>
-      {children}
+      <Box pt={10}>{children}</Box>
     </>
   );
 };
