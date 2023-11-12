@@ -8,14 +8,14 @@ const DashboardPage = () => {
   return (
     <Box>
       <Container>
-        <Grid container columnSpacing={10}>
-          <Grid item xs={8}>
+        <Grid container rowSpacing={5} columnSpacing={10}>
+          <Grid item xs={12} md={8}>
             <Stack gap={6}>
               <StatisticsGroup />
               <UserMap />
             </Stack>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} md={4}>
             <DashboardHelpInfo />
           </Grid>
         </Grid>
