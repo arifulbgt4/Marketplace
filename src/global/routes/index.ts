@@ -8,6 +8,7 @@ export default {
   listingEdit: "/l/edit",
   signin: "/signin",
   signup: "/signup",
+  profile: "/u",
   userBookmark: "/u/bookmark",
   userDashboard: "/u/dashboard",
   userListing: "/u/listing",

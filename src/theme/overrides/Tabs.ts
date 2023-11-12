@@ -2,7 +2,12 @@ import { Theme, Components } from "@mui/material/styles";
 
 const MuiTab: Components<Theme>["MuiTab"] = {
   styleOverrides: {
-    root: ({ theme, ownerState }) => ({}),
+    root: ({ theme, ownerState }) => ({
+      ...(ownerState.icon &&
+        ownerState.label && {
+          minHeight: 48,
+        }),
+    }),
   },
 };
 
