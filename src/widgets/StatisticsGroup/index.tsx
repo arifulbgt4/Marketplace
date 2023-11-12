@@ -28,7 +28,7 @@ const staticCardData = [
 
 const StatisticsGroup: FC<StatisticsCardGroupProps> = () => {
   return (
-    <Grid container columnSpacing={2}>
+    <Grid container spacing={3}>
       {staticCardData.map((data) => {
         const { id, title, icon } = data;
         return (
