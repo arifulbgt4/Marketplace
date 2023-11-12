@@ -29,6 +29,7 @@ const AlbumImage: FC<AlbumImageProps> = ({
           : height,
         borderRadius: 1,
         overflow: "hidden",
+        cursor: "pointer",
       })}
     >
       <Image
