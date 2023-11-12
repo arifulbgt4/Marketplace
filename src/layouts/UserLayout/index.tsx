@@ -12,6 +12,13 @@ import {
 } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import SettingsIcon from "@mui/icons-material/Settings";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { usePathname } from "next/navigation";
 
 import routes from "src/global/routes";
@@ -66,32 +73,43 @@ const UserLayout: FC<UserLayoutProps> = ({ children }) => {
                 }
               >
                 <Tab
+                  wrapped
                   component={Link}
                   href={routes.userDashboard}
+                  icon={<DashboardIcon fontSize="small" />}
+                  iconPosition="start"
                   label="DASHBOARD"
                   value={routes.userDashboard}
                 />
                 <Tab
                   component={Link}
                   href={routes.userAccount}
+                  icon={<ManageAccountsIcon fontSize="small" />}
+                  iconPosition="start"
                   label="ACCOUNT"
                   value={routes.userAccount}
                 />
                 <Tab
                   component={Link}
                   href={routes.userListing}
+                  icon={<ListAltIcon fontSize="small" />}
+                  iconPosition="start"
                   label="LISTINGS"
                   value={routes.userListing}
                 />
                 <Tab
                   component={Link}
                   href={routes.userBookmark}
+                  icon={<BookmarksIcon fontSize="small" />}
+                  iconPosition="start"
                   label="BOOKMARKS"
                   value={routes.userBookmark}
                 />
                 <Tab
                   component={Link}
                   href={routes.userSetting}
+                  icon={<SettingsIcon fontSize="small" />}
+                  iconPosition="start"
                   label="SETTINGS"
                   value={routes.userSetting}
                 />

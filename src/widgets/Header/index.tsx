@@ -25,6 +25,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 import { useSticky } from "src/global/hooks";
 import Logo from "src/components/Logo";
@@ -346,17 +348,57 @@ const AvatarPop: FC<AvatarPopProps> = ({
             xs={4}
             display="flex"
             justifyContent="center"
+            alignItems="center"
+          >
+            <MenuItem
+              component={Link}
+              href={routes.userDashboard}
+              onClick={handleCloseNavAvatar}
+            >
+              <Stack justifyContent="center" alignItems="center">
+                <IconButton>
+                  <DashboardIcon />
+                </IconButton>
+                <Typography variant="caption">Dashboard</Typography>
+              </Stack>
+            </MenuItem>
+          </Grid>
+          <Grid
+            item
+            xs={4}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <MenuItem
+              component={Link}
+              href={routes.userDashboard}
+              onClick={handleCloseNavAvatar}
+            >
+              <Stack justifyContent="center" alignItems="center">
+                <IconButton>
+                  <ManageAccountsIcon />
+                </IconButton>
+                <Typography variant="caption">Account</Typography>
+              </Stack>
+            </MenuItem>
+          </Grid>
+          <Grid
+            item
+            xs={4}
+            display="flex"
+            justifyContent="center"
             alignItems="end"
           >
             <MenuItem
               component={Link}
-              href={routes.userAccount}
+              href={`${routes.profile}/slug`}
               onClick={handleCloseNavAvatar}
             >
               <Stack justifyContent="center" alignItems="center">
-                <Avatar sx={{ width: 26, height: 26, fontSize: 12, mb: 1 }}>
-                  M
-                </Avatar>
+                <IconButton>
+                  <AccountCircleIcon />
+                </IconButton>
                 <Typography variant="caption">Profile</Typography>
               </Stack>
             </MenuItem>
@@ -398,26 +440,6 @@ const AvatarPop: FC<AvatarPopProps> = ({
                   <ListAltIcon />
                 </IconButton>
                 <Typography variant="caption">Listing</Typography>
-              </Stack>
-            </MenuItem>
-          </Grid>
-          <Grid
-            item
-            xs={4}
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <MenuItem
-              component={Link}
-              href={routes.userDashboard}
-              onClick={handleCloseNavAvatar}
-            >
-              <Stack justifyContent="center" alignItems="center">
-                <IconButton>
-                  <DashboardIcon />
-                </IconButton>
-                <Typography variant="caption">Dashboard</Typography>
               </Stack>
             </MenuItem>
           </Grid>
