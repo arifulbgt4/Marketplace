@@ -2,6 +2,7 @@ export default {
   home: "/",
   search: "/s",
   listings: "/l",
+  ListingCreatePage: "/l/create",
   listingDetails: "/l",
   listingCreate: "/l/create",
   listingEdit: "/l/edit",
