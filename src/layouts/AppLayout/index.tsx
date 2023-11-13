@@ -13,22 +13,17 @@ const HEADER_HEIGHT = 64;
 const AppLayout: FC<AppLayoutProps> = async ({ children }) => {
   const session = await getServerSession(authOptions);
   return (
-    <>
-      <Grid container>
-        <Grid item xs={12} height={HEADER_HEIGHT}>
-          <Header user={session?.user} />
-        </Grid>
-        <Grid item xs={12} pb={15}>
-          {children}
-        </Grid>
+    <Grid container>
+      <Grid item xs={12} height={HEADER_HEIGHT}>
+        <Header user={session?.user} />
       </Grid>
-
-      <Grid container>
-        <Grid item xs={12}>
-          <Footer />
-        </Grid>
+      <Grid item xs={12} pb={15}>
+        {children}
       </Grid>
-    </>
+      <Grid item xs={12}>
+        <Footer />
+      </Grid>
+    </Grid>
   );
 };
 
