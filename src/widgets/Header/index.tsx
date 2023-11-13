@@ -188,7 +188,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
                       variant="outlined"
                       size="small"
                     >
-                      SignIn
+                      Sign in
                     </Button>
                   </Stack>
                 </Hidden>
