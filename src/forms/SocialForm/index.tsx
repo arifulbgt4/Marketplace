@@ -30,62 +30,70 @@ const SocilalForm: FC<SocilalFormProps> = () => {
       render={({ handleSubmit, values, errors, submitting }) => {
         return (
           <form onSubmit={handleSubmit}>
-            <Grid container rowSpacing={5}>
-              <Grid item xs={2}>
-                <FacebookRoundedIcon sx={{ width: 40, height: 40 }} />
+            <Grid
+              container
+              rowSpacing={2}
+              justifyContent={{ xs: "space-between", md: "flex-start" }}
+            >
+              <Grid item xs={5} md={3} display="flex" alignItems="center">
+                <FacebookRoundedIcon sx={{ width: 30, height: 30 }} />
               </Grid>
-              <Grid item xs={9}>
+              <Grid item xs={7}>
                 <TextField
                   name="facebook"
                   fullWidth
+                  size="small"
                   id="full-width"
                   label="Facebook.com/"
                   variant="outlined"
                 />
               </Grid>
-              <Grid item xs={2}>
-                <LinkedInIcon sx={{ width: 40, height: 40 }} />
+              <Grid item xs={5} md={3} display="flex" alignItems="center">
+                <LinkedInIcon sx={{ width: 30, height: 30 }} />
               </Grid>
-              <Grid item xs={9}>
+              <Grid item xs={7}>
                 <TextField
                   name="linkedIn"
                   fullWidth
+                  size="small"
                   id="full-width"
                   label="LinkedIn.com/"
                   variant="outlined"
                 />
               </Grid>
-              <Grid item xs={2}>
-                <InstagramIcon sx={{ width: 40, height: 40 }} />
+              <Grid item xs={5} md={3} display="flex" alignItems="center">
+                <InstagramIcon sx={{ width: 30, height: 30 }} />
               </Grid>
-              <Grid item xs={9}>
+              <Grid item xs={7}>
                 <TextField
                   name="instragram"
                   fullWidth
+                  size="small"
                   id="full-width"
                   label="Instagram.com/"
                   variant="outlined"
                 />
               </Grid>
-              <Grid item xs={2}>
-                <TwitterIcon sx={{ width: 40, height: 40 }} />
+              <Grid item xs={5} md={3} display="flex" alignItems="center">
+                <TwitterIcon sx={{ width: 30, height: 30 }} />
               </Grid>
-              <Grid item xs={9} container rowSpacing={2}>
-                <Grid item xs={12}>
-                  <TextField
-                    name="twitter"
-                    fullWidth
-                    id="full-width"
-                    label="Twitter.com/"
-                    variant="outlined"
-                    required
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Button variant="outlined" type="submit">
-                    Update
-                  </Button>
-                </Grid>
+              <Grid item xs={7}>
+                <TextField
+                  name="twitter"
+                  fullWidth
+                  size="small"
+                  id="full-width"
+                  label="Twitter.com/"
+                  variant="outlined"
+                  required
+                />
+              </Grid>
+            </Grid>
+            <Grid container justifyContent="flex-end">
+              <Grid item xs={7} md={9} pt={2}>
+                <Button variant="outlined" type="submit">
+                  Update
+                </Button>
               </Grid>
             </Grid>
           </form>

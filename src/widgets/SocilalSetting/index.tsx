@@ -6,11 +6,7 @@ import SocilalForm from "src/forms/SocialForm";
 import { SocilalFormChangeProps } from "./Types";
 
 const SocilalSettings: FC<SocilalFormChangeProps> = () => {
-  return (
-    <Paper>
-      <SocilalForm />
-    </Paper>
-  );
+  return <SocilalForm />;
 };
 
 export default SocilalSettings;
