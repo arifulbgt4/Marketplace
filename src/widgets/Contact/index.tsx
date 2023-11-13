@@ -7,7 +7,7 @@ import { ContactFormContainerProps } from "./Types";
 
 const ContactFormContainer: FC<ContactFormContainerProps> = () => {
   return (
-    <Paper>
+    <Paper elevation={0} sx={{ p: { xs: 2, md: 4 } }}>
       <ContactForm />
     </Paper>
   );

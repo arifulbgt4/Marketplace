@@ -33,14 +33,14 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
       render={({ handleSubmit, values, errors, submitting }) => {
         return (
           <form onSubmit={handleSubmit}>
-            <Grid container spacing={3}>
+            <Grid container spacing={2}>
               <Grid
                 item
                 container
                 xs={12}
                 justifyContent={{ xs: "space-between", md: "flex-start" }}
               >
-                <Grid item xs={3} display="flex" alignItems="center">
+                <Grid item xs={5} md={3} display="flex" alignItems="center">
                   <Typography variant="h6">First Name</Typography>
                 </Grid>
                 <Grid item xs={7}>
@@ -61,7 +61,7 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                 xs={12}
                 justifyContent={{ xs: "space-between", md: "flex-start" }}
               >
-                <Grid item xs={3} display="flex" alignItems="center">
+                <Grid item xs={5} md={3} display="flex" alignItems="center">
                   <Typography variant="h6">Last Name</Typography>
                 </Grid>
                 <Grid item xs={7}>
@@ -82,7 +82,7 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                 xs={12}
                 justifyContent={{ xs: "space-between", md: "flex-start" }}
               >
-                <Grid item xs={3} display="flex" alignItems="center">
+                <Grid item xs={5} md={3} display="flex" alignItems="center">
                   <Typography variant="h6">Email Adress</Typography>
                 </Grid>
                 <Grid item xs={7}>
@@ -104,7 +104,7 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                 xs={12}
                 justifyContent={{ xs: "space-between", md: "flex-start" }}
               >
-                <Grid item xs={3} display="flex" alignItems="center">
+                <Grid item xs={5} md={3} display="flex" alignItems="center">
                   <Typography variant="h6">Your Numbers</Typography>
                 </Grid>
                 <Grid item xs={7}>
@@ -125,7 +125,7 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                 xs={12}
                 justifyContent={{ xs: "space-between", md: "flex-start" }}
               >
-                <Grid item xs={3} display="flex" alignItems="center">
+                <Grid item xs={5} md={3} display="flex" alignItems="center">
                   <Typography variant="h6">Adress</Typography>
                 </Grid>
                 <Grid item xs={7}>
@@ -146,7 +146,7 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                 xs={12}
                 justifyContent={{ xs: "space-between", md: "flex-start" }}
               >
-                <Grid item xs={3} display="flex" alignItems="center">
+                <Grid item xs={5} md={3} display="flex" alignItems="center">
                   <Typography variant="h6">Country</Typography>
                 </Grid>
                 <Grid item xs={7}>
@@ -167,7 +167,7 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                 xs={12}
                 justifyContent={{ xs: "space-between", md: "flex-start" }}
               >
-                <Grid item xs={3} pt={2}>
+                <Grid item xs={5} md={3} pt={2}>
                   <Typography variant="h6">Profile Text</Typography>
                 </Grid>
                 <Grid item xs={7}>
@@ -190,7 +190,7 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                 xs={12}
                 justifyContent={{ xs: "space-between", md: "flex-start" }}
               >
-                <Grid item xs={3} pt={1.1}>
+                <Grid item xs={5} md={3} pt={1.1}>
                   <Typography variant="h6">Gender</Typography>
                 </Grid>
                 <Grid item xs={7} container rowSpacing={2}>
@@ -217,7 +217,7 @@ const UserSettingForm: FC<UserSettingFormProps> = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <Button variant="outlined" type="submit">
-                      Save / UPDATE
+                      Update
                     </Button>
                   </Grid>
                 </Grid>

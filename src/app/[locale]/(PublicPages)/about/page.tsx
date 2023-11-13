@@ -13,9 +13,9 @@ const About = () => {
           <BreadcumbBanner title="About us" />
         </Grid>
       </Grid>
-      <Box sx={{ py: 10 }}>
-        <Container>
-          <Grid container columnSpacing={10} rowSpacing={10}>
+      <Box pt={{ xs: 3, md: 5 }}>
+        <Container maxWidth="lg">
+          <Grid container columnSpacing={8} rowSpacing={5}>
             <Grid item xs={12} lg={8}>
               <AboutContents />
             </Grid>
