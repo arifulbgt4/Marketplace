@@ -5,17 +5,15 @@ import SigninInfo from "src/widgets/SigninInfo";
 
 export default function SignIn() {
   return (
-    <Box>
-      <Container>
-        <Grid container columnSpacing={8} rowSpacing={5}>
-          <Grid item sm={12} md={8}>
-            <SigninForm />
-          </Grid>
-          <Grid item sm={12} md={4}>
-            <SigninInfo />
-          </Grid>
+    <Container>
+      <Grid container columnSpacing={8} rowSpacing={5}>
+        <Grid item sm={12} md={8}>
+          <SigninForm />
         </Grid>
-      </Container>
-    </Box>
+        <Grid item sm={12} md={4}>
+          <SigninInfo />
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
