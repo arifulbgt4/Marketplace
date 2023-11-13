@@ -25,7 +25,7 @@ const ContactForm: FC<ContactFormProps> = () => {
       render={({ handleSubmit, values, errors, submitting }) => {
         return (
           <form onSubmit={handleSubmit}>
-            <Grid container rowGap={5}>
+            <Grid container rowGap={2}>
               <Grid item xs={12}>
                 <TextField
                   name="name"

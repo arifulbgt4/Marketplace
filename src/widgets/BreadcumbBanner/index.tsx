@@ -5,8 +5,12 @@ import { BreadcumbBannerProps } from "./Types";
 
 const BreadcumbBanner: FC<BreadcumbBannerProps> = ({ title }) => {
   return (
-    <Paper>
-      <Stack justifyContent="center" alignItems="center" minHeight={217}>
+    <Paper elevation={0}>
+      <Stack
+        justifyContent="center"
+        alignItems="center"
+        minHeight={{ xs: 98, sm: 120, md: 217 }}
+      >
         <Typography variant="h3">{title}</Typography>
       </Stack>
     </Paper>

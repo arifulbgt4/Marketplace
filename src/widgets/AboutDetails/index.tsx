@@ -5,8 +5,12 @@ import { AboutContentsProps } from "./Types";
 
 const AboutContents: FC<AboutContentsProps> = () => {
   return (
-    <Paper>
-      <Stack p={5} alignItems="flex-start" gap={4}>
+    <Paper elevation={0}>
+      <Stack
+        p={{ xs: 2, md: 4 }}
+        alignItems="flex-start"
+        gap={{ xs: 2, md: 4 }}
+      >
         <Typography variant="h4">What is Dream House?</Typography>
         <Stack gap={2} alignItems="flex-start">
           <Typography>

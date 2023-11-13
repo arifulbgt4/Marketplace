@@ -12,13 +12,13 @@ const Conatact = () => {
           <BreadcumbBanner title="Contact us" />
         </Grid>
       </Grid>
-      <Box>
-        <Container>
-          <Grid container spacing={5} py={5}>
-            <Grid item xs={8}>
+      <Box pt={{ xs: 3, md: 5 }}>
+        <Container maxWidth="lg">
+          <Grid container columnSpacing={8} rowSpacing={5}>
+            <Grid item xs={12} md={8}>
               <ContactFormContainer />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} md={4}>
               <ConatactHelpInfo />
             </Grid>
           </Grid>
