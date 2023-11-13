@@ -22,7 +22,15 @@ const Step5: FC<Step5Props> = () => {
           Upload Image
         </Typography>
       </Grid>
-      <Grid item xs={12} display="flex" flexDirection="row" gap={2}>
+      <Grid
+        item
+        xs={12}
+        display="flex"
+        flexDirection="row"
+        justifyContent="center"
+        flexWrap="wrap"
+        gap={2}
+      >
         <UploadImg />
       </Grid>
     </Grid>
@@ -41,7 +49,7 @@ const UploadImg = () => {
           <Stack flexDirection="row" gap={2}>
             {src.map((data, index) => {
               return (
-                <Stack key={index} position="relative">
+                <Stack key={index} position="relative" flexWrap="wrap">
                   <Card>
                     <CardMedia
                       src={data}
