@@ -14,16 +14,15 @@ const AppLayout: FC<AppLayoutProps> = async ({ children }) => {
   const session = await getServerSession(authOptions);
   return (
     <>
-      <Container>
-        <Grid container>
-          <Grid item xs={12} height={HEADER_HEIGHT}>
-            <Header user={session?.user} />
-          </Grid>
-          <Grid item xs={12} pb={15}>
-            {children}
-          </Grid>
+      <Grid container>
+        <Grid item xs={12} height={HEADER_HEIGHT}>
+          <Header user={session?.user} />
         </Grid>
-      </Container>
+        <Grid item xs={12} pb={15}>
+          {children}
+        </Grid>
+      </Grid>
+
       <Grid container>
         <Grid item xs={12}>
           <Footer />
