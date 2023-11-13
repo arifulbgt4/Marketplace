@@ -23,10 +23,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import { searchListingData } from "src/global/staticData";
 import SearchFilterForm from "src/forms/SearchFilterForm";
 import ListGridView from "src/widgets/ListGridView";
+import { TextField } from "src/components/Input";
+import ListSearchFiltersForm from "src/forms/ListSearchFiltersForm";
 import Listing from "../Listing";
 import ListingPagination from "../ListingPagination";
-import ListSearchFilters from "../ListSearchFilters";
-import { TextField } from "src/components/Input";
 
 import { SearchListingGroupProps } from "./Types";
 
@@ -64,7 +64,7 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
 
               <Drawer open={open} onClose={() => setOpen(false)}>
                 <Box width={{ xs: 250, sm: 300 }}>
-                  <ListSearchFilters
+                  <ListSearchFiltersForm
                     onCloseMobileDrawer={() => setOpen(false)}
                   />
                 </Box>

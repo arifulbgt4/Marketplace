@@ -17,9 +17,9 @@ import AutocompleteSearchFilter from "src/widgets/AutocompleteSearchFilter";
 import SearchFilterButtons from "src/widgets/SearchFilterButtons";
 import RangeFilter from "src/widgets/RangeFilter";
 
-import { ListSearchFiltersProps } from "./Types";
+import { ListSearchFiltersFormProps } from "./Types";
 
-const ListSearchFilters: FC<ListSearchFiltersProps> = ({
+const ListSearchFiltersForm: FC<ListSearchFiltersFormProps> = ({
   onCloseMobileDrawer,
 }) => {
   const onSubmitForm = async () => {};
@@ -56,4 +56,4 @@ const ListSearchFilters: FC<ListSearchFiltersProps> = ({
   );
 };
 
-export default ListSearchFilters;
+export default ListSearchFiltersForm;
