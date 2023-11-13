@@ -15,7 +15,7 @@ const AuthPagesLayout: FC<AuthPagesLayoutOptions> = ({ children }) => {
     <Grid container>
       <Grid item xs={12}>
         <Container>
-          <Stack pt={10} gap={10}>
+          <Stack pt={{ xs: 3, md: 8 }} gap={{ xs: 3, md: 8 }}>
             <Typography variant="h3">Create an account</Typography>
             <Tabs value={pathname}>
               <Tab
@@ -34,7 +34,7 @@ const AuthPagesLayout: FC<AuthPagesLayoutOptions> = ({ children }) => {
           </Stack>
         </Container>
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={12} pt={{ xs: 3, md: 5 }}>
         {children}
       </Grid>
     </Grid>

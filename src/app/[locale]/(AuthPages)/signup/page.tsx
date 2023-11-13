@@ -6,7 +6,7 @@ import SignupInfo from "src/widgets/SignupInfo";
 export default function SignUp() {
   return (
     <Container>
-      <Grid container>
+      <Grid container columnSpacing={8} rowSpacing={5}>
         <Grid item sm={12} md={8}>
           <SignupForm />
         </Grid>
