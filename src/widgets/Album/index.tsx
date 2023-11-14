@@ -1,130 +1,51 @@
 "use client";
-import { FC, useRef } from "react";
-import Image from "next/image";
-import { Box, Grid, Button, Typography } from "@mui/material";
-import WidgetsIcon from "@mui/icons-material/Widgets";
+import { FC, useState } from "react";
+import PhotoAlbum from "react-photo-album";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+// import optional lightbox plugins
+import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
+import Slideshow from "yet-another-react-lightbox/plugins/slideshow";
+import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
+import "yet-another-react-lightbox/plugins/thumbnails.css";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
 
-import AlbumImage from "./AlbumImage";
+import photos from "./photos";
+import NextJsImage from "./NextJsImage";
 
 import { AlbumProps } from "./Types";
 
-const SPACING = 1;
+export const Album: FC<AlbumProps> = () => {
+  const [index, setIndex] = useState(-1);
 
-export const Album: FC<AlbumProps> = ({ albumImg }) => {
-  if (albumImg.length > 5) {
-    return (
-      <Grid container spacing={SPACING}>
-        <Grid item xs={6}>
-          <AlbumImage spacing={SPACING} src={albumImg[0]} />
-        </Grid>
-        <Grid item xs={6} container spacing={SPACING}>
-          <Grid item xs={6}>
-            <AlbumImage spacing={SPACING} src={albumImg[1]} />
-          </Grid>
-          <Grid item xs={6}>
-            <AlbumImage spacing={SPACING} src={albumImg[2]} />
-          </Grid>
-          <Grid item xs={6}>
-            <AlbumImage spacing={SPACING} src={albumImg[3]} />
-          </Grid>
-          <Grid item xs={6} position="relative">
-            <AlbumImage spacing={SPACING} src={albumImg[4]} />
-            <Box
-              position="absolute"
-              sx={(theme) => ({
-                ml: theme.spacing(SPACING + 1),
-                right: theme.spacing(SPACING + 1),
-                bottom: theme.spacing(SPACING + 1),
-              })}
-            >
-              <Button
-                startIcon={<WidgetsIcon />}
-                variant="contained"
-                size="large"
-                color="inherit"
-              >
-                Show all photos
-              </Button>
-            </Box>
-          </Grid>
-        </Grid>
-      </Grid>
-    );
-  } else if (albumImg.length === 5) {
-    return (
-      <Grid container spacing={SPACING}>
-        <Grid item xs={6}>
-          <AlbumImage spacing={SPACING} src={albumImg[0]} />
-        </Grid>
-        <Grid item xs={6} container spacing={SPACING}>
-          <Grid item xs={6}>
-            <AlbumImage spacing={SPACING} src={albumImg[1]} />
-          </Grid>
-          <Grid item xs={6}>
-            <AlbumImage spacing={SPACING} src={albumImg[2]} />
-          </Grid>
-          <Grid item xs={6}>
-            <AlbumImage spacing={SPACING} src={albumImg[3]} />
-          </Grid>
-          <Grid item xs={6}>
-            <AlbumImage spacing={SPACING} src={albumImg[4]} />
-          </Grid>
-        </Grid>
-      </Grid>
-    );
-  } else if (albumImg.length === 4) {
-    return (
-      <Grid container spacing={SPACING}>
-        <Grid item xs={6}>
-          <AlbumImage half spacing={SPACING} src={albumImg[0]} />
-        </Grid>
-        <Grid item xs={6}>
-          <AlbumImage half spacing={SPACING} src={albumImg[1]} />
-        </Grid>
-        <Grid item xs={6}>
-          <AlbumImage half spacing={SPACING} src={albumImg[2]} />
-        </Grid>
-        <Grid item xs={6}>
-          <AlbumImage half spacing={SPACING} src={albumImg[3]} />
-        </Grid>
-      </Grid>
-    );
-  } else if (albumImg.length === 3) {
-    return (
-      <Grid container spacing={SPACING}>
-        <Grid item xs={6}>
-          <AlbumImage src={albumImg[0]} />
-        </Grid>
-        <Grid item xs={6} container spacing={SPACING}>
-          <Grid item xs={12}>
-            <AlbumImage spacing={SPACING} half src={albumImg[1]} />
-          </Grid>
-          <Grid item xs={12}>
-            <AlbumImage spacing={SPACING} half src={albumImg[2]} />
-          </Grid>
-        </Grid>
-      </Grid>
-    );
-  } else if (albumImg.length === 2) {
-    return (
-      <Grid container spacing={SPACING}>
-        <Grid item xs={6}>
-          <AlbumImage spacing={SPACING} src={albumImg[0]} />
-        </Grid>
-        <Grid item xs={6}>
-          <AlbumImage spacing={SPACING} src={albumImg[1]} />
-        </Grid>
-      </Grid>
-    );
-  } else if (albumImg.length === 1) {
-    return (
-      <Grid container spacing={SPACING}>
-        <Grid item xs={12}>
-          <AlbumImage half spacing={SPACING} src={albumImg[0]} />
-        </Grid>
-      </Grid>
-    );
-  } else {
-    return <Typography variant="h4">No Image here</Typography>;
-  }
+  const layout = photos.length <= 5 ? "rows" : "columns";
+
+  return (
+    <>
+      <PhotoAlbum
+        photos={photos.slice(0, 10)}
+        layout={layout}
+        spacing={8}
+        renderPhoto={NextJsImage}
+        defaultContainerWidth={1200}
+        onClick={({ index }) => setIndex(index)}
+        sizes={{
+          size: "calc(100vw - 40px)",
+          sizes: [
+            { viewport: "(max-width: 299px)", size: "calc(100vw - 10px)" },
+            { viewport: "(max-width: 599px)", size: "calc(100vw - 20px)" },
+            { viewport: "(max-width: 1199px)", size: "calc(100vw - 30px)" },
+          ],
+        }}
+      />
+      <Lightbox
+        slides={photos}
+        open={index >= 0}
+        index={index}
+        close={() => setIndex(-1)}
+        // enable optional lightbox plugins
+        plugins={[Fullscreen, Slideshow, Thumbnails, Zoom]}
+      />
+    </>
+  );
 };
