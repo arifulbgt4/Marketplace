@@ -1,4 +1,4 @@
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Container, Grid, Hidden } from "@mui/material";
 
 import ListingContents from "src/widgets/ListingContents";
 import ListingRatings from "src/widgets/ListingRatings";
@@ -7,6 +7,8 @@ import ListingReviews from "src/widgets/ListingReviews";
 import ListingHeader from "src/widgets/ListingHeader";
 import ListingLocation from "src/widgets/ListingLocation";
 import BookingForm from "src/forms/BookingForm";
+import ListingReport from "src/widgets/ListingReport";
+import Host from "src/widgets/Host";
 
 const ListingDetailsPage = () => {
   return (
@@ -25,8 +27,18 @@ const ListingDetailsPage = () => {
           <Grid item xs={12}>
             <Album />
           </Grid>
-          <Grid item container xs={12} columnSpacing={8.7} pb={5}>
-            <Grid container item xs={8}>
+          <Hidden mdUp>
+            <Grid item xs={12}>
+              <Host
+                src="https://thumbs.dreastime.com/b/unknown-male-avatar-profile-image-businessman-vector-unknown-male-avatar-profile-image-businessman-vector-profile-179373829.jpg"
+                rating={4.9}
+                review={12}
+                name="Jhon Doue"
+              />
+            </Grid>
+          </Hidden>
+          <Grid item container xs={12} columnSpacing={8.7}>
+            <Grid container item xs={12} md={8}>
               <Grid item xs={12}>
                 <ListingContents />
               </Grid>
@@ -34,23 +46,34 @@ const ListingDetailsPage = () => {
                 <ListingLocation address="2118 Thornridge Cir. Syracuse, Connecticut 35624" />
               </Grid>
             </Grid>
-            <Grid
-              item
-              container
-              xs={4}
-              sx={{
-                height: "fit-content",
-                position: "sticky",
-                top: 80,
-              }}
-            >
-              <Grid item xs={12}>
-                <BookingForm />
+            <Hidden mdDown>
+              <Grid
+                item
+                container
+                rowSpacing={1}
+                xs={4}
+                sx={{
+                  height: "fit-content",
+                  position: "sticky",
+                  top: 70,
+                }}
+              >
+                <Grid item xs={12}>
+                  <BookingForm />
+                </Grid>
+                <Grid item xs={12}>
+                  <ListingReport />
+                </Grid>
+                <Grid item xs={12}>
+                  <Host
+                    src="https://thumbs.dreastime.com/b/unknown-male-avatar-profile-image-businessman-vector-unknown-male-avatar-profile-image-businessman-vector-profile-179373829.jpg"
+                    rating={4.9}
+                    review={12}
+                    name="Jhon Doue"
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                sellerMiniProfile
-              </Grid>
-            </Grid>
+            </Hidden>
           </Grid>
           <Grid item xs={12}>
             <ListingRatings

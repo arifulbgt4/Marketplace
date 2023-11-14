@@ -13,7 +13,6 @@ import EnhancedEncryptionIcon from "@mui/icons-material/EnhancedEncryption";
 import NoPhotographyIcon from "@mui/icons-material/NoPhotography";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import BathtubIcon from "@mui/icons-material/Bathtub";
@@ -36,7 +35,7 @@ const ListingContents: FC<ListingContentsProps> = () => {
           </Typography>
         </Grid>
         <Grid container item xs={12} spacing={2}>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <Stack
               sx={(theme) => ({
                 border: `1px solid ${theme.palette.divider}`,
@@ -52,7 +51,7 @@ const ListingContents: FC<ListingContentsProps> = () => {
               <Typography variant="subtitle1">3 bedrooms 6 beds</Typography>
             </Stack>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <Stack
               sx={(theme) => ({
                 border: `1px solid ${theme.palette.divider}`,
@@ -68,7 +67,7 @@ const ListingContents: FC<ListingContentsProps> = () => {
               <Typography variant="subtitle1">3 bedrooms 6 beds</Typography>
             </Stack>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <Stack
               sx={(theme) => ({
                 border: `1px solid ${theme.palette.divider}`,
@@ -84,7 +83,7 @@ const ListingContents: FC<ListingContentsProps> = () => {
               <Typography variant="subtitle1">Shared bathroom</Typography>
             </Stack>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <Stack
               sx={(theme) => ({
                 border: `1px solid ${theme.palette.divider}`,
@@ -173,7 +172,7 @@ const Offer: FC<OfferProps> = () => {
       <Stack>
         <Typography variant="h4">What this place offers</Typography>
       </Stack>
-      <Stack gap={4} flexDirection={{ sm: "row" }}>
+      <Stack justifyContent="space-between" flexDirection={{ sm: "row" }}>
         <Stack flexDirection="row" alignItems="center">
           <Stack>
             {offerData.slice(0, 5).map((data) => {

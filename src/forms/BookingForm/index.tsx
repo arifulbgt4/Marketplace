@@ -1,5 +1,6 @@
 "use client";
 import { FC } from "react";
+import { Form as FinalForm } from "react-final-form";
 import {
   Paper,
   Stack,
@@ -10,14 +11,13 @@ import {
   InputLabel,
   Box,
 } from "@mui/material";
-import { Form as FinalForm } from "react-final-form";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 
 import { Select, DateRangePicker } from "src/components/Input";
+import { siteConfig } from "src/global/config";
 
 import { BookingFormProps } from "./Types";
-import { siteConfig } from "src/global/config";
 
 const BookingForm: FC<BookingFormProps> = () => {
   const onSubmitForm = async () => {};
@@ -28,6 +28,7 @@ const BookingForm: FC<BookingFormProps> = () => {
         p: 3,
         borderRadius: 3,
       })}
+      elevation={0}
     >
       <FinalForm
         onSubmit={onSubmitForm}

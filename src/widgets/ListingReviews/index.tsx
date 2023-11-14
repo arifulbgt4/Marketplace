@@ -8,11 +8,11 @@ import { ListingReviewsProps } from "./Types";
 
 const ListingReviews: FC<ListingReviewsProps> = () => {
   return (
-    <Grid container spacing={4.5}>
+    <Grid container spacing={3}>
       {listingReviewerData.map((data) => {
         const { id, title, subheader, description, img } = data;
         return (
-          <Grid key={id} item xs={4}>
+          <Grid key={id} item xs={12} md={4}>
             <Review
               id={id}
               title={title}
