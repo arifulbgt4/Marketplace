@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Rating, Stack, Typography } from "@mui/material";
+import { Hidden, Rating, Stack, Typography } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 
 import { ListingHeaderProps } from "./Types";
@@ -21,14 +21,15 @@ const ListingHeader: FC<ListingHeaderProps> = ({
         </Stack>
         <Typography>{"."}</Typography>
         <Typography>{review} reviews</Typography>
-        <Typography>{"."}</Typography>
-        <Stack gap={1} flexDirection="row" alignItems="center">
-          <PersonIcon />
-
-          <Typography>{creator}</Typography>
-        </Stack>
-        <Typography>{"."}</Typography>
-        <Typography>{address}</Typography>
+        <Hidden mdDown>
+          <Typography>{"."}</Typography>
+          <Stack gap={1} flexDirection="row" alignItems="center">
+            <PersonIcon />
+            <Typography>{creator}</Typography>
+          </Stack>
+          <Typography>{"."}</Typography>
+          <Typography>{address}</Typography>
+        </Hidden>
       </Stack>
     </Stack>
   );

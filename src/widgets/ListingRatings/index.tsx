@@ -10,7 +10,7 @@ const ListingRatings: FC<ListingRatingsProps> = ({
   review,
 }) => {
   return (
-    <Grid container spacing={3} pb={5}>
+    <Grid container spacing={3}>
       <Grid item xs={12}>
         <Stack flexDirection="row" gap={1}>
           <Rating max={1} defaultValue={1} size="large" />
@@ -20,7 +20,7 @@ const ListingRatings: FC<ListingRatingsProps> = ({
         </Stack>
       </Grid>
       <Grid container item xs={12} columnSpacing={18} rowSpacing={3}>
-        <Grid item container xs={6}>
+        <Grid item container xs={12} md={6}>
           <Grid item xs={6}>
             <Typography>Cleanliness</Typography>
           </Grid>
@@ -41,7 +41,7 @@ const ListingRatings: FC<ListingRatingsProps> = ({
             </Stack>
           </Grid>
         </Grid>
-        <Grid item container xs={6}>
+        <Grid item container xs={12} md={6}>
           <Grid item xs={6}>
             <Typography>Communication</Typography>
           </Grid>
@@ -63,7 +63,7 @@ const ListingRatings: FC<ListingRatingsProps> = ({
             </Stack>
           </Grid>
         </Grid>
-        <Grid item container xs={6}>
+        <Grid item container xs={12} md={6}>
           <Grid item xs={6}>
             <Typography>Check-in</Typography>
           </Grid>
@@ -82,7 +82,7 @@ const ListingRatings: FC<ListingRatingsProps> = ({
             </Stack>
           </Grid>
         </Grid>
-        <Grid item container xs={6}>
+        <Grid item container xs={12} md={6}>
           <Grid item xs={6}>
             <Typography>Accuracy</Typography>
           </Grid>
@@ -100,7 +100,7 @@ const ListingRatings: FC<ListingRatingsProps> = ({
             </Stack>
           </Grid>
         </Grid>
-        <Grid item container xs={6}>
+        <Grid item container xs={12} md={6}>
           <Grid item xs={6}>
             <Typography>Location</Typography>
           </Grid>
@@ -119,7 +119,7 @@ const ListingRatings: FC<ListingRatingsProps> = ({
             </Stack>
           </Grid>
         </Grid>
-        <Grid item container xs={6}>
+        <Grid item container xs={12} md={6}>
           <Grid item xs={6}>
             <Typography>Value</Typography>
           </Grid>
