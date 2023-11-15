@@ -8,6 +8,7 @@ import {
   Typography,
   CardMedia,
   Grid,
+  Button,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Card from "@mui/material/Card";
@@ -42,7 +43,6 @@ const UserMediaForm: FC<UserMediaFormProps> = () => {
                   gap={2}
                 >
                   <UploadImage
-                    multiple
                     name="image"
                     previewRender={(src, onRemove) => {
                       return (
@@ -77,6 +77,9 @@ const UserMediaForm: FC<UserMediaFormProps> = () => {
                                 >
                                   <CloseIcon sx={{ height: 18, width: 18 }} />
                                 </IconButton>
+                                <Button variant="contained" sx={{ mt: 1 }}>
+                                  Update
+                                </Button>
                               </Stack>
                             );
                           })}
