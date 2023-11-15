@@ -1,11 +1,14 @@
 import { FC } from "react";
 import { Form as FinalForm } from "react-final-form";
 import {
+  Box,
+  Button,
   FormControl,
   Grid,
   InputAdornment,
   InputLabel,
   MenuItem,
+  MobileStepper,
   OutlinedInput,
   Select,
   Typography,
@@ -16,8 +19,14 @@ import { TextField } from "src/components/Input";
 import CalendarComp from "src/widgets/CalendarComp";
 
 import { Step2Props } from "./Types";
+import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 
-const Step2: FC<Step2Props> = () => {
+const Step2: FC<Step2Props> = ({
+  activeStep,
+  handleNext,
+  handleBack,
+  theme,
+}) => {
   const onSubmitForm = async () => {};
   return (
     <FinalForm
@@ -33,18 +42,7 @@ const Step2: FC<Step2Props> = () => {
               </Grid>
               <Grid item xs={6}>
                 <FormControl fullWidth>
-                  <InputLabel>category</InputLabel>
-                  <Select
-                    name="category"
-                    input={<OutlinedInput label="category" />}
-                  >
-                    <MenuItem value="">
-                      <em>None Selected</em>
-                    </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
+                  <TextField name="category" label="Category" />
                 </FormControl>
               </Grid>
               <Grid item xs={12} container spacing={2}>
@@ -65,18 +63,10 @@ const Step2: FC<Step2Props> = () => {
                 </Grid>
                 <Grid item xs={6}>
                   <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">
-                      Sequrity Deposit
-                    </InputLabel>
-                    <Select
-                      name="deposit"
-                      input={<OutlinedInput label="Sequrity Deposit" />}
-                    >
-                      <MenuItem value="1">1/2 Month</MenuItem>
-                      <MenuItem value="2">Ten</MenuItem>
-                      <MenuItem value="3">Twenty</MenuItem>
-                      <MenuItem value="4">Thirty</MenuItem>
-                    </Select>
+                    <TextField
+                      name="sequritydeposit"
+                      label="Sequrity Deposit"
+                    />
                   </FormControl>
                 </Grid>
               </Grid>
@@ -88,21 +78,42 @@ const Step2: FC<Step2Props> = () => {
                 </Grid>
                 <Grid item xs={6}>
                   <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">
-                      Lease term
-                    </InputLabel>
-                    <Select
-                      fullWidth
-                      name="sdeposit"
-                      input={<OutlinedInput label="lease term" />}
-                    >
-                      <MenuItem value="1">long term</MenuItem>
-                      <MenuItem value="2">short term</MenuItem>
-                    </Select>
+                    <TextField name="range" label="Range" />
                   </FormControl>
                 </Grid>
               </Grid>
             </Grid>
+            <Box maxWidth={400} marginX="auto" pt={3}>
+              <MobileStepper
+                variant="progress"
+                steps={5}
+                position="static"
+                activeStep={activeStep}
+                nextButton={
+                  <Button
+                    size="small"
+                    onClick={handleNext}
+                    disabled={activeStep === 4}
+                  >
+                    Next
+                    {theme === "rtl" ? (
+                      <KeyboardArrowLeft />
+                    ) : (
+                      <KeyboardArrowRight />
+                    )}
+                  </Button>
+                }
+                backButton={
+                  <Button
+                    size="small"
+                    onClick={handleBack}
+                    disabled={activeStep === 0}
+                  >
+                    Back
+                  </Button>
+                }
+              />
+            </Box>
           </form>
         );
       }}
