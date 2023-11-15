@@ -1,28 +1,40 @@
 "use client";
 import { FC } from "react";
+import { useRouter } from "next/navigation";
 import { Form as FinalForm } from "react-final-form";
-import {
-  Paper,
-  Hidden,
-  Button,
-  Grid,
-  InputAdornment,
-  Stack,
-  Box,
-} from "@mui/material";
+import { InputAdornment, Stack, Box } from "@mui/material";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import LocationOnSharpIcon from "@mui/icons-material/LocationOnSharp";
 import IconButton from "@mui/material/IconButton";
 
 import { TextField } from "src/components/Input";
+import { useQueryString } from "src/global/hooks";
+import routes from "src/global/routes";
 
-import { SearchFilterFormProps } from "./Types";
+import { FIELDS, SearchFilterFormProps } from "./Types";
 
 const SearchFilterForm: FC<SearchFilterFormProps> = ({}) => {
-  const onSubmitForm = async () => {};
+  const router = useRouter();
+  const { createQuery, getQuery } = useQueryString();
+
+  const onSubmitForm = async (value: any) => {
+    const query = createQuery([
+      {
+        name: FIELDS.keyword,
+        value: value[FIELDS.keyword],
+      },
+      {
+        name: FIELDS.location,
+        value: value[FIELDS.location],
+      },
+    ]);
+
+    router.push(`${routes.search}?${query}`, { scroll: false });
+  };
 
   return (
     <FinalForm
+      initialValues={getQuery([FIELDS.keyword, FIELDS.location])}
       onSubmit={onSubmitForm}
       render={({ handleSubmit, values, errors, submitting }) => {
         return (
@@ -40,7 +52,7 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({}) => {
             >
               <TextField
                 fullWidth
-                name="key"
+                name={FIELDS.keyword}
                 placeholder="Keyword"
                 size="small"
                 InputProps={{
@@ -54,7 +66,7 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({}) => {
               <TextField
                 fullWidth
                 placeholder="Location"
-                name="location"
+                name={FIELDS.location}
                 variant="outlined"
                 size="small"
                 sx={{
@@ -71,6 +83,7 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({}) => {
 
               <Box ml={0.5}>
                 <IconButton
+                  type="submit"
                   size="large"
                   sx={(theme) => ({
                     background: theme.palette.primary.main,
