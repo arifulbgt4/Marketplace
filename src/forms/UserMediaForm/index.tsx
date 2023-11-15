@@ -1,13 +1,21 @@
 "use client";
 import { FC } from "react";
 import { Form as FinalForm } from "react-final-form";
-import { Paper, Stack, Box, IconButton, Typography } from "@mui/material";
+import {
+  Paper,
+  Stack,
+  IconButton,
+  Typography,
+  CardMedia,
+  Grid,
+} from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import Card from "@mui/material/Card";
+import CloseIcon from "@mui/icons-material/Close";
+
+import { UploadImage } from "src/components/Input";
 
 import { UserMediaFormProps } from "./Types";
-import { UploadImage } from "src/components/Input";
-import Image from "next/image";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
 
 const UserMediaForm: FC<UserMediaFormProps> = () => {
   const onSubmitForm = async () => {};
@@ -18,51 +26,81 @@ const UserMediaForm: FC<UserMediaFormProps> = () => {
         render={({ handleSubmit, values, errors, submitting }) => {
           return (
             <form onSubmit={handleSubmit}>
-              <Stack
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
-              >
-                <Typography>Avator</Typography>
-                <UploadImage
-                  multiple
-                  name="image"
-                  previewRender={(src, onRemove) => {
-                    return src.map((data, index) => {
+              <Grid container spacing={2} justifyContent="center">
+                <Grid item xs={12}>
+                  <Typography variant="h6" textAlign="center">
+                    Avator
+                  </Typography>
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  display="flex"
+                  flexDirection="row"
+                  justifyContent="center"
+                  flexWrap="wrap"
+                  gap={2}
+                >
+                  <UploadImage
+                    multiple
+                    name="image"
+                    previewRender={(src, onRemove) => {
                       return (
-                        <Stack key={index} position="relative">
-                          <Box>
-                            <Image
-                              src={data}
-                              width={100}
-                              height={100}
-                              alt="upload"
-                            />
-                          </Box>
-                          <IconButton
-                            color="error"
-                            onClick={() => onRemove(index)}
-                            sx={{ position: "absolute", width: 100 }}
-                          >
-                            <DeleteIcon />
-                          </IconButton>
+                        <Stack flexDirection="row" gap={2}>
+                          {src.map((data, index) => {
+                            return (
+                              <Stack
+                                key={index}
+                                position="relative"
+                                flexWrap="wrap"
+                              >
+                                <Card>
+                                  <CardMedia
+                                    src={data}
+                                    component="img"
+                                    sx={{ height: 150, width: 150 }}
+                                  />
+                                </Card>
+                                <IconButton
+                                  onClick={() => onRemove(index)}
+                                  sx={(theme) => ({
+                                    position: "absolute",
+                                    right: -6,
+                                    top: -6,
+                                    border: `2px solid ${theme.palette.divider}`,
+                                    p: 0,
+                                    bgcolor: theme.palette.common.white,
+                                    ":hover": {
+                                      bgcolor: theme.palette.common.white,
+                                    },
+                                  })}
+                                >
+                                  <CloseIcon sx={{ height: 18, width: 18 }} />
+                                </IconButton>
+                              </Stack>
+                            );
+                          })}
                         </Stack>
                       );
-                    });
-                  }}
-                >
-                  <Box
-                    p={1}
-                    bgcolor="gray"
-                    borderRadius={2}
-                    width={100}
-                    sx={{ cursor: "pointer" }}
-                    justifyItems="center"
+                    }}
                   >
-                    <AddIcon />
-                  </Box>
-                </UploadImage>
-              </Stack>
+                    <Stack
+                      sx={(theme) => ({
+                        cursor: "pointer",
+                        bgcolor: theme.palette.grey[300],
+                        borderRadius: 1,
+                      })}
+                      width={150}
+                      height={150}
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <AddIcon sx={{ height: 40, width: 40 }} />
+                    </Stack>
+                  </UploadImage>
+                </Grid>
+              </Grid>
+              ;
             </form>
           );
         }}
