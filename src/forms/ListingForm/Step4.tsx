@@ -9,13 +9,22 @@ import {
   Input,
   MenuItem,
   InputAdornment,
+  Button,
+  MobileStepper,
+  Box,
 } from "@mui/material";
 
 import { TextField } from "src/components/Input";
 
 import { Step4Props } from "./Types";
+import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 
-const Step4: FC<Step4Props> = () => {
+const Step4: FC<Step4Props> = ({
+  activeStep,
+  handleNext,
+  handleBack,
+  theme,
+}) => {
   const onSubmitForm = async () => {};
   return (
     <FinalForm
@@ -26,56 +35,28 @@ const Step4: FC<Step4Props> = () => {
             <Grid container spacing={2} justifyContent="center">
               <Grid item xs={12}>
                 <FormControl sx={{ m: 1 }} variant="standard" fullWidth>
-                  <InputLabel htmlFor="demo-customized-textbox">
-                    About Property
-                  </InputLabel>
-                  <Select
+                  <TextField
                     fullWidth
                     name="aboutproperty"
                     label="Property Details"
                     multiline
-                    input={<Input />}
-                  >
-                    <MenuItem>item1</MenuItem>
-                    <MenuItem>item1</MenuItem>
-                    <MenuItem>item1</MenuItem>
-                  </Select>
+                  />
                 </FormControl>
               </Grid>
               <Grid item xs={12} container spacing={5}>
                 <Grid item xs={4}>
                   <FormControl sx={{ m: 1 }} variant="standard" fullWidth>
-                    <InputLabel htmlFor="demo-customized-textbox">
-                      Bedroom
-                    </InputLabel>
-                    <Select
+                    <TextField
                       variant="outlined"
                       fullWidth
                       name="bedroom"
-                      input={<Input />}
                       label="Bedroom"
-                    >
-                      <MenuItem>item1</MenuItem>
-                      <MenuItem>item1</MenuItem>
-                      <MenuItem>item1</MenuItem>
-                    </Select>
+                    />
                   </FormControl>
                 </Grid>
                 <Grid item xs={4}>
                   <FormControl sx={{ m: 1 }} variant="standard" fullWidth>
-                    <InputLabel htmlFor="demo-customized-textbox">
-                      Bathroom
-                    </InputLabel>
-                    <Select
-                      fullWidth
-                      name="bathroom"
-                      input={<Input />}
-                      label="Bathroom"
-                    >
-                      <MenuItem>item1</MenuItem>
-                      <MenuItem>item1</MenuItem>
-                      <MenuItem>item1</MenuItem>
-                    </Select>
+                    <TextField fullWidth name="bathroom" label="Bathroom" />
                   </FormControl>
                 </Grid>
                 <Grid item xs={4}>
@@ -98,52 +79,52 @@ const Step4: FC<Step4Props> = () => {
               <Grid item xs={12} container spacing={5}>
                 <Grid item xs={4}>
                   <FormControl sx={{ m: 1 }} variant="standard" fullWidth>
-                    <InputLabel htmlFor="demo-customized-textbox">
-                      Smoking
-                    </InputLabel>
-                    <Select
-                      fullWidth
-                      name="smoking"
-                      input={<Input />}
-                      label="smoking"
-                    >
-                      <MenuItem>item1</MenuItem>
-                      <MenuItem>item1</MenuItem>
-                      <MenuItem>item1</MenuItem>
-                    </Select>
+                    <TextField fullWidth name="smoking" label="smoking" />
                   </FormControl>
                 </Grid>
                 <Grid item xs={4}>
                   <FormControl sx={{ m: 1 }} variant="standard" fullWidth>
-                    <InputLabel htmlFor="demo-customized-textbox">
-                      Pet
-                    </InputLabel>
-                    <Select fullWidth name="pet" input={<Input />} label="Pet">
-                      <MenuItem>item1</MenuItem>
-                      <MenuItem>item1</MenuItem>
-                      <MenuItem>item1</MenuItem>
-                    </Select>
+                    <TextField fullWidth name="pet" label="Pet" />
                   </FormControl>
                 </Grid>
                 <Grid item xs={4}>
                   <FormControl sx={{ m: 1 }} variant="standard" fullWidth>
-                    <InputLabel htmlFor="demo-customized-textbox">
-                      Parking
-                    </InputLabel>
-                    <Select
-                      fullWidth
-                      name="parking"
-                      input={<Input />}
-                      label="Parking"
-                    >
-                      <MenuItem>item1</MenuItem>
-                      <MenuItem>item1</MenuItem>
-                      <MenuItem>item1</MenuItem>
-                    </Select>
+                    <TextField fullWidth name="parking" label="Parking" />
                   </FormControl>
                 </Grid>
               </Grid>
             </Grid>
+            <Box maxWidth={400} marginX="auto" pt={3}>
+              <MobileStepper
+                variant="progress"
+                steps={5}
+                position="static"
+                activeStep={activeStep}
+                nextButton={
+                  <Button
+                    size="small"
+                    onClick={handleNext}
+                    disabled={activeStep === 4}
+                  >
+                    Next
+                    {theme === "rtl" ? (
+                      <KeyboardArrowLeft />
+                    ) : (
+                      <KeyboardArrowRight />
+                    )}
+                  </Button>
+                }
+                backButton={
+                  <Button
+                    size="small"
+                    onClick={handleBack}
+                    disabled={activeStep === 0}
+                  >
+                    Back
+                  </Button>
+                }
+              />
+            </Box>
           </form>
         );
       }}
