@@ -21,12 +21,12 @@ import { UserMediaFormProps } from "./Types";
 const UserMediaForm: FC<UserMediaFormProps> = () => {
   const onSubmitForm = async () => {};
   return (
-    <Paper>
-      <FinalForm
-        onSubmit={onSubmitForm}
-        render={({ handleSubmit, values, errors, submitting }) => {
-          return (
-            <form onSubmit={handleSubmit}>
+    <FinalForm
+      onSubmit={onSubmitForm}
+      render={({ handleSubmit, values, errors, submitting }) => {
+        return (
+          <form onSubmit={handleSubmit}>
+            <Paper>
               <Grid container spacing={2} justifyContent="center">
                 <Grid item xs={12}>
                   <Typography variant="h6" textAlign="center">
@@ -103,12 +103,11 @@ const UserMediaForm: FC<UserMediaFormProps> = () => {
                   </UploadImage>
                 </Grid>
               </Grid>
-              ;
-            </form>
-          );
-        }}
-      />
-    </Paper>
+            </Paper>
+          </form>
+        );
+      }}
+    />
   );
 };
 
