@@ -13,7 +13,7 @@ const UserListings: FC<UserListingsProps> = () => {
         <Typography variant="h5">Listings</Typography>
         <Divider />
       </Grid>
-      <Grid item container xs={12} spacing={5}>
+      <Grid item container xs={12} spacing={3}>
         {userListingData.map((data) => {
           const {
             id,
@@ -26,7 +26,7 @@ const UserListings: FC<UserListingsProps> = () => {
             address,
           } = data;
           return (
-            <Grid item xs={12} md={6} key={id}>
+            <Grid item xs={12} sm={6} key={id}>
               <Listing
                 id={id}
                 slug={slug}

@@ -16,7 +16,7 @@ const UserProfile: FC<UserProfileProps> = () => {
   return (
     <Grid container rowSpacing={4}>
       <Grid item xs={12} gap={11}>
-        <Stack alignItems="center" gap={3}>
+        <Stack alignItems="center" gap={{ xs: 1, md: 3 }}>
           <Stack alignItems="center" gap={1}>
             <Avatar
               sx={{ height: 80, width: 80 }}

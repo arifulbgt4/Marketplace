@@ -10,10 +10,10 @@ const UserReviews: FC<UserReviewsProps> = () => {
   return (
     <Grid container rowSpacing={2}>
       <Grid item xs={12} display="flex" gap={1}>
-        <Typography variant="h5">Listings</Typography>
+        <Typography variant="h5">Reviews</Typography>
         <Divider />
       </Grid>
-      <Grid item container xs={12} spacing={4}>
+      <Grid item container xs={12} spacing={2}>
         {userReviewData.map((data) => {
           const { id, title, subheader, description, img } = data;
           return (
