@@ -8,7 +8,7 @@ import { UserListingsProps } from "./Types";
 
 const UserListings: FC<UserListingsProps> = () => {
   return (
-    <Grid container rowSpacing={2}>
+    <Grid container rowSpacing={3}>
       <Grid item xs={12} display="flex" gap={1}>
         <Typography variant="h5">Listings</Typography>
         <Divider />

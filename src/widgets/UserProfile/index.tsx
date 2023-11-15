@@ -1,10 +1,14 @@
-import { FC } from "react";
+"use client";
+import { FC, useState } from "react";
 import ChatIcon from "@mui/icons-material/Chat";
 import {
   Avatar,
+  Box,
   Button,
+  Collapse,
   Divider,
   Grid,
+  Hidden,
   Rating,
   Stack,
   Typography,
@@ -13,10 +17,12 @@ import {
 import { UserProfileProps } from "./Types";
 
 const UserProfile: FC<UserProfileProps> = () => {
+  const [checked, setChecked] = useState(false);
+
   return (
-    <Grid container rowSpacing={4}>
-      <Grid item xs={12} gap={11}>
-        <Stack alignItems="center" gap={3}>
+    <Grid container rowSpacing={3}>
+      <Grid item xs={12}>
+        <Stack alignItems="center" gap={{ xs: 1, md: 3 }}>
           <Stack alignItems="center" gap={1}>
             <Avatar
               sx={{ height: 80, width: 80 }}
@@ -61,33 +67,43 @@ const UserProfile: FC<UserProfileProps> = () => {
         xs={12}
         display="flex"
         alignItems="flex-start"
-        gap={4}
+        gap={{ xs: 2, md: 4 }}
         flexDirection="column"
       >
         <Stack gap={2} width="100%">
           <Typography variant="h5">About</Typography>
           <Divider></Divider>
         </Stack>
-        <Stack gap={2} alignItems="flex-start">
+        <Hidden mdUp>
+          <Box
+            onClick={() => {
+              setChecked((prev) => !prev);
+            }}
+          >
+            <Collapse in={checked} collapsedSize={78}>
+              <Typography color="text,secondary">
+                Quis autem vel eum iure reprehenderit qui in ea voluptate velit
+                esse quam nihil molestiae Sed ut perspiciatis unde omnis iste
+                natus error sit voluptatem Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id es
+                Quis autem vel eum iure reprehenderit Nemo enim ipsam voluptatem
+                quia voluptas sit aspernatur aut odit aut Ut enim ad minima
+                veniam, quis nostrum exercitationem ullam
+              </Typography>
+            </Collapse>
+          </Box>
+        </Hidden>
+        <Hidden mdDown>
           <Typography color="text,secondary">
             Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse
-            quam nihil molestiae
+            quam nihil molestiae Sed ut perspiciatis unde omnis iste natus error
+            sit voluptatem Excepteur sint occaecat cupidatat non proident, sunt
+            in culpa qui officia deserunt mollit anim id es Quis autem vel eum
+            iure reprehenderit Nemo enim ipsam voluptatem quia voluptas sit
+            aspernatur aut odit aut Ut enim ad minima veniam, quis nostrum
+            exercitationem ullam
           </Typography>
-          <Typography color="text,secondary">
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          </Typography>
-          <Typography color="text,secondary">
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-            officia deserunt mollit anim id es Quis autem vel eum iure
-            reprehenderit
-          </Typography>
-          <Typography color="text,secondary">
-            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
-          </Typography>
-          <Typography color="text,secondary">
-            Ut enim ad minima veniam, quis nostrum exercitationem ullam{" "}
-          </Typography>
-        </Stack>
+        </Hidden>
       </Grid>
     </Grid>
   );
