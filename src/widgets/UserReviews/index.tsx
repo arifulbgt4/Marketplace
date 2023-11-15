@@ -8,12 +8,12 @@ import { UserReviewsProps } from "./Types";
 
 const UserReviews: FC<UserReviewsProps> = () => {
   return (
-    <Grid container rowSpacing={2}>
+    <Grid container rowSpacing={3}>
       <Grid item xs={12} display="flex" gap={1}>
         <Typography variant="h5">Listings</Typography>
         <Divider />
       </Grid>
-      <Grid item container xs={12} spacing={4}>
+      <Grid item container xs={12} spacing={3}>
         {userReviewData.map((data) => {
           const { id, title, subheader, description, img } = data;
           return (

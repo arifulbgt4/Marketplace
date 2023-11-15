@@ -8,14 +8,14 @@ const HostProfile = () => {
   return (
     <Box pt={5}>
       <Container>
-        <Grid container columnSpacing={8.75}>
-          <Grid item xs={3}>
+        <Grid container columnSpacing={5} rowSpacing={3}>
+          <Grid item xs={12} md={3}>
             <UserProfile />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <UserListings />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={12} md={3}>
             <UserReviews />
           </Grid>
         </Grid>
