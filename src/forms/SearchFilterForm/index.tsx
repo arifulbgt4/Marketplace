@@ -1,7 +1,15 @@
 "use client";
 import { FC } from "react";
 import { Form as FinalForm } from "react-final-form";
-import { Paper, Hidden, Button, Grid, InputAdornment } from "@mui/material";
+import {
+  Paper,
+  Hidden,
+  Button,
+  Grid,
+  InputAdornment,
+  Stack,
+  Box,
+} from "@mui/material";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import LocationOnSharpIcon from "@mui/icons-material/LocationOnSharp";
 import IconButton from "@mui/material/IconButton";
@@ -14,69 +22,72 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({}) => {
   const onSubmitForm = async () => {};
 
   return (
-    <Paper>
-      <FinalForm
-        onSubmit={onSubmitForm}
-        render={({ handleSubmit, values, errors, submitting }) => {
-          return (
-            <form onSubmit={handleSubmit}>
-              <Grid container>
-                <Grid item xs={5.5} md={5}>
-                  <TextField
-                    fullWidth
-                    label="Location"
-                    name="location"
-                    id="outlined-adornment-location"
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="start">
-                          <LocationOnSharpIcon />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={5.5} md={5}>
-                  <TextField
-                    fullWidth
-                    name="key"
-                    id="outlined-adornment-key"
-                    label="Keyword"
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="start">
-                          <SearchSharpIcon />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={1} md={2}>
-                  <Hidden mdDown>
-                    <Button fullWidth variant="contained" sx={{ py: 2 }}>
-                      Search
-                    </Button>
-                  </Hidden>
-
-                  <Hidden mdUp>
-                    <IconButton
-                      sx={(theme) => ({
-                        bgcolor: theme.palette.primary.dark,
-                        borderRadius: 0.5,
-                        width: "100%",
-                        py: 2,
-                      })}
-                    >
+    <FinalForm
+      onSubmit={onSubmitForm}
+      render={({ handleSubmit, values, errors, submitting }) => {
+        return (
+          <form onSubmit={handleSubmit}>
+            <Stack
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              sx={(theme) => ({
+                background: theme.palette.background.paper,
+                py: 2,
+                px: 3,
+                borderRadius: 10,
+              })}
+            >
+              <TextField
+                fullWidth
+                name="key"
+                placeholder="Keyword"
+                size="small"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
                       <SearchSharpIcon />
-                    </IconButton>
-                  </Hidden>
-                </Grid>
-              </Grid>
-            </form>
-          );
-        }}
-      />
-    </Paper>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <TextField
+                fullWidth
+                placeholder="Location"
+                name="location"
+                variant="outlined"
+                size="small"
+                sx={{
+                  borderColor: "transparent",
+                }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <LocationOnSharpIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+
+              <Box ml={0.5}>
+                <IconButton
+                  size="large"
+                  sx={(theme) => ({
+                    background: theme.palette.primary.main,
+                    color: theme.palette.primary.contrastText,
+                    ":hover": {
+                      background: theme.palette.primary.dark,
+                    },
+                  })}
+                >
+                  <SearchSharpIcon fontSize="inherit" />
+                </IconButton>
+              </Box>
+            </Stack>
+          </form>
+        );
+      }}
+    />
   );
 };
 
