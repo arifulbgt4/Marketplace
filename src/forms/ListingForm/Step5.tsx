@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { Form as FinalForm } from "react-final-form";
 import {
   Grid,
   IconButton,
@@ -15,25 +16,36 @@ import { UploadImage } from "src/components/Input";
 import { Step5Props } from "./Types";
 
 const Step5: FC<Step5Props> = () => {
+  const onSubmitForm = async () => {};
+
   return (
-    <Grid container spacing={2} justifyContent="center">
-      <Grid item xs={12}>
-        <Typography variant="h6" textAlign="center">
-          Upload Image
-        </Typography>
-      </Grid>
-      <Grid
-        item
-        xs={12}
-        display="flex"
-        flexDirection="row"
-        justifyContent="center"
-        flexWrap="wrap"
-        gap={2}
-      >
-        <UploadImg />
-      </Grid>
-    </Grid>
+    <FinalForm
+      onSubmit={onSubmitForm}
+      render={({ handleSubmit, values, errors, submitting }) => {
+        return (
+          <form onSubmit={handleSubmit}>
+            <Grid container spacing={2} justifyContent="center">
+              <Grid item xs={12}>
+                <Typography variant="h6" textAlign="center">
+                  Upload Image
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                display="flex"
+                flexDirection="row"
+                justifyContent="center"
+                flexWrap="wrap"
+                gap={2}
+              >
+                <UploadImg />
+              </Grid>
+            </Grid>
+          </form>
+        );
+      }}
+    />
   );
 };
 
