@@ -13,7 +13,7 @@ const UserListings: FC<UserListingsProps> = () => {
         <Typography variant="h5">Listings</Typography>
         <Divider />
       </Grid>
-      <Grid item container xs={12} spacing={5}>
+      <Grid item container xs={12} spacing={3}>
         {userListingData.map((data) => {
           const {
             id,
