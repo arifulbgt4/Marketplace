@@ -18,44 +18,51 @@ const UserMediaForm: FC<UserMediaFormProps> = () => {
         render={({ handleSubmit, values, errors, submitting }) => {
           return (
             <form onSubmit={handleSubmit}>
-              <UploadImage
-                multiple
-                name="image"
-                previewRender={(src, onRemove) => {
-                  return src.map((data, index) => {
-                    return (
-                      <Stack key={index} position="relative">
-                        <Box sx={{ ":hover": {} }}>
-                          <Image
-                            src={data}
-                            width={100}
-                            height={100}
-                            alt="upload"
-                          />
-                        </Box>
-                        <IconButton
-                          color="error"
-                          onClick={() => onRemove(index)}
-                          sx={{ position: "absolute", width: 100 }}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </Stack>
-                    );
-                  });
-                }}
+              <Stack
+                direction="row"
+                justifyContent="space-around"
+                alignItems="center"
               >
-                <Stack
-                  direction="row"
-                  p={1}
-                  bgcolor="gray"
-                  borderRadius={2}
-                  width={100}
-                  sx={{ cursor: "pointer" }}
+                <Typography>Avator</Typography>
+                <UploadImage
+                  multiple
+                  name="image"
+                  previewRender={(src, onRemove) => {
+                    return src.map((data, index) => {
+                      return (
+                        <Stack key={index} position="relative">
+                          <Box>
+                            <Image
+                              src={data}
+                              width={100}
+                              height={100}
+                              alt="upload"
+                            />
+                          </Box>
+                          <IconButton
+                            color="error"
+                            onClick={() => onRemove(index)}
+                            sx={{ position: "absolute", width: 100 }}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </Stack>
+                      );
+                    });
+                  }}
                 >
-                  <AddIcon />
-                </Stack>
-              </UploadImage>
+                  <Box
+                    p={1}
+                    bgcolor="gray"
+                    borderRadius={2}
+                    width={100}
+                    sx={{ cursor: "pointer" }}
+                    justifyItems="center"
+                  >
+                    <AddIcon />
+                  </Box>
+                </UploadImage>
+              </Stack>
             </form>
           );
         }}
