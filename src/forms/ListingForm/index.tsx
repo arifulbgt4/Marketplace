@@ -1,7 +1,7 @@
 "use client";
 import { FC } from "react";
 import { Form as FinalForm } from "react-final-form";
-import { Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import ListingPreview from "src/widgets/ListingPreview";
 
 import Staper from "./Staper";
@@ -18,7 +18,9 @@ const ListingForm: FC<ListingFormProps> = () => {
           <form onSubmit={handleSubmit}>
             <Grid container>
               <Grid item xs={7}>
-                <ListingPreview values={values} />
+                <Container maxWidth="md">
+                  <ListingPreview values={values} />
+                </Container>
               </Grid>
               <Grid
                 item
@@ -26,13 +28,10 @@ const ListingForm: FC<ListingFormProps> = () => {
                 sx={(theme) => ({
                   height: "fit-content",
                   position: "sticky",
-                  top: 64,
+                  top: 0,
                   background: theme.palette.background.paper,
                 })}
               >
-                <Typography variant="h4" textAlign="center">
-                  Add a New Listing
-                </Typography>
                 <Staper />
               </Grid>
             </Grid>
