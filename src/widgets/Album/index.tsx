@@ -1,5 +1,5 @@
 "use client";
-import { FC, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import PhotoAlbum, { LayoutOptions, RenderPhotoProps } from "react-photo-album";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
@@ -10,20 +10,22 @@ import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 
-import photos from "./photos";
+import getPhotos from "./utils";
 import RenderImage from "./RenderImage";
 
 import { AlbumProps } from "./Types";
 
-export const Album: FC<AlbumProps> = () => {
+export const Album: FC<AlbumProps> = ({ photos }) => {
   const [index, setIndex] = useState(-1);
 
-  const layout = photos.length <= 5 ? "rows" : "columns";
+  const photoData = useMemo(() => getPhotos(photos), [photos]);
+
+  const layout = photoData.length <= 5 ? "rows" : "columns";
 
   return (
     <>
       <PhotoAlbum
-        photos={photos.slice(0, 10)}
+        photos={photoData.slice(0, 10)}
         layout={layout}
         spacing={8}
         renderPhoto={({
@@ -35,7 +37,7 @@ export const Album: FC<AlbumProps> = () => {
           layoutOptions,
         }) => (
           <RenderImage
-            length={photos.length}
+            length={photoData.length}
             photo={photo}
             imageProps={imageProps}
             wrapperStyle={wrapperStyle}
@@ -56,7 +58,7 @@ export const Album: FC<AlbumProps> = () => {
         }}
       />
       <Lightbox
-        slides={photos}
+        slides={photoData}
         open={index >= 0}
         index={index}
         close={() => setIndex(-1)}
