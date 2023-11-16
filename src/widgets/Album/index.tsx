@@ -1,6 +1,6 @@
 "use client";
 import { FC, useState } from "react";
-import PhotoAlbum from "react-photo-album";
+import PhotoAlbum, { LayoutOptions, RenderPhotoProps } from "react-photo-album";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 // import optional lightbox plugins
@@ -11,7 +11,7 @@ import "yet-another-react-lightbox/plugins/thumbnails.css";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 
 import photos from "./photos";
-import NextJsImage from "./NextJsImage";
+import RenderImage from "./RenderImage";
 
 import { AlbumProps } from "./Types";
 
@@ -26,7 +26,24 @@ export const Album: FC<AlbumProps> = () => {
         photos={photos.slice(0, 10)}
         layout={layout}
         spacing={8}
-        renderPhoto={NextJsImage}
+        renderPhoto={({
+          photo,
+          renderDefaultPhoto,
+          layout,
+          wrapperStyle,
+          imageProps,
+          layoutOptions,
+        }) => (
+          <RenderImage
+            length={photos.length}
+            photo={photo}
+            imageProps={imageProps}
+            wrapperStyle={wrapperStyle}
+            layout={layout}
+            renderDefaultPhoto={renderDefaultPhoto}
+            layoutOptions={layoutOptions as LayoutOptions}
+          />
+        )}
         defaultContainerWidth={1200}
         onClick={({ index }) => setIndex(index)}
         sizes={{

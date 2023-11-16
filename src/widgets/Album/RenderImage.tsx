@@ -1,15 +1,19 @@
 "use client";
 import Image from "next/image";
 import { Box, Stack, Typography } from "@mui/material";
-import WidgetsIcon from "@mui/icons-material/Widgets";
-import type { RenderPhotoProps } from "react-photo-album";
+import AddIcon from "@mui/icons-material/Add";
 
-export default function NextJsImage({
-  photo,
-  imageProps: { alt, title, sizes, className, onClick },
-  wrapperStyle,
-  layout: { index },
-}: RenderPhotoProps) {
+import { RenderImageProps } from "./Types";
+
+export default function RenderImage(props: RenderImageProps) {
+  const {
+    photo,
+    imageProps: { alt, title, sizes, className, onClick },
+    wrapperStyle,
+    layout: { index },
+    renderDefaultPhoto,
+    length,
+  } = props;
   return (
     <Box
       sx={{
@@ -19,13 +23,9 @@ export default function NextJsImage({
         overflow: "hidden",
       }}
     >
-      <Image
-        fill
-        src={photo}
-        placeholder={"blurDataURL" in photo ? "blur" : undefined}
-        {...{ alt, title, sizes, className, onClick }}
-      />
-      {index === 9 && (
+      {renderDefaultPhoto({ wrapped: true })}
+
+      {index === 9 && length > 10 && (
         <Stack
           onClick={onClick}
           position="absolute"
@@ -41,13 +41,15 @@ export default function NextJsImage({
         >
           <Typography
             color="white"
-            variant="subtitle1"
+            variant="h1"
             textTransform="uppercase"
             display="flex"
             alignItems="center"
+            fontWeight={100}
+            // fontSize={50}
           >
-            <WidgetsIcon sx={{ mr: 1 }} />
-            Show all photos
+            <AddIcon fontSize="inherit" />
+            {length - 10}
           </Typography>
         </Stack>
       )}
