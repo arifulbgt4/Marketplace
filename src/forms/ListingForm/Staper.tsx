@@ -2,18 +2,19 @@
 import { FC, useState } from "react";
 import { Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import MobileStepper from "@mui/material/MobileStepper";
+import Button from "@mui/material/Button";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 
 import Step1 from "./Step1";
-import Step3 from "./Step3";
 import Step2 from "./Step2";
-import Step4 from "./Step4";
-import Step5 from "./Step5";
+import Step3 from "./Step3";
 
 import { StaperProps } from "./Types";
 
 const Staper: FC<StaperProps> = () => {
   const theme = useTheme();
-
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
@@ -26,42 +27,41 @@ const Staper: FC<StaperProps> = () => {
 
   return (
     <Box>
-      {activeStep === 0 ? (
-        <Step1
+      {activeStep === 0 && <Step1 />}
+      {activeStep === 1 && <Step2 />}
+      {activeStep === 3 && <Step3 />}
+
+      <Box maxWidth={400} marginX="auto" pt={3}>
+        <MobileStepper
+          variant="progress"
+          steps={5}
+          position="static"
           activeStep={activeStep}
-          handleNext={handleNext}
-          handleBack={handleBack}
-          theme={theme.direction}
+          nextButton={
+            <Button
+              size="small"
+              onClick={handleNext}
+              disabled={activeStep === 4}
+            >
+              Next
+              {theme.direction === "rtl" ? (
+                <KeyboardArrowLeft />
+              ) : (
+                <KeyboardArrowRight />
+              )}
+            </Button>
+          }
+          backButton={
+            <Button
+              size="small"
+              onClick={handleBack}
+              disabled={activeStep === 0}
+            >
+              Back
+            </Button>
+          }
         />
-      ) : activeStep === 1 ? (
-        <Step2
-          activeStep={activeStep}
-          handleNext={handleNext}
-          handleBack={handleBack}
-          theme={theme.direction}
-        />
-      ) : activeStep === 2 ? (
-        <Step3
-          activeStep={activeStep}
-          handleNext={handleNext}
-          handleBack={handleBack}
-          theme={theme.direction}
-        />
-      ) : activeStep === 3 ? (
-        <Step4
-          activeStep={activeStep}
-          handleNext={handleNext}
-          handleBack={handleBack}
-          theme={theme.direction}
-        />
-      ) : (
-        <Step5
-          activeStep={activeStep}
-          handleNext={handleNext}
-          handleBack={handleBack}
-          theme={theme.direction}
-        />
-      )}
+      </Box>
     </Box>
   );
 };
