@@ -15,14 +15,23 @@ const ListingHeader: FC<ListingHeaderProps> = ({
     <Stack gap={1}>
       <Typography variant="h4">{title}</Typography>
       <Stack flexDirection="row" alignItems="center" gap={1}>
-        <Stack gap={1} flexDirection="row" alignItems="center">
-          <Rating max={1} defaultValue={1} size="large" />
-          <Typography>{rating}</Typography>
-        </Stack>
-        <Typography>{"."}</Typography>
-        <Typography>{review} reviews</Typography>
+        {rating && (
+          <>
+            {" "}
+            <Stack gap={1} flexDirection="row" alignItems="center">
+              <Rating max={1} defaultValue={1} size="large" readOnly />
+              <Typography>{rating}</Typography>
+            </Stack>
+            <Typography>{"."}</Typography>
+          </>
+        )}
+        {review && (
+          <>
+            <Typography>{review} reviews</Typography>
+            <Typography>{"."}</Typography>
+          </>
+        )}
         <Hidden mdDown>
-          <Typography>{"."}</Typography>
           <Stack gap={1} flexDirection="row" alignItems="center">
             <PersonIcon />
             <Typography>{creator}</Typography>

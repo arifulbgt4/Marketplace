@@ -5,7 +5,7 @@ import routes from "src/global/routes";
 
 import { LogoProps } from "./Types";
 
-const Logo: FC<LogoProps> = () => {
+const Logo: FC<LogoProps> = ({ iconOnly = false }) => {
   return (
     <Stack
       href={routes.home}
@@ -31,20 +31,22 @@ const Logo: FC<LogoProps> = () => {
         </svg>
       </Box>
 
-      <Typography
-        variant="h6"
-        noWrap
-        sx={{
-          mr: 2,
-          fontFamily: "monospace",
-          fontWeight: 700,
-          letterSpacing: ".3rem",
-          color: "inherit",
-          textDecoration: "none",
-        }}
-      >
-        DREAM HOUSE
-      </Typography>
+      {!iconOnly && (
+        <Typography
+          variant="h6"
+          noWrap
+          sx={{
+            mr: 2,
+            fontFamily: "monospace",
+            fontWeight: 700,
+            letterSpacing: ".3rem",
+            color: "inherit",
+            textDecoration: "none",
+          }}
+        >
+          DREAM HOUSE
+        </Typography>
+      )}
     </Stack>
   );
 };

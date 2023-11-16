@@ -30,6 +30,7 @@ const ListingForm: FC<ListingFormProps> = () => {
                   position: "sticky",
                   top: 0,
                   background: theme.palette.background.paper,
+                  boxShadow: 1,
                 })}
               >
                 <Staper />

@@ -8,19 +8,8 @@ const LastStep: FC<LastStepProps> = () => {
     <Grid container spacing={2} justifyContent="center">
       <Grid item xs={12}>
         <Typography variant="h6" textAlign="center">
-          Upload Image
+          Completed
         </Typography>
-      </Grid>
-      <Grid
-        item
-        xs={12}
-        display="flex"
-        flexDirection="row"
-        justifyContent="center"
-        flexWrap="wrap"
-        gap={2}
-      >
-        <Typography>Hey</Typography>
       </Grid>
     </Grid>
   );

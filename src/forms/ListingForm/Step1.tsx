@@ -10,22 +10,17 @@ const Step1: FC<Step1Props> = () => {
   return (
     <Grid container spacing={2} justifyContent="center">
       <Grid item xs={12}>
-        <Typography variant="h6" textAlign="center">
-          Basic Information
-        </Typography>
+        <Typography variant="h6">Basic Information</Typography>
       </Grid>
 
       <Grid item xs={12}>
         <TextField
           fullWidth
-          name="address"
-          label="Address"
-          placeholder="Location"
+          name="title"
+          label="Title"
+          placeholder="Title"
           type="text"
         />
-      </Grid>
-      <Grid item xs={12}>
-        <Typography>Loaction Map</Typography>
       </Grid>
     </Grid>
   );
