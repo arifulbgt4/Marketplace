@@ -1,10 +1,10 @@
-import React from "react";
-import { Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
+import ChatApplication from "src/widgets/ChatApplication";
 
 const messagePage = () => {
   return (
     <Container>
-      <Typography>ChatApplication</Typography>
+      <ChatApplication />
     </Container>
   );
 };
