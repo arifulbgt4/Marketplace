@@ -1,150 +1,96 @@
 import { FC } from "react";
-import { Form as FinalForm } from "react-final-form";
 import {
   Grid,
-  Typography,
+  IconButton,
   Stack,
-  Box,
-  FormControlLabel,
-  Checkbox,
-  Button,
-  MobileStepper,
+  Typography,
+  Card,
+  CardMedia,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import CloseIcon from "@mui/icons-material/Close";
 
-import { TextField } from "src/components/Input";
+import { UploadImage } from "src/components/Input";
 
-import { Step3Props } from "./Types";
-import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
+import { Step5Props } from "./Types";
 
-const Step3: FC<Step3Props> = ({
-  activeStep,
-  handleNext,
-  handleBack,
-  theme,
-}) => {
-  const onSubmitForm = async () => {};
+const Step5: FC<Step5Props> = () => {
   return (
-    <FinalForm
-      onSubmit={onSubmitForm}
-      render={({ handleSubmit, values, errors, submitting }) => {
-        return (
-          <form onSubmit={handleSubmit}>
-            <Grid container spacing={2} justifyContent="center">
-              <Grid item xs={12}>
-                <Typography variant="h6" textAlign="center">
-                  Contact Method
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <Stack
-                  direction="row"
-                  flexWrap="wrap"
-                  justifyContent="space-between"
-                >
-                  <Box>
-                    <FormControlLabel
-                      value="end"
-                      control={<Checkbox name="phone" />}
-                      label="Phone"
-                      labelPlacement="end"
-                    />
-                  </Box>
-                  <Box>
-                    <FormControlLabel
-                      value="end"
-                      control={<Checkbox name="email" />}
-                      label="Email"
-                      labelPlacement="end"
-                    />
-                  </Box>
-                  <Box>
-                    <FormControlLabel
-                      value="end"
-                      control={<Checkbox name="text" />}
-                      label="Text"
-                      labelPlacement="end"
-                    />
-                  </Box>
-                </Stack>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                container
-                alignItems="center"
-                justifyContent="space-between"
-              >
-                <Grid item xs={6}>
-                  <TextField
-                    fullWidth
-                    name="phonenumber"
-                    label="Phone Number"
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <Button startIcon={<AddIcon />} size="medium">
-                    Add Another
-                  </Button>
-                </Grid>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                container
-                alignItems="center"
-                justifyContent="space-between"
-              >
-                <Grid item xs={6}>
-                  <TextField
-                    fullWidth
-                    name="emailaddress"
-                    label="Email Address"
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <Button startIcon={<AddIcon />} size="medium">
-                    Add Another
-                  </Button>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Box maxWidth={400} marginX="auto" pt={3}>
-              <MobileStepper
-                variant="progress"
-                steps={5}
-                position="static"
-                activeStep={activeStep}
-                nextButton={
-                  <Button
-                    size="small"
-                    onClick={handleNext}
-                    disabled={activeStep === 4}
-                  >
-                    Next
-                    {theme === "rtl" ? (
-                      <KeyboardArrowLeft />
-                    ) : (
-                      <KeyboardArrowRight />
-                    )}
-                  </Button>
-                }
-                backButton={
-                  <Button
-                    size="small"
-                    onClick={handleBack}
-                    disabled={activeStep === 0}
-                  >
-                    Back
-                  </Button>
-                }
-              />
-            </Box>
-          </form>
-        );
-      }}
-    />
+    <Grid container spacing={2} justifyContent="center">
+      <Grid item xs={12}>
+        <Typography variant="h6" textAlign="center">
+          Upload Image
+        </Typography>
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        display="flex"
+        flexDirection="row"
+        justifyContent="center"
+        flexWrap="wrap"
+        gap={2}
+      >
+        <UploadImg />
+      </Grid>
+    </Grid>
   );
 };
 
-export default Step3;
+export default Step5;
+
+const UploadImg = () => {
+  return (
+    <UploadImage
+      multiple
+      name="image"
+      previewRender={(src, onRemove) => {
+        return (
+          <Stack flexDirection="row" gap={2}>
+            {src.map((data, index) => {
+              return (
+                <Stack key={index} position="relative" flexWrap="wrap">
+                  <Card>
+                    <CardMedia
+                      src={data}
+                      component="img"
+                      sx={{ height: 150, width: 150 }}
+                    />
+                  </Card>
+                  <IconButton
+                    onClick={() => onRemove(index)}
+                    sx={(theme) => ({
+                      position: "absolute",
+                      right: -6,
+                      top: -6,
+                      border: `2px solid ${theme.palette.divider}`,
+                      p: 0,
+                      bgcolor: theme.palette.common.white,
+                      ":hover": { bgcolor: theme.palette.common.white },
+                    })}
+                  >
+                    <CloseIcon sx={{ height: 18, width: 18 }} />
+                  </IconButton>
+                </Stack>
+              );
+            })}
+          </Stack>
+        );
+      }}
+    >
+      <Stack
+        sx={(theme) => ({
+          cursor: "pointer",
+          bgcolor: theme.palette.grey[300],
+          borderRadius: 1,
+        })}
+        width={150}
+        height={150}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <AddIcon sx={{ height: 40, width: 40 }} />
+      </Stack>
+    </UploadImage>
+  );
+};
