@@ -1,10 +1,12 @@
 import { FC } from "react";
 import { Form as FinalForm } from "react-final-form";
-import { Select, TextField } from "src/components/Input";
 import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import { Grid } from "@mui/material";
+
+import { Select, TextField } from "src/components/Input";
+
+import { ReportFormProps } from "./Types";
 
 const ReportForm: FC<ReportFormProps> = () => {
   const onSubmitForm = async () => {};
