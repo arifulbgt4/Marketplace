@@ -1,5 +1,5 @@
 "use client";
-import { FC, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import { Box, Stack, Typography, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import MobileStepper from "@mui/material/MobileStepper";
@@ -13,7 +13,7 @@ import LastStep from "./LastStep";
 
 import { StaperProps } from "./Types";
 
-const Staper: FC<StaperProps> = () => {
+const Staper: FC<StaperProps> = ({ errors, submitting }) => {
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(1);
 
@@ -24,6 +24,11 @@ const Staper: FC<StaperProps> = () => {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+
+  const checkStep1 = useMemo(() => {
+    if (errors?.title === undefined) return false;
+    return true;
+  }, [errors]);
 
   return (
     <Box position="relative">
@@ -47,6 +52,7 @@ const Staper: FC<StaperProps> = () => {
             type="submit"
             color="inherit"
             endIcon={<ArrowForwardIosSharp />}
+            disabled={submitting}
           >
             Save & exist
           </Button>
@@ -77,7 +83,7 @@ const Staper: FC<StaperProps> = () => {
               size="large"
               variant="rounded"
               onClick={handleNext}
-              disabled={activeStep === 4}
+              disabled={checkStep1 || activeStep === 4}
               endIcon={<ArrowForwardIosSharp fontSize="small" />}
             >
               Next

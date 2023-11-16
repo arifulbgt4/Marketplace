@@ -1,15 +1,16 @@
 "use client";
 import { FC } from "react";
 import { Form as FinalForm } from "react-final-form";
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Grid } from "@mui/material";
+
 import ListingPreview from "src/widgets/ListingPreview";
 
 import Staper from "./Staper";
-
 import { ListingFormProps } from "./Types";
 
 const ListingForm: FC<ListingFormProps> = () => {
   const onSubmitForm = async () => {};
+
   return (
     <FinalForm
       onSubmit={onSubmitForm}
@@ -33,7 +34,7 @@ const ListingForm: FC<ListingFormProps> = () => {
                   boxShadow: 1,
                 })}
               >
-                <Staper />
+                <Staper errors={errors} submitting={submitting} />
               </Grid>
             </Grid>
           </form>

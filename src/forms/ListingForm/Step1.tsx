@@ -2,7 +2,7 @@
 import { FC } from "react";
 import { Typography, Grid } from "@mui/material";
 
-import { TextField } from "src/components/Input";
+import { TextField, composeValidators, required } from "src/components/Input";
 
 import { Step1Props } from "./Types";
 
@@ -20,6 +20,10 @@ const Step1: FC<Step1Props> = () => {
           label="Title"
           placeholder="Title"
           type="text"
+          autoFocus
+          fieldProps={{
+            validate: composeValidators(required("Title required")),
+          }}
         />
       </Grid>
     </Grid>
