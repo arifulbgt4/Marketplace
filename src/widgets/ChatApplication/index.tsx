@@ -1,29 +1,35 @@
 import { FC } from "react";
+import { Form as FinalForm } from "react-final-form";
 import {
   Grid,
-  TextField,
+  Select,
   Stack,
   CardHeader,
   Avatar,
   Typography,
+  FormControl,
+  ListItemText,
+  IconButton,
+  Box,
+  List,
+  ListItem,
+  ListItemAvatar,
+  InputLabel,
 } from "@mui/material";
-
+import { TextField } from "src/components/Input";
 import { ChatApplicationProps } from "./Types";
-import IconButton from "@mui/material/IconButton";
+
 import SearchIcon from "@mui/icons-material/Search";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { Box } from "@mui/material";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
 
 const ChatApplication: FC<ChatApplicationProps> = () => {
   return (
     <Grid container>
       <Grid item xs={3}>
-        <TextField label="search" name="search" />
+        <FormControl fullWidth>
+          <InputLabel>kdkfdf</InputLabel>
+          <Select />
+        </FormControl>
       </Grid>
       <Grid item xs={9}>
         <Stack
@@ -220,9 +226,27 @@ const ChatApplication: FC<ChatApplicationProps> = () => {
               </Grid>
             </List>
           </Box>
+          <Box></Box>
         </Stack>
       </Grid>
     </Grid>
+  );
+};
+
+const SendMessage = () => {
+  const onSubmitForm = async () => {};
+
+  return (
+    <FinalForm
+      onSubmit={onSubmitForm}
+      render={({ handleSubmit, values, errors, submitting }) => {
+        return (
+          <form onSubmit={handleSubmit}>
+            <TextField name="typemessage" placeholder="type message" />
+          </form>
+        );
+      }}
+    />
   );
 };
 
