@@ -4,6 +4,7 @@ import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import { Box, Button, Modal, Paper, Stack, Typography } from "@mui/material";
 
 import { ListingReportProps } from "./Types";
+import ReportForm from "src/forms/ReportForm";
 
 const ListingReport: FC<ListingReportProps> = () => {
   const [open, setOpen] = useState(false);
@@ -45,7 +46,7 @@ const ListingReport: FC<ListingReportProps> = () => {
             p: 4,
           }}
         >
-          <Typography variant="h3">Modal</Typography>
+          <ReportForm />
         </Paper>
       </Modal>
     </Stack>
