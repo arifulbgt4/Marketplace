@@ -1,4 +1,4 @@
-import { Theme, Components } from "@mui/material/styles";
+import { Theme, Components, alpha } from "@mui/material/styles";
 
 declare module "@mui/material/Button" {
   interface ButtonPropsVariantOverrides {
@@ -17,6 +17,10 @@ const MuiButton: Components<Theme>["MuiButton"] = {
       props: { variant: "rounded" },
       style: ({ theme }) => ({
         borderRadius: 20,
+        background: alpha(
+          theme.palette.text.primary,
+          theme.palette.action.hoverOpacity
+        ),
       }),
     },
   ],

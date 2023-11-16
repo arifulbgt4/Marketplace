@@ -27,17 +27,22 @@ const Staper: FC<StaperProps> = () => {
   };
 
   return (
-    <Box minHeight={`calc(100vh - 64px)`} position="relative">
-      {activeStep === 1 && <Step1 />}
-      {activeStep === 2 && <Step2 />}
-      {activeStep === 3 && <Step3 />}
-      {activeStep === 4 && <LastStep />}
+    <Box position="relative">
+      <Box height={`100vh`} p={3}>
+        <Typography variant="h4" textAlign="center">
+          Add a New Listing
+        </Typography>
+        {activeStep === 1 && <Step1 />}
+        {activeStep === 2 && <Step2 />}
+        {activeStep === 3 && <Step3 />}
+        {activeStep === 4 && <LastStep />}
+      </Box>
 
       <Box
         marginX="auto"
         pt={3}
         position="absolute"
-        bottom={40}
+        bottom={20}
         left={0}
         right={0}
       >
@@ -49,7 +54,8 @@ const Staper: FC<StaperProps> = () => {
           style={{ background: theme.palette.background.paper }}
           nextButton={
             <Button
-              size="small"
+              size="large"
+              variant="rounded"
               onClick={handleNext}
               disabled={activeStep === 4}
             >
@@ -59,7 +65,8 @@ const Staper: FC<StaperProps> = () => {
           }
           backButton={
             <Button
-              size="small"
+              size="large"
+              variant="rounded"
               onClick={handleBack}
               disabled={activeStep === 1}
             >
