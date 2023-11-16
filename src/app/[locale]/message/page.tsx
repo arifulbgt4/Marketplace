@@ -1,8 +1,12 @@
 import React from "react";
-import { Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 
 const messagePage = () => {
-  return <Typography>ChatApplication</Typography>;
+  return (
+    <Container>
+      <Typography>ChatApplication</Typography>
+    </Container>
+  );
 };
 
 export default messagePage;
