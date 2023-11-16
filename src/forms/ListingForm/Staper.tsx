@@ -17,13 +17,9 @@ const Staper: FC<StaperProps> = ({ errors, submitting }) => {
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(1);
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
+  const handleNext = () => setActiveStep((prevState) => ++prevState);
 
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
+  const handleBack = () => setActiveStep((prevState) => --prevState);
 
   const checkStep1 = useMemo(() => {
     if (errors?.title === undefined) return false;
