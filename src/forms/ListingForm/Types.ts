@@ -1,6 +1,11 @@
+import { AnyObject } from "src/global/types";
+
 export interface ListingFormProps {}
 
-export interface StaperProps {}
+export interface StaperProps {
+  errors?: AnyObject;
+  submitting: boolean;
+}
 
 export interface LastStepProps {}
 
