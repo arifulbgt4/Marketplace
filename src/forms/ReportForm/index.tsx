@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Form as FinalForm } from "react-final-form";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 
 import { Select, TextField } from "src/components/Input";
 
@@ -18,8 +18,12 @@ const ReportForm: FC<ReportFormProps> = () => {
           <form onSubmit={handleSubmit}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
+                <Typography variant="h5">Report</Typography>
+              </Grid>
+              <Grid item xs={12}>
                 <FormControl fullWidth>
                   <Select
+                    size="small"
                     name="report"
                     labelId="demo-simple-select-helper-label"
                     id="demo-simple-select-helper"
@@ -48,9 +52,9 @@ const ReportForm: FC<ReportFormProps> = () => {
                   placeholder="Message"
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} container justifyContent="space-between">
                 <Button>Cancel</Button>
-                <Button>Sumbmit</Button>
+                <Button variant="contained">Submit</Button>
               </Grid>
             </Grid>
           </form>
