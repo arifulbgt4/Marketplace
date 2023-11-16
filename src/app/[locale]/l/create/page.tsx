@@ -4,11 +4,9 @@ import ListingForm from "src/forms/ListingForm";
 
 const ListingCreatePage = () => {
   return (
-    <Box pt={5}>
-      <Container maxWidth="md">
-        <ListingForm />
-      </Container>
-    </Box>
+    <Container>
+      <ListingForm />
+    </Container>
   );
 };
 
