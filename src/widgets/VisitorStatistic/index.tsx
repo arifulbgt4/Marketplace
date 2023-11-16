@@ -1,10 +1,14 @@
 "use client";
 import { FC } from "react";
-import { ChartContainer, LineChart } from "@mui/x-charts";
-import { LinePlot, MarkPlot } from "@mui/x-charts/LineChart";
+import { LineChart } from "@mui/x-charts/LineChart";
+import { Paper, Stack, Typography } from "@mui/material";
+
+import { VisitorStatisticProps } from "./Types";
+
 const uData = [
   0, 900, 700, 1580, 1190, 1790, 700, 2750, 700, 2900, 700, 1890, 3290, 2990,
 ];
+
 const xLabels = [
   "Page A",
   "Page B",
@@ -21,9 +25,6 @@ const xLabels = [
   "Page M",
   "Page N",
 ];
-
-import { VisitorStatisticProps } from "./Types";
-import { Paper, Stack, Typography } from "@mui/material";
 
 const VisitorStatistic: FC<VisitorStatisticProps> = () => {
   return (
