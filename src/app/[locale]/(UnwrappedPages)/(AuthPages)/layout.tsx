@@ -10,9 +10,5 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <main>
-      <AuthPagesLayout>{children}</AuthPagesLayout>
-    </main>
-  );
+  return <AuthPagesLayout>{children}</AuthPagesLayout>;
 }
