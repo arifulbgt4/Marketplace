@@ -1,18 +1,17 @@
 "use client";
 import { FC, useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Stack, Typography, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import MobileStepper from "@mui/material/MobileStepper";
-import Button from "@mui/material/Button";
-import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import { ArrowBackIosSharp, ArrowForwardIosSharp } from "@mui/icons-material";
 
+import Logo from "src/components/Logo";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
+import LastStep from "./LastStep";
 
 import { StaperProps } from "./Types";
-import LastStep from "./LastStep";
 
 const Staper: FC<StaperProps> = () => {
   const theme = useTheme();
@@ -28,15 +27,36 @@ const Staper: FC<StaperProps> = () => {
 
   return (
     <Box position="relative">
-      <Box height={`100vh`} p={3}>
-        <Typography variant="h4" textAlign="center">
-          Add a New Listing
-        </Typography>
+      <Stack height={`100vh`} p={3}>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          mx={-3}
+          pb={3}
+          px={3}
+          mb={2}
+          sx={(theme) => ({
+            boxShadow: 1,
+          })}
+        >
+          <Logo iconOnly />
+          <Typography variant="h5">Create a listing</Typography>
+          <Button
+            variant="outlined"
+            type="submit"
+            color="inherit"
+            endIcon={<ArrowForwardIosSharp />}
+          >
+            Save & exist
+          </Button>
+        </Stack>
+
         {activeStep === 1 && <Step1 />}
         {activeStep === 2 && <Step2 />}
         {activeStep === 3 && <Step3 />}
         {activeStep === 4 && <LastStep />}
-      </Box>
+      </Stack>
 
       <Box
         marginX="auto"
@@ -58,9 +78,9 @@ const Staper: FC<StaperProps> = () => {
               variant="rounded"
               onClick={handleNext}
               disabled={activeStep === 4}
+              endIcon={<ArrowForwardIosSharp fontSize="small" />}
             >
               Next
-              <KeyboardArrowRight />
             </Button>
           }
           backButton={
@@ -69,8 +89,8 @@ const Staper: FC<StaperProps> = () => {
               variant="rounded"
               onClick={handleBack}
               disabled={activeStep === 1}
+              startIcon={<ArrowBackIosSharp fontSize="small" />}
             >
-              <KeyboardArrowLeft />
               Back
             </Button>
           }
