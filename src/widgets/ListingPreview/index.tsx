@@ -68,15 +68,13 @@ const ListingPreview: FC<ListingPreviewProps> = ({ values }) => {
     let height = 0;
     const objectURL = URL.createObjectURL(d[0]);
     const img = document.createElement("img");
-
     img.onload = function handleLoad() {
       width = img.width;
       height = img.height;
 
-      URL.revokeObjectURL(objectURL);
+      // URL.revokeObjectURL(objectURL);
     };
     img.src = objectURL;
-
     return {
       src: objectURL,
       width: 100,
