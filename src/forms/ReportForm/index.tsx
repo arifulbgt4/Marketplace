@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Form as FinalForm } from "react-final-form";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 
 import { Select, TextField } from "src/components/Input";
 
@@ -47,6 +47,10 @@ const ReportForm: FC<ReportFormProps> = () => {
                   label="Message"
                   placeholder="Message"
                 />
+              </Grid>
+              <Grid item xs={12}>
+                <Button>Cancel</Button>
+                <Button>Sumbmit</Button>
               </Grid>
             </Grid>
           </form>
