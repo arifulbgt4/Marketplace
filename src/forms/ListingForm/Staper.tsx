@@ -48,9 +48,9 @@ const Staper: FC<StaperProps> = ({ errors, submitting }) => {
             type="submit"
             color="inherit"
             endIcon={<ArrowForwardIosSharp />}
-            disabled={submitting}
+            disabled={submitting || checkStep1}
           >
-            Save & exist
+            Save & exit
           </Button>
         </Stack>
 
