@@ -1,5 +1,11 @@
+import Header from "src/widgets/Header";
+
 const PageLayout = ({ children }: { children: React.ReactNode }) => {
-  return children;
+  return (
+    <>
+      <Header /> {children}
+    </>
+  );
 };
 
 export default PageLayout;
