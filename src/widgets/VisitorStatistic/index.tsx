@@ -5,37 +5,16 @@ import { Paper, Stack, Typography } from "@mui/material";
 
 import { VisitorStatisticProps } from "./Types";
 
-const uData = [
-  0, 900, 700, 1580, 1190, 1790, 700, 2750, 700, 2900, 700, 1890, 3290, 2990,
-];
-
-const xLabels = [
-  "Page A",
-  "Page B",
-  "Page C",
-  "Page D",
-  "Page E",
-  "Page F",
-  "Page G",
-  "Page H",
-  "Page I",
-  "Page J",
-  "Page K",
-  "Page L",
-  "Page M",
-  "Page N",
-];
-
-const VisitorStatistic: FC<VisitorStatisticProps> = () => {
+const VisitorStatistic: FC<VisitorStatisticProps> = ({ visitorData }) => {
+  const { visitors, xLabels, uData } = visitorData;
   return (
-    <Paper>
+    <Paper elevation={0}>
       <Stack flexDirection="row" justifyContent="space-between" p={3}>
-        <Typography variant="h4">Visitor Chart</Typography>
-        <Typography variant="h4">345,678</Typography>
+        <Typography variant="h4">Visitors</Typography>
+        <Typography variant="h4">{visitors}</Typography>
       </Stack>
 
       <LineChart
-        width={452}
         height={118}
         series={[{ type: "line", data: uData, area: true, showMark: false }]}
         xAxis={[{ scaleType: "point", data: xLabels }]}

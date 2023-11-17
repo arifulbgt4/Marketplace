@@ -3,6 +3,29 @@ import { Grid } from "@mui/material";
 import SellStatistics from "src/widgets/SellStatistics";
 import VisitorStatistic from "src/widgets/VisitorStatistic";
 
+const visitorData = {
+  xLabels: [
+    "Page A",
+    "Page B",
+    "Page C",
+    "Page D",
+    "Page E",
+    "Page F",
+    "Page G",
+    "Page H",
+    "Page I",
+    "Page J",
+    "Page K",
+    "Page L",
+    "Page M",
+    "Page N",
+  ],
+  uData: [
+    0, 900, 700, 1580, 1190, 1790, 700, 2750, 700, 2900, 700, 1890, 3290, 2990,
+  ],
+  visitors: 345678,
+}
+        
 const sellData = {
   yrData: [
     4000, 3000, 2000, 2780, 1890, 2390, 3490, 4000, 3000, 2000, 2780, 1890,
@@ -67,10 +90,8 @@ const sellData = {
 const DashboardPage = () => {
   return (
     <Grid container rowSpacing={5} columnSpacing={8}>
-      <Grid item container xs={12}>
-        <Grid item xs={4}>
-          <VisitorStatistic />
-        </Grid>
+      <Grid item xs={4}>
+        <VisitorStatistic visitorData={visitorData} />
       </Grid>
       <Grid item xs={6}>
         <SellStatistics sellData={sellData} />

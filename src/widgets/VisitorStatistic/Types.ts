@@ -1,1 +1,7 @@
-export interface VisitorStatisticProps {}
+export interface VisitorStatisticProps {
+  visitorData: {
+    visitors: number;
+    xLabels: string[];
+    uData: number[];
+  };
+}
