@@ -13,7 +13,7 @@ const Step2: FC<Step2Props> = () => {
     <Grid container spacing={2} justifyContent="center">
       <Grid item xs={12}>
         <CheckboxGroup
-          name="aminities"
+          name="amenities"
           spacing={3}
           item={2}
           options={amenities}

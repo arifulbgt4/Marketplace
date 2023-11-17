@@ -4,7 +4,7 @@ import { CheckboxGroupOptions } from "../types";
 
 export const amenities: CheckboxGroupOptions[] = [
   {
-    label: "Shared bathroom",
+    label: "Shared Home",
     value: "shared_bathroom",
     data: {
       icon: BathtubSharp,
@@ -13,6 +13,20 @@ export const amenities: CheckboxGroupOptions[] = [
   {
     label: "Another one",
     value: "shared_b",
+    data: {
+      icon: BathtubSharp,
+    },
+  },
+  {
+    label: "Balcuny",
+    value: "shared_bathroom2",
+    data: {
+      icon: BathtubSharp,
+    },
+  },
+  {
+    label: "Another two",
+    value: "shared_b3",
     data: {
       icon: BathtubSharp,
     },

@@ -11,7 +11,7 @@ const Amenities: FC<AmenitiesProps> = ({ label, value, data }) => {
         borderColor: theme.palette.divider,
       })}
       flexDirection="row"
-      justifyContent="center"
+      // justifyContent="center"
       alignItems="center"
       borderRadius={1}
       p={2}
