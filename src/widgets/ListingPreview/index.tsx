@@ -89,8 +89,6 @@ const ListingPreview: FC<ListingPreviewProps> = ({ values }) => {
     return amenities.filter((d) => amenitiesInput?.includes(d.value));
   }, [amenitiesInput]);
 
-  console.log("amenitie ", amenitie);
-
   return (
     <Grid container spacing={3} p={3}>
       <Grid item xs={12}>
