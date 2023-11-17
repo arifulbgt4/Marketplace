@@ -1,3 +1,4 @@
+"use client";
 import { FC } from "react";
 import { Form as FinalForm } from "react-final-form";
 import {
@@ -16,11 +17,15 @@ import {
   ListItemAvatar,
   InputLabel,
 } from "@mui/material";
-import { TextField } from "src/components/Input";
-import { ChatApplicationProps } from "./Types";
-
 import SearchIcon from "@mui/icons-material/Search";
 import SettingsIcon from "@mui/icons-material/Settings";
+import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
+import { KeyboardArrowRight, UploadFile } from "@mui/icons-material";
+
+import { TextField } from "src/components/Input";
+
+import { ChatApplicationProps } from "./Types";
+import Button from "@mui/material/Button";
 
 const ChatApplication: FC<ChatApplicationProps> = () => {
   return (
@@ -44,6 +49,7 @@ const ChatApplication: FC<ChatApplicationProps> = () => {
             sx={{
               borderBottom:
                 " 1px solid var(--action-disabled-background, rgba(0, 0, 0, 0.12))",
+              position: "sticky",
             }}
           >
             <CardHeader
@@ -67,7 +73,7 @@ const ChatApplication: FC<ChatApplicationProps> = () => {
               }
             />
           </Box>
-          <Box>
+          <Box sx={{ height: "60vh", overflow: "auto" }}>
             <List>
               <Grid container pl={6.5} pr={9.5} py={8} rowSpacing={3}>
                 <Grid item xs={12} container>
@@ -226,7 +232,9 @@ const ChatApplication: FC<ChatApplicationProps> = () => {
               </Grid>
             </List>
           </Box>
-          <Box></Box>
+          <Box>
+            <SendMessage />
+          </Box>
         </Stack>
       </Grid>
     </Grid>
@@ -242,7 +250,42 @@ const SendMessage = () => {
       render={({ handleSubmit, values, errors, submitting }) => {
         return (
           <form onSubmit={handleSubmit}>
-            <TextField name="typemessage" placeholder="type message" />
+            <Box
+              borderTop={
+                "1px solid var(--action-disabled-background, rgba(0, 0, 0, 0.12))"
+              }
+              pl={5}
+              pr={12}
+              py={3.5}
+            >
+              <Stack direction="row" justifyContent="space-between">
+                <Box pl={5}>
+                  <TextField
+                    variant="standard"
+                    multiline
+                    name="typemessage"
+                    placeholder="type message"
+                    fullWidth
+                    InputProps={{ disableUnderline: true }}
+                  />
+                </Box>
+                <Stack direction="row">
+                  <IconButton>
+                    <EmojiEmotionsIcon />
+                  </IconButton>
+                  <IconButton>
+                    <UploadFile />
+                  </IconButton>
+                  <Button
+                    size="large"
+                    endIcon={<KeyboardArrowRight />}
+                    variant="contained"
+                  >
+                    send
+                  </Button>
+                </Stack>
+              </Stack>
+            </Box>
           </form>
         );
       }}
