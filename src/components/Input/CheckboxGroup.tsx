@@ -22,19 +22,19 @@ const CheckboxGroup: FC<CheckboxGroupProps> = ({
   return (
     <Field
       name={name}
-      render={({ input: { value, onChange }, meta }) => {
-        const totalChecked = value?.length || 0;
+      render={({ input: { value: inputValue, onChange }, meta }) => {
+        const totalChecked = inputValue?.length || 0;
 
         function onTriger(v: String) {
-          if (!Boolean(value?.length)) {
+          if (!Boolean(inputValue?.length)) {
             onChange([v]);
             return;
           }
-          if (value?.includes(v)) {
-            onChange(value?.filter((i: String) => i !== v));
+          if (inputValue?.includes(v)) {
+            onChange(inputValue?.filter((i: String) => i !== v));
             return;
           }
-          onChange([...value, v]);
+          onChange([...inputValue, v]);
         }
 
         function onCheckedAll() {
@@ -45,10 +45,10 @@ const CheckboxGroup: FC<CheckboxGroupProps> = ({
           onChange(undefined);
         }
 
-        const checkbox = options.map((box) => (
+        const checkbox = options.map(({ label, value, ...restData }) => (
           <Stack
-            key={box.value}
-            onClick={() => onTriger(box.value)}
+            key={value}
+            onClick={() => onTriger(value)}
             flex={1}
             sx={(theme) => ({
               position: "relative",
@@ -58,9 +58,10 @@ const CheckboxGroup: FC<CheckboxGroupProps> = ({
             })}
           >
             {renderCheckbox({
-              value: box.value,
-              label: box.label,
-              checked: value?.includes(box.value),
+              value,
+              label,
+              checked: inputValue?.includes(value),
+              ...restData,
             })}
           </Stack>
         ));

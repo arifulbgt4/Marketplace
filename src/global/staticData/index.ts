@@ -1,3 +1,24 @@
+import { BathtubSharp } from "@mui/icons-material";
+
+import { CheckboxGroupOptions } from "../types";
+
+export const amenities: CheckboxGroupOptions[] = [
+  {
+    label: "Shared bathroom",
+    value: "shared_bathroom",
+    data: {
+      icon: BathtubSharp,
+    },
+  },
+  {
+    label: "Another one",
+    value: "shared_b",
+    data: {
+      icon: BathtubSharp,
+    },
+  },
+];
+
 export const featurePostData = [
   {
     id: 1,
