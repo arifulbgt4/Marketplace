@@ -1,9 +1,9 @@
-import { Container } from "@mui/material";
+import { Container, Grid } from "@mui/material";
+
 import SearchPeopleForm from "src/forms/SearchPeopleForm";
-import Grid from "@mui/material/Grid";
 import ChatList from "src/widgets/ChatList";
 import ChatBox from "src/widgets/ChatBox";
-import SendMessageForm from "../../../forms/SendMessageForm/index";
+import SendMessageForm from "src/forms/SendMessageForm";
 
 const MessagePage = () => {
   return (
