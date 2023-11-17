@@ -1,6 +1,7 @@
 import { FC } from "react";
-import { ChatListProps } from "./Types";
 import { Avatar, Box, CardHeader, Grid, Typography } from "@mui/material";
+
+import { ChatListProps } from "./Types";
 
 const ChatList: FC<ChatListProps> = () => {
   return (

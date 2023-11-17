@@ -1,12 +1,15 @@
 "use client";
+import { FC } from "react";
 import { Form as FinalForm } from "react-final-form";
-import { Box, Stack } from "@mui/material";
-import { TextField } from "src/components/Input";
-import IconButton from "@mui/material/IconButton";
+import { Box, Stack, Button, IconButton } from "@mui/material";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import { UploadFile, KeyboardArrowRight } from "@mui/icons-material";
-import Button from "@mui/material/Button";
-const SendMessageForm = () => {
+
+import { TextField } from "src/components/Input";
+
+import { SendMessageFormProps } from "./Types";
+
+const SendMessageForm: FC<SendMessageFormProps> = () => {
   const onSubmitForm = async () => {};
 
   return (

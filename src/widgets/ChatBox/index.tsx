@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { ChatBoxProps } from "./Types";
 import {
   Avatar,
   Box,
@@ -14,6 +13,8 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import SettingsIcon from "@mui/icons-material/Settings";
+
+import { ChatBoxProps } from "./Types";
 
 const ChatBox: FC<ChatBoxProps> = () => {
   return (
