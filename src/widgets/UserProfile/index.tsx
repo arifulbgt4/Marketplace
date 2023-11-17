@@ -15,8 +15,9 @@ import {
   Link,
 } from "@mui/material";
 
-import { UserProfileProps } from "./Types";
 import routes from "src/global/routes";
+
+import { UserProfileProps } from "./Types";
 
 const UserProfile: FC<UserProfileProps> = () => {
   const [checked, setChecked] = useState(false);
