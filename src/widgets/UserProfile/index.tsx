@@ -58,7 +58,7 @@ const UserProfile: FC<UserProfileProps> = () => {
         </Stack>
       </Grid>
       <Grid item xs={12} display="flex" justifyContent="center">
-        <Button startIcon={<ChatIcon />} variant="outlined">
+        <Button startIcon={<ChatIcon />} variant="outlined" href="/message">
           chat
         </Button>
       </Grid>
