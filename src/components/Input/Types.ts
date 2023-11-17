@@ -86,6 +86,35 @@ export interface CheckboxProps
 export interface CheckboxWrapperProps
   extends FieldRenderProps<MuiCheckboxProps> {}
 
+export interface CheckboxOptions {
+  value: string;
+  label: string;
+}
+export interface RenderContainerOptions {
+  checkbox: ReactNode | ReactNode[];
+  checked: number;
+  unchecked: number;
+  total: number;
+  onCheckedAll: () => void;
+  onClearAll: () => void;
+}
+
+export interface RenderCheckboxOptions {
+  value: String;
+  label: String;
+  checked: Boolean;
+  onClick: () => void;
+}
+
+export interface CheckboxGroupProps
+  extends Partial<Omit<MuiCheckboxProps, "onChange">> {
+  name: string;
+  renderContainer: (props: RenderContainerOptions) => ReactNode;
+  renderCheckbox: (props: RenderCheckboxOptions) => ReactNode;
+  options: CheckboxOptions[];
+  fieldProps?: Partial<FieldProps<any, any>>;
+}
+
 export type FieldShowErrorOptions = (props: FieldMetaOptions) => boolean;
 
 export interface FieldMetaOptions {
