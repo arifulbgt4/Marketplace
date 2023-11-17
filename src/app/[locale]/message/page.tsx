@@ -1,6 +1,7 @@
+"use client";
 import { Container, Grid } from "@mui/material";
 
-import SearchPeopleForm from "src/forms/SearchPeopleForm";
+import SearchChatForm from "src/forms/SearchChatForm";
 import ChatList from "src/widgets/ChatList";
 import ChatBox from "src/widgets/ChatBox";
 import SendMessageForm from "src/forms/SendMessageForm";
@@ -15,12 +16,13 @@ const MessagePage = () => {
             xs={12}
             px={2.8}
             py={1.2}
-            borderBottom={
-              "1px solid var(--action-disabled-background, rgba(0, 0, 0, 0.12))"
+            borderBottom={1}
+            borderColor={(theme) =>
+              `${theme.palette.action.disabledBackground}`
             }
             borderRadius={1}
           >
-            <SearchPeopleForm />
+            <SearchChatForm />
           </Grid>
           <Grid item xs={12}>
             <ChatList />
