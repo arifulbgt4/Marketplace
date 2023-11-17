@@ -93,7 +93,7 @@ const ListingPreview: FC<ListingPreviewProps> = ({ values }) => {
         />
       </Grid>
       <Grid item xs={12}>
-        <Album photos={photoDate || photos} />
+        <Album photos={photoDate?.length ? photoDate : photos} />
       </Grid>
     </Grid>
   );
