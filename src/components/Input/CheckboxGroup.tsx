@@ -52,14 +52,18 @@ const CheckboxGroup: FC<CheckboxGroupProps> = ({
           </React.Fragment>
         ));
 
-        return renderContainer({
-          checkbox,
-          checked: totalChecked,
-          unchecked: totalOptions - totalChecked,
-          total: totalOptions,
-          onCheckedAll,
-          onClearAll,
-        });
+        return (
+          <React.Fragment>
+            {renderContainer({
+              checkbox,
+              checked: totalChecked,
+              unchecked: totalOptions - totalChecked,
+              total: totalOptions,
+              onCheckedAll,
+              onClearAll,
+            })}
+          </React.Fragment>
+        );
       }}
       {...fieldProps}
     />

@@ -14,8 +14,8 @@ import LastStep from "./LastStep";
 import { StaperProps } from "./Types";
 
 const Staper: FC<StaperProps> = ({ errors, submitting }) => {
-  const theme = useTheme();
   const [activeStep, setActiveStep] = useState(1);
+  const theme = useTheme();
 
   const handleNext = () => setActiveStep((prevState) => ++prevState);
 
@@ -28,17 +28,25 @@ const Staper: FC<StaperProps> = ({ errors, submitting }) => {
 
   return (
     <Box position="relative">
-      <Stack height={`100vh`} p={3}>
+      <Stack
+        height={`100vh`}
+        sx={{
+          overflowY: "auto",
+        }}
+      >
         <Stack
           direction="row"
           justifyContent="space-between"
           alignItems="center"
-          mx={-3}
-          pb={3}
+          position="sticky"
+          py={3}
           px={3}
           mb={2}
+          top={0}
           sx={(theme) => ({
             boxShadow: 1,
+            background: theme.palette.background.paper,
+            zIndex: 9,
           })}
         >
           <Logo iconOnly />
@@ -53,27 +61,25 @@ const Staper: FC<StaperProps> = ({ errors, submitting }) => {
             Save & exit
           </Button>
         </Stack>
-
-        {activeStep === 1 && <Step1 />}
-        {activeStep === 2 && <Step2 />}
-        {activeStep === 3 && <Step3 />}
-        {activeStep === 4 && <LastStep />}
+        <Box p={3} mb={10}>
+          {activeStep === 1 && <Step1 />}
+          {activeStep === 2 && <Step2 />}
+          {activeStep === 3 && <Step3 />}
+          {activeStep === 4 && <LastStep />}
+        </Box>
       </Stack>
 
-      <Box
-        marginX="auto"
-        pt={3}
-        position="absolute"
-        bottom={20}
-        left={0}
-        right={0}
-      >
+      <Box marginX="auto" position="absolute" bottom={0} left={0} right={0}>
         <MobileStepper
           variant="progress"
           steps={5}
           position="static"
           activeStep={activeStep}
-          style={{ background: theme.palette.background.paper }}
+          style={{
+            background: theme.palette.background.paper,
+            padding: theme.spacing(3),
+            paddingTop: theme.spacing(2),
+          }}
           nextButton={
             <Button
               size="large"
