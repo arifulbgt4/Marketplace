@@ -73,7 +73,7 @@ const ChatApplication: FC<ChatApplicationProps> = () => {
               }
             />
           </Box>
-          <Box sx={{ height: "60vh", overflow: "auto" }}>
+          <Box sx={{ maxHeight: "60vh", overflow: "auto" }}>
             <List>
               <Grid container pl={6.5} pr={9.5} py={8} rowSpacing={3}>
                 <Grid item xs={12} container>
