@@ -5,6 +5,12 @@ export interface AnyObject {
   [key: string]: any;
 }
 
+export interface CheckboxGroupOptions {
+  label: string;
+  value: string;
+  data?: AnyObject;
+}
+
 export interface NavOptions {
   key: string;
   title: string;
@@ -38,4 +44,3 @@ export interface UserSigninOptions
   extends Pick<UserRegisterOptions, "email" | "password"> {
   callbackUrl: string;
 }
-

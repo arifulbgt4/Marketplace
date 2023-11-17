@@ -1,4 +1,6 @@
 "use client";
+export { default as Amenities } from "./Amenities";
+
 import { FC } from "react";
 import { Box, Grid, Stack, Typography, Button, Divider } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
@@ -23,6 +25,9 @@ import PersonIcon from "@mui/icons-material/Person";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
+import { amenities } from "src/global/staticData";
+
+import Amenities from "./Amenities";
 import { ListingContentsProps, OfferProps } from "./Types";
 
 const ListingContents: FC<ListingContentsProps> = () => {
@@ -52,20 +57,7 @@ const ListingContents: FC<ListingContentsProps> = () => {
             </Stack>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Stack
-              sx={(theme) => ({
-                border: `1px solid ${theme.palette.divider}`,
-              })}
-              flexDirection="row"
-              justifyContent="center"
-              alignItems="center"
-              p={2}
-              borderRadius={1}
-              gap={2}
-            >
-              <BedIcon fontSize="large" />
-              <Typography variant="subtitle1">3 bedrooms 6 beds</Typography>
-            </Stack>
+            <Amenities {...amenities[0]} />
           </Grid>
           <Grid item xs={12} md={6}>
             <Stack

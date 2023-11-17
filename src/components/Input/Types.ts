@@ -11,6 +11,9 @@ import {
 } from "@mui/material";
 // packages
 import { FieldProps, FieldRenderProps, FieldMetaState } from "react-final-form";
+import { AnyObject } from "final-form";
+
+import { CheckboxGroupOptions } from "src/global/types";
 
 export interface TextFieldProps
   extends Partial<Omit<MuiTextFieldProps, "onChange">> {
@@ -86,12 +89,7 @@ export interface CheckboxProps
 export interface CheckboxWrapperProps
   extends FieldRenderProps<MuiCheckboxProps> {}
 
-export interface CheckboxOptions {
-  value: string;
-  label: string;
-}
-export interface RenderContainerOptions {
-  checkbox: ReactNode | ReactNode[];
+export interface RenderLabelOptions {
   checked: number;
   unchecked: number;
   total: number;
@@ -100,19 +98,22 @@ export interface RenderContainerOptions {
 }
 
 export interface RenderCheckboxOptions {
-  value: String;
-  label: String;
+  value: string;
+  label: string;
+  data?: AnyObject | AnyObject[];
   checked: Boolean;
-  onClick: () => void;
 }
 
 export interface CheckboxGroupProps
   extends Partial<Omit<MuiCheckboxProps, "onChange">> {
   name: string;
-  renderContainer: (props: RenderContainerOptions) => ReactNode;
+  rootSx?: MuiSxProps;
+  renderLabel: (props: RenderLabelOptions) => ReactNode;
   renderCheckbox: (props: RenderCheckboxOptions) => ReactNode;
-  options: CheckboxOptions[];
+  options: CheckboxGroupOptions[];
   fieldProps?: Partial<FieldProps<any, any>>;
+  spacing?: number;
+  item?: number;
 }
 
 export type FieldShowErrorOptions = (props: FieldMetaOptions) => boolean;
