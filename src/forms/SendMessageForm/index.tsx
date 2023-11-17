@@ -20,9 +20,7 @@ const SendMessageForm: FC<SendMessageFormProps> = () => {
           <form onSubmit={handleSubmit}>
             <Box
               borderTop={1}
-              borderColor={(theme) =>
-                `${theme.palette.action.disabledBackground}`
-              }
+              borderColor={(theme) => theme.palette.action.disabledBackground}
               pl={5}
               pr={12}
               py={3}
