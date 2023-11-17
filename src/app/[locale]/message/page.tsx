@@ -17,9 +17,7 @@ const MessagePage = () => {
             px={2.8}
             py={1.2}
             borderBottom={1}
-            borderColor={(theme) =>
-              `${theme.palette.action.disabledBackground}`
-            }
+            borderColor={(theme) => theme.palette.action.disabledBackground}
             borderRadius={1}
           >
             <SearchChatForm />

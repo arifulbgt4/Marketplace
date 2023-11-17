@@ -30,7 +30,7 @@ const ChatBox: FC<ChatBoxProps> = () => {
           pl={5}
           pr={9.5}
           borderBottom={1}
-          borderColor={(theme) => `${theme.palette.action.disabledBackground}`}
+          borderColor={(theme) => theme.palette.action.disabledBackground}
         >
           <CardHeader
             avatar={
