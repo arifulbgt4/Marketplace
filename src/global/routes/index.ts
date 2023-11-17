@@ -21,4 +21,5 @@ export default {
   contact: "/contact",
   faq: "/faq",
   policy: "/policy",
+  message: "/message",
 };
