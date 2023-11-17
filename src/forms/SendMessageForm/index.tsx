@@ -19,8 +19,9 @@ const SendMessageForm: FC<SendMessageFormProps> = () => {
         return (
           <form onSubmit={handleSubmit}>
             <Box
-              borderTop={
-                "1px solid var(--action-disabled-background, rgba(0, 0, 0, 0.12))"
+              borderTop={1}
+              borderColor={(theme) =>
+                `${theme.palette.action.disabledBackground}`
               }
               pl={5}
               pr={12}

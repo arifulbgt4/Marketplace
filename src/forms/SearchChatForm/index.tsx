@@ -6,9 +6,9 @@ import SearchIcon from "@mui/icons-material/Search";
 
 import { TextField } from "src/components/Input";
 
-import { SearchPeopleFormProps } from "./Types";
+import { SearchChatFormProps } from "./Types";
 
-const SearchPeopleForm: FC<SearchPeopleFormProps> = () => {
+const SearchChatForm: FC<SearchChatFormProps> = () => {
   const onSubmitForm = async () => {};
   return (
     <FinalForm
@@ -36,4 +36,4 @@ const SearchPeopleForm: FC<SearchPeopleFormProps> = () => {
     />
   );
 };
-export default SearchPeopleForm;
+export default SearchChatForm;
