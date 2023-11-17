@@ -62,7 +62,6 @@ const photos = [
 
 const ListingPreview: FC<ListingPreviewProps> = ({ values }) => {
   const { title, address, image } = values;
-  console.log("image: ", image);
   const photoDate = image?.map((d: FileList) => {
     let width = 0;
     let height = 0;
@@ -82,7 +81,6 @@ const ListingPreview: FC<ListingPreviewProps> = ({ values }) => {
     };
   });
 
-  console.log(photoDate);
   return (
     <Grid container spacing={3} p={3}>
       <Grid item xs={12}>
