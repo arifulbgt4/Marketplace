@@ -12,9 +12,11 @@ import {
   Rating,
   Stack,
   Typography,
+  Link,
 } from "@mui/material";
 
 import { UserProfileProps } from "./Types";
+import routes from "src/global/routes";
 
 const UserProfile: FC<UserProfileProps> = () => {
   const [checked, setChecked] = useState(false);
@@ -58,7 +60,12 @@ const UserProfile: FC<UserProfileProps> = () => {
         </Stack>
       </Grid>
       <Grid item xs={12} display="flex" justifyContent="center">
-        <Button startIcon={<ChatIcon />} variant="outlined" href="/message">
+        <Button
+          startIcon={<ChatIcon />}
+          variant="outlined"
+          href={routes.message}
+          component={Link}
+        >
           chat
         </Button>
       </Grid>
