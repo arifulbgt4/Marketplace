@@ -1,7 +1,7 @@
 "use client";
 import { FC } from "react";
 import { Form as FinalForm } from "react-final-form";
-import { Container, Grid } from "@mui/material";
+import { Container, Grid, Hidden } from "@mui/material";
 
 import ListingPreview from "src/widgets/ListingPreview";
 
@@ -18,14 +18,17 @@ const ListingForm: FC<ListingFormProps> = () => {
         return (
           <form onSubmit={handleSubmit}>
             <Grid container>
-              <Grid item xs={7}>
-                <Container maxWidth="md">
-                  <ListingPreview values={values} />
-                </Container>
-              </Grid>
+              <Hidden mdDown>
+                <Grid item md={7}>
+                  <Container maxWidth="md">
+                    <ListingPreview values={values} />
+                  </Container>
+                </Grid>
+              </Hidden>
               <Grid
                 item
-                xs={5}
+                xs={12}
+                md={5}
                 sx={(theme) => ({
                   height: "fit-content",
                   position: "sticky",
