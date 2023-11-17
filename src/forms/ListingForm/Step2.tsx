@@ -10,13 +10,10 @@ const Step2: FC<Step2Props> = () => {
   return (
     <Grid container spacing={2} justifyContent="center">
       <Grid item xs={12}>
-        <Typography variant="h6" textAlign="center">
-          Price Information
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>
         <CheckboxGroup
           name="aminities"
+          spacing={3}
+          item={2}
           options={[
             { label: "dfvfdvf sdd sdd sdd", value: "sfdfsd1" },
             { label: "dfvfdvf dfvf", value: "sfdfsd2" },
@@ -32,25 +29,9 @@ const Step2: FC<Step2Props> = () => {
             { label: "dfvfdvc sdd SD f", value: "sadfdfsd7" },
             { label: "dfvfdvf SD", value: "sfdfscsd46" },
           ]}
-          renderContainer={({ checkbox }) => (
+          renderLabel={() => <Typography variant="h5">Amenities</Typography>}
+          renderCheckbox={({ label, checked }) => (
             <>
-              <Typography variant="h4">Aminities</Typography>
-              <Stack direction="row" flexWrap="wrap" gap={3} mr={-3}>
-                {checkbox}
-              </Stack>
-            </>
-          )}
-          renderCheckbox={({ label, checked, onClick }) => (
-            <Stack
-              onClick={onClick}
-              flex={1}
-              sx={(theme) => ({
-                position: "relative",
-                cursor: "pointer",
-                maxWidth: `calc(${100 / 2}% - ${theme.spacing(3)})`,
-                flexBasis: `calc(${100 / 2}% - ${theme.spacing(3)})`,
-              })}
-            >
               <Box position="absolute" right={5} top={5}>
                 {!checked ? <CheckCircleOutline /> : <CheckCircle />}
               </Box>
@@ -69,7 +50,7 @@ const Step2: FC<Step2Props> = () => {
                 <Bed fontSize="large" />
                 <Typography variant="subtitle1">{label}</Typography>
               </Stack>
-            </Stack>
+            </>
           )}
         />
       </Grid>

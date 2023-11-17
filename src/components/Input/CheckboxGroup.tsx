@@ -1,6 +1,7 @@
 // React
 import React, { FC } from "react";
 // packages
+import { Box, Stack } from "@mui/material";
 import { Field } from "react-final-form";
 
 // Types
@@ -10,8 +11,11 @@ const CheckboxGroup: FC<CheckboxGroupProps> = ({
   name,
   options,
   renderCheckbox,
-  renderContainer,
+  renderLabel,
+  rootSx,
   fieldProps,
+  spacing = 1,
+  item = 1,
   ...rest
 }) => {
   const totalOptions = options?.length || 0;
@@ -42,27 +46,38 @@ const CheckboxGroup: FC<CheckboxGroupProps> = ({
         }
 
         const checkbox = options.map((box) => (
-          <React.Fragment key={box.value}>
+          <Stack
+            key={box.value}
+            onClick={() => onTriger(box.value)}
+            flex={1}
+            sx={(theme) => ({
+              position: "relative",
+              cursor: "pointer",
+              maxWidth: `calc(${100 / item}% - ${theme.spacing(spacing)})`,
+              flexBasis: `calc(${100 / item}% - ${theme.spacing(spacing)})`,
+            })}
+          >
             {renderCheckbox({
               value: box.value,
               label: box.label,
               checked: value?.includes(box.value),
-              onClick: () => onTriger(box.value),
             })}
-          </React.Fragment>
+          </Stack>
         ));
 
         return (
-          <React.Fragment>
-            {renderContainer({
-              checkbox,
+          <Box sx={rootSx}>
+            {renderLabel({
               checked: totalChecked,
               unchecked: totalOptions - totalChecked,
               total: totalOptions,
               onCheckedAll,
               onClearAll,
             })}
-          </React.Fragment>
+            <Stack direction="row" flexWrap="wrap" gap={spacing} mr={-spacing}>
+              {checkbox}
+            </Stack>
+          </Box>
         );
       }}
       {...fieldProps}

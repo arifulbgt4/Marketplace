@@ -90,8 +90,7 @@ export interface CheckboxOptions {
   value: string;
   label: string;
 }
-export interface RenderContainerOptions {
-  checkbox: ReactNode | ReactNode[];
+export interface RenderLabelOptions {
   checked: number;
   unchecked: number;
   total: number;
@@ -103,16 +102,18 @@ export interface RenderCheckboxOptions {
   value: String;
   label: String;
   checked: Boolean;
-  onClick: () => void;
 }
 
 export interface CheckboxGroupProps
   extends Partial<Omit<MuiCheckboxProps, "onChange">> {
   name: string;
-  renderContainer: (props: RenderContainerOptions) => ReactNode;
+  rootSx?: MuiSxProps;
+  renderLabel: (props: RenderLabelOptions) => ReactNode;
   renderCheckbox: (props: RenderCheckboxOptions) => ReactNode;
   options: CheckboxOptions[];
   fieldProps?: Partial<FieldProps<any, any>>;
+  spacing?: number;
+  item?: number;
 }
 
 export type FieldShowErrorOptions = (props: FieldMetaOptions) => boolean;
