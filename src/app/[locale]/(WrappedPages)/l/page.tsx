@@ -1,10 +1,11 @@
 import { Box, Container, Grid } from "@mui/material";
+import { NextPage } from "next";
 
 // import Listings from "src/widgets/Listings";
 // import ListingsSidebarFilter from "src/widgets/ListingsSidebarFilter";
 // import SearchFilter from "src/widgets/SearchFilter";
 
-const ListingPage = () => {
+const ListingEditPage: NextPage = () => {
   return (
     <Box>
       {/* <Container>
@@ -26,4 +27,4 @@ const ListingPage = () => {
   );
 };
 
-export default ListingPage;
+export default ListingEditPage;
