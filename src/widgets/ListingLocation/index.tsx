@@ -1,7 +1,9 @@
+"use client";
 import { FC } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 
 import { ListingLocationProps } from "./Types";
+import Mapbox from "src/components/Mapbox";
 
 const ListingLocation: FC<ListingLocationProps> = ({ address }) => {
   return (
@@ -11,6 +13,9 @@ const ListingLocation: FC<ListingLocationProps> = ({ address }) => {
         <Typography variant="body2">{address}</Typography>
       </Box>
       <Typography variant="h5">Map</Typography>
+      <Box height={400} boxShadow={1} borderRadius={2} overflow="hidden">
+        <Mapbox />
+      </Box>
     </Stack>
   );
 };
