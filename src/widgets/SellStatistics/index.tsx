@@ -15,23 +15,24 @@ import {
 
 import { SellStatisticsProps } from "./Types";
 
-const SellStatistics: FC<SellStatisticsProps> = ({ sellData }) => {
-  const {
-    monthData,
-    monthLabel,
-    yrData,
-    yrLebel,
-    weekData,
-    weekLebel,
-    grow,
-    newSell,
-    totalSell,
-  } = sellData;
+const SellStatistics: FC<SellStatisticsProps> = ({
+  weekSellData,
+  monthSellData,
+  yearSellData,
+}) => {
+  const { weekData, weekLebel, weekGrow, weekNewSell, weekTotalSell } =
+    weekSellData;
+  const { monthData, monthLabel, monthGrow, monthNewSell, monthTotalSell } =
+    monthSellData;
+  const { yrData, yrLebel, YrGrow, YrNewSell, YrTotalSell } = yearSellData;
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [chart, setChart] = useState<any>({
     lebel: monthLabel,
     data: monthData,
+    grow: monthGrow,
+    newSell: monthNewSell,
+    total: monthTotalSell,
   });
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -42,57 +43,71 @@ const SellStatistics: FC<SellStatisticsProps> = ({ sellData }) => {
   };
 
   const handleWeek = () => {
-    setChart({ lebel: weekLebel, data: weekData });
+    setChart({
+      lebel: weekLebel,
+      data: weekData,
+      grow: weekGrow,
+      newSell: weekNewSell,
+      total: weekTotalSell,
+    });
   };
   const handleMonth = () => {
     setChart({
       lebel: monthLabel,
       data: monthData,
+      grow: monthGrow,
+      newSell: monthNewSell,
+      total: monthTotalSell,
     });
   };
   const handleyear = () => {
     setChart({
       lebel: yrLebel,
       data: yrData,
+      grow: YrGrow,
+      newSell: YrNewSell,
+      total: YrTotalSell,
     });
   };
 
   return (
     <Paper>
       <Stack flexDirection="row" justifyContent="space-between" p={4}>
-        <Stack justifyContent="space-between" gap={0.5}>
+        <Stack justifyContent="space-between" gap={0.5} width={80}>
           <Typography variant="subtitle1">Total Sell</Typography>
-          <Typography variant="h5">{totalSell}</Typography>
+          <Typography variant="h5">{chart.total}</Typography>
         </Stack>
-        <Stack justifyContent="space-between" gap={0.5}>
+        <Stack justifyContent="space-between" gap={0.5} width={80}>
           <Typography variant="subtitle1">New Sell</Typography>
-          <Typography variant="h5">{newSell}</Typography>
+          <Typography variant="h5">{chart.newSell}</Typography>
         </Stack>
-        <Stack justifyContent="space-between" gap={0.5}>
+        <Stack justifyContent="space-between" gap={0.5} width={80}>
           <Typography variant="subtitle1">Groth</Typography>
-          <Stack
-            flexDirection="row"
-            justifyContent="center"
-            alignItems="center"
-            gap={0.5}
-          >
-            <Typography variant="h5">
-              {grow}
+          <Stack flexDirection="row" alignItems="center" gap={0.5}>
+            <Typography
+              color={chart.grow >= 0 ? "success.main" : "warning.main"}
+              variant="h5"
+            >
+              {chart.grow}
               {"%"}
             </Typography>
             <IconButton sx={{ p: 0 }}>
-              {grow > 0 && <ArrowUpwardIcon fontSize="small" />}
-              {grow < 0 && <ArrowDownwardIcon fontSize="small" />}
+              {chart.grow > 0 && (
+                <ArrowUpwardIcon color="success" fontSize="small" />
+              )}
+              {chart.grow < 0 && (
+                <ArrowDownwardIcon color="warning" fontSize="small" />
+              )}
             </IconButton>
           </Stack>
         </Stack>
-        <Stack justifyContent="space-between" gap={0.5}>
+        <Stack justifyContent="space-between" width={130} gap={0.5}>
           <Typography variant="subtitle1">Period</Typography>
           <Stack
             flexDirection="row"
-            justifyContent="center"
             alignItems="center"
             onClick={handleClick}
+            sx={{ cursor: "pointer" }}
           >
             <Typography variant="h5">
               {chart.lebel === weekLebel
@@ -103,7 +118,6 @@ const SellStatistics: FC<SellStatisticsProps> = ({ sellData }) => {
                 ? "This Year"
                 : ""}
             </Typography>
-
             <IconButton sx={{ p: 0 }}>
               <ArrowDropDownIcon />
             </IconButton>
@@ -139,7 +153,6 @@ const SellStatistics: FC<SellStatisticsProps> = ({ sellData }) => {
           </MenuItem>
         </Menu>
       </Stack>
-
       <BarChart
         xAxis={[
           {
