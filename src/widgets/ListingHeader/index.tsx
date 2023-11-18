@@ -17,7 +17,6 @@ const ListingHeader: FC<ListingHeaderProps> = ({
       <Stack flexDirection="row" alignItems="center" gap={1}>
         {rating && (
           <>
-            {" "}
             <Stack gap={1} flexDirection="row" alignItems="center">
               <Rating max={1} defaultValue={1} size="large" readOnly />
               <Typography>{rating}</Typography>
