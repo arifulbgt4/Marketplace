@@ -1,13 +1,23 @@
 export interface SellStatisticsProps {
-  sellData: {
-    monthData: number[];
-    monthLabel: string[];
-    yrData: number[];
-    yrLebel: string[];
+  weekSellData: {
     weekData: number[];
     weekLebel: string[];
-    grow: number;
-    newSell: number;
-    totalSell: number;
+    weekGrow: number;
+    weekNewSell: number;
+    weekTotalSell: number;
+  };
+  monthSellData: {
+    monthData: number[];
+    monthLabel: string[];
+    monthGrow: number;
+    monthNewSell: number;
+    monthTotalSell: number;
+  };
+  yearSellData: {
+    yrData: number[];
+    yrLebel: string[];
+    YrGrow: number;
+    YrNewSell: number;
+    YrTotalSell: number;
   };
 }
