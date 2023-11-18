@@ -1,9 +1,12 @@
-import { Grid } from "@mui/material";
-
-import UserMedia from "src/widgets/UserMedia";
+import { Paper } from "@mui/material";
+import UserMediaForm from "src/forms/UserMediaForm";
 
 const Media = () => {
-  return <UserMedia />;
+  return (
+    <Paper>
+      <UserMediaForm />
+    </Paper>
+  );
 };
 
 export default Media;

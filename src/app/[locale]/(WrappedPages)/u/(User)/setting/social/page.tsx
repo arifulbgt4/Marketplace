@@ -1,8 +1,7 @@
-import { Grid } from "@mui/material";
-import SocilalSetting from "src/widgets/SocilalSetting";
+import SocilalForm from "src/forms/SocialForm";
 
 const Social = () => {
-  return <SocilalSetting />;
+  return <SocilalForm />;
 };
 
 export default Social;
