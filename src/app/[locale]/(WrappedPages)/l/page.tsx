@@ -1,7 +1,7 @@
+"use client";
 import { Box, Container, Grid } from "@mui/material";
 import { NextPage } from "next";
 
-// import Listings from "src/widgets/Listings";
 // import ListingsSidebarFilter from "src/widgets/ListingsSidebarFilter";
 // import SearchFilter from "src/widgets/SearchFilter";
 
@@ -16,9 +16,6 @@ const ListingEditPage: NextPage = () => {
           <Grid item xs={12} container>
             <Grid item xs={4}>
               <ListingsSidebarFilter />
-            </Grid>
-            <Grid item xs={8}>
-              <Listings />
             </Grid>
           </Grid>
         </Grid>
