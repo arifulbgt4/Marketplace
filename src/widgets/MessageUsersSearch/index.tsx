@@ -8,20 +8,20 @@ import { MessageUsersSearchProps } from "./Types";
 
 const MessageUsersSearch: FC<MessageUsersSearchProps> = () => {
   return (
-    <Stack>
+    <>
       <Box
         px={2.8}
-        py={1.2}
+        py={1.9}
         borderBottom={1}
+        borderRadius={0.5}
         borderColor={(theme) => theme.palette.action.disabledBackground}
-        borderRadius={1}
       >
         <SearchChatForm />
       </Box>
       <Box sx={{ maxHeight: "70vh", overflow: "auto" }}>
         <ChatList />
       </Box>
-    </Stack>
+    </>
   );
 };
 
