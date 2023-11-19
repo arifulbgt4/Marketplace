@@ -1,13 +1,23 @@
 import { FC } from "react";
-import ChatBox from "../ChatBox";
-import SendMessageForm from "src/forms/SendMessageForm";
+import { Stack } from "@mui/material";
 
-const MessageContainer = () => {
+import MessageForm from "src/forms/MessageForm";
+import MessageUserHeader from "src/widgets/MessageUserHeader";
+import MessageBody from "src/widgets/MessageBody";
+
+import { MessageContainerProps } from "./Types";
+
+const MessageContainer: FC<MessageContainerProps> = () => {
   return (
-    <>
-      <ChatBox />
-      <SendMessageForm />
-    </>
+    <Stack
+      sx={(theme) => ({
+        borderLeft: `1px solid ${theme.palette.action.disabledBackground}`,
+      })}
+    >
+      <MessageUserHeader />
+      <MessageBody />
+      <MessageForm />
+    </Stack>
   );
 };
 
