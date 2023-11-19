@@ -1,5 +1,10 @@
 import { Grid } from "@mui/material";
+import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
+import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import CurrencyBitcoinIcon from "@mui/icons-material/CurrencyBitcoin";
 
+import DashBoardWidget from "src/widgets/DashBoardWidget";
 import SellStatistics from "src/widgets/SellStatistics";
 import VisitorStatistic from "src/widgets/VisitorStatistic";
 
@@ -102,15 +107,53 @@ const visitorData = {
 const DashboardPage = () => {
   return (
     <Grid container rowSpacing={5} columnSpacing={8}>
+      <Grid item container xs={8} columnSpacing={7} rowSpacing={4}>
+        <Grid item xs={6}>
+          <DashBoardWidget
+            icon={BusinessCenterIcon}
+            totalItem="Total Product"
+            totalValue={932}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <DashBoardWidget
+            icon={InsertDriveFileIcon}
+            totalItem="Total Order"
+            totalValue={654}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <DashBoardWidget
+            icon={MonetizationOnIcon}
+            totalItem="Total Sell"
+            totalValue={854}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <DashBoardWidget
+            icon={CurrencyBitcoinIcon}
+            totalItem="Total Customer"
+            totalValue={754}
+          />
+        </Grid>
+      </Grid>
       <Grid item xs={4}>
         <VisitorStatistic visitorData={visitorData} />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12}>
         <SellStatistics
           weekSellData={weekSellData}
           monthSellData={monthSellData}
           yearSellData={yearSellData}
         />
+      </Grid>
+      <Grid item container xs={12}>
+        <Grid item xs={4}>
+          UserStatistic
+        </Grid>
+        <Grid item xs={4}>
+          Sell Statistic
+        </Grid>
       </Grid>
     </Grid>
   );
