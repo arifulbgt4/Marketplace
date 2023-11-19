@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Box, Grid, Stack } from "@mui/material";
+import { Box } from "@mui/material";
 
 import SearchChatForm from "src/forms/SearchChatForm";
 import ChatList from "src/widgets/ChatList";
