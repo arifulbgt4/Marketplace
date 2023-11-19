@@ -5,7 +5,7 @@ import { ChatListProps } from "./Types";
 
 const ChatList: FC<ChatListProps> = () => {
   return (
-    <Box sx={{ maxHeight: "75vh", overflow: "auto" }}>
+    <Box>
       <Grid item xs={12}>
         <CardHeader
           avatar={
