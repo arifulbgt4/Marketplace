@@ -18,9 +18,7 @@ const MessageUsersSearch: FC<MessageUsersSearchProps> = () => {
       >
         <SearchChatForm />
       </Box>
-      <Box>
-        <ChatList />
-      </Box>
+      <ChatList />
     </>
   );
 };
