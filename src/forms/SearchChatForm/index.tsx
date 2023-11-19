@@ -17,6 +17,7 @@ const SearchChatForm: FC<SearchChatFormProps> = () => {
         return (
           <form onSubmit={handleSubmit}>
             <TextField
+              size="small"
               fullWidth
               name="search"
               placeholder="search"
