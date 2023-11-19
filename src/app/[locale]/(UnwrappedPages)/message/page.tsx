@@ -1,9 +1,8 @@
 "use client";
-import { Box, Container, Grid, Stack } from "@mui/material";
+import { Container, Grid, Stack } from "@mui/material";
 
-import ChatBox from "src/widgets/ChatBox";
-import SendMessageForm from "src/forms/SendMessageForm";
 import MessageUsersSearch from "src/widgets/MessageUsersSearch";
+import MessageContainer from "src/widgets/MessageContainer";
 
 const MessagePage = () => {
   return (
@@ -13,14 +12,8 @@ const MessagePage = () => {
           <Grid item xs={3}>
             <MessageUsersSearch />
           </Grid>
-
           <Grid item xs={9}>
-            <Grid item xs={12}>
-              <ChatBox />
-            </Grid>
-            <Grid item xs={12}>
-              <SendMessageForm />
-            </Grid>
+            <MessageContainer />
           </Grid>
         </Grid>
       </Container>
