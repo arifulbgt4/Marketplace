@@ -7,6 +7,7 @@ import CurrencyBitcoinIcon from "@mui/icons-material/CurrencyBitcoin";
 import DashBoardWidget from "src/widgets/DashBoardWidget";
 import SellStatistics from "src/widgets/SellStatistics";
 import VisitorStatistic from "src/widgets/VisitorStatistic";
+import UserStatistic from "src/widgets/UserStatistic";
 
 const weekSellData = {
   weekLebel: ["Sat", "Sun", "Mun", "Tue", "Wed", "Thu", "Fri"],
@@ -103,6 +104,11 @@ const visitorData = {
   ],
   visitors: 345678,
 };
+const genderValue = {
+  male: 50,
+  female: 35,
+  other: 15,
+};
 
 const DashboardPage = () => {
   return (
@@ -147,11 +153,11 @@ const DashboardPage = () => {
           yearSellData={yearSellData}
         />
       </Grid>
-      <Grid item container xs={12}>
-        <Grid item xs={4}>
-          UserStatistic
+      <Grid item container xs={12} columnSpacing={4}>
+        <Grid item xs={3}>
+          <UserStatistic genderValue={genderValue} />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={9}>
           Sell Statistic
         </Grid>
       </Grid>
