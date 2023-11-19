@@ -18,7 +18,7 @@ const MessageUsersSearch: FC<MessageUsersSearchProps> = () => {
       >
         <SearchChatForm />
       </Box>
-      <Box sx={{ maxHeight: "70vh", overflow: "auto" }}>
+      <Box>
         <ChatList />
       </Box>
     </>

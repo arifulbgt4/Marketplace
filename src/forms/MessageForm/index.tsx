@@ -9,7 +9,7 @@ import { TextField } from "src/components/Input";
 
 import { SendMessageFormProps } from "./Types";
 
-const SendMessageForm: FC<SendMessageFormProps> = () => {
+const MessageForm: FC<SendMessageFormProps> = () => {
   const onSubmitForm = async () => {};
 
   return (
@@ -60,4 +60,4 @@ const SendMessageForm: FC<SendMessageFormProps> = () => {
   );
 };
 
-export default SendMessageForm;
+export default MessageForm;
