@@ -9,7 +9,6 @@ import { Paper, Stack, Typography, Box } from "@mui/material";
 const UserStatistic: FC<UserStatisticProps> = ({ genderValue }) => {
   const { male, female, other } = genderValue;
   const theme = useTheme();
-  console.log("theme: ", theme);
   return (
     <Stack
       component={Paper}

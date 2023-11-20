@@ -8,6 +8,7 @@ import DashBoardWidget from "src/widgets/DashBoardWidget";
 import SellStatistics from "src/widgets/SellStatistics";
 import VisitorStatistic from "src/widgets/VisitorStatistic";
 import UserStatistic from "src/widgets/UserStatistic";
+import UserSellStatistic from "src/widgets/UserSellStatiStics";
 
 const weekSellData = {
   weekLebel: ["Sat", "Sun", "Mun", "Tue", "Wed", "Thu", "Fri"],
@@ -110,6 +111,25 @@ const genderValue = {
   other: 15,
 };
 
+const userStatisticData = {
+  uData: [
+    3000, 2450, 2000, 2780, 1890, 2390, 2490, 3000, 2000, 2780, 1890, 2393,
+    3000,
+  ],
+  pData: [
+    2090, 2590, 3000, 2200, 2000, 2980, 1990, 2590, 3200, 2650, 2200, 2980,
+    2700,
+  ],
+  xLabels: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+};
+
+const userWeeklyData = {
+  data: [2, 5, 8, 4, 2],
+  xAxis: ["1", "2", "3", "4", "5"],
+  impar: 12.345,
+  yearGroth: 4.5,
+};
+
 const DashboardPage = () => {
   return (
     <Grid container rowSpacing={5} columnSpacing={8}>
@@ -158,7 +178,10 @@ const DashboardPage = () => {
           <UserStatistic genderValue={genderValue} />
         </Grid>
         <Grid item xs={9}>
-          Sell Statistic
+          <UserSellStatistic
+            userStatisticData={userStatisticData}
+            userWeeklyData={userWeeklyData}
+          />
         </Grid>
       </Grid>
     </Grid>
