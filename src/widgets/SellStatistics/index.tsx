@@ -71,7 +71,13 @@ const SellStatistics: FC<SellStatisticsProps> = ({
   };
 
   return (
-    <Paper>
+    <Paper
+      elevation={0}
+      sx={(theme) => ({
+        borderRadius: 2.5,
+        border: `2px solid ${theme.palette.primary.light}`,
+      })}
+    >
       <Stack flexDirection="row" justifyContent="space-between" p={4}>
         <Stack justifyContent="space-between" gap={0.5} width={80}>
           <Typography variant="subtitle1">Total Sell</Typography>

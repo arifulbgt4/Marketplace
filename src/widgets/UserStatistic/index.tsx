@@ -2,9 +2,9 @@
 import { FC } from "react";
 import { useTheme } from "@mui/material";
 import { PieChart } from "@mui/x-charts/PieChart";
+import { Paper, Stack, Typography, Box } from "@mui/material";
 
 import { UserStatisticProps } from "./Types";
-import { Paper, Stack, Typography, Box } from "@mui/material";
 
 const UserStatistic: FC<UserStatisticProps> = ({ genderValue }) => {
   const { male, female, other } = genderValue;
@@ -12,6 +12,7 @@ const UserStatistic: FC<UserStatisticProps> = ({ genderValue }) => {
   return (
     <Stack
       component={Paper}
+      elevation={0}
       p={2.6}
       gap={4}
       borderRadius={2.5}
@@ -30,7 +31,7 @@ const UserStatistic: FC<UserStatisticProps> = ({ genderValue }) => {
             innerRadius: 38,
           },
         ]}
-        height={200}
+        height={231}
         slotProps={{
           legend: { hidden: true },
         }}

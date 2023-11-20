@@ -15,6 +15,7 @@ const UserSellStatistic: FC<UserSellStatisticProps> = ({
   const theme = useTheme();
   return (
     <Paper
+      elevation={0}
       sx={(theme) => ({
         p: 4,
         borderRadius: 2.5,
@@ -147,8 +148,9 @@ const WeekChat: FC<WeekChatProps> = ({ userWeeklyData }) => {
         >
           <Typography variant="subtitle1">{impar}</Typography>
           <Stack flexDirection="row" alignItems="center" gap={0.5}>
-            <Typography variant="subtitle1">
-              {yearGroth} {"%"}
+            <Typography variant="subtitle1" color="primary.main">
+              {yearGroth}
+              {"%"}
             </Typography>
             <Typography variant="subtitle2" color="text.disabled">
               than last year
