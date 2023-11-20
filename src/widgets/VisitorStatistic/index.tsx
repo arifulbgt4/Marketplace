@@ -8,14 +8,20 @@ import { VisitorStatisticProps } from "./Types";
 const VisitorStatistic: FC<VisitorStatisticProps> = ({ visitorData }) => {
   const { visitors, xLabels, uData } = visitorData;
   return (
-    <Paper elevation={0}>
+    <Paper
+      elevation={0}
+      sx={(theme) => ({
+        borderRadius: 2.5,
+        border: `2px solid ${theme.palette.primary.light}`,
+      })}
+    >
       <Stack flexDirection="row" justifyContent="space-between" p={3}>
         <Typography variant="h4">Visitors</Typography>
         <Typography variant="h4">{visitors}</Typography>
       </Stack>
 
       <LineChart
-        height={118}
+        height={168}
         series={[{ type: "line", data: uData, area: true, showMark: false }]}
         xAxis={[{ scaleType: "point", data: xLabels }]}
         bottomAxis={{ disableLine: true }}

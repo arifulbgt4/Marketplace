@@ -132,7 +132,7 @@ const userWeeklyData = {
 
 const DashboardPage = () => {
   return (
-    <Grid container rowSpacing={5} columnSpacing={8}>
+    <Grid container spacing={7}>
       <Grid item container xs={8} columnSpacing={7} rowSpacing={4}>
         <Grid item xs={6}>
           <DashBoardWidget
