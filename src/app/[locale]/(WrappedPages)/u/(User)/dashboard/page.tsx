@@ -132,30 +132,30 @@ const userWeeklyData = {
 
 const DashboardPage = () => {
   return (
-    <Grid container spacing={7}>
-      <Grid item container xs={8} columnSpacing={7} rowSpacing={4}>
-        <Grid item xs={6}>
+    <Grid container columnSpacing={7} rowSpacing={4}>
+      <Grid item container md={8} xs={12} columnSpacing={7} rowSpacing={1}>
+        <Grid item xs={12} md={6}>
           <DashBoardWidget
             icon={BusinessCenterIcon}
             totalItem="Total Product"
             totalValue={932}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <DashBoardWidget
             icon={InsertDriveFileIcon}
             totalItem="Total Order"
             totalValue={654}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <DashBoardWidget
             icon={MonetizationOnIcon}
             totalItem="Total Sell"
             totalValue={854}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <DashBoardWidget
             icon={CurrencyBitcoinIcon}
             totalItem="Total Customer"
@@ -163,7 +163,7 @@ const DashboardPage = () => {
           />
         </Grid>
       </Grid>
-      <Grid item xs={4}>
+      <Grid item xs={12} md={4}>
         <VisitorStatistic visitorData={visitorData} />
       </Grid>
       <Grid item xs={12}>
@@ -173,16 +173,15 @@ const DashboardPage = () => {
           yearSellData={yearSellData}
         />
       </Grid>
-      <Grid item container xs={12} columnSpacing={4}>
-        <Grid item xs={3}>
-          <UserStatistic genderValue={genderValue} />
-        </Grid>
-        <Grid item xs={9}>
-          <UserSellStatistic
-            userStatisticData={userStatisticData}
-            userWeeklyData={userWeeklyData}
-          />
-        </Grid>
+
+      <Grid item xs={12} md={3}>
+        <UserStatistic genderValue={genderValue} />
+      </Grid>
+      <Grid item md={9} xs={12}>
+        <UserSellStatistic
+          userStatisticData={userStatisticData}
+          userWeeklyData={userWeeklyData}
+        />
       </Grid>
     </Grid>
   );

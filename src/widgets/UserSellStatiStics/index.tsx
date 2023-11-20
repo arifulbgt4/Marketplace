@@ -22,8 +22,8 @@ const UserSellStatistic: FC<UserSellStatisticProps> = ({
         border: `2px solid ${theme.palette.primary.light}`,
       })}
     >
-      <Grid container columnSpacing={7.5}>
-        <Grid item xs={8}>
+      <Grid container columnSpacing={7.5} rowSpacing={4}>
+        <Grid item xs={12} md={9}>
           <Stack gap={5}>
             <Typography variant="h5">Sell Statistic</Typography>
             <Box>
@@ -88,7 +88,7 @@ const UserSellStatistic: FC<UserSellStatisticProps> = ({
             </Box>
           </Stack>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} md={3}>
           <WeekChat userWeeklyData={userWeeklyData} />
         </Grid>
       </Grid>
