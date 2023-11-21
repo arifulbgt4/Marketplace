@@ -23,6 +23,7 @@ const UserListings: FC<UserListingsProps> = () => {
             rating,
             slug,
             address,
+            price,
             services,
           } = data;
           return (
@@ -36,6 +37,7 @@ const UserListings: FC<UserListingsProps> = () => {
                 rating={rating}
                 address={address}
                 services={services}
+                price={price}
               />
             </Grid>
           );
