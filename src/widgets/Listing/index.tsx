@@ -43,7 +43,7 @@ const Listing: FC<ListingProps> = ({
         gap: isGrid ? 0 : 3,
       }}
     >
-      <CardMedia component="img" height={isGrid ? 223 : 290} src={image} />
+      <CardMedia component="img" height={isGrid ? 290 : 223} src={image} />
       <Stack p={isGrid ? 0 : 1} width="100%" justifyContent="space-between">
         <CardHeader
           title={title}

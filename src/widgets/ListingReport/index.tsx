@@ -46,7 +46,7 @@ const ListingReport: FC<ListingReportProps> = () => {
             p: 4,
           }}
         >
-          <ReportForm />
+          <ReportForm handleClose={handleClose} />
         </Paper>
       </Modal>
     </Stack>

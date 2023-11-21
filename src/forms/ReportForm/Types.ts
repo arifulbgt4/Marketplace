@@ -1,1 +1,3 @@
-export interface ReportFormProps {}
+export interface ReportFormProps {
+  handleClose: () => void;
+}
