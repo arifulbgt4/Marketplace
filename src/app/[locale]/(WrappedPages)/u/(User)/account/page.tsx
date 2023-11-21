@@ -25,7 +25,7 @@ export default function Account() {
       <Grid item md={4} xs={12}>
         <OwnerProfile profileData={profileData} />
       </Grid>
-      <Grid item container xs={8} rowSpacing={5}>
+      <Grid item container xs={12} md={8} rowSpacing={5}>
         <Grid item xs={12}>
           <OwnerAbout />
         </Grid>

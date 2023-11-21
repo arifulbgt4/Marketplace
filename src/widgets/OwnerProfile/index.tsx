@@ -25,8 +25,8 @@ const OwnerProfile: FC<OwnerProfileProps> = ({ profileData }) => {
   } = profileData;
 
   return (
-    <Stack component={Paper} p={5} gap={3} elevation={0}>
-      <Stack alignItems="center" gap={1} pb={5}>
+    <Stack component={Paper} p={{ xs: 2, md: 5 }} gap={3} elevation={0}>
+      <Stack alignItems="center" gap={1} pb={{ xs: 2, md: 5 }}>
         <Avatar
           sx={{ height: 80, width: 80 }}
           src="https://scontent.fdac151-1.fna.fbcdn.net/v/t1.6435-9/57183841_350708698896126_7610830156164235264_n.jpg?stp=c0.83.500.500a_dst-jpg_s851x315&_nc_cat=103&ccb=1-7&_nc_sid=c21ed2&_nc_eui2=AeFaElRGqUVej9W3pHRzUJYzekZmaJR7xdZ6RmZolHvF1s_RFSaCIhmJ_z_gS4uUbj4a_8ibG42oZlFVJ_U8AMvQ&_nc_ohc=0syEpE5SNx0AX9PoTQp&_nc_ht=scontent.fdac151-1.fna&oh=00_AfDtqza5S0hu-bERP7JZgHE38_hoTQVmmvTq7qJ_gepnpg&oe=657190FC"
