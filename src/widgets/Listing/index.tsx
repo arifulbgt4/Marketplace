@@ -31,6 +31,7 @@ const Listing: FC<ListingProps> = ({
   description,
   rating,
   address,
+  services,
 }) => {
   return (
     <Card
@@ -43,80 +44,83 @@ const Listing: FC<ListingProps> = ({
     >
       <CardMedia component="img" height={isGrid ? 260 : 290} src={image} />
       <Stack p={isGrid ? 0 : 1} width="100%" justifyContent="space-between">
-        <CardHeader title={title} subheader={address}></CardHeader>
-        <CardContent>
-          <Grid container>
-            <Grid item xs={6}>
-              <Stack flexDirection="row" alignItems="center">
-                <IconButton>
-                  <BedIcon fontSize="small" />
-                </IconButton>
-                <Typography color="text.secondary" variant="subtitle1">
-                  1-2 Beds
-                </Typography>
-              </Stack>
+        <CardHeader title={title} subheader={address} />
+        {services && (
+          <CardContent>
+            <Grid container>
+              <Grid item xs={6}>
+                <Stack flexDirection="row" alignItems="center">
+                  <IconButton>
+                    <BedIcon fontSize="small" />
+                  </IconButton>
+                  <Typography color="text.secondary" variant="subtitle1">
+                    {services?.bed} Beds
+                  </Typography>
+                </Stack>
+              </Grid>
+              <Grid item xs={6}>
+                <Stack
+                  flexDirection="row"
+                  alignItems="center"
+                  justifyContent="flex-end"
+                >
+                  <IconButton>
+                    <BathtubIcon fontSize="small" />
+                  </IconButton>
+                  <Typography color="text.secondary" variant="subtitle1">
+                    {services?.bath} Bath
+                  </Typography>
+                </Stack>
+              </Grid>
+              <Grid item xs={6}>
+                <Stack flexDirection="row" alignItems="center">
+                  <IconButton>
+                    <DeselectIcon fontSize="small" />
+                  </IconButton>
+                  <Typography color="text.secondary" variant="subtitle1">
+                    {services?.area} Sqft
+                  </Typography>
+                </Stack>
+              </Grid>
+              <Grid item xs={6}>
+                <Stack
+                  flexDirection="row"
+                  alignItems="center"
+                  justifyContent="flex-end"
+                >
+                  <IconButton>
+                    <ApartmentIcon fontSize="small" />
+                  </IconButton>
+                  <Typography color="text.secondary" variant="subtitle1">
+                    {services?.apartment} Apartment
+                  </Typography>
+                </Stack>
+              </Grid>
             </Grid>
-            <Grid item xs={6}>
-              <Stack
-                flexDirection="row"
-                alignItems="center"
-                justifyContent="flex-end"
-              >
-                <IconButton>
-                  <BathtubIcon fontSize="small" />
-                </IconButton>
-
-                <Typography color="text.secondary" variant="subtitle1">
-                  0-1 Bath
-                </Typography>
-              </Stack>
-            </Grid>
-            <Grid item xs={6}>
-              <Stack flexDirection="row" alignItems="center">
-                <IconButton>
-                  <DeselectIcon fontSize="small" />
-                </IconButton>
-                <Typography color="text.secondary" variant="subtitle1">
-                  634 - 940 Sqft
-                </Typography>
-              </Stack>
-            </Grid>
-            <Grid item xs={6}>
-              <Stack
-                flexDirection="row"
-                alignItems="center"
-                justifyContent="flex-end"
-              >
-                <IconButton>
-                  <ApartmentIcon fontSize="small" />
-                </IconButton>
-                <Typography color="text.secondary" variant="subtitle1">
-                  1-2 Apartment
-                </Typography>
-              </Stack>
-            </Grid>
-          </Grid>
-        </CardContent>
+          </CardContent>
+        )}
       </Stack>
-      <CardActions>
-        <Stack
-          height="100%"
-          flexDirection={isGrid ? "row" : "column"}
-          justifyContent="space-between"
-          flex={1}
-          padding={isGrid ? 0 : 2}
-          pb={isGrid ? 0 : 3}
-        >
-          <Typography variant="h5">{price}/mo</Typography>
-          <Button
-            variant="outlined"
-            component={Link}
-            href={`${routes.listingDetails}/${slug}`}
+      {price && (
+        <CardActions>
+          <Stack
+            height="100%"
+            flexDirection={isGrid ? "row" : "column"}
+            justifyContent="space-between"
+            flex={1}
+            padding={isGrid ? 0 : 2}
+            pb={isGrid ? 0 : 3}
           >
-            view details
-          </Button>
-        </Stack>
-      </CardActions>
+            <Typography variant="h5">{price}/mo</Typography>
+            <Button
+              variant="outlined"
+              component={Link}
+              href={`${routes.listingDetails}/${slug}`}
+            >
+              view details
+            </Button>
+          </Stack>
+        </CardActions>
+      )}
     </Card>
   );
 };

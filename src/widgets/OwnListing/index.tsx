@@ -30,7 +30,7 @@ const OwnListing: FC<OwnListingProps> = () => {
             id,
             image,
             title,
-            price,
+
             description,
             rating,
             slug,
@@ -43,7 +43,6 @@ const OwnListing: FC<OwnListingProps> = () => {
                 slug={slug}
                 image={image}
                 title={title}
-                price={price}
                 description={description}
                 rating={rating}
                 address={address}
