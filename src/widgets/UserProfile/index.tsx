@@ -70,15 +70,8 @@ const UserProfile: FC<UserProfileProps> = () => {
           chat
         </Button>
       </Grid>
-      <Grid
-        item
-        xs={12}
-        display="flex"
-        alignItems="flex-start"
-        gap={{ xs: 2, md: 4 }}
-        flexDirection="column"
-      >
-        <Stack gap={2} width="100%">
+      <Grid item xs={12}>
+        <Stack gap={2} width="100%" pb={{ xs: 2, md: 4 }}>
           <Typography variant="h5">About</Typography>
           <Divider></Divider>
         </Stack>
