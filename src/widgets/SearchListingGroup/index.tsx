@@ -191,8 +191,9 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
               id,
               image,
               title,
-
+              price,
               description,
+              services,
               rating,
               slug,
               address,
@@ -205,6 +206,8 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
                   slug={slug}
                   image={image}
                   title={title}
+                  price={price}
+                  services={services}
                   description={description}
                   rating={rating}
                   address={address}

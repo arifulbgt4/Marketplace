@@ -11,6 +11,7 @@ import {
   Stack,
   IconButton,
   Grid,
+  Box,
 } from "@mui/material";
 import BedIcon from "@mui/icons-material/Bed";
 import BathtubIcon from "@mui/icons-material/Bathtub";
@@ -42,18 +43,25 @@ const Listing: FC<ListingProps> = ({
         gap: isGrid ? 0 : 3,
       }}
     >
-      <CardMedia component="img" height={isGrid ? 260 : 290} src={image} />
+      <CardMedia component="img" height={isGrid ? 223 : 290} src={image} />
       <Stack p={isGrid ? 0 : 1} width="100%" justifyContent="space-between">
-        <CardHeader title={title} subheader={address} />
+        <CardHeader
+          title={title}
+          subheader={
+            <Box pt={0.5}>
+              <Typography variant="h6">{address}</Typography>
+            </Box>
+          }
+        />
         {services && (
           <CardContent>
-            <Grid container>
+            <Grid container rowSpacing={2}>
               <Grid item xs={6}>
-                <Stack flexDirection="row" alignItems="center">
+                <Stack flexDirection="row" gap={2} alignItems="center">
                   <IconButton>
                     <BedIcon fontSize="small" />
                   </IconButton>
-                  <Typography color="text.secondary" variant="subtitle1">
+                  <Typography color="text.secondary" variant="subtitle2">
                     {services?.bed} Beds
                   </Typography>
                 </Stack>
@@ -61,23 +69,24 @@ const Listing: FC<ListingProps> = ({
               <Grid item xs={6}>
                 <Stack
                   flexDirection="row"
+                  gap={2}
                   alignItems="center"
                   justifyContent="flex-end"
                 >
                   <IconButton>
                     <BathtubIcon fontSize="small" />
                   </IconButton>
-                  <Typography color="text.secondary" variant="subtitle1">
+                  <Typography color="text.secondary" variant="subtitle2">
                     {services?.bath} Bath
                   </Typography>
                 </Stack>
               </Grid>
               <Grid item xs={6}>
-                <Stack flexDirection="row" alignItems="center">
+                <Stack flexDirection="row" gap={2} alignItems="center">
                   <IconButton>
                     <DeselectIcon fontSize="small" />
                   </IconButton>
-                  <Typography color="text.secondary" variant="subtitle1">
+                  <Typography color="text.secondary" variant="subtitle2">
                     {services?.area} Sqft
                   </Typography>
                 </Stack>
@@ -85,13 +94,14 @@ const Listing: FC<ListingProps> = ({
               <Grid item xs={6}>
                 <Stack
                   flexDirection="row"
+                  gap={2}
                   alignItems="center"
                   justifyContent="flex-end"
                 >
                   <IconButton>
                     <ApartmentIcon fontSize="small" />
                   </IconButton>
-                  <Typography color="text.secondary" variant="subtitle1">
+                  <Typography color="text.secondary" variant="subtitle2">
                     {services?.apartment} Apartment
                   </Typography>
                 </Stack>
