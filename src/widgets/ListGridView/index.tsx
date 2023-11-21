@@ -25,6 +25,7 @@ const ListGridView: FC<ListGridViewProps> = ({ toggleGridList, isGrid }) => {
             bgcolor: !isGrid && "Background",
           },
         })}
+        disableRipple
         startIcon={<AutoAwesomeMosaicIcon />}
         onClick={() => {
           toggleGridList(true);
@@ -44,24 +45,13 @@ const ListGridView: FC<ListGridViewProps> = ({ toggleGridList, isGrid }) => {
             bgcolor: isGrid && "Background",
           },
         })}
+        disableRipple
         startIcon={<MenuIcon />}
         onClick={() => {
           toggleGridList(false);
         }}
       >
         List
-      </Button>
-      <Button
-        startIcon={<LanguageIcon />}
-        sx={(theme) => ({
-          bgcolor: theme.palette.error.contrastText,
-          color: theme.palette.common.black,
-          ":hover": {
-            bgcolor: "Background",
-          },
-        })}
-      >
-        Map
       </Button>
     </ButtonGroup>
   );

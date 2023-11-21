@@ -8,7 +8,7 @@ import { Select, TextField } from "src/components/Input";
 
 import { ReportFormProps } from "./Types";
 
-const ReportForm: FC<ReportFormProps> = () => {
+const ReportForm: FC<ReportFormProps> = ({ handleClose }) => {
   const onSubmitForm = async () => {};
   return (
     <FinalForm
@@ -53,8 +53,10 @@ const ReportForm: FC<ReportFormProps> = () => {
                 />
               </Grid>
               <Grid item xs={12} container justifyContent="space-between">
-                <Button>Cancel</Button>
-                <Button variant="contained">Submit</Button>
+                <Button onClick={handleClose}>Cancel</Button>
+                <Button variant="contained" onClick={handleClose}>
+                  Submit
+                </Button>
               </Grid>
             </Grid>
           </form>
