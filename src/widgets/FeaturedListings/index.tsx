@@ -28,7 +28,7 @@ const FeaturedListings: FC<FeaturedListingsProps> = () => {
               id,
               image,
               title,
-              price,
+
               description,
               rating,
               slug,
@@ -42,7 +42,6 @@ const FeaturedListings: FC<FeaturedListingsProps> = () => {
                   slug={slug}
                   image={image}
                   title={title}
-                  price={price}
                   description={description}
                   rating={rating}
                 />

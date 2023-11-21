@@ -19,11 +19,11 @@ const UserListings: FC<UserListingsProps> = () => {
             id,
             image,
             title,
-            price,
             description,
             rating,
             slug,
             address,
+            services,
           } = data;
           return (
             <Grid item xs={12} md={6} key={id}>
@@ -32,10 +32,10 @@ const UserListings: FC<UserListingsProps> = () => {
                 slug={slug}
                 image={image}
                 title={title}
-                price={price}
                 description={description}
                 rating={rating}
                 address={address}
+                services={services}
               />
             </Grid>
           );

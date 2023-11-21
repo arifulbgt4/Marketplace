@@ -4,8 +4,14 @@ export interface ListingProps {
   slug: string;
   image: string;
   title: string;
-  price: number;
+  price?: number;
   description: string;
   rating: number;
   address: string;
+  services?: {
+    bed?: string;
+    bath?: string;
+    area?: string;
+    apartment?: string;
+  };
 }

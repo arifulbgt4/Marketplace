@@ -28,7 +28,7 @@ const RecentListings: FC<RecentListingsProps> = () => {
               id,
               image,
               title,
-              price,
+
               description,
               rating,
               slug,
@@ -41,7 +41,6 @@ const RecentListings: FC<RecentListingsProps> = () => {
                   slug={slug}
                   image={image}
                   title={title}
-                  price={price}
                   address={address}
                   rating={rating}
                   description={description}
