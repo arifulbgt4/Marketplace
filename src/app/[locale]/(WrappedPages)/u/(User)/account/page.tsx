@@ -1,7 +1,8 @@
 import { Grid } from "@mui/material";
+
+import OwnerBasicInfo from "src/widgets/OwnerBasicInfo";
 import OwnerListings from "src/widgets/OwnerListings";
 import OwnerReview from "src/widgets/OwnerReview";
-import UserReviews from "src/widgets/UserReviews";
 
 export default function Account() {
   return (
@@ -9,12 +10,12 @@ export default function Account() {
       <Grid item md={4} xs={12}>
         Owner Profile
       </Grid>
-      <Grid item container xs={8}>
+      <Grid item container xs={8} rowSpacing={5}>
         <Grid item xs={12}>
           about
         </Grid>
         <Grid item xs={12}>
-          OwnerBasicInfo
+          <OwnerBasicInfo />
         </Grid>
         <Grid item xs={12}>
           <OwnerListings />
