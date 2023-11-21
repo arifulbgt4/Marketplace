@@ -1,5 +1,7 @@
+"use client";
 import { Grid } from "@mui/material";
 
+import OwnerAbout from "src/widgets/OwnerAbout";
 import OwnerBasicInfo from "src/widgets/OwnerBasicInfo";
 import OwnerListings from "src/widgets/OwnerListings";
 import OwnerReview from "src/widgets/OwnerReview";
@@ -12,7 +14,7 @@ export default function Account() {
       </Grid>
       <Grid item container xs={8} rowSpacing={5}>
         <Grid item xs={12}>
-          about
+          <OwnerAbout />
         </Grid>
         <Grid item xs={12}>
           <OwnerBasicInfo />
