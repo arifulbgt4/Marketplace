@@ -220,6 +220,69 @@ export const ownListingData = [
   },
 ];
 
+export const orderDetailsData = [
+  {
+    id: 1,
+    orderNo: "#123567",
+    product:
+      "Phone 234-M Grey ColorTristique sed Regular Price: $800 Sale Price: $8Do ",
+    sxu: "1234567FR",
+    category: "Electronics",
+    payment: 600,
+    orderStatus: "Complete",
+  },
+  {
+    id: 2,
+    orderNo: "#123567",
+    product:
+      "Phone 234-M Grey ColorTristique sed Regular Price: $800 Sale Price: $8Do ",
+    sxu: "1234567FR",
+    category: "Electronics",
+    payment: 600,
+    orderStatus: "Cancle",
+  },
+  {
+    id: 3,
+    orderNo: "#123567",
+    product:
+      "Phone 234-M Grey ColorTristique sed Regular Price: $800 Sale Price: $8Do ",
+    sxu: "1234567FR",
+    category: "Electronics",
+    payment: 600,
+    orderStatus: "Complete",
+  },
+  {
+    id: 4,
+    orderNo: "#123567",
+    product:
+      "Phone 234-M Grey ColorTristique sed Regular Price: $800 Sale Price: $8Do ",
+    sxu: "1234567FR",
+    category: "Electronics",
+    payment: 600,
+    orderStatus: "Complete",
+  },
+  {
+    id: 5,
+    orderNo: "#123567",
+    product:
+      "Phone 234-M Grey ColorTristique sed Regular Price: $800 Sale Price: $8Do ",
+    sxu: "1234567FR",
+    category: "Electronics",
+    payment: 600,
+    orderStatus: "Cancle",
+  },
+  {
+    id: 6,
+    orderNo: "#123567",
+    product:
+      "Phone 234-M Grey ColorTristique sed Regular Price: $800 Sale Price: $8Do ",
+    sxu: "1234567FR",
+    category: "Electronics",
+    payment: 600,
+    orderStatus: "Complete",
+  },
+];
+
 export const recentPostData = [
   {
     id: 1,
