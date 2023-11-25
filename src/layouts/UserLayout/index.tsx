@@ -1,5 +1,6 @@
 "use client";
 import { FC } from "react";
+import { usePathname } from "next/navigation";
 import {
   Grid,
   Stack,
@@ -12,14 +13,12 @@ import {
 } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { usePathname } from "next/navigation";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import routes from "src/global/routes";
 
@@ -104,6 +103,14 @@ const UserLayout: FC<UserLayoutProps> = ({ children }) => {
                   iconPosition="start"
                   label="BOOKMARKS"
                   value={routes.userBookmark}
+                />
+                <Tab
+                  component={Link}
+                  href={routes.userOrder}
+                  icon={<ShoppingCartIcon fontSize="small" />}
+                  iconPosition="start"
+                  label="ORDER"
+                  value={routes.userOrder}
                 />
                 <Tab
                   component={Link}

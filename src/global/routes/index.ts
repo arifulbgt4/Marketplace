@@ -12,6 +12,7 @@ export default {
   userBookmark: "/u/bookmark",
   userDashboard: "/u/dashboard",
   userListing: "/u/listing",
+  userOrder: "/u/order",
   userAccount: "/u/account",
   userSetting: "/u/setting",
   userMediaSetting: "/u/setting/media",
