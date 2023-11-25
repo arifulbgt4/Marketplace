@@ -5,7 +5,6 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import { Stack, IconButton, Typography, Box, Chip } from "@mui/material";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import SmartphoneIcon from "@mui/icons-material/Smartphone";
@@ -15,7 +14,7 @@ import { OrderDetailsProps } from "./Types";
 
 const OrderDetails: FC<OrderDetailsProps> = ({ orderDetailsData }) => {
   return (
-    <TableContainer component={Paper}>
+    <TableContainer>
       <Table>
         <TableHead>
           <TableRow>
@@ -58,7 +57,6 @@ const OrderDetails: FC<OrderDetailsProps> = ({ orderDetailsData }) => {
                 <TableCell
                   sx={{
                     display: "flex",
-                    justifyContent: "center",
                     borderBottom: "none",
                   }}
                   align="left"
