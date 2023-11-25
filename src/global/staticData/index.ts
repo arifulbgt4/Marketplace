@@ -281,6 +281,46 @@ export const orderDetailsData = [
     payment: 600,
     orderStatus: "Complete",
   },
+  {
+    id: 7,
+    orderNo: "#123567",
+    product:
+      "Phone 234-M Grey ColorTristique sed Regular Price: $800 Sale Price: $8Do ",
+    sxu: "1234567FR",
+    category: "Electronics",
+    payment: 600,
+    orderStatus: "Cancle",
+  },
+  {
+    id: 8,
+    orderNo: "#123567",
+    product:
+      "Phone 234-M Grey ColorTristique sed Regular Price: $800 Sale Price: $8Do ",
+    sxu: "1234567FR",
+    category: "Electronics",
+    payment: 600,
+    orderStatus: "Complete",
+  },
+  {
+    id: 9,
+    orderNo: "#123567",
+    product:
+      "Phone 234-M Grey ColorTristique sed Regular Price: $800 Sale Price: $8Do ",
+    sxu: "1234567FR",
+    category: "Electronics",
+    payment: 600,
+    orderStatus: "Cancle",
+  },
+  {
+    id: 10,
+    orderNo: "#123567",
+    product:
+      "Phone 234-M Grey ColorTristique sed Regular Price: $800 Sale Price: $8Do ",
+    sxu: "1234567FR",
+    category: "Electronics",
+    payment: 600,
+    orderStatus: "Complete",
+  },
 ];
 
 export const recentPostData = [

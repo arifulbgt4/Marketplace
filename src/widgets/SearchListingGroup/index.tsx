@@ -62,7 +62,7 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
                 <FilterAltIcon />
               </IconButton>
 
-              <Drawer open={open} onClose={() => setOpen(false)}>
+              <Drawer open={open} onClose={() => setOpen(false)} anchor="left">
                 <Box width={{ xs: 250, sm: 300 }}>
                   <ListSearchFiltersForm
                     onCloseMobileDrawer={() => setOpen(false)}
