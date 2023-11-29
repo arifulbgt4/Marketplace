@@ -1,33 +1,27 @@
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 
 import AboutDetails from "src/widgets/AboutDetails";
+import QuickFacts from "src/widgets/QuickFacts";
 
 const About = () => {
   return (
     <>
       <Box pt={5}>
-        <Container>
-          <Grid container>
-            <Grid item xs={12}>
-              <AboutDetails />
-            </Grid>
-            <Grid item xs={12}>
-              about content
-            </Grid>
-            <Grid item xs={12}>
-              company details
-            </Grid>
-            <Grid item xs={12}>
-              QuickFactstitle
-            </Grid>
-            <Grid item xs={7}>
-              QuickFacts
-            </Grid>
-            <Grid item xs={12}>
-              Question
-            </Grid>
+        <Grid container rowSpacing={5}>
+          <Grid item xs={12}>
+            <AboutDetails />
           </Grid>
-        </Container>
+          <Grid item xs={12}>
+            company details
+          </Grid>
+          <Grid item xs={12}>
+            <QuickFacts />
+          </Grid>
+
+          <Grid item xs={12}>
+            Question
+          </Grid>
+        </Grid>
       </Box>
     </>
   );
