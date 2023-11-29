@@ -1,10 +1,9 @@
 import { FC } from "react";
-import { Paper, Stack, Typography, CardMedia, Box, Grid } from "@mui/material";
+import { Stack, Typography, CardMedia, Grid } from "@mui/material";
 
-import { AboutContentsProps } from "./Types";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import { CompanyDetailsProps } from "./Types";
 
-const CompanyDetails: FC<AboutContentsProps> = () => {
+const CompanyDetails: FC<CompanyDetailsProps> = () => {
   return (
     <Grid container display="flex" justifyContent="flex-end">
       <Grid
@@ -25,18 +24,21 @@ const CompanyDetails: FC<AboutContentsProps> = () => {
       <Grid
         item
         xs={8}
-        py={25}
+        py={22}
         bgcolor="background.paper"
         container
         borderTop={(theme) => `4px solid ${theme.palette.divider}`}
+        borderBottom={(theme) => `4px solid ${theme.palette.divider}`}
       >
         <Grid item xs={5.5}></Grid>
         <Grid item xs={6} justifyContent="flex-end">
-          <Stack direction="column" alignItems="start" columnGap={7.5}>
+          <Stack direction="column" alignItems="start" gap={7.5}>
             <Stack direction="column" gap={3}>
-              <Typography variant="h6">DISCOVER MISSION AND VALUES</Typography>
+              <Typography variant="h6" color="text.secondary">
+                DISCOVER MISSION AND VALUES
+              </Typography>
               <Typography variant="h3">OUR COMPANY</Typography>
-              <Typography variant="subtitle1">
+              <Typography variant="subtitle1" color="text.secondary">
                 We are one of the leading life insurance companies offering a
                 range of individual and group insurance solutions that meet
                 various customer needs such as Protection, Pension, Savings &
@@ -48,21 +50,21 @@ const CompanyDetails: FC<AboutContentsProps> = () => {
                 <Typography variant="h4">
                   01 Safety First, Not Sales:
                 </Typography>
-                <Typography variant="subtitle1">
+                <Typography variant="subtitle1" color="text.secondary">
                   experienced discounts, new home and loyalty discounts. that's
                   just the beginning.
                 </Typography>
               </Stack>
               <Stack direction="column" gap={1.5}>
                 <Typography variant="h4">02 Protecting Your Budget:</Typography>
-                <Typography variant="subtitle1">
+                <Typography variant="subtitle1" color="text.secondary">
                   experienced discounts, new home and loyalty discounts. that's
                   just the beginning.
                 </Typography>
               </Stack>
               <Stack direction="column" gap={1.5}>
                 <Typography variant="h4">03 High Quality Insurance:</Typography>
-                <Typography variant="subtitle1">
+                <Typography variant="subtitle1" color="text.secondary">
                   Our success comes from doing what's right for our customers
                   and our employees.
                 </Typography>

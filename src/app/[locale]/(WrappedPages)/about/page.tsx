@@ -1,9 +1,8 @@
 "use client";
-import { Box, Container, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 
 import CompanyDetails from "src/widgets/CompanyDetails";
 import BreadcumbBanner from "src/widgets/BreadcumbBanner";
-import AboutHelpInfo from "src/widgets/AboutHelpInfo";
 
 const About = () => {
   return (
@@ -12,7 +11,6 @@ const About = () => {
         <Grid item xs={12}>
           <BreadcumbBanner title="About us" />
         </Grid>
-
         <Grid item xs={12} position="relative">
           <CompanyDetails />
           {/* <AboutHelpInfo /> */}
