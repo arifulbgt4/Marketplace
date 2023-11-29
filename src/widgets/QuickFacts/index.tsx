@@ -3,7 +3,8 @@ import { Stack, Typography, Container, Divider } from "@mui/material";
 
 import { QuickFactsProps } from "./Types";
 
-const QuickFacts: FC<QuickFactsProps> = () => {
+const QuickFacts: FC<QuickFactsProps> = ({ quickFact }) => {
+  const { experience, services, skilled, clients } = quickFact;
   return (
     <Stack gap={5}>
       <Stack justifyContent="center" alignItems="center">
@@ -16,20 +17,23 @@ const QuickFacts: FC<QuickFactsProps> = () => {
       <Container>
         <Stack flexDirection="row" justifyContent="space-around" gap={5}>
           <Stack justifyContent="center" alignItems="center">
-            <Typography variant="h2">12</Typography>
+            <Typography variant="h2">{experience}</Typography>
             <Typography variant="h3">Years of Experience</Typography>
           </Stack>
           <Stack justifyContent="center" alignItems="center">
-            <Typography variant="h2">12</Typography>
-            <Typography variant="h3">Years of Experience</Typography>
+            <Typography variant="h2">{services}</Typography>
+            <Typography variant="h3">Different Services</Typography>
           </Stack>
           <Stack justifyContent="center" alignItems="center">
-            <Typography variant="h2">12</Typography>
-            <Typography variant="h3">Years of Experience</Typography>
+            <Typography variant="h2">
+              {clients}
+              {"%"}
+            </Typography>
+            <Typography variant="h3">Satisfied Clients</Typography>
           </Stack>
           <Stack justifyContent="center" alignItems="center">
-            <Typography variant="h2">12</Typography>
-            <Typography variant="h3">Years of Experience</Typography>
+            <Typography variant="h2">{skilled}</Typography>
+            <Typography variant="h3">Skilled Agents</Typography>
           </Stack>
         </Stack>
       </Container>
