@@ -1,26 +1,30 @@
-"use client";
 import { Box, Container, Grid } from "@mui/material";
 
-import AboutContents from "src/widgets/AboutDetails";
-import BreadcumbBanner from "src/widgets/BreadcumbBanner";
-import AboutHelpInfo from "src/widgets/AboutHelpInfo";
+import AboutDetails from "src/widgets/AboutDetails";
 
 const About = () => {
   return (
     <>
-      <Grid container>
-        <Grid item xs={12}>
-          <BreadcumbBanner title="About us" />
-        </Grid>
-      </Grid>
-      <Box pt={{ xs: 3, md: 5 }}>
-        <Container maxWidth="lg">
-          <Grid container columnSpacing={8} rowSpacing={5}>
-            <Grid item xs={12} lg={8}>
-              <AboutContents />
+      <Box pt={5}>
+        <Container>
+          <Grid container>
+            <Grid item xs={12}>
+              <AboutDetails />
             </Grid>
-            <Grid item xs={12} lg={4}>
-              <AboutHelpInfo />
+            <Grid item xs={12}>
+              about content
+            </Grid>
+            <Grid item xs={12}>
+              company details
+            </Grid>
+            <Grid item xs={12}>
+              QuickFactstitle
+            </Grid>
+            <Grid item xs={7}>
+              QuickFacts
+            </Grid>
+            <Grid item xs={12}>
+              Question
             </Grid>
           </Grid>
         </Container>

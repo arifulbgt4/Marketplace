@@ -1,50 +1,54 @@
 import { FC } from "react";
-import { Paper, Stack, Typography } from "@mui/material";
+import { Box, CardMedia, Grid, Stack, Typography } from "@mui/material";
 
-import { AboutContentsProps } from "./Types";
+import { AboutDetailsProps } from "./Types";
 
-const AboutContents: FC<AboutContentsProps> = () => {
+const AboutDetails: FC<AboutDetailsProps> = () => {
   return (
-    <Paper elevation={0}>
-      <Stack
-        p={{ xs: 2, md: 4 }}
-        alignItems="flex-start"
-        gap={{ xs: 2, md: 4 }}
-      >
-        <Typography variant="h4">What is Dream House?</Typography>
-        <Stack gap={2} alignItems="flex-start">
-          <Typography>
-            Lorem ipsum dolor sit amet consectetur. Venenatis mauris purus
-            ornare porta id malesuada nibh vestibulum morbi. Quam blandit
-            scelerisque duis nunc erat lectus feugiat fames massa. Velit cursus
-            faucibus venenatis vitae integer massa blandit. Ut vitae arcu
-            suscipit egestas ultrices.
-          </Typography>
-          <Typography>
-            Lorem ipsum dolor sit amet consectetur. Venenatis mauris purus
-            ornare porta id malesuada nibh vestibulum morbi. Quam blandit
-            scelerisque duis nunc erat lectus feugiat fames massa. Velit cursus
-            faucibus venenatis vitae integer massa blandit. Ut vitae arcu
-            suscipit egestas ultrices.
-          </Typography>
-          <Typography>
-            Lorem ipsum dolor sit amet consectetur. Venenatis mauris purus
-            ornare porta id malesuada nibh vestibulum morbi. Quam blandit
-            scelerisque duis nunc erat lectus feugiat fames massa. Velit cursus
-            faucibus venenatis vitae integer massa blandit. Ut vitae arcu
-            suscipit egestas ultrices.
-          </Typography>
-          <Typography>
-            Lorem ipsum dolor sit amet consectetur. Venenatis mauris purus
-            ornare porta id malesuada nibh vestibulum morbi. Quam blandit
-            scelerisque duis nunc erat lectus feugiat fames massa. Velit cursus
-            faucibus venenatis vitae integer massa blandit. Ut vitae arcu
-            suscipit egestas ultrices.
-          </Typography>
-        </Stack>
-      </Stack>
-    </Paper>
+    <Box>
+      <Grid container rowSpacing={7}>
+        <Grid
+          item
+          xs={12}
+          justifyContent="center"
+          alignItems="center"
+          display="flex"
+        >
+          <Stack>
+            <Typography variant="h6">WHO ARE WE</Typography>
+            <Typography variant="h2">ABOUT US</Typography>
+          </Stack>
+        </Grid>
+        <Grid
+          item
+          container
+          xs={12}
+          justifyContent="flex-end"
+          display="flex"
+          position="relative"
+        >
+          <Grid item xs={5.5}>
+            <CardMedia
+              height={560}
+              component="img"
+              image="https://img.freepik.com/premium-photo/cooperation-action-group-young-modern-men-formalwear-working-using-computers-while-sitting-office_425904-830.jpg?w=1060"
+            />
+          </Grid>
+          <Grid item xs={8} position="absolute" bottom={260} left={0}>
+            <Stack>
+              <Typography variant="h4">
+                Lorem ipsum dolor sit amet consectetur. Venenatis mauris purus
+                ornare porta id malesuada nibh vestibulum morbi. Quam blandit
+                scelerisque duis nunc erat lectus feugiat fames massa. Velit
+                cursus faucibus venenatis vitae integer massa blandit. Ut vitae
+                arcu suscipit egestas ultrices.
+              </Typography>
+            </Stack>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 
-export default AboutContents;
+export default AboutDetails;
