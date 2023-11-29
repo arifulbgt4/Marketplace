@@ -13,7 +13,6 @@ const About = () => {
         </Grid>
         <Grid item xs={12} position="relative">
           <CompanyDetails />
-          {/* <AboutHelpInfo /> */}
         </Grid>
       </Grid>
     </>
