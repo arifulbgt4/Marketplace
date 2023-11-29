@@ -1,1 +1,1 @@
-export interface AboutContentsProps {}
+export interface CompanyDetailsProps {}
