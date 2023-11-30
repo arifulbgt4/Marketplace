@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Grid, Typography, Divider } from "@mui/material";
 
 import Listing from "src/widgets/Listing";
-import { ownListingData } from "src/global/staticData";
+import { ownListingPublishData } from "src/global/staticData";
 
 import { OwnerListingsProps } from "./Types";
 
@@ -14,7 +14,7 @@ const OwnerListings: FC<OwnerListingsProps> = () => {
         <Divider />
       </Grid>
       <Grid item xs={12} container spacing={3}>
-        {ownListingData.slice(2).map((data) => {
+        {ownListingPublishData.slice(2).map((data) => {
           const { id, image, title, description, rating, slug, address } = data;
           return (
             <Grid item xs={12} md={6} key={id}>
