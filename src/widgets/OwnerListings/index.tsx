@@ -1,6 +1,5 @@
 import { FC } from "react";
-import { Grid, Typography, Divider, Box } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import { Grid, Typography, Divider } from "@mui/material";
 
 import Listing from "src/widgets/Listing";
 import { ownListingPublishData } from "src/global/staticData";

@@ -24,6 +24,7 @@ const publicPages = [
 const intlMiddleware = createIntlMiddleware({
   locales,
   defaultLocale: siteConfig.locale,
+  localePrefix: "as-needed",
 });
 
 const authMiddleware = withAuth(
