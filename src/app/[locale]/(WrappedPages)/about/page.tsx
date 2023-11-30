@@ -1,10 +1,9 @@
-"use client";
 import { Box, Grid } from "@mui/material";
 
 import AboutDetails from "src/widgets/AboutDetails";
 import CompanyDetails from "src/widgets/CompanyDetails";
-// import Question from "src/widgets/Guestion";
-// import QuickFacts from "src/widgets/QuickFacts";
+import Question from "src/widgets/Question";
+import QuickFacts from "src/widgets/QuickFacts";
 
 const About = () => {
   return (
@@ -18,17 +17,17 @@ const About = () => {
             <CompanyDetails />
           </Grid>
           <Grid item xs={12}>
-            {/* <QuickFacts
+            <QuickFacts
               quickFact={{
                 experience: 12,
                 services: 18,
                 skilled: 16,
                 clients: 96,
               }}
-            /> */}
+            />
           </Grid>
           <Grid item xs={12}>
-            {/* <Question /> */}
+            <Question />
           </Grid>
         </Grid>
       </Box>

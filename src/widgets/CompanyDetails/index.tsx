@@ -1,3 +1,4 @@
+"use client";
 import { FC } from "react";
 import { Stack, Typography, CardMedia, Grid } from "@mui/material";
 
@@ -17,13 +18,15 @@ const CompanyDetails: FC<CompanyDetailsProps> = () => {
         position="absolute"
         top={140}
         left={130}
-        border={(theme) => `8px solid ${theme.palette.background.default}`}
+        border={8}
         borderRadius={3}
+        sx={(theme) => ({ borderColor: theme.palette.background.default })}
       >
         <CardMedia
           component="img"
           height={608}
           src="https://plus.unsplash.com/premium_photo-1682141322027-3fa79a082524?q=80&w=1472&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="Company"
         />
       </Grid>
       <Grid
@@ -32,8 +35,9 @@ const CompanyDetails: FC<CompanyDetailsProps> = () => {
         py={22}
         bgcolor="background.paper"
         container
-        borderTop={(theme) => `4px solid ${theme.palette.divider}`}
-        borderBottom={(theme) => `4px solid ${theme.palette.divider}`}
+        borderTop={4}
+        sx={(theme) => ({ borderColor: theme.palette.divider })}
+        borderBottom={4}
       >
         <Grid item xs={5.5}></Grid>
         <Grid item xs={6} justifyContent="flex-end">
