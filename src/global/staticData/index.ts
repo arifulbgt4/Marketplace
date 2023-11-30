@@ -176,7 +176,7 @@ export const userListingData = [
     price: 5432,
   },
 ];
-export const ownListingData = [
+export const ownListingPublishData = [
   {
     id: 1,
     slug: "mohi",
@@ -242,6 +242,92 @@ export const ownListingData = [
 
     description: "There is a fully equipped private bathroom with bidet",
     rating: 4.78,
+    address: "6391 Elgin St. Celina, Delaware 10299",
+  },
+];
+
+export const ownListingUnpublishData = [
+  {
+    id: 1,
+    slug: "mohi",
+    image:
+      "https://cf.bstatic.com/xdata/images/hotel/270x200/343485515.webp?k=c9ba04cb027d2f7ba0e9f5a2ea577aaa2a7c30f63773ab44ada5007b406f7e08&o=",
+    title: "Fraser Residence ",
+
+    description: "2118 Thornridge Cir. Syracuse, Connecticut 35624",
+    rating: 4.4,
+    address: "6391 Elgin St. Celina, Delaware 10299",
+  },
+  {
+    id: 2,
+    slug: "heritage",
+    image:
+      "https://cf.bstatic.com/xdata/images/hotel/270x200/200326697.webp?k=5ce2c22a49917dec5ae4e8d61b0e05cbb745a8ff3452b9a13a6986f89e2c6254&o=",
+
+    title: "Heritage Collection",
+
+    description: "Every unit features a private bathroom and bidet",
+    rating: 4.8,
+    address: "6391 Elgin St. Celina, Delaware 10299",
+  },
+  {
+    id: 3,
+    slug: "fraser",
+    image:
+      "https://cf.bstatic.com/xdata/images/hotel/270x200/447686392.webp?k=1e4619ecc292958d207c5a132daf1acd9b71bdc182f02d4b9e019a2a9905c08e&o=",
+
+    title: "VicHaus Serviced Apartment",
+
+    description: "Fraser Residence Orchard Singapore is set  1.5 km",
+    rating: 3.8,
+    address: "6391 Elgin St. Celina, Delaware 10299",
+  },
+  {
+    id: 4,
+    slug: "singapoor",
+    title: "The Center of Singapore",
+    image:
+      "https://cf.bstatic.com/xdata/images/hotel/square600/494798449.webp?k=2400cf2f728f7d8f7cf328ef0460b4630984a01e033c72eb7fea76e22dd8586f&o=",
+
+    description: "Distance in property description is calculated using",
+    rating: 5,
+    address: "6391 Elgin St. Celina, Delaware 10299",
+  },
+];
+
+export const ownListingDraftData = [
+  {
+    id: 1,
+    slug: "mohi",
+    image:
+      "https://cf.bstatic.com/xdata/images/hotel/square600/494798449.webp?k=2400cf2f728f7d8f7cf328ef0460b4630984a01e033c72eb7fea76e22dd8586f&o=",
+    title: "VicHaus Serviced Apartment",
+
+    description: "2118 Thornridge Cir. Syracuse, Connecticut 35624",
+    rating: 4.4,
+    address: "6391 Elgin St. Celina, Delaware 10299",
+  },
+  {
+    id: 2,
+    slug: "heritage",
+    image:
+      "https://cf.bstatic.com/xdata/images/hotel/270x200/447686392.webp?k=1e4619ecc292958d207c5a132daf1acd9b71bdc182f02d4b9e019a2a9905c08e&o=",
+
+    title: "Heritage Collection",
+
+    description: "Every unit features a private bathroom and bidet",
+    rating: 4.8,
+    address: "6391 Elgin St. Celina, Delaware 10299",
+  },
+  {
+    id: 3,
+    slug: "fraser",
+    image:
+      "https://cf.bstatic.com/xdata/images/hotel/270x200/200326697.webp?k=5ce2c22a49917dec5ae4e8d61b0e05cbb745a8ff3452b9a13a6986f89e2c6254&o=",
+    title: "Fraser Residence ",
+
+    description: "Fraser Residence Orchard Singapore is set  1.5 km",
+    rating: 3.8,
     address: "6391 Elgin St. Celina, Delaware 10299",
   },
 ];

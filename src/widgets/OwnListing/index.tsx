@@ -1,56 +1,29 @@
 import { FC } from "react";
-import { Grid, TextField, InputAdornment } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import { Grid } from "@mui/material";
 
 import Listing from "src/widgets/Listing";
-import { ownListingData } from "src/global/staticData";
 
 import { OwnListingProps } from "./Types";
 
-const OwnListing: FC<OwnListingProps> = () => {
+const OwnListing: FC<OwnListingProps> = ({ data }) => {
   return (
-    <Grid container spacing={5}>
-      <Grid item xs={12}>
-        <TextField
-          size="small"
-          fullWidth
-          placeholder="Search"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Grid>
-      <Grid item xs={12} container spacing={3}>
-        {ownListingData.map((data) => {
-          const {
-            id,
-            image,
-            title,
-
-            description,
-            rating,
-            slug,
-            address,
-          } = data;
-          return (
-            <Grid item xs={12} sm={6} md={4} key={id}>
-              <Listing
-                id={id}
-                slug={slug}
-                image={image}
-                title={title}
-                description={description}
-                rating={rating}
-                address={address}
-              />
-            </Grid>
-          );
-        })}
-      </Grid>
+    <Grid container spacing={3}>
+      {data.map((data) => {
+        const { id, image, title, description, rating, slug, address } = data;
+        return (
+          <Grid item xs={12} sm={6} md={4} key={id}>
+            <Listing
+              id={id}
+              slug={slug}
+              image={image}
+              title={title}
+              description={description}
+              rating={rating}
+              address={address}
+            />
+          </Grid>
+        );
+      })}
     </Grid>
   );
 };
