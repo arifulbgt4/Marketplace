@@ -10,12 +10,14 @@ const CompanyDetails: FC<CompanyDetailsProps> = () => {
       container
       display="flex"
       justifyContent="flex-end"
+      flexDirection={{ xs: "column-reverse", md: "row" }}
       position="relative"
     >
       <Grid
         item
-        xs={6}
-        position="absolute"
+        xs={12}
+        md={6}
+        position={{ md: "absolute" }}
         top={140}
         left={130}
         border={8}
@@ -31,18 +33,21 @@ const CompanyDetails: FC<CompanyDetailsProps> = () => {
       </Grid>
       <Grid
         item
-        xs={8}
-        py={22}
+        xs={12}
+        md={8}
+        py={{ md: 22, xs: 2 }}
+        px={{ xs: 2, md: 0 }}
         bgcolor="background.paper"
         container
-        borderTop={4}
-        sx={(theme) => ({ borderColor: theme.palette.divider })}
-        borderBottom={4}
       >
         <Grid item xs={5.5}></Grid>
-        <Grid item xs={6} justifyContent="flex-end">
-          <Stack direction="column" alignItems="start" gap={7.5}>
-            <Stack direction="column" gap={3}>
+        <Grid item xs={12} md={6} justifyContent="flex-end">
+          <Stack
+            direction="column"
+            alignItems={{ md: "flex-end" }}
+            gap={{ md: 7.5, xs: 3 }}
+          >
+            <Stack direction="column" gap={{ md: 3, xs: 1 }}>
               <Typography variant="h6" color="text.secondary">
                 DISCOVER MISSION AND VALUES
               </Typography>
@@ -54,8 +59,8 @@ const CompanyDetails: FC<CompanyDetailsProps> = () => {
                 Investment and Health, along with Children's and Women's Plan.
               </Typography>
             </Stack>
-            <Stack direction="column" gap={3}>
-              <Stack direction="column" gap={1.5}>
+            <Stack direction="column" gap={{ md: 3, xs: 1 }}>
+              <Stack direction="column" gap={{ md: 1.5, xs: 0.5 }}>
                 <Typography variant="h4">
                   01 Safety First, Not Sales:
                 </Typography>
@@ -64,14 +69,14 @@ const CompanyDetails: FC<CompanyDetailsProps> = () => {
                   just the beginning.
                 </Typography>
               </Stack>
-              <Stack direction="column" gap={1.5}>
+              <Stack direction="column" gap={{ md: 1.5, xs: 0.5 }}>
                 <Typography variant="h4">02 Protecting Your Budget:</Typography>
                 <Typography variant="subtitle1" color="text.secondary">
                   experienced discounts, new home and loyalty discounts. that's
                   just the beginning.
                 </Typography>
               </Stack>
-              <Stack direction="column" gap={1.5}>
+              <Stack direction="column" gap={{ md: 1.5, xs: 0.5 }}>
                 <Typography variant="h4">03 High Quality Insurance:</Typography>
                 <Typography variant="subtitle1" color="text.secondary">
                   Our success comes from doing what's right for our customers
