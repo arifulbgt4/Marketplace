@@ -1,20 +1,37 @@
 "use client";
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 
+import AboutDetails from "src/widgets/AboutDetails";
 import CompanyDetails from "src/widgets/CompanyDetails";
-import BreadcumbBanner from "src/widgets/BreadcumbBanner";
+// import Question from "src/widgets/Guestion";
+// import QuickFacts from "src/widgets/QuickFacts";
 
 const About = () => {
   return (
     <>
-      <Grid container>
-        <Grid item xs={12}>
-          <BreadcumbBanner title="About us" />
+      <Box pt={5}>
+        <Grid container rowSpacing={5}>
+          <Grid item xs={12}>
+            <AboutDetails />
+          </Grid>
+          <Grid item xs={12}>
+            <CompanyDetails />
+          </Grid>
+          <Grid item xs={12}>
+            {/* <QuickFacts
+              quickFact={{
+                experience: 12,
+                services: 18,
+                skilled: 16,
+                clients: 96,
+              }}
+            /> */}
+          </Grid>
+          <Grid item xs={12}>
+            {/* <Question /> */}
+          </Grid>
         </Grid>
-        <Grid item xs={12} position="relative">
-          <CompanyDetails />
-        </Grid>
-      </Grid>
+      </Box>
     </>
   );
 };

@@ -5,12 +5,17 @@ import { CompanyDetailsProps } from "./Types";
 
 const CompanyDetails: FC<CompanyDetailsProps> = () => {
   return (
-    <Grid container display="flex" justifyContent="flex-end">
+    <Grid
+      container
+      display="flex"
+      justifyContent="flex-end"
+      position="relative"
+    >
       <Grid
         item
         xs={6}
         position="absolute"
-        top={100}
+        top={140}
         left={130}
         border={(theme) => `8px solid ${theme.palette.background.default}`}
         borderRadius={3}
