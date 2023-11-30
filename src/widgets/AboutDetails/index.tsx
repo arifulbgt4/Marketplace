@@ -25,19 +25,20 @@ const AboutDetails: FC<AboutDetailsProps> = () => {
             item
             container
             xs={12}
-            justifyContent="flex-end"
+            justifyContent={{ md: "flex-end" }}
             display="flex"
             position="relative"
+            flexDirection={{ md: "row" }}
+            spacing={2}
           >
-            <Grid item xs={5.5}>
-              <CardMedia
-                sx={{ opacity: 0.7 }}
-                height={560}
-                component="img"
-                image="https://img.freepik.com/premium-photo/cooperation-action-group-young-modern-men-formalwear-working-using-computers-while-sitting-office_425904-830.jpg?w=1060"
-              />
-            </Grid>
-            <Grid item xs={8} position="absolute" bottom={260} left={0}>
+            <Grid
+              item
+              xs={12}
+              md={7.5}
+              position={{ md: "absolute" }}
+              left={{ md: 0 }}
+              top={{ md: 260 }}
+            >
               <Typography variant="h4">
                 Lorem ipsum dolor sit amet consectetur. Venenatis mauris purus
                 ornare porta id malesuada nibh vestibulum morbi. Quam blandit
@@ -45,6 +46,14 @@ const AboutDetails: FC<AboutDetailsProps> = () => {
                 cursus faucibus venenatis vitae integer massa blandit. Ut vitae
                 arcu suscipit egestas ultrices.
               </Typography>
+            </Grid>
+            <Grid item xs={12} md={5.5}>
+              <CardMedia
+                sx={{ opacity: 0.7 }}
+                height={560}
+                component="img"
+                image="https://img.freepik.com/premium-photo/cooperation-action-group-young-modern-men-formalwear-working-using-computers-while-sitting-office_425904-830.jpg?w=1060"
+              />
             </Grid>
           </Grid>
         </Grid>
