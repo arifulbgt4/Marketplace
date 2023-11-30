@@ -1,4 +1,5 @@
-import { FC } from "react";
+"use client";
+import { FC, useState } from "react";
 import {
   Button,
   Card,
@@ -21,7 +22,8 @@ import ApartmentIcon from "@mui/icons-material/Apartment";
 import routes from "src/global/routes";
 
 import { ListingProps } from "./Types";
-
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 const Listing: FC<ListingProps> = ({
   isGrid = true,
   id,
@@ -34,6 +36,7 @@ const Listing: FC<ListingProps> = ({
   address,
   services,
 }) => {
+  const [isSelect, setIsSelect] = useState(false);
   return (
     <Card
       elevation={1}
@@ -41,9 +44,18 @@ const Listing: FC<ListingProps> = ({
         display: "flex",
         flexDirection: isGrid ? "column" : "row",
         gap: isGrid ? 0 : 3,
+        position: "relative",
       }}
     >
       <CardMedia component="img" height={isGrid ? 250 : 223} src={image} />
+      <IconButton
+        onClick={() => {
+          setIsSelect((prv) => !prv);
+        }}
+        sx={{ position: "absolute", top: 24, right: 24 }}
+      >
+        {isSelect ? <BookmarkIcon /> : <BookmarkBorderOutlinedIcon />}
+      </IconButton>
       <Stack p={isGrid ? 0 : 1} width="100%" justifyContent="space-between">
         <CardHeader
           title={title}
