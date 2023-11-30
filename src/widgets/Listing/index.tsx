@@ -18,12 +18,13 @@ import BedIcon from "@mui/icons-material/Bed";
 import BathtubIcon from "@mui/icons-material/Bathtub";
 import DeselectIcon from "@mui/icons-material/Deselect";
 import ApartmentIcon from "@mui/icons-material/Apartment";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 
 import routes from "src/global/routes";
 
 import { ListingProps } from "./Types";
-import BookmarkIcon from "@mui/icons-material/Bookmark";
-import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
+
 const Listing: FC<ListingProps> = ({
   isGrid = true,
   id,
@@ -52,9 +53,14 @@ const Listing: FC<ListingProps> = ({
         onClick={() => {
           setIsSelect((prv) => !prv);
         }}
-        sx={{ position: "absolute", top: 24, right: 24 }}
+        sx={{ position: "absolute", top: 8, right: 8 }}
+        size="large"
       >
-        {isSelect ? <BookmarkIcon /> : <BookmarkBorderOutlinedIcon />}
+        {isSelect ? (
+          <BookmarkIcon color="primary" />
+        ) : (
+          <BookmarkBorderOutlinedIcon color="primary" />
+        )}
       </IconButton>
       <Stack p={isGrid ? 0 : 1} width="100%" justifyContent="space-between">
         <CardHeader
