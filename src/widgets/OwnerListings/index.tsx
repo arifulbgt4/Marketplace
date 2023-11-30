@@ -3,7 +3,7 @@ import { Grid, Typography, Divider, Box } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 import Listing from "src/widgets/Listing";
-import { ownListingData } from "src/global/staticData";
+import { ownListingPublishData } from "src/global/staticData";
 
 import { OwnerListingsProps } from "./Types";
 
@@ -15,17 +15,8 @@ const OwnerListings: FC<OwnerListingsProps> = () => {
         <Divider />
       </Grid>
       <Grid item xs={12} container spacing={3}>
-        {ownListingData.slice(2).map((data) => {
-          const {
-            id,
-            image,
-            title,
-            price,
-            description,
-            rating,
-            slug,
-            address,
-          } = data;
+        {ownListingPublishData.slice(2).map((data) => {
+          const { id, image, title, description, rating, slug, address } = data;
           return (
             <Grid item xs={12} md={6} key={id}>
               <Listing
@@ -33,7 +24,6 @@ const OwnerListings: FC<OwnerListingsProps> = () => {
                 slug={slug}
                 image={image}
                 title={title}
-                price={price}
                 description={description}
                 rating={rating}
                 address={address}
