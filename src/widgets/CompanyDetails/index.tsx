@@ -26,7 +26,7 @@ const CompanyDetails: FC<CompanyDetailsProps> = () => {
       >
         <CardMedia
           component="img"
-          height={608}
+          sx={{ height: { md: 608, xs: 312 } }}
           src="https://plus.unsplash.com/premium_photo-1682141322027-3fa79a082524?q=80&w=1472&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Company"
         />
@@ -45,7 +45,7 @@ const CompanyDetails: FC<CompanyDetailsProps> = () => {
           <Stack
             direction="column"
             alignItems={{ md: "flex-end" }}
-            gap={{ md: 7.5, xs: 3 }}
+            gap={{ md: 7.5, xs: 4 }}
           >
             <Stack direction="column" gap={{ md: 3, xs: 1 }}>
               <Typography variant="h6" color="text.secondary">
@@ -59,7 +59,7 @@ const CompanyDetails: FC<CompanyDetailsProps> = () => {
                 Investment and Health, along with Children's and Women's Plan.
               </Typography>
             </Stack>
-            <Stack direction="column" gap={{ md: 3, xs: 1 }}>
+            <Stack direction="column" gap={{ md: 3, xs: 2.5 }}>
               <Stack direction="column" gap={{ md: 1.5, xs: 0.5 }}>
                 <Typography variant="h4">
                   01 Safety First, Not Sales:
