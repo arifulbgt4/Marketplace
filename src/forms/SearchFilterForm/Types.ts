@@ -1,5 +1,6 @@
 export interface SearchFilterFormProps {
   size?: string;
+  onClose?: () => void;
 }
 
 export enum FIELDS {
