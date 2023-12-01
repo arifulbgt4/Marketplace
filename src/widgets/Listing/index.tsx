@@ -66,7 +66,15 @@ const Listing: FC<ListingProps> = ({
       </IconButton>
       <Stack p={isGrid ? 0 : 1} width="100%" justifyContent="space-between">
         <CardHeader
-          title={title}
+          title={
+            <Box
+              component={Link}
+              color={(theme) => theme.palette.text.primary}
+              href={routes.listingDetails}
+            >
+              {title}
+            </Box>
+          }
           subheader={
             <Box pt={0.5}>
               <Typography variant="h6">{address}</Typography>
