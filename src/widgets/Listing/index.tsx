@@ -48,7 +48,7 @@ const Listing: FC<ListingProps> = ({
         position: "relative",
       }}
     >
-      <Box component={Link} href={routes.listingDetails}>
+      <Box component={Link} href={`${routes.listingDetails}/${slug}`}>
         <CardMedia component="img" height={isGrid ? 250 : 223} src={image} />
       </Box>
       <IconButton
@@ -70,7 +70,7 @@ const Listing: FC<ListingProps> = ({
             <Box
               component={Link}
               color={(theme) => theme.palette.text.primary}
-              href={routes.listingDetails}
+              href={`${routes.listingDetails}/${slug}`}
             >
               {title}
             </Box>
