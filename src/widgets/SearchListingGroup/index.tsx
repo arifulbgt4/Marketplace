@@ -1,6 +1,5 @@
 "use client";
 import { FC, useState } from "react";
-import { Form as FinalForm } from "react-final-form";
 import {
   Grid,
   Box,
@@ -119,53 +118,10 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
                         </IconButton>
                       </Box>
                       <Typography variant="h5">Where to ?</Typography>
-                      <FinalForm
-                        onSubmit={onSubmitForm}
-                        render={({
-                          handleSubmit,
-                          values,
-                          errors,
-                          submitting,
-                        }) => {
-                          return (
-                            <form onSubmit={handleSubmit}>
-                              <TextField
-                                margin="dense"
-                                fullWidth
-                                label="Location"
-                                name="location"
-                                id="outlined-adornment-location"
-                                InputProps={{
-                                  endAdornment: (
-                                    <InputAdornment position="start">
-                                      <LocationOnSharpIcon />
-                                    </InputAdornment>
-                                  ),
-                                }}
-                              />
-                              <TextField
-                                margin="dense"
-                                fullWidth
-                                name="key"
-                                id="outlined-adornment-key"
-                                label="Keyword"
-                                InputProps={{
-                                  endAdornment: (
-                                    <InputAdornment position="start">
-                                      <SearchSharpIcon />
-                                    </InputAdornment>
-                                  ),
-                                }}
-                              />
-                              <Button
-                                fullWidth
-                                variant="contained"
-                                sx={{ py: 2 }}
-                              >
-                                Search
-                              </Button>
-                            </form>
-                          );
+                      <SearchFilterForm
+                        size="small"
+                        onClose={() => {
+                          setOpenModal(false);
                         }}
                       />
                     </Stack>
@@ -176,7 +132,7 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
           </Hidden>
           <Hidden mdDown>
             <Grid item md={6}>
-              <SearchFilterForm />
+              <SearchFilterForm size="small" />
             </Grid>
           </Hidden>
           <Hidden mdDown>

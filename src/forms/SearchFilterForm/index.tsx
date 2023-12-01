@@ -2,7 +2,7 @@
 import { FC } from "react";
 import { useRouter } from "next/navigation";
 import { Form as FinalForm } from "react-final-form";
-import { InputAdornment, Stack, Box, Button } from "@mui/material";
+import { InputAdornment, Stack, Button } from "@mui/material";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import LocationOnSharpIcon from "@mui/icons-material/LocationOnSharp";
 
@@ -12,7 +12,7 @@ import routes from "src/global/routes";
 
 import { FIELDS, SearchFilterFormProps } from "./Types";
 
-const SearchFilterForm: FC<SearchFilterFormProps> = ({ size }) => {
+const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
   const router = useRouter();
   const { createQuery, getQuery } = useQueryString();
 
@@ -82,6 +82,7 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size }) => {
                 variant="contained"
                 color="inherit"
                 size="large"
+                onClick={onClose}
               >
                 SEARCH
               </Button>
