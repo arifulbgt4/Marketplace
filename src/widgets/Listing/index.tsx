@@ -48,7 +48,9 @@ const Listing: FC<ListingProps> = ({
         position: "relative",
       }}
     >
-      <CardMedia component="img" height={isGrid ? 250 : 223} src={image} />
+      <Box component={Link} href={routes.listingDetails}>
+        <CardMedia component="img" height={isGrid ? 250 : 223} src={image} />
+      </Box>
       <IconButton
         onClick={() => {
           setIsSelect((prv) => !prv);
