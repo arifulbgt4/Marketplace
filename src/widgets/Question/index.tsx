@@ -13,14 +13,26 @@ const Question: FC<QuestionProps> = () => {
         justifyContent="center"
       >
         <Box
-          px={{ md: 15 }}
-          py={{ md: 5, xs: 3 }}
+          px={{ md: 15, xs: 5 }}
+          py={{ md: 15, xs: 5 }}
           bgcolor={(theme) => theme.palette.primary.main}
         >
-          <Typography variant="h2">HAVE A QUESTION?</Typography>
+          <Typography
+            variant="h2"
+            color={(theme) => theme.palette.background.default}
+          >
+            HAVE A QUESTION?
+          </Typography>
         </Box>
-        <Box px={{ md: 15 }} py={{ md: 5, xs: 3 }} bgcolor="common.black">
-          <Typography variant="h2" color="common.white">
+        <Box
+          px={{ md: 15, xs: 5 }}
+          py={{ md: 15, xs: 5 }}
+          bgcolor="common.black"
+        >
+          <Typography
+            variant="h2"
+            color={(theme) => theme.palette.background.default}
+          >
             HAVE A QUESTION?
           </Typography>
         </Box>
