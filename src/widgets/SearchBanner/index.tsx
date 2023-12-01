@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Typography, Box, Paper, Stack } from "@mui/material";
+import { Typography, Box, Stack } from "@mui/material";
 
 import SearchFilterForm from "src/forms/SearchFilterForm";
 
@@ -36,9 +36,11 @@ const SearchBanner: FC<SearchBannerProps> = () => {
           color="common.white"
           sx={{ opacity: 0.8 }}
         >
-          25,000 rooms amd houses available now on Dream House{" "}
+          25,000 rooms amd houses available now on Dream House n
         </Typography>
-        <SearchFilterForm />
+        <Box p={1.5} bgcolor="background.paper" borderRadius={2}>
+          <SearchFilterForm />
+        </Box>
       </Stack>
     </Stack>
   );

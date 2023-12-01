@@ -2,10 +2,9 @@
 import { FC } from "react";
 import { useRouter } from "next/navigation";
 import { Form as FinalForm } from "react-final-form";
-import { InputAdornment, Stack, Box } from "@mui/material";
+import { InputAdornment, Stack, Box, Button } from "@mui/material";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import LocationOnSharpIcon from "@mui/icons-material/LocationOnSharp";
-import IconButton from "@mui/material/IconButton";
 
 import { TextField } from "src/components/Input";
 import { useQueryString } from "src/global/hooks";
@@ -13,7 +12,7 @@ import routes from "src/global/routes";
 
 import { FIELDS, SearchFilterFormProps } from "./Types";
 
-const SearchFilterForm: FC<SearchFilterFormProps> = ({}) => {
+const SearchFilterForm: FC<SearchFilterFormProps> = ({ size }) => {
   const router = useRouter();
   const { createQuery, getQuery } = useQueryString();
 
@@ -40,62 +39,52 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({}) => {
         return (
           <form onSubmit={handleSubmit}>
             <Stack
-              direction="row"
+              flexDirection={{ md: "row" }}
               justifyContent="center"
               alignItems="center"
-              sx={(theme) => ({
-                background: theme.palette.background.paper,
-                py: 2,
-                px: 3,
-                borderRadius: 10,
-              })}
+              gap={{ xs: 1, md: 0 }}
             >
-              <TextField
-                fullWidth
-                name={FIELDS.keyword}
-                placeholder="Keyword"
-                size="small"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchSharpIcon />
-                    </InputAdornment>
-                  ),
-                }}
-              />
               <TextField
                 fullWidth
                 placeholder="Location"
                 name={FIELDS.location}
-                variant="outlined"
-                size="small"
+                size={size === "small" ? "small" : "medium"}
                 sx={{
                   borderColor: "transparent",
                 }}
                 InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
+                  endAdornment: (
+                    <InputAdornment position="end">
                       <LocationOnSharpIcon />
                     </InputAdornment>
                   ),
                 }}
               />
+              <TextField
+                fullWidth
+                name={FIELDS.keyword}
+                placeholder="Keyword"
+                size={size === "small" ? "small" : "medium"}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment sx={{ borderRadius: 0 }} position="end">
+                      <SearchSharpIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
 
-              <Box ml={0.5}>
-                <IconButton
-                  type="submit"
-                  size="large"
-                  sx={(theme) => ({
-                    background: theme.palette.primary.main,
-                    color: theme.palette.primary.contrastText,
-                    ":hover": {
-                      background: theme.palette.primary.dark,
-                    },
-                  })}
-                >
-                  <SearchSharpIcon fontSize="inherit" />
-                </IconButton>
-              </Box>
+              <Button
+                sx={{
+                  py: size === "small" ? 1.22 : 2.22,
+                  width: { xs: "100%", md: "auto" },
+                }}
+                variant="contained"
+                color="inherit"
+                size="large"
+              >
+                SEARCH
+              </Button>
             </Stack>
           </form>
         );
