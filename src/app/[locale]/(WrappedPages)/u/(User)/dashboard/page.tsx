@@ -133,7 +133,7 @@ const userWeeklyData = {
 const DashboardPage = () => {
   return (
     <Grid container columnSpacing={7} rowSpacing={4}>
-      <Grid item container md={8} xs={12} columnSpacing={7} rowSpacing={1}>
+      <Grid item container md={8} xs={12} columnSpacing={7} rowSpacing={2.5}>
         <Grid item xs={12} md={6}>
           <DashBoardWidget
             icon={BusinessCenterIcon}
