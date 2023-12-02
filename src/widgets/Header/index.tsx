@@ -172,7 +172,6 @@ const Header: FC<HeaderProps> = ({ user }) => {
               </Box>
             </Stack>
           </Hidden>
-
           <Box>
             {!user ? (
               <>
@@ -359,7 +358,6 @@ const AvatarPop: FC<AvatarPopProps> = ({
             >
               <Stack justifyContent="center" alignItems="center">
                 <DashboardIcon />
-
                 <Typography variant="caption">Dashboard</Typography>
               </Stack>
             </MenuItem>
@@ -398,7 +396,6 @@ const AvatarPop: FC<AvatarPopProps> = ({
             >
               <Stack justifyContent="center" alignItems="center">
                 <AccountCircleIcon />
-
                 <Typography variant="caption">Profile</Typography>
               </Stack>
             </MenuItem>
@@ -418,7 +415,6 @@ const AvatarPop: FC<AvatarPopProps> = ({
             >
               <Stack justifyContent="center" alignItems="center">
                 <ShoppingCartIcon />
-
                 <Typography variant="caption">Order</Typography>
               </Stack>
             </MenuItem>
@@ -458,7 +454,6 @@ const AvatarPop: FC<AvatarPopProps> = ({
             >
               <Stack justifyContent="center" alignItems="center">
                 <ListAltIcon />
-
                 <Typography variant="caption">Listing</Typography>
               </Stack>
             </MenuItem>
@@ -478,7 +473,6 @@ const AvatarPop: FC<AvatarPopProps> = ({
             >
               <Stack justifyContent="center" alignItems="center">
                 <BookmarksIcon />
-
                 <Typography variant="caption">Bookmark</Typography>
               </Stack>
             </MenuItem>
