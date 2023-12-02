@@ -4,6 +4,7 @@ import { BarChart } from "@mui/x-charts/BarChart";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import {
   Paper,
   Stack,
@@ -141,21 +142,51 @@ const SellStatistics: FC<SellStatisticsProps> = ({
               handleClose(), handleWeek();
             }}
           >
-            Last Week
+            <Stack flexDirection="row" gap={0.5}>
+              <Stack width={20} justifyContent="center" alignItems="center">
+                {chart.lebel === weekLebel && (
+                  <CheckCircleIcon
+                    fontSize="small"
+                    sx={(theme) => ({ color: theme.palette.success.light })}
+                  />
+                )}
+              </Stack>
+              <Typography> Last Week</Typography>
+            </Stack>
           </MenuItem>
           <MenuItem
             onClick={() => {
               handleClose(), handleMonth();
             }}
           >
-            Last Month
+            <Stack flexDirection="row" gap={0.5}>
+              <Stack width={20} justifyContent="center" alignItems="center">
+                {chart.lebel === monthLabel && (
+                  <CheckCircleIcon
+                    fontSize="small"
+                    sx={(theme) => ({ color: theme.palette.success.light })}
+                  />
+                )}
+              </Stack>
+              <Typography> Last Month</Typography>
+            </Stack>
           </MenuItem>
           <MenuItem
             onClick={() => {
               handleClose(), handleyear();
             }}
           >
-            This year
+            <Stack flexDirection="row" gap={0.5}>
+              <Stack width={20} justifyContent="center" alignItems="center">
+                {chart.lebel === yrLebel && (
+                  <CheckCircleIcon
+                    fontSize="small"
+                    sx={(theme) => ({ color: theme.palette.success.light })}
+                  />
+                )}
+              </Stack>
+              <Typography> Last Year</Typography>
+            </Stack>
           </MenuItem>
         </Menu>
       </Stack>
