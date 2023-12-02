@@ -8,8 +8,15 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useDrawingArea } from "@mui/x-charts/hooks";
+import { styled } from "@mui/material/styles";
 
 import { OwnerProfileProps } from "./Types";
+import { PieChart } from "@mui/x-charts";
+
+import Grid from "@mui/material/Grid";
+import { Box } from "@mui/material";
+import { useTheme } from "@mui/material";
 
 const OwnerProfile: FC<OwnerProfileProps> = ({ profileData }) => {
   const {
@@ -24,6 +31,22 @@ const OwnerProfile: FC<OwnerProfileProps> = ({ profileData }) => {
     value,
   } = profileData;
 
+  const theme = useTheme();
+  const StyledText = styled("text")(({ theme }) => ({
+    fill: theme.palette.text.primary,
+    textAnchor: "middle",
+    dominantBaseline: "central",
+    fontSize: 10,
+  }));
+
+  function PieCenterLabel({ children }: { children: React.ReactNode }) {
+    const { width, height, left, top } = useDrawingArea();
+    return (
+      <StyledText x={left + width / 2} y={top + height / 2}>
+        {children}
+      </StyledText>
+    );
+  }
   return (
     <Stack component={Paper} p={{ xs: 2, md: 5 }} gap={3} elevation={0}>
       <Stack alignItems="center" gap={1} pb={{ xs: 2, md: 5 }}>
@@ -71,54 +94,142 @@ const OwnerProfile: FC<OwnerProfileProps> = ({ profileData }) => {
         <Divider />
       </Stack>
       <Stack gap={2}>
-        <Stack
-          flexDirection="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Typography variant="subtitle1">Cleanliness</Typography>
-          <Rating defaultValue={cleanliness} />
-        </Stack>
-        <Stack
-          flexDirection="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Typography variant="subtitle1">Communication</Typography>
-          <Rating defaultValue={communication} />
-        </Stack>
-        <Stack
-          flexDirection="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Typography variant="subtitle1">Check-in</Typography>
-          <Rating defaultValue={checkIn} />
-        </Stack>
-        <Stack
-          flexDirection="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Typography variant="subtitle1">Accuracy</Typography>
-          <Rating defaultValue={accuracy} />
-        </Stack>
-        <Stack
-          flexDirection="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Typography variant="subtitle1">Location</Typography>
-          <Rating defaultValue={location} />
-        </Stack>
-        <Stack
-          flexDirection="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Typography variant="subtitle1">Value</Typography>
-          <Rating defaultValue={value} />
-        </Stack>
+        <Grid container>
+          <Grid item xs={10}>
+            <Typography variant="subtitle1">Cleanliness</Typography>
+          </Grid>
+
+          <Grid item xs={2}>
+            <PieChart
+              margin={{ right: 0 }}
+              series={[
+                {
+                  data: [{ id: 1, value: cleanliness }],
+                  endAngle: 305,
+                  innerRadius: 12,
+                  outerRadius: 15,
+                },
+              ]}
+              colors={[theme.palette.primary.main]}
+              height={50}
+            >
+              <PieCenterLabel>70%</PieCenterLabel>
+            </PieChart>
+          </Grid>
+        </Grid>
+
+        <Grid container>
+          <Grid item xs={10}>
+            <Typography variant="subtitle1">Communication</Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <PieChart
+              margin={{ right: 0 }}
+              series={[
+                {
+                  data: [{ id: 2, value: communication }],
+                  innerRadius: 12,
+                  outerRadius: 15,
+                },
+              ]}
+              colors={[theme.palette.success.main]}
+              height={50}
+            >
+              <PieCenterLabel>100%</PieCenterLabel>
+            </PieChart>
+          </Grid>
+        </Grid>
+        <Grid container>
+          <Grid item xs={10}>
+            <Typography variant="subtitle1">Check-in</Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <PieChart
+              margin={{ right: 0 }}
+              series={[
+                {
+                  data: [{ id: 2, value: checkIn }],
+                  innerRadius: 15,
+                  outerRadius: 12,
+                  endAngle: 200,
+                },
+              ]}
+              colors={[theme.palette.error.main]}
+              height={50}
+            >
+              <PieCenterLabel>45%</PieCenterLabel>
+            </PieChart>
+          </Grid>
+        </Grid>
+        <Grid container>
+          <Grid item xs={10}>
+            <Typography variant="subtitle1">Accuracy</Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <PieChart
+              colors={[theme.palette.warning.main]}
+              series={[
+                {
+                  data: [{ id: 3, value: accuracy }],
+                  innerRadius: 15,
+                  outerRadius: 12,
+
+                  endAngle: 180,
+                },
+              ]}
+              height={50}
+              margin={{ right: 0 }}
+            >
+              <PieCenterLabel>30%</PieCenterLabel>
+            </PieChart>
+          </Grid>
+        </Grid>
+        <Grid container>
+          <Grid item xs={10}>
+            <Typography variant="subtitle1">Location</Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <PieChart
+              series={[
+                {
+                  data: [{ id: 4, value: location }],
+                  innerRadius: 15,
+                  outerRadius: 12,
+
+                  endAngle: 195,
+                },
+              ]}
+              margin={{ right: 0 }}
+              height={50}
+              colors={[theme.palette.success.main]}
+            >
+              <PieCenterLabel>40%</PieCenterLabel>
+            </PieChart>
+          </Grid>
+        </Grid>
+        <Grid container>
+          <Grid item xs={10}>
+            <Typography variant="subtitle1">Value</Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <PieChart
+              series={[
+                {
+                  data: [{ id: 1, value: value }],
+                  innerRadius: 15,
+                  outerRadius: 12,
+
+                  endAngle: 330,
+                },
+              ]}
+              colors={[theme.palette.primary.light]}
+              margin={{ right: 0 }}
+              height={50}
+            >
+              <PieCenterLabel>90%</PieCenterLabel>
+            </PieChart>
+          </Grid>
+        </Grid>
       </Stack>
       <Button fullWidth variant="outlined">
         Edit Profile
