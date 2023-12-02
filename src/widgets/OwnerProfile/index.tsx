@@ -4,21 +4,19 @@ import {
   Button,
   Divider,
   Paper,
-  Rating,
+  Link,
+  useTheme,
   Stack,
   Typography,
+  Grid,
 } from "@mui/material";
+import { styled } from "@mui/material/styles";
 import { useDrawingArea } from "@mui/x-charts/hooks";
-import { styled, Components } from "@mui/material/styles";
-
-import { OwnerProfileProps } from "./Types";
 import { PieChart } from "@mui/x-charts";
 
-import Grid from "@mui/material/Grid";
-import { Box } from "@mui/material";
-import { useTheme } from "@mui/material";
-import Link from "@mui/material/Link";
 import routes from "src/global/routes";
+
+import { OwnerProfileProps } from "./Types";
 
 const OwnerProfile: FC<OwnerProfileProps> = ({ profileData }) => {
   const {
