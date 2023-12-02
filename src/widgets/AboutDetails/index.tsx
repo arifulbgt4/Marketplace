@@ -47,23 +47,39 @@ const AboutDetails: FC<AboutDetailsProps> = () => {
                   borderRadius: 1,
                 })}
               >
-                <Typography
-                  variant="h4"
+                <Box
+                  component="blockquote"
+                  position="relative"
                   textAlign={{ xs: "center", md: "initial" }}
-                  display="inline"
                 >
-                  <Typography variant="h2" component="span">
-                    "
-                  </Typography>{" "}
-                  Lorem ipsum dolor sit amet consectetur. Venenatis mauris purus
-                  ornare porta id malesuada nibh vestibulum morbi. Quam blandit
-                  scelerisque duis nunc erat lectus feugiat fames massa. Velit
-                  cursus faucibus venenatis vitae integer massa blandit. Ut
-                  vitae arcu suscipit egestas ultrices.
-                  <Typography variant="h2" component="span">
-                    "
+                  <Box
+                    sx={{ transform: "Rotate(200deg)" }}
+                    position="absolute"
+                    left={-8}
+                    top={-50}
+                  >
+                    <Typography color="warning.main" variant="h1">
+                      "
+                    </Typography>
+                  </Box>
+                  <Typography variant="h4">
+                    Lorem ipsum dolor sit amet consectetur. Venenatis mauris
+                    purus ornare porta id malesuada nibh vestibulum morbi. Quam
+                    blandit scelerisque duis nunc erat lectus feugiat fames
+                    massa. Velit cursus faucibus venenatis vitae integer massa
+                    blandit. Ut vitae arcu suscipit egestas ultrices.
                   </Typography>
-                </Typography>
+                  <Box
+                    sx={{ transform: "Rotate(15deg)" }}
+                    position="absolute"
+                    left={90}
+                    top={143}
+                  >
+                    <Typography color="warning.main" variant="h1">
+                      "
+                    </Typography>
+                  </Box>
+                </Box>
               </Box>
             </Grid>
             <Grid item xs={12} md={5.5}>
