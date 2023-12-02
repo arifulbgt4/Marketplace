@@ -355,11 +355,11 @@ const AvatarPop: FC<AvatarPopProps> = ({
               component={Link}
               href={routes.userDashboard}
               onClick={handleCloseNavAvatar}
+              disableRipple
             >
               <Stack justifyContent="center" alignItems="center">
-                <IconButton>
-                  <DashboardIcon />
-                </IconButton>
+                <DashboardIcon />
+
                 <Typography variant="caption">Dashboard</Typography>
               </Stack>
             </MenuItem>
@@ -372,14 +372,13 @@ const AvatarPop: FC<AvatarPopProps> = ({
             alignItems="center"
           >
             <MenuItem
+              disableRipple
               component={Link}
-              href={routes.userDashboard}
+              href={routes.userAccount}
               onClick={handleCloseNavAvatar}
             >
               <Stack justifyContent="center" alignItems="center">
-                <IconButton>
-                  <ManageAccountsIcon />
-                </IconButton>
+                <ManageAccountsIcon />
                 <Typography variant="caption">Account</Typography>
               </Stack>
             </MenuItem>
@@ -394,12 +393,12 @@ const AvatarPop: FC<AvatarPopProps> = ({
             <MenuItem
               component={Link}
               href={`${routes.profile}/slug`}
+              disableRipple
               onClick={handleCloseNavAvatar}
             >
               <Stack justifyContent="center" alignItems="center">
-                <IconButton>
-                  <AccountCircleIcon />
-                </IconButton>
+                <AccountCircleIcon />
+
                 <Typography variant="caption">Profile</Typography>
               </Stack>
             </MenuItem>
@@ -414,12 +413,12 @@ const AvatarPop: FC<AvatarPopProps> = ({
             <MenuItem
               component={Link}
               href={routes.userOrder}
+              disableRipple
               onClick={handleCloseNavAvatar}
             >
               <Stack justifyContent="center" alignItems="center">
-                <IconButton>
-                  <ShoppingCartIcon />
-                </IconButton>
+                <ShoppingCartIcon />
+
                 <Typography variant="caption">Order</Typography>
               </Stack>
             </MenuItem>
@@ -435,11 +434,11 @@ const AvatarPop: FC<AvatarPopProps> = ({
               component={Link}
               href={routes.userSetting}
               onClick={handleCloseNavAvatar}
+              disableRipple
             >
               <Stack justifyContent="center" alignItems="center">
-                <IconButton>
-                  <SettingsIcon />
-                </IconButton>
+                <SettingsIcon />
+
                 <Typography variant="caption">Setting</Typography>
               </Stack>
             </MenuItem>
@@ -455,11 +454,11 @@ const AvatarPop: FC<AvatarPopProps> = ({
               component={Link}
               href={routes.userListing}
               onClick={handleCloseNavAvatar}
+              disableRipple
             >
               <Stack justifyContent="center" alignItems="center">
-                <IconButton>
-                  <ListAltIcon />
-                </IconButton>
+                <ListAltIcon />
+
                 <Typography variant="caption">Listing</Typography>
               </Stack>
             </MenuItem>
@@ -474,12 +473,12 @@ const AvatarPop: FC<AvatarPopProps> = ({
             <MenuItem
               component={Link}
               href={routes.userBookmark}
+              disableRipple
               onClick={handleCloseNavAvatar}
             >
               <Stack justifyContent="center" alignItems="center">
-                <IconButton>
-                  <BookmarksIcon />
-                </IconButton>
+                <BookmarksIcon />
+
                 <Typography variant="caption">Bookmark</Typography>
               </Stack>
             </MenuItem>
@@ -496,11 +495,11 @@ const AvatarPop: FC<AvatarPopProps> = ({
                 handleCloseUserMenu();
                 signOut();
               }}
+              disableRipple
             >
               <Stack justifyContent="center" alignItems="center">
-                <IconButton>
-                  <LogoutIcon />
-                </IconButton>
+                <LogoutIcon />
+
                 <Typography variant="caption"> Log out</Typography>
               </Stack>
             </MenuItem>
