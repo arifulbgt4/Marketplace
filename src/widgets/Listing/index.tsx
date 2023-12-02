@@ -69,10 +69,15 @@ const Listing: FC<ListingProps> = ({
           title={
             <Box
               component={Link}
-              color={(theme) => theme.palette.text.primary}
+              color="text.primary"
               href={`${routes.listingDetails}/${slug}`}
+              sx={{
+                "&:hover": {
+                  color: "primary.main",
+                },
+              }}
             >
-              {title}
+              <Typography variant="h5">{title}</Typography>
             </Box>
           }
           subheader={
