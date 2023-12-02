@@ -1,9 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Stack, Typography, Tab } from "@mui/material";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";
+import { Stack, Typography, ButtonGroup, Button, Box } from "@mui/material";
 
 import OwnListing from "src/widgets/OwnListing";
 import {
@@ -13,36 +10,79 @@ import {
 } from "src/global/staticData";
 
 const ListingPage = () => {
-  const [value, setValue] = useState("1");
-
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  };
+  const [value, setValue] = useState(ownListingPublishData);
 
   return (
-    <TabContext value={value}>
+    <Box>
       <Stack
         flexDirection="row"
         justifyContent="space-between"
         alignItems="center"
       >
         <Typography variant="h3">My LIstings</Typography>
-        <TabList onChange={handleChange}>
-          <Tab label="Published" value="1" />
-          <Tab label="Unpublished" value="2" />
-          <Tab label="Draft" value="3" />
-        </TabList>
+        <ButtonGroup>
+          <Button
+            disableRipple
+            size="small"
+            onClick={() => setValue(ownListingPublishData)}
+            variant={value === ownListingPublishData ? "contained" : "text"}
+          >
+            published
+          </Button>
+          <Button
+            disableRipple
+            size="small"
+            onClick={() => setValue(ownListingUnpublishData)}
+            variant={value === ownListingUnpublishData ? "contained" : "text"}
+          >
+            unpublished
+          </Button>
+          <Button
+            disableRipple
+            size="small"
+            onClick={() => setValue(ownListingDraftData)}
+            variant={value === ownListingDraftData ? "contained" : "text"}
+          >
+            draft
+          </Button>
+        </ButtonGroup>
       </Stack>
-      <TabPanel sx={{ px: 0 }} value="1">
-        <OwnListing data={ownListingPublishData} />
-      </TabPanel>
-      <TabPanel sx={{ px: 0 }} value="2">
-        <OwnListing data={ownListingUnpublishData} />
-      </TabPanel>
-      <TabPanel sx={{ px: 0 }} value="3">
-        <OwnListing data={ownListingDraftData} />
-      </TabPanel>
-    </TabContext>
+      <Box pt={5}>
+        <OwnListing data={value} />
+      </Box>
+    </Box>
+    // <TabContext value={value}>
+    //   <Stack
+    //     flexDirection="row"
+    //     justifyContent="space-between"
+    //     alignItems="center"
+    //   >
+    //     <Typography variant="h3">My LIstings</Typography>
+    //     <TabList onChange={handleChange}>
+    //       <Tab
+    //         sx={(theme) => ({
+    //           bgcolor: value === "1" ? theme.palette.primary.main : "inherit",
+
+    //           borderRadius: 2,
+    //         })}
+    //         color="#fff"
+    //         label="Published"
+    //         value="1"
+    //       />
+    //       <Tab label="Unpublished" value="2" />
+    //       <Tab label="Draft" value="3" />
+    //     </TabList>
+    //   </Stack>
+    //   <TabPanel sx={{ px: 0 }} value="1">
+    //     <OwnListing data={ownListingPublishData} />
+    //   </TabPanel>
+    //   <TabPanel sx={{ px: 0 }} value="2">
+    //     <OwnListing data={ownListingUnpublishData} />
+    //   </TabPanel>
+    //   <TabPanel sx={{ px: 0 }} value="3">
+    //     <OwnListing data={ownListingDraftData} />
+    //   </TabPanel>
+    // </TabContext>
   );
 };
 
