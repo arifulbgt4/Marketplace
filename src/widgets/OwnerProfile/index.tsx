@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useDrawingArea } from "@mui/x-charts/hooks";
-import { styled } from "@mui/material/styles";
+import { styled, Components } from "@mui/material/styles";
 
 import { OwnerProfileProps } from "./Types";
 import { PieChart } from "@mui/x-charts";
@@ -17,6 +17,8 @@ import { PieChart } from "@mui/x-charts";
 import Grid from "@mui/material/Grid";
 import { Box } from "@mui/material";
 import { useTheme } from "@mui/material";
+import Link from "@mui/material/Link";
+import routes from "src/global/routes";
 
 const OwnerProfile: FC<OwnerProfileProps> = ({ profileData }) => {
   const {
@@ -231,7 +233,12 @@ const OwnerProfile: FC<OwnerProfileProps> = ({ profileData }) => {
           </Grid>
         </Grid>
       </Stack>
-      <Button fullWidth variant="outlined">
+      <Button
+        fullWidth
+        variant="outlined"
+        component={Link}
+        href={routes.userSetting}
+      >
         Edit Profile
       </Button>
     </Stack>
