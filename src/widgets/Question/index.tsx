@@ -16,10 +16,16 @@ const Question: FC<QuestionProps> = () => {
           px={{ md: 15 }}
           py={{ md: 5, xs: 3 }}
           bgcolor={(theme) => theme.palette.primary.main}
+          textAlign="center"
         >
           <Typography variant="h2">HAVE A QUESTION?</Typography>
         </Box>
-        <Box px={{ md: 15 }} py={{ md: 5, xs: 3 }} bgcolor="common.black">
+        <Box
+          px={{ md: 15 }}
+          py={{ md: 5, xs: 3 }}
+          bgcolor="common.black"
+          textAlign="center"
+        >
           <Typography variant="h2" color="common.white">
             HAVE A QUESTION?
           </Typography>
