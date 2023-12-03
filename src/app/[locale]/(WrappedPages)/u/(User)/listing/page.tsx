@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
-import { Stack, Typography, ButtonGroup, Button, Box } from "@mui/material";
+import { Stack, Typography, Button, Box, Hidden } from "@mui/material";
+import ListAltIcon from "@mui/icons-material/ListAlt";
 
 import OwnListing from "src/widgets/OwnListing";
 import {
@@ -15,12 +16,18 @@ const ListingPage = () => {
   return (
     <Box>
       <Stack
-        flexDirection="row"
-        justifyContent="space-between"
+        flexDirection={{ xs: "row" }}
+        justifyContent={{ xs: "space-around", md: "space-between" }}
+        gap={{ xs: 1, md: 0 }}
         alignItems="center"
       >
-        <Typography variant="h3">My LIstings</Typography>
-        <ButtonGroup>
+        <Hidden mdUp>
+          <ListAltIcon color="primary" />
+        </Hidden>
+        <Hidden mdDown>
+          <Typography variant="h3">My LIstings</Typography>
+        </Hidden>
+        <Stack flexDirection="row" width={240}>
           <Button
             disableRipple
             size="small"
@@ -45,9 +52,9 @@ const ListingPage = () => {
           >
             draft
           </Button>
-        </ButtonGroup>
+        </Stack>
       </Stack>
-      <Box pt={5}>
+      <Box pt={{ xs: 2, md: 5 }}>
         {value === "1" ? (
           <OwnListing data={ownListingPublishData} />
         ) : value === "2" ? (
