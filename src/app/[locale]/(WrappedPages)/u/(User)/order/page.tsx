@@ -15,6 +15,7 @@ import CachedIcon from "@mui/icons-material/Cached";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import CloseIcon from "@mui/icons-material/Close";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import OrderCards from "src/widgets/OrderCards";
 import OrderDetails from "src/widgets/OrderDetails";
@@ -74,9 +75,9 @@ const Order = () => {
         </Stack>
       </Stack>
       <Hidden mdUp>
-        <Box pb={2}>
-          <Button disableRipple fullWidth onClick={handleDrawerOpen}>
-            oder details
+        <Box pb={2} display="flex" justifyContent="center">
+          <Button disableRipple onClick={handleDrawerOpen} variant="contained">
+            see order <ArrowForwardIcon />
           </Button>
         </Box>
 
