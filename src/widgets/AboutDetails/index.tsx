@@ -47,11 +47,7 @@ const AboutDetails: FC<AboutDetailsProps> = () => {
                   borderRadius: 1,
                 })}
               >
-                <Box
-                  component="blockquote"
-                  position="relative"
-                  textAlign={{ xs: "center", md: "initial" }}
-                >
+                <Box textAlign={{ xs: "center", md: "initial" }}>
                   <Typography
                     display="inline"
                     textAlign="justify"
