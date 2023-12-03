@@ -77,7 +77,7 @@ const Order = () => {
       <Hidden mdUp>
         <Box pb={2} display="flex" justifyContent="center">
           <Button disableRipple onClick={handleDrawerOpen} variant="contained">
-            see order <ArrowForwardIcon />
+            see order <ArrowForwardIcon fontSize="small" />
           </Button>
         </Box>
 
