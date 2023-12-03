@@ -1,10 +1,15 @@
 import { FC } from "react";
 import {
   DataGrid,
+  GridCellParams,
   GridColDef,
   GridColumnGroupingModel,
   GridRowsProp,
+  GridToolbar,
+  GridRenderCellParams,
 } from "@mui/x-data-grid";
+import { useDemoData } from "@mui/x-data-grid-generator";
+
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -25,53 +30,89 @@ import { MoreVert, OpenInNew } from "@mui/icons-material";
 
 import { OrderDetailsProps } from "./Types";
 
+function CorrectRenderLink1() {
+  return (
+    <Stack direction="row" alignItems="center">
+      <Box px={2}>
+        <InsertPhotoIcon />
+      </Box>
+      <Typography>
+        "Phone 234-M Grey ColorTristique sed Regular Price: $800 Sale Price:
+        $8Do "
+      </Typography>
+    </Stack>
+  );
+}
+function CorrectRenderLink2() {
+  return (
+    <Stack direction="row">
+      <IconButton>
+        <OpenInNew />
+      </IconButton>
+      <IconButton>
+        <MoreVert />
+      </IconButton>
+    </Stack>
+  );
+}
+
 const OrderDetails: FC<OrderDetailsProps> = ({ orderDetailsData }) => {
-  const columns = [
-    { field: "orderNo", headerName: "#ORDER", minWidth: 80 },
+  const columns: GridColDef[] = [
+    {
+      field: "orderNo",
+      headerName: "#ORDER",
+      minWidth: 130,
+    },
     {
       field: "product",
       headerName: "PRODUCT",
-      width: 180,
-      editable: true,
+      renderCell: CorrectRenderLink1,
+      width: 260,
     },
     {
       field: "sxu",
       headerName: "SXU",
-      width: 95,
-      editable: true,
+      width: 130,
     },
     {
       field: "category",
       headerName: "CATEGORY",
-
-      editable: true,
+      width: 132,
     },
 
     {
       field: "payment",
       headerName: "PAYMENT",
-      sortable: false,
     },
     {
       field: "orderstatus",
+      width: 130,
       headerName: "ORDERSTATUS",
-      description: "This column has a value getter and is not sortable.",
-      sortable: false,
     },
     {
       field: "actions",
       headerName: "ACTIONS",
-      description: "This column has a value getter and is not sortable.",
-      sortable: false,
+      renderCell: CorrectRenderLink2,
+
+      width: 130,
     },
   ];
-  /* const rows = [
-    { id: 1, lastName: "Snow", firstName: "Jon", age: 35, gender: "5" },
+
+  /*  const correctColumns: GridColDef[] = [
+    { field: "orderNo", renderCell: CorrectRenderLink1, width: 200 },
+    { field: "656", renderCell: CorrectRenderLink2, width: 200 },
   ]; */
+
+  // const { data } = useDemoData({
+  //   dataSet: "Commodity",
+  //   rowLength: 5,
+  //   maxColumns: 6,
+  // });
+
   return (
     <DataGrid
-      rows={orderDetailsData}
       columns={columns}
+      rows={orderDetailsData}
       initialState={{
         pagination: {
           paginationModel: {
@@ -79,12 +120,13 @@ const OrderDetails: FC<OrderDetailsProps> = ({ orderDetailsData }) => {
           },
         },
       }}
+      slots={{ toolbar: GridToolbar }}
       autoHeight={true}
       pageSizeOptions={[10]}
       disableRowSelectionOnClick
       showColumnVerticalBorder={false}
       getRowHeight={() => "auto"}
-    />
+    ></DataGrid>
     // <>
     //   <TableContainer>
     //     <Table sx={{ overflowX: "auto" }}>
