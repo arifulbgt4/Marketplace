@@ -10,12 +10,12 @@ const profileData = {
   rating: 4.5,
   totalListing: 8,
   totalReview: 20,
-  cleanliness: 5,
-  communication: 3,
-  checkIn: 4,
-  accuracy: 3,
-  location: 2,
-  value: 5,
+  cleanliness: 70,
+  communication: 80,
+  checkIn: 40,
+  accuracy: 100,
+  location: 45,
+  value: 90,
 };
 
 export default function Account() {
