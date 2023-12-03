@@ -106,15 +106,18 @@ const OwnerProfile: FC<OwnerProfileProps> = ({ profileData }) => {
               series={[
                 {
                   data: [{ id: 1, value: cleanliness }],
-                  endAngle: 305,
-                  innerRadius: 12,
-                  outerRadius: 15,
+                  endAngle: (cleanliness * 360) / 100,
+                  innerRadius: 15,
+                  outerRadius: 20,
                 },
               ]}
               colors={[theme.palette.primary.main]}
               height={50}
             >
-              <PieCenterLabel>70%</PieCenterLabel>
+              <PieCenterLabel>
+                {cleanliness}
+                {"%"}
+              </PieCenterLabel>
             </PieChart>
           </Grid>
         </Grid>
@@ -129,14 +132,18 @@ const OwnerProfile: FC<OwnerProfileProps> = ({ profileData }) => {
               series={[
                 {
                   data: [{ id: 2, value: communication }],
-                  innerRadius: 12,
-                  outerRadius: 15,
+                  innerRadius: 15,
+                  outerRadius: 20,
+                  endAngle: (communication * 360) / 100,
                 },
               ]}
               colors={[theme.palette.success.main]}
               height={50}
             >
-              <PieCenterLabel>100%</PieCenterLabel>
+              <PieCenterLabel>
+                {communication}
+                {"%"}
+              </PieCenterLabel>
             </PieChart>
           </Grid>
         </Grid>
@@ -151,14 +158,17 @@ const OwnerProfile: FC<OwnerProfileProps> = ({ profileData }) => {
                 {
                   data: [{ id: 2, value: checkIn }],
                   innerRadius: 15,
-                  outerRadius: 12,
-                  endAngle: 200,
+                  outerRadius: 20,
+                  endAngle: (checkIn * 360) / 100,
                 },
               ]}
               colors={[theme.palette.error.main]}
               height={50}
             >
-              <PieCenterLabel>45%</PieCenterLabel>
+              <PieCenterLabel>
+                {checkIn}
+                {"%"}
+              </PieCenterLabel>
             </PieChart>
           </Grid>
         </Grid>
@@ -173,15 +183,18 @@ const OwnerProfile: FC<OwnerProfileProps> = ({ profileData }) => {
                 {
                   data: [{ id: 3, value: accuracy }],
                   innerRadius: 15,
-                  outerRadius: 12,
+                  outerRadius: 20,
 
-                  endAngle: 180,
+                  endAngle: (accuracy * 360) / 100,
                 },
               ]}
               height={50}
               margin={{ right: 0 }}
             >
-              <PieCenterLabel>30%</PieCenterLabel>
+              <PieCenterLabel>
+                {accuracy}
+                {"%"}
+              </PieCenterLabel>
             </PieChart>
           </Grid>
         </Grid>
@@ -195,16 +208,18 @@ const OwnerProfile: FC<OwnerProfileProps> = ({ profileData }) => {
                 {
                   data: [{ id: 4, value: location }],
                   innerRadius: 15,
-                  outerRadius: 12,
-
-                  endAngle: 195,
+                  outerRadius: 20,
+                  endAngle: (location * 360) / 100,
                 },
               ]}
               margin={{ right: 0 }}
               height={50}
               colors={[theme.palette.success.main]}
             >
-              <PieCenterLabel>40%</PieCenterLabel>
+              <PieCenterLabel>
+                {location}
+                {"%"}
+              </PieCenterLabel>
             </PieChart>
           </Grid>
         </Grid>
@@ -218,16 +233,18 @@ const OwnerProfile: FC<OwnerProfileProps> = ({ profileData }) => {
                 {
                   data: [{ id: 1, value: value }],
                   innerRadius: 15,
-                  outerRadius: 12,
-
-                  endAngle: 330,
+                  outerRadius: 20,
+                  endAngle: (value * 360) / 100,
                 },
               ]}
               colors={[theme.palette.primary.light]}
               margin={{ right: 0 }}
               height={50}
             >
-              <PieCenterLabel>90%</PieCenterLabel>
+              <PieCenterLabel>
+                {value}
+                {"%"}
+              </PieCenterLabel>
             </PieChart>
           </Grid>
         </Grid>
