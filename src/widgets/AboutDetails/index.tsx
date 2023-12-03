@@ -52,33 +52,40 @@ const AboutDetails: FC<AboutDetailsProps> = () => {
                   position="relative"
                   textAlign={{ xs: "center", md: "initial" }}
                 >
-                  <Box
-                    sx={{ transform: "Rotate(200deg)" }}
-                    position="absolute"
-                    left={-8}
-                    top={-50}
+                  <Typography
+                    display="inline"
+                    textAlign="justify"
+                    variant="h4"
+                    position="relative"
                   >
-                    <Typography color="warning.main" variant="h1">
+                    <Box
+                      component="span"
+                      fontSize={56}
+                      color="warning.main"
+                      position="absolute"
+                      top={-55}
+                      left={-8}
+                      sx={{ transform: "rotate(210deg)" }}
+                    >
                       "
-                    </Typography>
-                  </Box>
-                  <Typography variant="h4">
+                    </Box>
                     Lorem ipsum dolor sit amet consectetur. Venenatis mauris
                     purus ornare porta id malesuada nibh vestibulum morbi. Quam
                     blandit scelerisque duis nunc erat lectus feugiat fames
                     massa. Velit cursus faucibus venenatis vitae integer massa
                     blandit. Ut vitae arcu suscipit egestas ultrices.
-                  </Typography>
-                  <Box
-                    sx={{ transform: "Rotate(15deg)" }}
-                    position="absolute"
-                    left={90}
-                    top={143}
-                  >
-                    <Typography color="warning.main" variant="h1">
+                    <Box
+                      component="span"
+                      fontSize={56}
+                      color="warning.main"
+                      position="absolute"
+                      bottom={-53}
+                      right={-13}
+                      sx={{ transform: "rotate(25deg)" }}
+                    >
                       "
-                    </Typography>
-                  </Box>
+                    </Box>
+                  </Typography>
                 </Box>
               </Box>
             </Grid>
