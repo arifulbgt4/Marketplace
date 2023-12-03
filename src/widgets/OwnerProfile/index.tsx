@@ -13,6 +13,7 @@ import {
 import { styled } from "@mui/material/styles";
 import { useDrawingArea } from "@mui/x-charts/hooks";
 import { PieChart } from "@mui/x-charts";
+import EditIcon from "@mui/icons-material/Edit";
 
 import routes from "src/global/routes";
 
@@ -236,6 +237,7 @@ const OwnerProfile: FC<OwnerProfileProps> = ({ profileData }) => {
         variant="outlined"
         component={Link}
         href={routes.userSetting}
+        startIcon={<EditIcon />}
       >
         Edit Profile
       </Button>
