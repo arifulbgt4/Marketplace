@@ -1,34 +1,21 @@
 "use client";
 import { FC } from "react";
-import {
-  Avatar,
-  Box,
-  SvgIcon,
-  IconButton,
-  Paper,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Avatar, Box, SvgIcon, Paper, Stack, Typography } from "@mui/material";
 
 import { OrderCardProps } from "./Types";
-
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const OrderCard: FC<OrderCardProps> = ({ orderTitle, icon, order }) => {
   return (
     <Paper sx={{ p: 3, borderRadius: 2 }}>
       <Stack
         flexDirection="row"
-        justifyContent="space-between"
+        justifyContent="flex-start"
         alignItems="center"
         pb={1}
       >
         <Avatar sx={(theme) => ({ bgcolor: theme.palette.primary.main })}>
           <SvgIcon component={icon} inheritViewBox />
         </Avatar>
-        <IconButton>
-          <MoreVertIcon />
-        </IconButton>
       </Stack>
 
       <Box>
