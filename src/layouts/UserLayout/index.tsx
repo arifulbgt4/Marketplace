@@ -1,7 +1,7 @@
 "use client";
 import { FC } from "react";
 import { usePathname } from "next/navigation";
-import { Stack, Link, Container, Box } from "@mui/material";
+import { Stack, Link, Container, Box, Paper } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -20,7 +20,7 @@ const UserLayout: FC<UserLayoutProps> = ({ children }) => {
 
   return (
     <Box>
-      <Box py={2} bgcolor={(theme) => theme.palette.grey[100]}>
+      <Box py={2} component={Paper} elevation={0}>
         <Container>
           <Stack
             gap={{ xs: 3, md: 8 }}
