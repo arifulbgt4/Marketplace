@@ -341,7 +341,7 @@ export const orderDetailsData = [
     sxu: "1234567FR",
     category: "Electronics",
     payment: 600,
-    orderStatus: "Complete",
+    orderstatus: "Complete",
   },
   {
     id: 2,
@@ -351,7 +351,7 @@ export const orderDetailsData = [
     sxu: "1234567FR",
     category: "Electronics",
     payment: 600,
-    orderStatus: "Cancle",
+    orderstatus: "Cancle",
   },
   {
     id: 3,
@@ -361,7 +361,7 @@ export const orderDetailsData = [
     sxu: "1234567FR",
     category: "Electronics",
     payment: 600,
-    orderStatus: "Complete",
+    orderstatus: "Complete",
   },
   {
     id: 4,
@@ -371,7 +371,7 @@ export const orderDetailsData = [
     sxu: "1234567FR",
     category: "Electronics",
     payment: 600,
-    orderStatus: "Complete",
+    orderstatus: "Complete",
   },
   {
     id: 5,
@@ -381,7 +381,7 @@ export const orderDetailsData = [
     sxu: "1234567FR",
     category: "Electronics",
     payment: 600,
-    orderStatus: "Cancle",
+    orderstatus: "Cancle",
   },
   {
     id: 6,
@@ -391,7 +391,7 @@ export const orderDetailsData = [
     sxu: "1234567FR",
     category: "Electronics",
     payment: 600,
-    orderStatus: "Complete",
+    orderstatus: "Complete",
   },
   {
     id: 7,
@@ -401,7 +401,7 @@ export const orderDetailsData = [
     sxu: "1234567FR",
     category: "Electronics",
     payment: 600,
-    orderStatus: "Cancle",
+    orderstatus: "Cancle",
   },
   {
     id: 8,
@@ -411,7 +411,7 @@ export const orderDetailsData = [
     sxu: "1234567FR",
     category: "Electronics",
     payment: 600,
-    orderStatus: "Complete",
+    orderstatus: "Complete",
   },
   {
     id: 9,
@@ -421,7 +421,7 @@ export const orderDetailsData = [
     sxu: "1234567FR",
     category: "Electronics",
     payment: 600,
-    orderStatus: "Cancle",
+    orderstatus: "Cancle",
   },
   {
     id: 10,
@@ -431,7 +431,7 @@ export const orderDetailsData = [
     sxu: "1234567FR",
     category: "Electronics",
     payment: 600,
-    orderStatus: "Complete",
+    orderstatus: "Complete",
   },
 ];
 

@@ -9,5 +9,5 @@ interface orderDataProps {
   sxu: string;
   payment: number;
   category: string;
-  orderStatus: string;
+  orderstatus: string;
 }
