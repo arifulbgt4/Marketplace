@@ -345,7 +345,7 @@ export const orderDetailsData = [
   },
   {
     id: 2,
-    orderNo: "#123567",
+    orderNo: "#123568",
     product:
       "Phone 234-M Grey ColorTristique sed Regular Price: $800 Sale Price: $8Do ",
     sxu: "1234567FR",
@@ -355,7 +355,7 @@ export const orderDetailsData = [
   },
   {
     id: 3,
-    orderNo: "#123567",
+    orderNo: "#123569",
     product:
       "Phone 234-M Grey ColorTristique sed Regular Price: $800 Sale Price: $8Do ",
     sxu: "1234567FR",
@@ -365,7 +365,7 @@ export const orderDetailsData = [
   },
   {
     id: 4,
-    orderNo: "#123567",
+    orderNo: "#123569",
     product:
       "Phone 234-M Grey ColorTristique sed Regular Price: $800 Sale Price: $8Do ",
     sxu: "1234567FR",
@@ -375,7 +375,7 @@ export const orderDetailsData = [
   },
   {
     id: 5,
-    orderNo: "#123567",
+    orderNo: "#1235610",
     product:
       "Phone 234-M Grey ColorTristique sed Regular Price: $800 Sale Price: $8Do ",
     sxu: "1234567FR",
@@ -385,7 +385,7 @@ export const orderDetailsData = [
   },
   {
     id: 6,
-    orderNo: "#123567",
+    orderNo: "#1235611",
     product:
       "Phone 234-M Grey ColorTristique sed Regular Price: $800 Sale Price: $8Do ",
     sxu: "1234567FR",
@@ -395,7 +395,7 @@ export const orderDetailsData = [
   },
   {
     id: 7,
-    orderNo: "#123567",
+    orderNo: "#1235612",
     product:
       "Phone 234-M Grey ColorTristique sed Regular Price: $800 Sale Price: $8Do ",
     sxu: "1234567FR",
@@ -405,7 +405,7 @@ export const orderDetailsData = [
   },
   {
     id: 8,
-    orderNo: "#123567",
+    orderNo: "#123513",
     product:
       "Phone 234-M Grey ColorTristique sed Regular Price: $800 Sale Price: $8Do ",
     sxu: "1234567FR",
@@ -415,7 +415,7 @@ export const orderDetailsData = [
   },
   {
     id: 9,
-    orderNo: "#123567",
+    orderNo: "#1235614",
     product:
       "Phone 234-M Grey ColorTristique sed Regular Price: $800 Sale Price: $8Do ",
     sxu: "1234567FR",
@@ -425,7 +425,7 @@ export const orderDetailsData = [
   },
   {
     id: 10,
-    orderNo: "#123567",
+    orderNo: "#1235615",
     product:
       "Phone 234-M Grey ColorTristique sed Regular Price: $800 Sale Price: $8Do ",
     sxu: "1234567FR",
