@@ -36,7 +36,6 @@ const UserLayout: FC<UserLayoutProps> = ({ children }) => {
               }
             >
               <Tab
-                wrapped
                 component={Link}
                 href={routes.userDashboard}
                 icon={<DashboardIcon fontSize="small" />}
