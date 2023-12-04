@@ -29,6 +29,7 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
     ]);
 
     router.push(`${routes.search}?${query}`, { scroll: false });
+    onClose && onClose();
   };
 
   return (
@@ -80,9 +81,9 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
                   width: { xs: "100%", md: "auto" },
                 }}
                 variant="contained"
+                type="submit"
                 color="inherit"
                 size="large"
-                onClick={onClose}
               >
                 SEARCH
               </Button>
