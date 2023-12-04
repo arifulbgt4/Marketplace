@@ -1,47 +1,10 @@
 import { FC } from "react";
-import {
-  DataGrid,
-  GridCellParams,
-  GridColDef,
-  GridColumnGroupingModel,
-  GridRowsProp,
-  GridToolbar,
-  GridRenderCellParams,
-} from "@mui/x-data-grid";
-
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import {
-  Stack,
-  IconButton,
-  Typography,
-  Box,
-  Chip,
-  TablePagination,
-} from "@mui/material";
-import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
-import SmartphoneIcon from "@mui/icons-material/Smartphone";
+import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
+import { Stack, IconButton, Typography, Box } from "@mui/material";
 import { MoreVert, OpenInNew } from "@mui/icons-material";
 
 import { OrderDetailsProps } from "./Types";
 
-function CorrectRenderLink1() {
-  return (
-    <Stack direction="row" alignItems="center">
-      <Box px={2}>
-        <InsertPhotoIcon />
-      </Box>
-      <Typography>
-        "Phone 234-M Grey ColorTristique sed Regular Price: $800 Sale Price:
-        $8Do "
-      </Typography>
-    </Stack>
-  );
-}
 function CorrectRenderLink2() {
   return (
     <Stack direction="row">
