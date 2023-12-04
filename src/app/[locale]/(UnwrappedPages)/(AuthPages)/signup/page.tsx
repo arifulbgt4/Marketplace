@@ -16,7 +16,7 @@ import SignupForm from "src/forms/SignupForm";
 
 export default function SignUp() {
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="xs">
       <Stack alignItems="center" justifyContent="center" minHeight="100vh">
         <Stack gap={2.5} width="100%">
           <Stack border={1} borderColor="divider" gap={2.5} sx={{ p: 4 }}>
@@ -70,7 +70,7 @@ export default function SignUp() {
             flexDirection="row"
             justifyContent="center"
             alignItems="center"
-            py={4}
+            py={3}
             border={1}
             borderColor="divider"
           >

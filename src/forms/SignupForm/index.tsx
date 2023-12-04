@@ -67,7 +67,7 @@ const SignupForm: FC<SignupFormProps> = () => {
                 />
                 <TextField
                   name="username"
-                  label="Use name"
+                  label="User name"
                   required
                   size="small"
                   fullWidth
@@ -98,18 +98,13 @@ const SignupForm: FC<SignupFormProps> = () => {
                   }}
                 />
               </Stack>
-              <Stack flexDirection="row" alignItems="center" gap={2}>
-                <Checkbox name="check" />
+              <Stack flexDirection="row">
+                <Checkbox size="small" name="check" />
                 <Typography color="text.secondary">
                   By signing up, you agree our Terms Privacy Policy and Coockies
                   Policy
                 </Typography>
               </Stack>
-              <Typography color="text.secondary">
-                People who use our service may have uploaded your contact
-                information to Dream House.
-              </Typography>
-
               <Button
                 type="submit"
                 variant="contained"

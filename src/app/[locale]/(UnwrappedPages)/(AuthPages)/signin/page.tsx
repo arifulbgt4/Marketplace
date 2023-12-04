@@ -74,7 +74,7 @@ export default function SignIn() {
             flexDirection="row"
             justifyContent="center"
             alignItems="center"
-            py={4}
+            py={3}
             border={1}
             borderColor="divider"
           >
