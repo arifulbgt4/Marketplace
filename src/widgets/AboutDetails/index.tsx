@@ -41,6 +41,7 @@ const AboutDetails: FC<AboutDetailsProps> = () => {
               top={{ md: 260 }}
             >
               <Box
+                p={2}
                 sx={(theme) => ({
                   background: theme.palette.background.default,
                   opacity: 0.7,
