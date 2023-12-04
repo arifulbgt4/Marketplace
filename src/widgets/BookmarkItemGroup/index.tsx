@@ -1,29 +1,49 @@
+"use client";
 import { FC } from "react";
-import { Grid } from "@mui/material";
-
-import { bookMarkData } from "src/global/staticData";
-import BookmarkItem from "../BookmarkItem";
+import { Grid, Typography } from "@mui/material";
 
 import { BookmarkItemGroupProps } from "./Types";
+import Listing from "../Listing";
+import { searchListingData } from "../../global/staticData/index";
 
 const BookmarkItemGroup: FC<BookmarkItemGroupProps> = () => {
   return (
-    <Grid container spacing={3}>
-      {bookMarkData.map((data) => {
-        const { id, title, subheader, bedroom, bathroom, rent } = data;
-        return (
-          <Grid key={id} item xs={12} sm={6}>
-            <BookmarkItem
-              id={id}
-              title={title}
-              subheader={subheader}
-              bedroom={bedroom}
-              bathroom={bathroom}
-              rent={rent}
-            />
-          </Grid>
-        );
-      })}
+    <Grid container gap={5}>
+      <Grid item xs={12}>
+        <Typography variant="h3" color={(theme) => theme.palette.text.primary}>
+          Bookmars
+        </Typography>
+      </Grid>
+      <Grid item xs={12} container spacing={5}>
+        {searchListingData.map((data) => {
+          const {
+            id,
+            image,
+            title,
+            price,
+            description,
+            services,
+            rating,
+            slug,
+            address,
+          } = data;
+          return (
+            <Grid item md={4} sm={6} xs={12}>
+              <Listing
+                id={id}
+                slug={slug}
+                image={image}
+                title={title}
+                price={price}
+                services={services}
+                description={description}
+                rating={rating}
+                address={address}
+              />
+            </Grid>
+          );
+        })}
+      </Grid>
     </Grid>
   );
 };
