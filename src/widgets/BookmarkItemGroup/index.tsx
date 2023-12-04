@@ -28,7 +28,7 @@ const BookmarkItemGroup: FC<BookmarkItemGroupProps> = () => {
             address,
           } = data;
           return (
-            <Grid item md={4} sm={6} xs={12}>
+            <Grid item md={4} sm={6} xs={12} key={id}>
               <Listing
                 key={id}
                 id={id}
