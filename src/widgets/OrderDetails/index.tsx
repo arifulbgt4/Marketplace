@@ -65,7 +65,6 @@ const OrderDetails: FC<OrderDetailsProps> = ({ orderDetailsData }) => {
     {
       field: "product",
       headerName: "PRODUCT",
-      renderCell: CorrectRenderLink1,
       width: 260,
     },
     {
@@ -97,19 +96,14 @@ const OrderDetails: FC<OrderDetailsProps> = ({ orderDetailsData }) => {
     },
   ];
 
-  /*  const correctColumns: GridColDef[] = [
-    { field: "orderNo", renderCell: CorrectRenderLink1, width: 200 },
-    { field: "656", renderCell: CorrectRenderLink2, width: 200 },
-  ]; */
-
-  // const { data } = useDemoData({
-  //   dataSet: "Commodity",
-  //   rowLength: 5,
-  //   maxColumns: 6,
-  // });
-
   return (
     <DataGrid
+      sx={{
+        border: "none",
+        ".MuiDataGrid-cell": {
+          border: "none",
+        },
+      }}
       columns={columns}
       rows={orderDetailsData}
       initialState={{
@@ -125,113 +119,7 @@ const OrderDetails: FC<OrderDetailsProps> = ({ orderDetailsData }) => {
       disableRowSelectionOnClick
       showColumnVerticalBorder={false}
       getRowHeight={() => "auto"}
-    ></DataGrid>
-    // <>
-    //   <TableContainer>
-    //     <Table sx={{ overflowX: "auto" }}>
-    //       <TableHead>
-    //         <TableRow>
-    //           <TableCell align="left" sx={{ borderBottom: "none" }}>
-    //             Order
-    //           </TableCell>
-    //           <TableCell align="left" sx={{ borderBottom: "none" }}>
-    //             PRODUCT
-    //           </TableCell>
-    //           <TableCell align="left" sx={{ borderBottom: "none" }}>
-    //             SXU
-    //           </TableCell>
-    //           <TableCell align="left" sx={{ borderBottom: "none" }}>
-    //             CATEGORY
-    //           </TableCell>
-    //           <TableCell align="left" sx={{ borderBottom: "none" }}>
-    //             PAYMENT
-    //           </TableCell>
-    //           <TableCell align="left" sx={{ borderBottom: "none" }}>
-    //             ORDER STATUS
-    //           </TableCell>
-    //           <TableCell align="left" sx={{ borderBottom: "none" }}>
-    //             ACTIONS
-    //           </TableCell>
-    //         </TableRow>
-    //       </TableHead>
-    //       <TableBody>
-    //         {orderDetailsData.map((data) => {
-    //           const {
-    //             id,
-    //             orderNo,
-    //             product,
-    //             sxu,
-    //             category,
-    //             payment,
-    //             orderStatus,
-    //           } = data;
-    //           return (
-    //             <TableRow key={id}>
-    //               <TableCell
-    //                 sx={{
-    //                   display: "flex",
-    //                   borderBottom: "none",
-    //                 }}
-    //                 align="left"
-    //               >
-    //                 {orderNo}
-    //               </TableCell>
-    //               <TableCell
-    //                 align="left"
-    //                 sx={{ maxWidth: 164, borderBottom: "none" }}
-    //               >
-    //                 <Stack flexDirection="row" alignItems="self-start" gap={1}>
-    //                   <IconButton sx={{ p: 0 }}>
-    //                     <InsertPhotoIcon />
-    //                   </IconButton>
-    //                   <Typography variant="body2">{product}</Typography>
-    //                 </Stack>
-    //               </TableCell>
-    //               <TableCell sx={{ borderBottom: "none" }} align="left">
-    //                 {sxu}
-    //               </TableCell>
-    //               <TableCell sx={{ borderBottom: "none" }} align="left">
-    //                 <Stack flexDirection="row" alignItems="self-start" gap={1}>
-    //                   <IconButton sx={{ p: 0 }}>
-    //                     <SmartphoneIcon />
-    //                   </IconButton>
-    //                   <Typography variant="body2">{category}</Typography>
-    //                 </Stack>
-    //               </TableCell>
-    //               <TableCell sx={{ borderBottom: "none" }} align="left">
-    //                 <Box>
-    //                   <Typography variant="h6">
-    //                     {"$"}
-    //                     {payment}
-    //                   </Typography>
-    //                   <Typography variant="body2">Full Paid</Typography>
-    //                 </Box>
-    //               </TableCell>
-    //               <TableCell sx={{ borderBottom: "none" }} align="left">
-    //                 <Chip
-    //                   size="small"
-    //                   label={orderStatus}
-    //                   color={orderStatus === "Complete" ? "primary" : "warning"}
-    //                 />
-    //               </TableCell>
-    //               <TableCell sx={{ borderBottom: "none" }} align="left">
-    //                 <Stack flexDirection="row">
-    //                   <IconButton>
-    //                     <OpenInNew />
-    //                   </IconButton>
-    //                   <IconButton>
-    //                     <MoreVert />
-    //                   </IconButton>
-    //                 </Stack>
-    //               </TableCell>
-    //             </TableRow>
-    //           );
-    //         })}
-    //       </TableBody>
-    //     </Table>
-    //   </TableContainer>
-
-    // </>
+    />
   );
 };
 
