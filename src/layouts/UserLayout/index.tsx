@@ -20,71 +20,72 @@ const UserLayout: FC<UserLayoutProps> = ({ children }) => {
 
   return (
     <Box>
-      <Box py={2} component={Paper} elevation={0}>
+      <Box component={Paper} elevation={0}>
         <Container>
-          <Stack
-            gap={{ xs: 3, md: 8 }}
-            direction="column"
-            justifyContent="space-between"
-            alignSelf="stretch"
+          <Tabs
+            value={
+              pathname.includes(routes.userSetting)
+                ? routes.userSetting
+                : pathname
+            }
+            variant="scrollable"
+            allowScrollButtonsMobile
           >
-            <Tabs
-              value={
-                pathname.includes(routes.userSetting)
-                  ? routes.userSetting
-                  : pathname
-              }
-            >
-              <Tab
-                component={Link}
-                href={routes.userDashboard}
-                icon={<DashboardIcon fontSize="small" />}
-                iconPosition="start"
-                label="DASHBOARD"
-                value={routes.userDashboard}
-              />
-              <Tab
-                component={Link}
-                href={routes.userAccount}
-                icon={<ManageAccountsIcon fontSize="small" />}
-                iconPosition="start"
-                label="ACCOUNT"
-                value={routes.userAccount}
-              />
-              <Tab
-                component={Link}
-                href={routes.userListing}
-                icon={<ListAltIcon fontSize="small" />}
-                iconPosition="start"
-                label="LISTINGS"
-                value={routes.userListing}
-              />
-              <Tab
-                component={Link}
-                href={routes.userBookmark}
-                icon={<BookmarksIcon fontSize="small" />}
-                iconPosition="start"
-                label="BOOKMARKS"
-                value={routes.userBookmark}
-              />
-              <Tab
-                component={Link}
-                href={routes.userOrder}
-                icon={<ShoppingCartIcon fontSize="small" />}
-                iconPosition="start"
-                label="ORDER"
-                value={routes.userOrder}
-              />
-              <Tab
-                component={Link}
-                href={routes.userSetting}
-                icon={<SettingsIcon fontSize="small" />}
-                iconPosition="start"
-                label="SETTINGS"
-                value={routes.userSetting}
-              />
-            </Tabs>
-          </Stack>
+            <Tab
+              component={Link}
+              href={routes.userDashboard}
+              icon={<DashboardIcon fontSize="small" />}
+              iconPosition="start"
+              label="DASHBOARD"
+              value={routes.userDashboard}
+              sx={{ py: { xs: 2, md: 4 }, pl: 0 }}
+            />
+            <Tab
+              component={Link}
+              href={routes.userAccount}
+              icon={<ManageAccountsIcon fontSize="small" />}
+              iconPosition="start"
+              label="ACCOUNT"
+              value={routes.userAccount}
+              sx={{ py: { xs: 2, md: 4 } }}
+            />
+            <Tab
+              component={Link}
+              href={routes.userListing}
+              icon={<ListAltIcon fontSize="small" />}
+              iconPosition="start"
+              label="LISTINGS"
+              value={routes.userListing}
+              sx={{ py: { xs: 2, md: 4 } }}
+            />
+            <Tab
+              component={Link}
+              href={routes.userBookmark}
+              icon={<BookmarksIcon fontSize="small" />}
+              iconPosition="start"
+              label="BOOKMARKS"
+              value={routes.userBookmark}
+              sx={{ py: { xs: 2, md: 4 } }}
+            />
+            <Tab
+              component={Link}
+              href={routes.userOrder}
+              icon={<ShoppingCartIcon fontSize="small" />}
+              iconPosition="start"
+              label="ORDER"
+              value={routes.userOrder}
+              sx={{ py: { xs: 2, md: 4 } }}
+            />
+            <Tab
+              component={Link}
+              href={routes.userSetting}
+              icon={<SettingsIcon fontSize="small" />}
+              iconPosition="start"
+              label="SETTINGS"
+              value={routes.userSetting}
+              sx={{ py: { xs: 2, md: 4 } }}
+            />
+          </Tabs>
         </Container>
       </Box>
       <Container>
