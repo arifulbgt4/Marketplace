@@ -41,43 +41,10 @@ const Order = () => {
 
   return (
     <>
-      <Stack
-        flexDirection={{ md: "row" }}
-        justifyContent="space-between"
-        alignItems={{ md: "center" }}
-        pb={{ xs: 1, md: 3 }}
-      >
-        <Hidden mdDown>
-          <Typography variant="h3">Order</Typography>
-        </Hidden>
-        <Stack flexDirection={{ md: "row" }} gap={{ xs: 0.5, md: 1 }}>
-          <Button endIcon={<CachedIcon />}>Data Refreshed</Button>
-          <Button variant="outlined">September 28, 2023 12:35 PM</Button>
-        </Stack>
-      </Stack>
-      <Stack
-        flexDirection={{ md: "row" }}
-        justifyContent="space-between"
-        alignItems={{ md: "center" }}
-        pb={{ xs: 2, md: 5 }}
-        gap={{ xs: 0.5, md: 0 }}
-      >
-        <Button variant="outlined" endIcon={<CalendarMonthIcon />}>
-          08/12/2023-08/24/2023
-        </Button>
-        <Stack flexDirection={{ md: "row" }} gap={{ xs: 0.5, md: 1 }}>
-          <Button variant="outlined" endIcon={<ArrowDropDownIcon />}>
-            Product Category
-          </Button>
-          <Button variant="outlined" endIcon={<ArrowDropDownIcon />}>
-            Sort by: Best Seller
-          </Button>
-        </Stack>
-      </Stack>
       <Hidden mdUp>
         <Box pb={2} display="flex" justifyContent="center">
           <Button disableRipple onClick={handleDrawerOpen} variant="contained">
-            see order <ArrowForwardIcon fontSize="small" />
+            Order <ArrowForwardIcon fontSize="small" />
           </Button>
         </Box>
 
@@ -98,21 +65,45 @@ const Order = () => {
                 <CloseIcon />
               </IconButton>
             </Stack>
-            <Box sx={{ pt: 4, px: 2 }}>
-              <OrderDetails orderDetailsData={orderDetailsData} />
+            <Box sx={{ pt: 10, px: 2 }}>
+              <Grid item xs={12} md={3} gap={4} container>
+                <Grid item xs={12} container gap={2}>
+                  <Typography variant="h3">Order</Typography>
+                  <Button variant="outlined" endIcon={<CalendarMonthIcon />}>
+                    08/12/2023-08/24/2023
+                  </Button>
+                </Grid>
+                <Grid item xs={12}>
+                  <OrderCards
+                    orderData={orderData}
+                    avRating={{ view: 60, rate: 34 }}
+                  />
+                </Grid>
+              </Grid>
             </Box>
           </Paper>
         </Drawer>
       </Hidden>
       <Grid container columnSpacing={5}>
-        <Grid item xs={12} md={3}>
-          <OrderCards orderData={orderData} avRating={{ view: 60, rate: 34 }} />
-        </Grid>
         <Hidden mdDown>
-          <Grid item xs={12} md={9}>
-            <OrderDetails orderDetailsData={orderDetailsData} />
+          <Grid item xs={12} md={3} gap={4} container>
+            <Grid item xs={12} container gap={2}>
+              <Typography variant="h3">Order</Typography>
+              <Button variant="outlined" endIcon={<CalendarMonthIcon />}>
+                08/12/2023-08/24/2023
+              </Button>
+            </Grid>
+            <Grid item xs={12}>
+              <OrderCards
+                orderData={orderData}
+                avRating={{ view: 60, rate: 34 }}
+              />
+            </Grid>
           </Grid>
         </Hidden>
+        <Grid item xs={12} md={9}>
+          <OrderDetails orderDetailsData={orderDetailsData} />
+        </Grid>
       </Grid>
     </>
   );
