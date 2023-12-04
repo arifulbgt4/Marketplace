@@ -14,9 +14,20 @@ const Question: FC<QuestionProps> = () => {
       >
         <Box
           px={{ md: 15 }}
-          py={{ md: 5, xs: 2 }}
-          bgcolor={(theme) => theme.palette.primary.main}
+          py={{ md: 12, xs: 2 }}
+          bgcolor="info.light"
+          color="info.contrastText"
           textAlign="center"
+          fontWeight={100}
+          sx={(theme) => ({
+            transition: ".5s",
+            "&:hover": {
+              bgcolor: "info.main",
+              transform: "scale(1.02)",
+              borderRadius: 1,
+              boxShadow: theme.shadows[1],
+            },
+          })}
         >
           <Typography sx={{ typography: { md: "h2", xs: "h3" } }}>
             HAVE A QUESTION?
@@ -24,15 +35,26 @@ const Question: FC<QuestionProps> = () => {
         </Box>
         <Box
           px={{ md: 15 }}
-          py={{ md: 5, xs: 2 }}
-          bgcolor="common.black"
+          py={{ md: 12, xs: 2 }}
+          bgcolor="secondary.main"
           textAlign="center"
+          sx={{
+            transition: ".5s",
+            "&:hover": {
+              bgcolor: "secondary.dark",
+              transform: "scale(1.02)",
+              borderRadius: 1,
+              boxShadow: 1,
+            },
+          }}
+          color="secondary.contrastText"
         >
           <Typography
+            fontWeight={100}
             sx={{ typography: { md: "h2", xs: "h3" } }}
             color="common.white"
           >
-            HAVE A QUESTION?
+            FIND AN AGENT
           </Typography>
         </Box>
       </Stack>
