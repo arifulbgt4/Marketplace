@@ -14,6 +14,9 @@ const MuiTab: Components<Theme>["MuiTab"] = {
 const MuiTabs: Components<Theme>["MuiTabs"] = {
   styleOverrides: {
     root: ({ theme, ownerState }) => ({}),
+    scrollButtons: ({ theme, ownerState }) => ({
+      width: "auto",
+    }),
   },
 };
 
