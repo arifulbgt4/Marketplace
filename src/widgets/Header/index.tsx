@@ -327,7 +327,7 @@ const AvatarPop: FC<AvatarPopProps> = ({
         <Avatar>AD</Avatar>
       </IconButton>
       <Menu
-        sx={{ mt: "45px" }}
+        sx={{ mt: 6 }}
         id="menu-appbar"
         anchorEl={anchorElAvat}
         anchorOrigin={{
@@ -342,7 +342,7 @@ const AvatarPop: FC<AvatarPopProps> = ({
         open={Boolean(anchorElAvat)}
         onClose={handleCloseNavAvatar}
       >
-        <Grid container width={280} maxWidth="100%">
+        <Grid container width={320} spacing={1}>
           <Grid
             item
             xs={4}
@@ -357,7 +357,10 @@ const AvatarPop: FC<AvatarPopProps> = ({
               disableRipple
             >
               <Stack justifyContent="center" alignItems="center">
-                <DashboardIcon />
+                <DashboardIcon
+                  fontSize="large"
+                  sx={(theme) => ({ color: theme.palette.text.secondary })}
+                />
                 <Typography variant="caption">Dashboard</Typography>
               </Stack>
             </MenuItem>
@@ -376,7 +379,10 @@ const AvatarPop: FC<AvatarPopProps> = ({
               onClick={handleCloseNavAvatar}
             >
               <Stack justifyContent="center" alignItems="center">
-                <ManageAccountsIcon />
+                <ManageAccountsIcon
+                  fontSize="large"
+                  sx={(theme) => ({ color: theme.palette.text.secondary })}
+                />
                 <Typography variant="caption">Account</Typography>
               </Stack>
             </MenuItem>
@@ -395,7 +401,10 @@ const AvatarPop: FC<AvatarPopProps> = ({
               onClick={handleCloseNavAvatar}
             >
               <Stack justifyContent="center" alignItems="center">
-                <AccountCircleIcon />
+                <AccountCircleIcon
+                  fontSize="large"
+                  sx={(theme) => ({ color: theme.palette.text.secondary })}
+                />
                 <Typography variant="caption">Profile</Typography>
               </Stack>
             </MenuItem>
@@ -414,7 +423,10 @@ const AvatarPop: FC<AvatarPopProps> = ({
               onClick={handleCloseNavAvatar}
             >
               <Stack justifyContent="center" alignItems="center">
-                <ShoppingCartIcon />
+                <ShoppingCartIcon
+                  fontSize="large"
+                  sx={(theme) => ({ color: theme.palette.text.secondary })}
+                />
                 <Typography variant="caption">Order</Typography>
               </Stack>
             </MenuItem>
@@ -433,7 +445,10 @@ const AvatarPop: FC<AvatarPopProps> = ({
               disableRipple
             >
               <Stack justifyContent="center" alignItems="center">
-                <SettingsIcon />
+                <SettingsIcon
+                  fontSize="large"
+                  sx={(theme) => ({ color: theme.palette.text.secondary })}
+                />
 
                 <Typography variant="caption">Setting</Typography>
               </Stack>
@@ -453,7 +468,10 @@ const AvatarPop: FC<AvatarPopProps> = ({
               disableRipple
             >
               <Stack justifyContent="center" alignItems="center">
-                <ListAltIcon />
+                <ListAltIcon
+                  fontSize="large"
+                  sx={(theme) => ({ color: theme.palette.text.secondary })}
+                />
                 <Typography variant="caption">Listing</Typography>
               </Stack>
             </MenuItem>
@@ -472,7 +490,10 @@ const AvatarPop: FC<AvatarPopProps> = ({
               onClick={handleCloseNavAvatar}
             >
               <Stack justifyContent="center" alignItems="center">
-                <BookmarksIcon />
+                <BookmarksIcon
+                  fontSize="large"
+                  sx={(theme) => ({ color: theme.palette.text.secondary })}
+                />
                 <Typography variant="caption">Bookmark</Typography>
               </Stack>
             </MenuItem>
@@ -492,8 +513,10 @@ const AvatarPop: FC<AvatarPopProps> = ({
               disableRipple
             >
               <Stack justifyContent="center" alignItems="center">
-                <LogoutIcon />
-
+                <LogoutIcon
+                  fontSize="large"
+                  sx={(theme) => ({ color: theme.palette.text.secondary })}
+                />
                 <Typography variant="caption"> Log out</Typography>
               </Stack>
             </MenuItem>
