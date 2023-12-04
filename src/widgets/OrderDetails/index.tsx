@@ -8,7 +8,6 @@ import {
   GridToolbar,
   GridRenderCellParams,
 } from "@mui/x-data-grid";
-import { useDemoData } from "@mui/x-data-grid-generator";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
