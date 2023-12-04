@@ -1,10 +1,10 @@
 "use client";
 import { FC } from "react";
 import { Grid, Typography } from "@mui/material";
+import Listing from "src/widgets/Listing";
+import { searchListingData } from "src/global/staticData/index";
 
 import { BookmarkItemGroupProps } from "./Types";
-import Listing from "../Listing";
-import { searchListingData } from "../../global/staticData/index";
 
 const BookmarkItemGroup: FC<BookmarkItemGroupProps> = () => {
   return (

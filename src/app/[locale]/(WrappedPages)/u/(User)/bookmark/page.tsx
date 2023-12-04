@@ -1,4 +1,4 @@
-import { Box, Container, Grid } from "@mui/material";
+import { Container } from "@mui/material";
 
 import BookmarkItemGroup from "src/widgets/BookmarkItemGroup";
 
