@@ -30,7 +30,7 @@ const Parcent: FC<ParcentProps> = ({ value, title }) => {
       </Grid>
       <Grid item xs={2}>
         <PieChart
-          margin={{ right: 0 }}
+          margin={{ right: -8 }}
           series={[
             {
               data: [{ id: 2, value: value }],
