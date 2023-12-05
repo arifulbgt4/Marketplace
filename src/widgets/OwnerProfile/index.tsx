@@ -5,17 +5,13 @@ import {
   Divider,
   Paper,
   Link,
-  useTheme,
   Stack,
   Typography,
-  Grid,
 } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import { useDrawingArea } from "@mui/x-charts/hooks";
-import { PieChart } from "@mui/x-charts";
 import EditIcon from "@mui/icons-material/Edit";
 
 import routes from "src/global/routes";
+import Parcent from "src/components/Parsent";
 
 import { OwnerProfileProps } from "./Types";
 
@@ -32,22 +28,6 @@ const OwnerProfile: FC<OwnerProfileProps> = ({ profileData }) => {
     value,
   } = profileData;
 
-  const theme = useTheme();
-  const StyledText = styled("text")(({ theme }) => ({
-    fill: theme.palette.text.primary,
-    textAnchor: "middle",
-    dominantBaseline: "central",
-    fontSize: 10,
-  }));
-
-  function PieCenterLabel({ children }: { children: React.ReactNode }) {
-    const { width, height, left, top } = useDrawingArea();
-    return (
-      <StyledText x={left + width / 2} y={top + height / 2}>
-        {children}
-      </StyledText>
-    );
-  }
   return (
     <Stack component={Paper} p={{ xs: 2, md: 5 }} gap={3} elevation={0}>
       <Stack alignItems="center" gap={1} pb={{ xs: 2, md: 5 }}>
@@ -95,159 +75,12 @@ const OwnerProfile: FC<OwnerProfileProps> = ({ profileData }) => {
         <Divider />
       </Stack>
       <Stack gap={2}>
-        <Grid container>
-          <Grid item xs={10}>
-            <Typography variant="subtitle1">Cleanliness</Typography>
-          </Grid>
-
-          <Grid item xs={2}>
-            <PieChart
-              margin={{ right: 0 }}
-              series={[
-                {
-                  data: [{ id: 1, value: cleanliness }],
-                  endAngle: (cleanliness * 360) / 100,
-                  innerRadius: 15,
-                  outerRadius: 20,
-                },
-              ]}
-              colors={[theme.palette.primary.main]}
-              height={50}
-            >
-              <PieCenterLabel>
-                {cleanliness}
-                {"%"}
-              </PieCenterLabel>
-            </PieChart>
-          </Grid>
-        </Grid>
-
-        <Grid container>
-          <Grid item xs={10}>
-            <Typography variant="subtitle1">Communication</Typography>
-          </Grid>
-          <Grid item xs={2}>
-            <PieChart
-              margin={{ right: 0 }}
-              series={[
-                {
-                  data: [{ id: 2, value: communication }],
-                  innerRadius: 15,
-                  outerRadius: 20,
-                  endAngle: (communication * 360) / 100,
-                },
-              ]}
-              colors={[theme.palette.success.main]}
-              height={50}
-            >
-              <PieCenterLabel>
-                {communication}
-                {"%"}
-              </PieCenterLabel>
-            </PieChart>
-          </Grid>
-        </Grid>
-        <Grid container>
-          <Grid item xs={10}>
-            <Typography variant="subtitle1">Check-in</Typography>
-          </Grid>
-          <Grid item xs={2}>
-            <PieChart
-              margin={{ right: 0 }}
-              series={[
-                {
-                  data: [{ id: 2, value: checkIn }],
-                  innerRadius: 15,
-                  outerRadius: 20,
-                  endAngle: (checkIn * 360) / 100,
-                },
-              ]}
-              colors={[theme.palette.error.main]}
-              height={50}
-            >
-              <PieCenterLabel>
-                {checkIn}
-                {"%"}
-              </PieCenterLabel>
-            </PieChart>
-          </Grid>
-        </Grid>
-        <Grid container>
-          <Grid item xs={10}>
-            <Typography variant="subtitle1">Accuracy</Typography>
-          </Grid>
-          <Grid item xs={2}>
-            <PieChart
-              colors={[theme.palette.warning.main]}
-              series={[
-                {
-                  data: [{ id: 3, value: accuracy }],
-                  innerRadius: 15,
-                  outerRadius: 20,
-
-                  endAngle: (accuracy * 360) / 100,
-                },
-              ]}
-              height={50}
-              margin={{ right: 0 }}
-            >
-              <PieCenterLabel>
-                {accuracy}
-                {"%"}
-              </PieCenterLabel>
-            </PieChart>
-          </Grid>
-        </Grid>
-        <Grid container>
-          <Grid item xs={10}>
-            <Typography variant="subtitle1">Location</Typography>
-          </Grid>
-          <Grid item xs={2}>
-            <PieChart
-              series={[
-                {
-                  data: [{ id: 4, value: location }],
-                  innerRadius: 15,
-                  outerRadius: 20,
-                  endAngle: (location * 360) / 100,
-                },
-              ]}
-              margin={{ right: 0 }}
-              height={50}
-              colors={[theme.palette.success.main]}
-            >
-              <PieCenterLabel>
-                {location}
-                {"%"}
-              </PieCenterLabel>
-            </PieChart>
-          </Grid>
-        </Grid>
-        <Grid container>
-          <Grid item xs={10}>
-            <Typography variant="subtitle1">Value</Typography>
-          </Grid>
-          <Grid item xs={2}>
-            <PieChart
-              series={[
-                {
-                  data: [{ id: 1, value: value }],
-                  innerRadius: 15,
-                  outerRadius: 20,
-                  endAngle: (value * 360) / 100,
-                },
-              ]}
-              colors={[theme.palette.primary.light]}
-              margin={{ right: 0 }}
-              height={50}
-            >
-              <PieCenterLabel>
-                {value}
-                {"%"}
-              </PieCenterLabel>
-            </PieChart>
-          </Grid>
-        </Grid>
+        <Parcent title="Cleanliness" value={cleanliness} />
+        <Parcent title="Communication" value={communication} />
+        <Parcent title="Check in" value={checkIn} />
+        <Parcent title="Accuracy" value={accuracy} />
+        <Parcent title="Location" value={location} />
+        <Parcent title="Value" value={value} />
       </Stack>
       <Button
         fullWidth
