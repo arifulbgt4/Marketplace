@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Grid, Stack, Typography } from "@mui/material";
+import { Box, Grid, Stack, Typography } from "@mui/material";
 
 import { OwnerBasicInfoPrps } from "./Types";
 
@@ -44,7 +44,9 @@ const OwnerBasicInfo: FC<OwnerBasicInfoPrps> = () => {
               <Typography color="text.secondary">Email Address</Typography>
             </Grid>
             <Grid item xs={7} md={12}>
-              <Typography variant="h6">kenzi.lawson@example.com</Typography>
+              <Typography variant="h6">
+                kenzi.lawson@example <Box display="inline-block">.com</Box>
+              </Typography>
             </Grid>
           </Grid>
           <Grid item container xs={12} md={3}>
