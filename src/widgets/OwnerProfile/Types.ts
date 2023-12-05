@@ -9,5 +9,7 @@ export interface OwnerProfileProps {
     accuracy: number;
     location: number;
     value: number;
+    src?: string;
+    name?: string;
   };
 }
