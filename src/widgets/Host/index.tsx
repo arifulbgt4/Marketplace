@@ -16,13 +16,14 @@ import { HostProps } from "./Types";
 
 const Host: FC<HostProps> = ({ src, rating, review, name }) => {
   return (
-    <Paper sx={{ borderRadius: 2, p: 2 }} elevation={0}>
+    <Box component={Link} href={`${routes.profile}/profile`}>
       <Stack
+        sx={{ borderRadius: 2, p: 2 }}
+        elevation={0}
+        component={Paper}
         flexDirection="row"
         justifyContent="space-between"
         alignItems="center"
-        component={Link}
-        href={`${routes.profile}/profile`}
       >
         <Stack flexDirection="row" gap={1} alignItems="center">
           <Avatar src={src} alt="hostP" />
@@ -38,7 +39,7 @@ const Host: FC<HostProps> = ({ src, rating, review, name }) => {
         </Stack>
         <ArrowForwardIcon />
       </Stack>
-    </Paper>
+    </Box>
   );
 };
 
