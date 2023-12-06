@@ -38,7 +38,6 @@ const UserStatistic: FC<UserStatisticProps> = ({ genderValue }) => {
         colors={[theme.palette.info.dark, theme.palette.warning.light]}
         margin={{ right: 5 }}
       />
-
       <Stack gap={2}>
         <Stack
           flexDirection="row"
