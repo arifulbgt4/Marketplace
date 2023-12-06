@@ -15,7 +15,7 @@ import { ListingHeaderProps } from "./Types";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import ShareIcon from "@mui/icons-material/Share";
-import { Divider } from "@mui/material";
+import { Divider, ButtonGroup } from "@mui/material";
 
 const ListingHeader: FC<ListingHeaderProps> = ({
   title,
@@ -26,17 +26,46 @@ const ListingHeader: FC<ListingHeaderProps> = ({
 }) => {
   const [isSelect, setIsSelect] = useState(false);
   return (
-    <Stack gap={1}>
-      <Stack direction="row" justifyContent="space-between">
-        <Box>
-          <Typography variant="h4">{title}</Typography>
-        </Box>
+    <Stack direction={{ md: "row", sx: "column" }}>
+      <Stack gap={1}>
+        <Stack direction="row" justifyContent="space-between">
+          <Box>
+            <Typography variant="h4">{title}</Typography>
+          </Box>
+        </Stack>
+        <Stack flexDirection="row" alignItems="center" gap={1}>
+          {rating && (
+            <>
+              <Stack gap={1} flexDirection="row" alignItems="center">
+                <Rating max={1} defaultValue={1} size="large" readOnly />
+                <Typography>{rating}</Typography>
+              </Stack>
+              <Typography>{"."}</Typography>
+            </>
+          )}
+          {review && (
+            <>
+              <Typography>{review} reviews</Typography>
+              <Typography>{"."}</Typography>
+            </>
+          )}
+
+          <Hidden mdDown>
+            <Stack gap={1} flexDirection="row" alignItems="center">
+              <PersonIcon />
+              <Typography>{creator}</Typography>
+            </Stack>
+            <Typography>{"."}</Typography>
+            <Typography>{address}</Typography>
+          </Hidden>
+        </Stack>
+      </Stack>
+      <Box>
         <Box
-          borderRadius={5}
-          border={1}
-          borderColor={(theme) => theme.palette.action.active}
           display="flex"
-          flexDirection="row"
+          border={1}
+          borderRadius={5}
+          borderColor={(theme) => theme.palette.action.disabled}
         >
           <Button
             onClick={() => {
@@ -58,32 +87,7 @@ const ListingHeader: FC<ListingHeaderProps> = ({
             <ShareIcon />
           </Button>
         </Box>
-      </Stack>
-      <Stack flexDirection="row" alignItems="center" gap={1}>
-        {rating && (
-          <>
-            <Stack gap={1} flexDirection="row" alignItems="center">
-              <Rating max={1} defaultValue={1} size="large" readOnly />
-              <Typography>{rating}</Typography>
-            </Stack>
-            <Typography>{"."}</Typography>
-          </>
-        )}
-        {review && (
-          <>
-            <Typography>{review} reviews</Typography>
-            <Typography>{"."}</Typography>
-          </>
-        )}
-        <Hidden mdDown>
-          <Stack gap={1} flexDirection="row" alignItems="center">
-            <PersonIcon />
-            <Typography>{creator}</Typography>
-          </Stack>
-          <Typography>{"."}</Typography>
-          <Typography>{address}</Typography>
-        </Hidden>
-      </Stack>
+      </Box>
     </Stack>
   );
 };
