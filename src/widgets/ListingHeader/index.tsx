@@ -7,15 +7,14 @@ import {
   Typography,
   Button,
   Box,
-  IconButton,
+  ButtonGroup,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
-
-import { ListingHeaderProps } from "./Types";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import ShareIcon from "@mui/icons-material/Share";
-import { Divider, ButtonGroup } from "@mui/material";
+
+import { ListingHeaderProps } from "./Types";
 
 const ListingHeader: FC<ListingHeaderProps> = ({
   title,
@@ -26,7 +25,12 @@ const ListingHeader: FC<ListingHeaderProps> = ({
 }) => {
   const [isSelect, setIsSelect] = useState(false);
   return (
-    <Stack direction={{ md: "row", sx: "column" }}>
+    <Stack
+      direction={{ md: "row", sx: "column" }}
+      justifyContent="space-between"
+      rowGap={3}
+      px={1}
+    >
       <Stack gap={1}>
         <Stack direction="row" justifyContent="space-between">
           <Box>
@@ -61,32 +65,42 @@ const ListingHeader: FC<ListingHeaderProps> = ({
         </Stack>
       </Stack>
       <Box>
-        <Box
-          display="flex"
-          border={1}
-          borderRadius={5}
-          borderColor={(theme) => theme.palette.action.disabled}
+        <ButtonGroup
+          sx={{
+            border: 1,
+            borderColor: (theme) => theme.palette.action.active,
+            borderRadius: 5,
+          }}
         >
           <Button
             onClick={() => {
               setIsSelect((prv) => !prv);
             }}
-            size="large"
+            variant="text"
+            sx={{
+              borderRight: 1,
+              borderColor: (theme) => theme.palette.divider,
+              px: 2,
+            }}
           >
             {isSelect ? (
               <BookmarkIcon color="primary" />
             ) : (
-              <BookmarkBorderOutlinedIcon color="primary" />
+              <BookmarkBorderOutlinedIcon color="action" />
             )}
           </Button>
-          <Divider
-            orientation="vertical"
-            sx={{ color: (theme) => theme.palette.divider }}
-          />
-          <Button>
-            <ShareIcon />
+
+          <Button
+            variant="text"
+            sx={{
+              borderLeft: 1,
+              borderColor: (theme) => theme.palette.divider,
+              px: 2,
+            }}
+          >
+            <ShareIcon color="action" />
           </Button>
-        </Box>
+        </ButtonGroup>
       </Box>
     </Stack>
   );
