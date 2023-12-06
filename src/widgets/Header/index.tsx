@@ -344,7 +344,11 @@ const AvatarPop: FC<AvatarPopProps> = ({
         open={Boolean(anchorElAvat)}
         onClose={handleCloseNavAvatar}
       >
-        <Stack width={310} justifyContent="center" alignItems="center">
+        <Stack
+          width={{ xs: "100%", md: 310 }}
+          justifyContent="center"
+          alignItems="center"
+        >
           <Box borderRadius={3} p={1} bgcolor="background.default" mx={2}>
             <Grid
               container
@@ -517,7 +521,12 @@ const AvatarPop: FC<AvatarPopProps> = ({
             </Grid>
           </Box>
           <Box pt={3} pb={2}>
-            <Button size="small" variant="outlined" endIcon={<AddIcon />}>
+            <Button
+              href={routes.listingCreate}
+              size="small"
+              variant="outlined"
+              endIcon={<AddIcon />}
+            >
               add a Listing
             </Button>
           </Box>
