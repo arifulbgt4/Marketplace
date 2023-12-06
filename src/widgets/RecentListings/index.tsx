@@ -12,42 +12,40 @@ const RecentListings: FC<RecentListingsProps> = () => {
   return (
     <Box>
       <Container>
-        <Grid
-          container
-          spacing={{ xs: 2, md: 3, lg: 6 }}
-          columns={{ xs: 4, sm: 8, md: 12 }}
-        >
+        <Grid container spacing={4}>
           <Grid item xs={12}>
             <Typography variant="h3">
               {t("sectionTitle.recentProperties")}
             </Typography>
           </Grid>
 
-          {recentPostData.map((data) => {
-            const {
-              id,
-              image,
-              title,
+          <Grid item container xs={12} spacing={4}>
+            {recentPostData.map((data) => {
+              const {
+                id,
+                image,
+                title,
 
-              description,
-              rating,
-              slug,
-              address,
-            } = data;
-            return (
-              <Grid item xs={4} key={id}>
-                <Listing
-                  id={id}
-                  slug={slug}
-                  image={image}
-                  title={title}
-                  address={address}
-                  rating={rating}
-                  description={description}
-                />
-              </Grid>
-            );
-          })}
+                description,
+                rating,
+                slug,
+                address,
+              } = data;
+              return (
+                <Grid item xs={12} md={4} key={id}>
+                  <Listing
+                    id={id}
+                    slug={slug}
+                    image={image}
+                    title={title}
+                    address={address}
+                    rating={rating}
+                    description={description}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
         </Grid>
       </Container>
     </Box>

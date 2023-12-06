@@ -8,7 +8,7 @@ import RecentListings from "src/widgets/RecentListings";
 export default function Home() {
   // const t = useTranslations();
   return (
-    <Grid container spacing={15} mt={-23}>
+    <Grid container rowSpacing={5}>
       <Grid item xs={12}>
         <SearchBanner />
       </Grid>
