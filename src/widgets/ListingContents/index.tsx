@@ -1,7 +1,7 @@
 "use client";
 export { default as Amenities } from "./Amenities";
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Box, Grid, Stack, Typography, Button, Divider } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import ImageIcon from "@mui/icons-material/Image";
@@ -23,7 +23,6 @@ import BedIcon from "@mui/icons-material/Bed";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
 import PersonIcon from "@mui/icons-material/Person";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 import { amenities } from "src/global/staticData";
 
@@ -31,6 +30,17 @@ import Amenities from "./Amenities";
 import { ListingContentsProps, OfferProps } from "./Types";
 
 const ListingContents: FC<ListingContentsProps> = () => {
+  const text = `Lorem Ipsum is simply dummy text of the printing and typesetting
+  industry. Lorem Ipsum has been the industry's standard dummy text
+  ever since the 1500s, when an unknown printer took a galley of type
+  and scrambled it to make a type specimen book. It has survived not
+  only five centuries, but also the leap into electronic typesetting,
+  remaining essentially unchanged. It was popularised in the 1960s
+  with the release of Letraset sheets containing Lorem Ipsum passages,
+  and more recently with desktop publishing software like Aldus
+  PageMaker including versions of Lorem Ipsum. Whether you want to
+  stargaze, walk through the enchanting forest trails, submerge.`;
+  const [showMore, setShomore] = useState(false);
   return (
     <>
       <Grid container rowSpacing={3} mb={3}>
@@ -127,27 +137,17 @@ const ListingContents: FC<ListingContentsProps> = () => {
       </Stack>
       <Stack gap={3} mb={3}>
         <Typography variant="h4">About this place</Typography>
-        <Stack gap={3}>
+        <Stack gap={3} onClick={() => setShomore(!showMore)}>
           <Typography variant="subtitle1">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum
+            {showMore ? text : `${text.substring(0, 259)}`}
+            <Box component="span" color="inherit">
+              {!showMore && (
+                <Typography component="span" variant="h3">
+                  .....
+                </Typography>
+              )}
+            </Box>
           </Typography>
-          <Typography variant="subtitle1">
-            Whether you want to stargaze, walk through the enchanting forest
-            trails, submerge...
-          </Typography>
-          <Box>
-            <Button color="inherit" endIcon={<KeyboardArrowRightIcon />}>
-              show more
-            </Button>
-          </Box>
         </Stack>
         <Divider />
       </Stack>
