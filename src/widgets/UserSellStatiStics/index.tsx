@@ -23,8 +23,8 @@ const UserSellStatistic: FC<UserSellStatisticProps> = ({
       })}
     >
       <Grid container columnSpacing={7.5} rowSpacing={4}>
-        <Grid item xs={12} md={9}>
-          <Stack gap={5}>
+        <Grid item xs={12} md={8}>
+          <Stack gap={2}>
             <Typography variant="h5">Sell Statistic</Typography>
             <Box>
               <LineChart
@@ -88,7 +88,7 @@ const UserSellStatistic: FC<UserSellStatisticProps> = ({
             </Box>
           </Stack>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={4}>
           <WeekChat userWeeklyData={userWeeklyData} />
         </Grid>
       </Grid>

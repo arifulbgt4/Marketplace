@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
@@ -106,9 +106,8 @@ const visitorData = {
   visitors: 345678,
 };
 const genderValue = {
-  male: 50,
+  male: 65,
   female: 35,
-  other: 15,
 };
 
 const userStatisticData = {
@@ -132,58 +131,60 @@ const userWeeklyData = {
 
 const DashboardPage = () => {
   return (
-    <Grid container columnSpacing={7} rowSpacing={4}>
-      <Grid item container md={8} xs={12} columnSpacing={7} rowSpacing={2.5}>
-        <Grid item xs={12} md={6}>
-          <DashBoardWidget
-            icon={BusinessCenterIcon}
-            totalItem="Total Product"
-            totalValue={932}
+    <Box pt={1}>
+      <Grid container columnSpacing={7} rowSpacing={4}>
+        <Grid item container md={8} xs={12} columnSpacing={7} rowSpacing={2.5}>
+          <Grid item xs={12} md={6}>
+            <DashBoardWidget
+              icon={BusinessCenterIcon}
+              totalItem="Total Product"
+              totalValue={932}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <DashBoardWidget
+              icon={InsertDriveFileIcon}
+              totalItem="Total Order"
+              totalValue={654}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <DashBoardWidget
+              icon={MonetizationOnIcon}
+              totalItem="Total Sell"
+              totalValue={854}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <DashBoardWidget
+              icon={CurrencyBitcoinIcon}
+              totalItem="Total Customer"
+              totalValue={754}
+            />
+          </Grid>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <VisitorStatistic visitorData={visitorData} />
+        </Grid>
+        <Grid item xs={12}>
+          <SellStatistics
+            weekSellData={weekSellData}
+            monthSellData={monthSellData}
+            yearSellData={yearSellData}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
-          <DashBoardWidget
-            icon={InsertDriveFileIcon}
-            totalItem="Total Order"
-            totalValue={654}
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <DashBoardWidget
-            icon={MonetizationOnIcon}
-            totalItem="Total Sell"
-            totalValue={854}
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <DashBoardWidget
-            icon={CurrencyBitcoinIcon}
-            totalItem="Total Customer"
-            totalValue={754}
-          />
-        </Grid>
-      </Grid>
-      <Grid item xs={12} md={4}>
-        <VisitorStatistic visitorData={visitorData} />
-      </Grid>
-      <Grid item xs={12}>
-        <SellStatistics
-          weekSellData={weekSellData}
-          monthSellData={monthSellData}
-          yearSellData={yearSellData}
-        />
-      </Grid>
 
-      <Grid item xs={12} md={3}>
-        <UserStatistic genderValue={genderValue} />
+        <Grid item xs={12} md={3}>
+          <UserStatistic genderValue={genderValue} />
+        </Grid>
+        <Grid item md={9} xs={12}>
+          <UserSellStatistic
+            userStatisticData={userStatisticData}
+            userWeeklyData={userWeeklyData}
+          />
+        </Grid>
       </Grid>
-      <Grid item md={9} xs={12}>
-        <UserSellStatistic
-          userStatisticData={userStatisticData}
-          userWeeklyData={userWeeklyData}
-        />
-      </Grid>
-    </Grid>
+    </Box>
   );
 };
 
