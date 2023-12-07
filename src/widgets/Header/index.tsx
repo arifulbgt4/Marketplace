@@ -17,8 +17,12 @@ import {
   Grid,
   Link,
   Typography,
+  Modal,
+  Paper,
 } from "@mui/material";
+
 import MenuIcon from "@mui/icons-material/Menu";
+import LanguageIcon from "@mui/icons-material/Language";
 import AddIcon from "@mui/icons-material/Add";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -32,6 +36,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useSticky } from "src/global/hooks";
 import Logo from "src/components/Logo";
 import routes from "src/global/routes";
+import HeaderLanguage from "../HeaderLanguage";
 
 import { AvatarPopProps, HeaderProps } from "./Types";
 
@@ -39,7 +44,15 @@ const Header: FC<HeaderProps> = ({ user }) => {
   const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null);
   const [anchorElUser, setAnchorElUser] = useState<HTMLElement | null>(null);
   const [anchorElAvat, setAnchorElAvat] = useState<HTMLElement | null>(null);
+  const [open, setOpen] = useState(false);
   const { sticky, stickyRef } = useSticky(10);
+
+  const handleOpenLangModal = () => {
+    setOpen((prev) => !prev);
+  };
+  const handleCloseLangModal = () => {
+    setOpen((prev) => !prev);
+  };
 
   const handleOpenNavAvatar = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElAvat(event.currentTarget);
@@ -172,6 +185,24 @@ const Header: FC<HeaderProps> = ({ user }) => {
               </Box>
             </Stack>
           </Hidden>
+          <Box mr={1}>
+            <IconButton onClick={handleOpenLangModal}>
+              <LanguageIcon />
+            </IconButton>
+            <Modal open={open} onClose={handleCloseLangModal}>
+              <Stack justifyContent="center" alignItems="center">
+                <Box
+                  component={Container}
+                  maxWidth="lg"
+                  bgcolor="background.paper"
+                  top={77}
+                  position="absolute"
+                >
+                  <HeaderLanguage />
+                </Box>
+              </Stack>
+            </Modal>
+          </Box>
           <Box>
             {!user ? (
               <>
