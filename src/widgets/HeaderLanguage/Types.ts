@@ -1,1 +1,3 @@
-export interface HeaderLanguageProps {}
+export interface HeaderLanguageProps {
+  handleCloseLangModal: () => void;
+}

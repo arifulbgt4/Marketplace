@@ -18,7 +18,6 @@ import {
   Link,
   Typography,
   Modal,
-  Paper,
 } from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
@@ -185,8 +184,8 @@ const Header: FC<HeaderProps> = ({ user }) => {
               </Box>
             </Stack>
           </Hidden>
-          <Box mr={1}>
-            <IconButton onClick={handleOpenLangModal}>
+          <Box mr={1} width={35}>
+            <IconButton disableRipple onClick={handleOpenLangModal}>
               <LanguageIcon />
             </IconButton>
             <Modal open={open} onClose={handleCloseLangModal}>
@@ -197,8 +196,13 @@ const Header: FC<HeaderProps> = ({ user }) => {
                   bgcolor="background.paper"
                   top={77}
                   position="absolute"
+                  px={2}
+                  overflow="scroll"
+                  height={580}
+                  py={5}
+                  borderRadius={5}
                 >
-                  <HeaderLanguage />
+                  <HeaderLanguage handleCloseLangModal={handleCloseLangModal} />
                 </Box>
               </Stack>
             </Modal>
