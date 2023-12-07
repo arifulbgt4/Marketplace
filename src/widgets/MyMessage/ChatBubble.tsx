@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -9,7 +9,6 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import InsertDriveFileRoundedIcon from "@mui/icons-material/InsertDriveFileRounded";
 import { MessageProps } from "./Tyepes";
 import { Paper } from "@mui/material";
-import { useState } from "@storybook/client-api";
 
 type ChatBubbleProps = MessageProps & {
   variant: "sent" | "received";
@@ -66,9 +65,7 @@ export default function ChatBubble(props: ChatBubbleProps) {
               borderRadius: "lg",
               borderTopRightRadius: isSent ? 0 : "lg",
               borderTopLeftRadius: isSent ? "lg" : 0,
-              backgroundColor: isSent
-                ? "var(--joy-palette-primary-solidBg)"
-                : "background.body",
+              backgroundColor: isSent ? "primary" : "background.body",
             }}
           >
             <Typography
