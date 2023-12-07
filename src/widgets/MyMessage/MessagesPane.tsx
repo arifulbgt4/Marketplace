@@ -1,14 +1,13 @@
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
-/* import AvatarWithStatus from "./AvatarWithStatus";
-import ChatBubble from "./ChatBubble";
-import MessageInput from "./MessageInput"; */
+
 import MessagesPaneHeader from "./MessagesPaneHeader";
 import { ChatProps, MessageProps } from "./Tyepes";
 import AvatarWithStatus from "./AvatarWithStatus";
 import { Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import ChatBubble from "./ChatBubble";
+import MessageInput from "./MessageInput";
 
 type MessagesPaneProps = {
   chat: ChatProps;
@@ -69,8 +68,7 @@ export default function MessagesPane(props: MessagesPaneProps) {
           })}
         </Stack>
       </Box>
-
-      {/*  <MessageInput
+      <MessageInput
         textAreaValue={textAreaValue}
         setTextAreaValue={setTextAreaValue}
         onSubmit={() => {
@@ -86,7 +84,7 @@ export default function MessagesPane(props: MessagesPaneProps) {
             },
           ]);
         }}
-      /> */}
+      />
     </Box>
   );
 }
