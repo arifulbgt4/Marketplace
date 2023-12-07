@@ -3,17 +3,15 @@ import { Container, Grid, Stack } from "@mui/material";
 
 import MessageUsersSearch from "src/widgets/MessageUsersSearch";
 import MessageContainer from "src/widgets/MessageContainer";
+import MyMessage from "src/widgets/MyMessage";
 
 const MessagePage = () => {
   return (
     <Stack height="calc(100vh - 64px)">
       <Container>
         <Grid container>
-          <Grid item xs={3}>
-            <MessageUsersSearch />
-          </Grid>
-          <Grid item xs={9}>
-            <MessageContainer />
+          <Grid item xs={12}>
+            <MyMessage />
           </Grid>
         </Grid>
       </Container>
