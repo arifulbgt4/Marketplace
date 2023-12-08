@@ -47,7 +47,7 @@ export default function ChatBubble(props: ChatBubbleProps) {
               <InsertDriveFileRoundedIcon />
             </Avatar>
             <div>
-              <Typography fontSize="sm">{attachment.fileName}</Typography>
+              <Typography>{attachment.fileName}</Typography>
               <Typography>{attachment.size}</Typography>
             </div>
           </Stack>
@@ -62,15 +62,15 @@ export default function ChatBubble(props: ChatBubbleProps) {
             color={isSent ? "primary" : "default"}
             sx={{
               p: 1.25,
-              borderRadius: "lg",
-              borderTopRightRadius: isSent ? 0 : "lg",
-              borderTopLeftRadius: isSent ? "lg" : 0,
+              borderRadius: { lg: 2 },
+              borderTopRightRadius: isSent ? 0 : 2,
+              borderTopLeftRadius: isSent ? 2 : 0,
               backgroundColor: isSent ? "primary" : "background.body",
             }}
           >
             <Typography
               sx={{
-                color: isSent ? "common.white" : "text.primary",
+                color: isSent ? "common.black" : "text.primary",
               }}
             >
               {content}

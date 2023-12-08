@@ -25,7 +25,7 @@ export default function MessagesPane(props: MessagesPaneProps) {
   return (
     <Box
       sx={{
-        height: { xs: "calc(100dvh - var(--Header-height))", lg: "100dvh" },
+        height: { xs: "calc(100vh - 64px)", lg: "calc(100vh - 64px)" },
         display: "flex",
         flexDirection: "column",
         backgroundColor: "background.level1",
@@ -40,7 +40,7 @@ export default function MessagesPane(props: MessagesPaneProps) {
           px: 2,
           py: 3,
           overflowY: "scroll",
-          flexDirection: "column-reverse",
+          flexDirection: "column",
         }}
       >
         <Stack spacing={2} justifyContent="flex-end">
