@@ -1,6 +1,13 @@
 "use client";
 import { useState } from "react";
-import { Stack, Typography, Button, Box, Hidden } from "@mui/material";
+import {
+  Stack,
+  Typography,
+  Button,
+  Box,
+  Hidden,
+  ButtonGroup,
+} from "@mui/material";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 
 import OwnListing from "src/widgets/OwnListing";
@@ -27,10 +34,11 @@ const ListingPage = () => {
         <Hidden mdDown>
           <Typography variant="h3">My LIstings</Typography>
         </Hidden>
-        <Stack flexDirection="row" width={240}>
+        <ButtonGroup>
           <Button
             disableRipple
             size="small"
+            sx={{ px: 1.25 }}
             onClick={() => setValue("1")}
             variant={value === "1" ? "contained" : "text"}
           >
@@ -39,6 +47,7 @@ const ListingPage = () => {
           <Button
             disableRipple
             size="small"
+            sx={{ px: 1.25 }}
             onClick={() => setValue("2")}
             variant={value === "2" ? "contained" : "text"}
           >
@@ -47,12 +56,13 @@ const ListingPage = () => {
           <Button
             disableRipple
             size="small"
+            sx={{ px: 1.25 }}
             onClick={() => setValue("3")}
             variant={value === "3" ? "contained" : "text"}
           >
             draft
           </Button>
-        </Stack>
+        </ButtonGroup>
       </Stack>
       <Box pt={{ xs: 2, md: 5 }}>
         {value === "1" ? (
