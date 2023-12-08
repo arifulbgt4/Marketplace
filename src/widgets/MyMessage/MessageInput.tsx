@@ -29,30 +29,35 @@ export default function MessageInput(props: MessageInputProps) {
     }
   };
   return (
-    <Box sx={{ px: 2, pb: 2 }}>
-      <FormControl fullWidth>
-        <TextField
-          fullWidth
-          placeholder="Type something here…"
-          aria-label="Message"
-          ref={textAreaRef}
-          onChange={(e) => {
-            setTextAreaValue(e.target.value);
-          }}
-          value={textAreaValue}
-          minRows={3}
-          maxRows={10}
-          onKeyDown={(event) => {
-            if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
-              handleClick();
-            }
-          }}
-          sx={{
-            "& textarea:first-of-type": {
-              minHeight: 72,
-            },
-          }}
-        />
+    <Box sx={{ px: { lg: 2, xs: 1 }, pb: 2 }}>
+      <FormControl fullWidth sx={{ border: 2, borderRadius: 2 }}>
+        <Box pb={5} pl={1}>
+          <TextField
+            variant="standard"
+            size="medium"
+            fullWidth
+            placeholder="Type something here…"
+            aria-label="Message"
+            ref={textAreaRef}
+            InputProps={{ disableUnderline: true }}
+            onChange={(e) => {
+              setTextAreaValue(e.target.value);
+            }}
+            value={textAreaValue}
+            minRows={3}
+            maxRows={10}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
+                handleClick();
+              }
+            }}
+            sx={{
+              "& textarea:first-of-type": {
+                minHeight: 72,
+              },
+            }}
+          />
+        </Box>
         <Stack
           direction="row"
           justifyContent="space-between"
@@ -61,8 +66,7 @@ export default function MessageInput(props: MessageInputProps) {
           sx={{
             py: 1,
             pr: 1,
-            borderTop: "1px solid",
-            borderColor: "divider",
+            borderTop: 1,
           }}
         >
           <Box>
