@@ -136,7 +136,6 @@ const Header: FC<HeaderProps> = ({ user }) => {
               )}
             </Stack>
           </Hidden>
-
           <Stack flexGrow={{ xs: 0, md: 1 }}>
             <Logo />
           </Stack>
@@ -190,20 +189,18 @@ const Header: FC<HeaderProps> = ({ user }) => {
             </IconButton>
             <Modal open={open} onClose={handleCloseLangModal}>
               <Stack justifyContent="center" alignItems="center">
-                <Box
-                  component={Container}
-                  maxWidth="lg"
-                  bgcolor="background.paper"
-                  top={77}
-                  position="absolute"
-                  px={2}
-                  overflow="scroll"
-                  height={580}
-                  py={5}
-                  borderRadius={5}
+                <Container
+                  maxWidth="md"
+                  sx={{
+                    bgcolor: "background.paper",
+                    top: 77,
+                    position: "absolute",
+                    height: 580,
+                    borderRadius: 5,
+                  }}
                 >
                   <HeaderLanguage handleCloseLangModal={handleCloseLangModal} />
-                </Box>
+                </Container>
               </Stack>
             </Modal>
           </Box>

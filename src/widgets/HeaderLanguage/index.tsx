@@ -32,27 +32,28 @@ const HeaderLanguage: FC<HeaderLanguageProps> = ({ handleCloseLangModal }) => {
         setCountris(data);
       });
   }, []);
-  //   console.log("object", country.name.common);
+
   return (
-    <Box overflow="hidden">
-      <TabContext value={value}>
-        <Stack
-          position="relative"
-          sx={{ borderBottom: 1, borderColor: "divider" }}
-        >
-          <TabList onChange={handleChange}>
-            <Tab label="Language and region" value="1" />
-            <Tab label="Currency" value="2" />
-          </TabList>
+    <Box overflow="auto" height="100%" px={2} pb={5}>
+      <Box
+        sx={{
+          pt: 8,
+          height: "fit-content",
+          position: "sticky",
+          top: 0,
+          bgcolor: "background.paper",
+        }}
+      >
+        <Box position="relative">
           <IconButton
             onClick={handleCloseLangModal}
             sx={{
               position: "absolute",
-              right: 0,
-              top: 0,
+              right: -12,
+              top: -25,
               bgcolor: "action.active",
               color: "#fff",
-              p: 0.5,
+              p: 0.2,
               "&:hover": {
                 bgcolor: "action.active",
                 color: "#fff",
@@ -62,8 +63,16 @@ const HeaderLanguage: FC<HeaderLanguageProps> = ({ handleCloseLangModal }) => {
           >
             <CloseIcon fontSize="small" />
           </IconButton>
+        </Box>
+      </Box>
+      <TabContext value={value}>
+        <Stack>
+          <TabList onChange={handleChange}>
+            <Tab sx={{ pl: 0 }} label="Language and region" value="1" />
+            <Tab label="Currency" value="2" />
+          </TabList>
         </Stack>
-        <TabPanel value="1">
+        <TabPanel sx={{ pl: 0 }} value="1">
           <Stack pb={4} gap={3}>
             <Typography variant="h5">
               Suggested languages and regions
@@ -117,7 +126,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = ({ handleCloseLangModal }) => {
             </Grid>
           </Stack>
         </TabPanel>
-        <TabPanel value="2">
+        <TabPanel sx={{ pl: 0 }} value="2">
           <Stack pb={4} gap={3}>
             <Typography variant="h5">
               Suggested languages and regions
@@ -148,7 +157,6 @@ const HeaderLanguage: FC<HeaderLanguageProps> = ({ handleCloseLangModal }) => {
             <Typography variant="h5">Choose a language and region</Typography>
             <Grid container rowSpacing={2}>
               {countris.map((country: any, index) => {
-                console.log("object", country);
                 return (
                   <Grid
                     item
@@ -158,6 +166,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = ({ handleCloseLangModal }) => {
                     flexDirection="row"
                     alignItems="center"
                     gap={1.25}
+                    width={162}
                   >
                     <CountriFlag
                       name={country.name.common}
@@ -180,13 +189,7 @@ export default HeaderLanguage;
 const CountriFlag = ({ name, flag, region, capital }: any) => {
   return (
     <>
-      <Box
-        width={62}
-        p={1.25}
-        border={1}
-        borderColor="action.focus"
-        borderRadius={1}
-      >
+      <Box p={1.25} border={1} borderColor="action.focus" borderRadius={1}>
         <CardMedia component="img" height={24} image={flag} />
       </Box>
       <Box>
