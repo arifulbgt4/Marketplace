@@ -53,7 +53,7 @@ export default function ChatsPane(props: ChatsPaneProps) {
         overflowY: { xs: "scroll", lg: "auto" },
       }}
     >
-      <Box position="sticky" top={2} zIndex={1} bgcolor="white">
+      <Box position="sticky" top={2} zIndex={1} bgcolor="common.white">
         <Stack
           direction="row"
           spacing={1}

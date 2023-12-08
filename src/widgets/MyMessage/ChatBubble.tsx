@@ -32,7 +32,7 @@ export default function ChatBubble(props: ChatBubbleProps) {
         sx={{ mb: 0.25 }}
       >
         <Typography>{sender === "You" ? sender : sender.name}</Typography>
-        <Typography>{timestamp}</Typography>
+        <Typography variant="subtitle2">{timestamp}</Typography>
       </Stack>
       {attachment ? (
         <Paper
@@ -41,18 +41,18 @@ export default function ChatBubble(props: ChatBubbleProps) {
             px: 1.75,
             py: 1.25,
             borderRadius: 1,
-            borderTopRightRadius: isSent ? 0 : "lg",
-            borderTopLeftRadius: isSent ? "lg" : 0,
+            borderTopRightRadius: isSent ? 0 : 2,
+            borderTopLeftRadius: isSent ? 2 : 0,
           }}
         >
           <Stack direction="row" spacing={1.5} alignItems="center">
             <Avatar color="primary">
               <InsertDriveFileRoundedIcon />
             </Avatar>
-            <div>
+            <Box>
               <Typography>{attachment.fileName}</Typography>
               <Typography>{attachment.size}</Typography>
-            </div>
+            </Box>
           </Stack>
         </Paper>
       ) : (
@@ -65,15 +65,15 @@ export default function ChatBubble(props: ChatBubbleProps) {
             color={isSent ? "primary" : "default"}
             sx={{
               p: 1.25,
-              borderRadius: { lg: 2 },
-              borderTopRightRadius: isSent ? 0 : 2,
-              borderTopLeftRadius: isSent ? 2 : 0,
-              backgroundColor: isSent ? "primary" : "background.body",
+
+              borderTopRightRadius: isSent ? 0 : 10,
+              borderTopLeftRadius: isSent ? 10 : 0,
+              backgroundColor: isSent ? "primary.main" : "Background.default",
             }}
           >
             <Typography
               sx={{
-                color: isSent ? "common.black" : "text.primary",
+                color: isSent ? "common.white" : "text.primary",
               }}
             >
               {content}
