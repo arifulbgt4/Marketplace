@@ -1,6 +1,6 @@
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { Box, Chip, IconButton, Input } from "@mui/material";
+import { Box, Chip, IconButton, TextField } from "@mui/material";
 import List from "@mui/material/List";
 import EditNoteRoundedIcon from "@mui/icons-material/EditNoteRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
@@ -10,6 +10,8 @@ import { ChatProps } from "src/widgets/MyMessage/Tyepes";
 import { toggleMessagesPane } from "src/widgets/MyMessage/util";
 import { Paper } from "@mui/material";
 import ChatListItem from "./ChatListItem";
+import Icon from "../../app/apple-icon";
+import InputAdornment from "@mui/material/InputAdornment";
 
 type ChatsPaneProps = {
   chats: ChatProps[];
@@ -24,44 +26,59 @@ export default function ChatsPane(props: ChatsPaneProps) {
       sx={{
         borderRight: "1px solid",
         borderColor: "divider",
-        height: "100vh",
-        overflowY: "auto",
+        height: "calc(100vh - 64px)",
+        overflowY: { xs: "scroll", lg: "auto" },
       }}
     >
-      <Stack
-        direction="row"
-        spacing={1}
-        alignItems="center"
-        justifyContent="space-between"
-        p={2}
-        pb={1.5}
-      >
-        <Typography>Messages</Typography>
-        <IconButton
-          size="small"
-          aria-label="edit"
-          sx={{ display: { xs: "none", sm: "unset" } }}
+      <Box position="sticky" top={2} zIndex={1} bgcolor="white">
+        <Stack
+          direction="row"
+          spacing={1}
+          alignItems="center"
+          justifyContent="space-between"
+          p={2}
+          pb={1.5}
         >
-          <EditNoteRoundedIcon />
-        </IconButton>
-        <IconButton
-          aria-label="edit"
-          size="small"
-          onClick={() => {
-            toggleMessagesPane();
-          }}
-          sx={{ display: { sm: "none" } }}
-        >
-          <CloseRoundedIcon />
-        </IconButton>
-      </Stack>
-      <Box sx={{ px: 2, pb: 1.5 }}>
-        <Input
-          size="small"
-          startAdornment={<SearchRoundedIcon />}
-          placeholder="Search"
-          aria-label="Search"
-        />
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Typography p={1}>Messages</Typography>
+            <Chip label={4} size="small" />
+          </Box>
+          <IconButton
+            size="small"
+            aria-label="edit"
+            sx={{ display: { xs: "none", sm: "unset" } }}
+          >
+            <EditNoteRoundedIcon />
+          </IconButton>
+          <IconButton
+            aria-label="edit"
+            size="small"
+            onClick={() => {
+              toggleMessagesPane();
+            }}
+            sx={{ display: { sm: "none" } }}
+          >
+            <CloseRoundedIcon />
+          </IconButton>
+        </Stack>
+        <Box sx={{ px: 2, pb: 1.5 }}>
+          <TextField
+            fullWidth
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchRoundedIcon />
+                </InputAdornment>
+              ),
+            }}
+            placeholder="Search"
+            aria-label="Search"
+          />
+        </Box>
       </Box>
       <List
         sx={{

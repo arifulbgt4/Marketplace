@@ -25,7 +25,7 @@ export default function MessagesPane(props: MessagesPaneProps) {
   return (
     <Box
       sx={{
-        height: { xs: "calc(100vh - 64px)", lg: "calc(100vh - 64px)" },
+        height: "calc(100vh - 64px)",
         display: "flex",
         flexDirection: "column",
         backgroundColor: "background.level1",
