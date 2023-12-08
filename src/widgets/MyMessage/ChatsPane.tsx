@@ -5,7 +5,7 @@ import List from "@mui/material/List";
 import EditNoteRoundedIcon from "@mui/icons-material/EditNoteRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-// import ChatListItem from "./ChatListItem";
+
 import { ChatProps } from "src/widgets/MyMessage/Tyepes";
 import { toggleMessagesPane } from "src/widgets/MyMessage/util";
 import { Paper } from "@mui/material";
