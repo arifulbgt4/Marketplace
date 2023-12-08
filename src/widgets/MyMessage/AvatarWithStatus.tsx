@@ -1,5 +1,4 @@
-import * as React from "react";
-import { Avatar, AvatarProps, Badge } from "@mui/material";
+import { Avatar, AvatarProps, Badge, Box } from "@mui/material";
 
 type AvatarWithStatusProps = AvatarProps & {
   online?: boolean;
@@ -8,11 +7,16 @@ type AvatarWithStatusProps = AvatarProps & {
 export default function AvatarWithStatus(props: AvatarWithStatusProps) {
   const { online = false, ...other } = props;
   return (
-    <Badge
-      variant={online ? "dot" : "standard"}
-      color={online ? "success" : "primary"}
-    >
-      <Avatar {...other} />
-    </Badge>
+    <Box>
+      <Badge
+        variant={online ? "dot" : "standard"}
+        color={online ? "success" : "primary"}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        invisible={false}
+        overlap="circular"
+      >
+        <Avatar {...other} />
+      </Badge>
+    </Box>
   );
 }
