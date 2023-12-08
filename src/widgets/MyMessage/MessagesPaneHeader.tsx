@@ -46,7 +46,7 @@ export default function MessagesPaneHeader(props: MessagesPaneHeaderProps) {
         </IconButton>
         <Avatar sizes="large" src={sender.avatar} />
         <Box>
-          <Typography variant="h4">
+          <Typography variant="h5">
             {sender.name}
             {sender.online ? (
               <Chip
