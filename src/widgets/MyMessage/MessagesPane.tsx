@@ -1,13 +1,12 @@
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
+import { useState, useEffect } from "react";
+import { Box, Stack } from "@mui/material";
 
 import MessagesPaneHeader from "./MessagesPaneHeader";
-import { ChatProps, MessageProps } from "./Tyepes";
 import AvatarWithStatus from "./AvatarWithStatus";
-import { Typography } from "@mui/material";
-import { useState, useEffect } from "react";
 import ChatBubble from "./ChatBubble";
 import MessageInput from "./MessageInput";
+
+import { ChatProps, MessageProps } from "./Types";
 
 type MessagesPaneProps = {
   chat: ChatProps;

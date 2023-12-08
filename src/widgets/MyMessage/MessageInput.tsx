@@ -1,16 +1,17 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import FormControl from "@mui/material/FormControl";
-import Textarea from "@mui/material";
-import { IconButton, Stack } from "@mui/material";
-
+import { useRef } from "react";
+import {
+  Box,
+  TextField,
+  Button,
+  FormControl,
+  IconButton,
+  Stack,
+} from "@mui/material";
 import FormatBoldRoundedIcon from "@mui/icons-material/FormatBoldRounded";
 import FormatItalicRoundedIcon from "@mui/icons-material/FormatItalicRounded";
 import StrikethroughSRoundedIcon from "@mui/icons-material/StrikethroughSRounded";
 import FormatListBulletedRoundedIcon from "@mui/icons-material/FormatListBulletedRounded";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
-import TextField from "@mui/material/TextField";
 
 export type MessageInputProps = {
   textAreaValue: string;
@@ -20,7 +21,7 @@ export type MessageInputProps = {
 
 export default function MessageInput(props: MessageInputProps) {
   const { textAreaValue, setTextAreaValue, onSubmit } = props;
-  const textAreaRef = React.useRef<HTMLDivElement>(null);
+  const textAreaRef = useRef<HTMLDivElement>(null);
   const handleClick = () => {
     if (textAreaValue.trim() !== "") {
       onSubmit();
@@ -28,7 +29,7 @@ export default function MessageInput(props: MessageInputProps) {
     }
   };
   return (
-    <Box sx={{ px: 2, pb: 3 }}>
+    <Box sx={{ px: 2, pb: 2 }}>
       <FormControl fullWidth>
         <TextField
           fullWidth
@@ -64,7 +65,7 @@ export default function MessageInput(props: MessageInputProps) {
             borderColor: "divider",
           }}
         >
-          <div>
+          <Box>
             <IconButton size="small">
               <FormatBoldRoundedIcon />
             </IconButton>
@@ -77,7 +78,7 @@ export default function MessageInput(props: MessageInputProps) {
             <IconButton size="small">
               <FormatListBulletedRoundedIcon />
             </IconButton>
-          </div>
+          </Box>
           <Button
             size="small"
             color="primary"

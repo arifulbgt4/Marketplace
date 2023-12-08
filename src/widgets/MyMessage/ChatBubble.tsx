@@ -1,14 +1,17 @@
 import { useState } from "react";
-import Avatar from "@mui/material/Avatar";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
+import {
+  Paper,
+  Avatar,
+  Box,
+  Stack,
+  Typography,
+  IconButton,
+} from "@mui/material";
 import CelebrationOutlinedIcon from "@mui/icons-material/CelebrationOutlined";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import InsertDriveFileRoundedIcon from "@mui/icons-material/InsertDriveFileRounded";
-import { MessageProps } from "./Tyepes";
-import { Paper } from "@mui/material";
+
+import { MessageProps } from "./Types";
 
 type ChatBubbleProps = MessageProps & {
   variant: "sent" | "received";
