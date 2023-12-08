@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Paper } from "@mui/material";
 
 import MessagesPaneHeader from "./MessagesPaneHeader";
 import AvatarWithStatus from "./AvatarWithStatus";
@@ -22,12 +22,11 @@ export default function MessagesPane(props: MessagesPaneProps) {
   }, [chat.messages]);
 
   return (
-    <Box
+    <Paper
       sx={{
         height: "calc(100vh - 64px)",
         display: "flex",
         flexDirection: "column",
-        backgroundColor: "background.level1",
       }}
     >
       <MessagesPaneHeader sender={chat.sender} />
@@ -39,7 +38,9 @@ export default function MessagesPane(props: MessagesPaneProps) {
           px: 2,
           py: 3,
           overflowY: "scroll",
-          flexDirection: "column",
+          scrollBehavior: "smooth",
+          scrollbarGutter: "end",
+          flexDirection: "column-reverse",
         }}
       >
         <Stack spacing={2} justifyContent="flex-end">
@@ -84,6 +85,6 @@ export default function MessagesPane(props: MessagesPaneProps) {
           ]);
         }}
       />
-    </Box>
+    </Paper>
   );
 }
