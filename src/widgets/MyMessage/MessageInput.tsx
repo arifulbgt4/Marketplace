@@ -31,8 +31,9 @@ export default function MessageInput(props: MessageInputProps) {
   return (
     <Box sx={{ px: { lg: 2, xs: 1 }, pb: 2 }}>
       <FormControl fullWidth sx={{ border: 2, borderRadius: 2 }}>
-        <Box pb={5} pl={1}>
+        <Box pl={1}>
           <TextField
+            multiline
             variant="standard"
             size="medium"
             fullWidth
