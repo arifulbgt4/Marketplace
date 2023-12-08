@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Stack,
   Box,
@@ -26,6 +27,23 @@ type ChatsPaneProps = {
 
 export default function ChatsPane(props: ChatsPaneProps) {
   const { chats, setSelectedChat, selectedChatId } = props;
+  const [state, setstate] = useState({
+    query: "",
+    list: chats,
+  });
+  const hanldeChatFilter = (e: any) => {
+    const results = chats.filter((post) => {
+      if (e.target.value === "") return chats;
+      return post.sender.name
+        .toLowerCase()
+        .includes(e.target.value.toLowerCase());
+    });
+    setstate({
+      query: e.target.value,
+      list: results,
+    });
+  };
+
   return (
     <Paper
       sx={{
@@ -73,6 +91,7 @@ export default function ChatsPane(props: ChatsPaneProps) {
         <Box sx={{ px: 2, pb: 1.5 }}>
           <TextField
             fullWidth
+            type="search"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -82,6 +101,7 @@ export default function ChatsPane(props: ChatsPaneProps) {
             }}
             placeholder="Search"
             aria-label="Search"
+            onChange={hanldeChatFilter}
           />
         </Box>
       </Box>
@@ -92,14 +112,27 @@ export default function ChatsPane(props: ChatsPaneProps) {
           "--ListItem-paddingX": "1rem",
         }}
       >
-        {chats.map((chat) => (
-          <ChatListItem
-            key={chat.id}
-            {...chat}
-            setSelectedChat={setSelectedChat}
-            selectedChatId={selectedChatId}
-          />
-        ))}
+        {state.list.map((chat, index) => {
+          return state.query === "" ? (
+            <Box key={index}>
+              <ChatListItem
+                id={chat.id}
+                sender={chat.sender}
+                messages={chat.messages}
+                setSelectedChat={setSelectedChat}
+                selectedChatId={selectedChatId}
+              />
+            </Box>
+          ) : (
+            <ChatListItem
+              id={chat.id}
+              sender={chat.sender}
+              messages={chat.messages}
+              setSelectedChat={setSelectedChat}
+              selectedChatId={selectedChatId}
+            />
+          );
+        })}
       </List>
     </Paper>
   );
