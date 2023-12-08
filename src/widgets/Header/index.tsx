@@ -31,6 +31,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import { useSticky } from "src/global/hooks";
 import Logo from "src/components/Logo";
@@ -457,29 +458,7 @@ const AvatarPop: FC<AvatarPopProps> = ({
                   </Stack>
                 </MenuItem>
               </Grid>
-              <Grid item xs={4}>
-                <MenuItem
-                  sx={{ justifyContent: "center", borderRadius: 1 }}
-                  component={Link}
-                  disableRipple
-                  href={routes.userSetting}
-                  onClick={handleCloseNavAvatar}
-                >
-                  <Stack justifyContent="center" alignItems="center">
-                    <IconButton
-                      disableRipple
-                      sx={{
-                        "&.hover": {
-                          bgcolor: "transparent",
-                        },
-                      }}
-                    >
-                      <SettingsIcon />
-                    </IconButton>
-                    <Typography variant="caption">Setting</Typography>
-                  </Stack>
-                </MenuItem>
-              </Grid>
+
               <Grid item xs={4}>
                 <MenuItem
                   sx={{ justifyContent: "center", borderRadius: 1 }}
@@ -523,6 +502,54 @@ const AvatarPop: FC<AvatarPopProps> = ({
                       <BookmarksIcon />
                     </IconButton>
                     <Typography variant="caption">Bookmark</Typography>
+                  </Stack>
+                </MenuItem>
+              </Grid>
+
+              <Grid item xs={4}>
+                <MenuItem
+                  sx={{ justifyContent: "center", borderRadius: 1 }}
+                  component={Link}
+                  disableRipple
+                  href={routes.userSetting}
+                  onClick={handleCloseNavAvatar}
+                >
+                  <Stack justifyContent="center" alignItems="center">
+                    <IconButton
+                      disableRipple
+                      sx={{
+                        "&.hover": {
+                          bgcolor: "transparent",
+                        },
+                      }}
+                    >
+                      <ShoppingCartIcon />
+                    </IconButton>
+                    <Typography variant="caption">Order</Typography>
+                  </Stack>
+                </MenuItem>
+              </Grid>
+
+              <Grid item xs={4}>
+                <MenuItem
+                  sx={{ justifyContent: "center", borderRadius: 1 }}
+                  component={Link}
+                  disableRipple
+                  href={routes.userSetting}
+                  onClick={handleCloseNavAvatar}
+                >
+                  <Stack justifyContent="center" alignItems="center">
+                    <IconButton
+                      disableRipple
+                      sx={{
+                        "&.hover": {
+                          bgcolor: "transparent",
+                        },
+                      }}
+                    >
+                      <SettingsIcon />
+                    </IconButton>
+                    <Typography variant="caption">Setting</Typography>
                   </Stack>
                 </MenuItem>
               </Grid>
