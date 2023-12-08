@@ -1,17 +1,22 @@
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import { Box, Chip, IconButton, TextField } from "@mui/material";
-import List from "@mui/material/List";
+import {
+  Stack,
+  Box,
+  Chip,
+  IconButton,
+  TextField,
+  Paper,
+  InputAdornment,
+  Typography,
+  List,
+} from "@mui/material";
 import EditNoteRoundedIcon from "@mui/icons-material/EditNoteRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
-import { ChatProps } from "src/widgets/MyMessage/Tyepes";
-import { toggleMessagesPane } from "src/widgets/MyMessage/util";
-import { Paper } from "@mui/material";
 import ChatListItem from "./ChatListItem";
-import Icon from "../../app/apple-icon";
-import InputAdornment from "@mui/material/InputAdornment";
+import { toggleMessagesPane } from "./util";
+
+import { ChatProps } from "./Types";
 
 type ChatsPaneProps = {
   chats: ChatProps[];

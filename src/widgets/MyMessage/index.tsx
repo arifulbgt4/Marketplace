@@ -1,11 +1,11 @@
 import { FC, useState } from "react";
-
-import { MyMessageProps } from "./Types";
 import { Box } from "@mui/material";
+
 import ChatsPane from "./ChatsPane";
 import { chats } from "./data";
-import { ChatProps } from "./Tyepes";
 import MessagesPane from "./MessagesPane";
+
+import { MyMessageProps, ChatProps } from "./Types";
 
 const MyMessage: FC<MyMessageProps> = () => {
   const [selectedChat, setSelectedChat] = useState<ChatProps>(chats[0]);
