@@ -27,6 +27,7 @@ import { ListingProps } from "./Types";
 
 const Listing: FC<ListingProps> = ({
   isGrid = true,
+  isMark = false,
   id,
   slug,
   title,
@@ -37,7 +38,7 @@ const Listing: FC<ListingProps> = ({
   address,
   services,
 }) => {
-  const [isSelect, setIsSelect] = useState(false);
+  const [isSelect, setIsSelect] = useState(isMark);
   return (
     <Card
       elevation={1}
