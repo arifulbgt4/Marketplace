@@ -61,7 +61,17 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
               borderRadius: 5,
             }}
           >
-            <Box overflow="auto" height="100%" px={2} pb={5}>
+            <Box
+              sx={{
+                overflow: "scroll",
+                "&::-webkit-scrollbar": {
+                  width: 0,
+                },
+              }}
+              height="100%"
+              pl={2}
+              pb={5}
+            >
               <Box
                 sx={{
                   pt: 8,
@@ -76,8 +86,8 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                     onClick={handleCloseLangModal}
                     sx={{
                       position: "absolute",
-                      right: -12,
-                      top: -25,
+                      right: 4,
+                      top: -40,
                       bgcolor: "action.active",
                       color: "#fff",
                       p: 0.2,
@@ -99,113 +109,149 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                     <Tab label="Currency" value="2" />
                   </TabList>
                 </Stack>
-                <TabPanel sx={{ pl: 0 }} value="1">
+                <TabPanel sx={{ px: 0 }} value="1">
                   <Stack pb={4} gap={3}>
                     <Typography variant="h5">
                       Suggested languages and regions
                     </Typography>
 
                     <Grid container rowSpacing={2}>
-                      {countris.slice(0, 2).map((country: any, index) => {
-                        return (
-                          <Grid
-                            item
-                            xs={3}
-                            key={index}
-                            display="flex"
-                            flexDirection="row"
-                            alignItems="center"
-                            gap={1.25}
-                          >
-                            <CountriFlag
-                              name={country.name.common}
-                              region={country.region}
-                              flag={country.flags.svg}
-                            />
-                          </Grid>
-                        );
-                      })}
+                      <Grid
+                        item
+                        xs={6}
+                        md={3}
+                        display="flex"
+                        flexDirection="row"
+                        alignItems="center"
+                        gap={1.25}
+                      >
+                        <CountriFlag
+                          name="Bangladesh"
+                          language="Bengali"
+                          flag="https://t4.ftcdn.net/jpg/01/04/47/13/360_F_104471360_1xohRUSRjfdGxoaRDtLg2z4ztBHkT21K.jpg"
+                        />
+                      </Grid>
+                      <Grid
+                        item
+                        xs={6}
+                        md={3}
+                        display="flex"
+                        flexDirection="row"
+                        alignItems="center"
+                        gap={1.25}
+                      >
+                        <CountriFlag
+                          name="Unaited Kingdom"
+                          language="Bengali"
+                          flag="https://cdn.britannica.com/29/22529-004-ED1907BE/Union-Flag-Cross-St-Andrew-of-George.jpg"
+                        />
+                      </Grid>
                     </Grid>
                   </Stack>
                   <Stack gap={3}>
                     <Typography variant="h5">
                       Choose a language and region
                     </Typography>
-                    <Grid container rowSpacing={2}>
+                    <Grid container spacing={1}>
                       {countris.map((country: any, index) => {
-                        console.log("object", country);
-                        return (
-                          <Grid
-                            item
-                            xs={3}
-                            key={index}
-                            display="flex"
-                            flexDirection="row"
-                            alignItems="center"
-                            gap={1.25}
-                          >
-                            <CountriFlag
-                              name={country.name.common}
-                              region={country.region}
-                              flag={country.flags.svg}
-                            />
-                          </Grid>
-                        );
+                        if (country?.languages) {
+                          const languages: any = Object.values(
+                            country?.languages
+                          );
+                          return (
+                            <Grid
+                              item
+                              xs={6}
+                              md={3}
+                              key={index}
+                              display="flex"
+                              flexDirection="row"
+                              alignItems="center"
+                              gap={1.25}
+                            >
+                              <CountriFlag
+                                name={country.name.common}
+                                language={languages[0]}
+                                flag={country.flags.svg}
+                              />
+                            </Grid>
+                          );
+                        }
                       })}
                     </Grid>
                   </Stack>
                 </TabPanel>
-                <TabPanel sx={{ pl: 0 }} value="2">
+                <TabPanel sx={{ px: 0 }} value="2">
                   <Stack pb={4} gap={3}>
                     <Typography variant="h5">
                       Suggested languages and regions
                     </Typography>
                     <Grid container rowSpacing={2}>
-                      {countris.slice(0, 2).map((country: any, index) => {
-                        return (
-                          <Grid
-                            item
-                            xs={3}
-                            key={index}
-                            display="flex"
-                            flexDirection="row"
-                            alignItems="center"
-                            gap={1.25}
-                          >
-                            <CountriFlag
-                              name={country.name.common}
-                              flag={country.flags.svg}
-                              capital={country.capital}
-                            />
-                          </Grid>
-                        );
-                      })}
+                      <Grid
+                        item
+                        xs={6}
+                        md={3}
+                        display="flex"
+                        flexDirection="row"
+                        alignItems="center"
+                        gap={1.25}
+                      >
+                        <CountriFlag
+                          name="Bangladesh"
+                          language="Bengali"
+                          flag="https://t4.ftcdn.net/jpg/01/04/47/13/360_F_104471360_1xohRUSRjfdGxoaRDtLg2z4ztBHkT21K.jpg"
+                        />
+                      </Grid>
+                      <Grid
+                        item
+                        xs={6}
+                        md={3}
+                        display="flex"
+                        flexDirection="row"
+                        alignItems="center"
+                        gap={1.25}
+                      >
+                        <CountriFlag
+                          name="Unaited Kingdom"
+                          language="Bengali"
+                          flag="https://cdn.britannica.com/29/22529-004-ED1907BE/Union-Flag-Cross-St-Andrew-of-George.jpg"
+                        />
+                      </Grid>
                     </Grid>
                   </Stack>
                   <Stack gap={3}>
                     <Typography variant="h5">
                       Choose a language and region
                     </Typography>
-                    <Grid container rowSpacing={2}>
+                    <Grid container spacing={1}>
                       {countris.map((country: any, index) => {
-                        return (
-                          <Grid
-                            item
-                            xs={3}
-                            key={index}
-                            display="flex"
-                            flexDirection="row"
-                            alignItems="center"
-                            gap={1.25}
-                            width={162}
-                          >
-                            <CountriFlag
-                              name={country.name.common}
-                              flag={country.flags.svg}
-                              capital={country.capital}
-                            />
-                          </Grid>
-                        );
+                        if (country?.currencies) {
+                          const currencies: any = Object.values(
+                            country?.currencies
+                          )[0];
+
+                          var currencie = Object.keys(country?.currencies);
+
+                          return (
+                            <Grid
+                              item
+                              xs={6}
+                              md={3}
+                              key={index}
+                              display="flex"
+                              flexDirection="row"
+                              alignItems="center"
+                              gap={1}
+                            >
+                              <CountriFlag
+                                currencie={currencie}
+                                currenciesName={currencies.name}
+                                flag={country.flags.svg}
+                                currenciesSymbole={currencies.symbol}
+                              />
+                            </Grid>
+                          );
+                        }
                       })}
                     </Grid>
                   </Stack>
@@ -221,25 +267,54 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
 
 export default HeaderLanguage;
 
-const CountriFlag = ({ name, flag, region, capital }: any) => {
+const CountriFlag = ({
+  name,
+  flag,
+  currenciesSymbole,
+  currenciesName,
+  language,
+  currencie,
+  isSelect = false,
+}: any) => {
+  const [select, setSelect] = useState(isSelect);
+
+  const handleRegion = () => {
+    setSelect((prev: any) => !prev);
+  };
+
   return (
-    <>
-      <Box p={1.25} border={1} borderColor="action.focus" borderRadius={1}>
+    <Stack
+      flexDirection="row"
+      alignItems="center"
+      width="100%"
+      gap={1}
+      p={1}
+      border={1}
+      borderColor={(theme) =>
+        select ? theme.palette.divider : "background.paper"
+      }
+      onClick={handleRegion}
+    >
+      <Box
+        p={1.25}
+        border={1}
+        borderColor="action.focus"
+        borderRadius={1}
+        width={70}
+      >
         <CardMedia component="img" height={24} image={flag} />
       </Box>
-      <Box>
-        <Typography variant="h5">{name}</Typography>
-        {region && (
-          <Typography color="text.secondary" variant="body2">
-            {region}
-          </Typography>
-        )}
-        {capital && (
-          <Typography color="text.secondary" variant="body2">
-            {capital}
-          </Typography>
-        )}
+      <Box width={115}>
+        <Typography variant="h6">
+          {language && language}
+
+          {currenciesName && currenciesName.slice(0, 11)}
+        </Typography>
+        <Typography color="text.secondary" variant="body2">
+          {name && name.slice(0, 12)}
+          {currencie} {currenciesSymbole && <>-{currenciesSymbole}</>}
+        </Typography>
       </Box>
-    </>
+    </Stack>
   );
 };
