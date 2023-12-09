@@ -1,5 +1,4 @@
-import { FC, useMemo } from "react";
-import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
+import { FC } from "react";
 import {
   Stack,
   IconButton,
@@ -8,8 +7,12 @@ import {
   Avatar,
   Button,
 } from "@mui/material";
-import { MoreVert, OpenInNew } from "@mui/icons-material";
-import { GridCellParams } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
+import BlockIcon from "@mui/icons-material/Block";
+import AutorenewIcon from "@mui/icons-material/Autorenew";
+import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
+
+import { MoreVert } from "@mui/icons-material";
 
 import { OrderDetailsProps } from "./Types";
 
@@ -84,6 +87,56 @@ const listItems = [
       email: "hooper@email.com",
     },
   },
+  {
+    id: "INV-1228",
+    date: "Feb 10, 2023",
+    status: "Paid",
+    customer: {
+      initial: "L",
+      name: "Lain Crosit",
+      email: "crosit@email.com",
+    },
+  },
+  {
+    id: "INV-1227",
+    date: "Feb 3, 2023",
+    status: "Paid",
+    customer: {
+      initial: "A",
+      name: "Adam Smith",
+      email: "smith34@email.com",
+    },
+  },
+  {
+    id: "INV-1226",
+    date: "Feb 18, 2023",
+    status: "Refunded",
+    customer: {
+      initial: "B",
+      name: "Benn Yammen",
+      email: "yammen@email.com",
+    },
+  },
+  {
+    id: "INV-1225",
+    date: "jan 3, 2023",
+    status: "Paid",
+    customer: {
+      initial: "C",
+      name: "Chette Looper",
+      email: "looper@email.com",
+    },
+  },
+  {
+    id: "INV-1224",
+    date: "Feb 2, 2023",
+    status: "Cancelled",
+    customer: {
+      initial: "D",
+      name: "Daniel Vooper",
+      email: "Vooper@email.com",
+    },
+  },
 ];
 
 const OrderDetails: FC<OrderDetailsProps> = ({ orderDetailsData }) => {
@@ -97,23 +150,74 @@ const OrderDetails: FC<OrderDetailsProps> = ({ orderDetailsData }) => {
     {
       field: "date",
       headerName: "Date",
-      width: 140,
+      width: 150,
     },
     {
       field: "status",
       headerName: "Status",
-      width: 130,
+      width: 180,
+      renderCell: (cellValues) => {
+        if (cellValues.value == "Refunded") {
+          return (
+            <Stack
+              bgcolor={(theme) => theme.palette.divider}
+              direction="row"
+              alignItems="center"
+              borderRadius={5}
+            >
+              <AutorenewIcon fontSize="small" />
+              <Typography px={1}>{cellValues.value}</Typography>
+            </Stack>
+          );
+        } else if (cellValues.value == "Paid") {
+          return (
+            <Stack
+              direction="row"
+              alignItems="center"
+              bgcolor={(theme) => theme.palette.success.dark}
+              borderRadius={5}
+            >
+              <CheckRoundedIcon fontSize="small" />
+              <Typography px={1}>{cellValues.value}</Typography>
+            </Stack>
+          );
+        } else
+          return (
+            <Stack
+              bgcolor={(theme) => theme.palette.error.dark}
+              direction="row"
+              alignItems="center"
+              borderRadius={5}
+            >
+              <Box px={0.5} pt={0.5}>
+                <BlockIcon fontSize="small" />
+              </Box>
+              <Typography px={1}>{cellValues.value}</Typography>
+            </Stack>
+          );
+      },
     },
-    {
-      field: "orderstatus",
-      width: 90,
-      renderCell: (params) => <Avatar src={params.value} />,
-    },
+
     {
       field: "customer",
       headerName: "Customer",
-      width: 132,
-      valueGetter: (params) => params.row.customer.name,
+      width: 300,
+      renderCell: (cellValues) => {
+        return (
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            py={2}
+          >
+            <Avatar>{cellValues.value.initial}</Avatar>
+            <Box px={2}>
+              <Typography>{cellValues.value.name}</Typography>
+              <Typography>{cellValues.value.email}</Typography>
+            </Box>
+          </Stack>
+        );
+      },
     },
 
     {
@@ -132,6 +236,13 @@ const OrderDetails: FC<OrderDetailsProps> = ({ orderDetailsData }) => {
         ".MuiDataGrid-cell": {
           border: "none",
         },
+        // ".highlight": {
+        //   color: "red",
+        //   borderRadius: 5,
+        //   "&:hover": {
+        //     bgcolor: "darkgrey",
+        //   },
+        // },
       }}
       columns={columns}
       rows={listItems}
@@ -143,6 +254,9 @@ const OrderDetails: FC<OrderDetailsProps> = ({ orderDetailsData }) => {
         },
       }}
       slots={{ toolbar: GridToolbar }}
+      /*  getRowClassName={(params) => {
+        return params.row.status === "Refunded" ? "highlight" : "";
+      }} */
       autoHeight={true}
       pageSizeOptions={[10]}
       disableRowSelectionOnClick
