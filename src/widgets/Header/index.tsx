@@ -1,6 +1,5 @@
 "use client";
 import { FC, useState } from "react";
-import { signOut } from "next-auth/react";
 import {
   AppBar,
   Container,
@@ -11,56 +10,27 @@ import {
   Button,
   Tooltip,
   Menu,
-  Avatar,
   Hidden,
   Stack,
-  Grid,
   Link,
-  Typography,
-  Modal,
 } from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
-import LanguageIcon from "@mui/icons-material/Language";
-import AddIcon from "@mui/icons-material/Add";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import LogoutIcon from "@mui/icons-material/Logout";
-import SettingsIcon from "@mui/icons-material/Settings";
-import ListAltIcon from "@mui/icons-material/ListAlt";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import BookmarksIcon from "@mui/icons-material/Bookmarks";
-import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import { useSticky } from "src/global/hooks";
 import Logo from "src/components/Logo";
 import routes from "src/global/routes";
 import HeaderLanguage from "../HeaderLanguage";
 
-import { AvatarPopProps, HeaderProps } from "./Types";
+import { HeaderProps } from "./Types";
+import HeaderPopUpMenu from "../HeaderPopUpMenu";
 
 const Header: FC<HeaderProps> = ({ user }) => {
   const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null);
   const [anchorElUser, setAnchorElUser] = useState<HTMLElement | null>(null);
-  const [anchorElAvat, setAnchorElAvat] = useState<HTMLElement | null>(null);
-  const [open, setOpen] = useState(false);
   const { sticky, stickyRef } = useSticky(10);
 
-  const handleOpenLangModal = () => {
-    setOpen((prev) => !prev);
-  };
-  const handleCloseLangModal = () => {
-    setOpen((prev) => !prev);
-  };
-
-  const handleOpenNavAvatar = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElAvat(event.currentTarget);
-  };
-
-  const handleCloseNavAvatar = () => {
-    setAnchorElAvat(null);
-  };
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -88,12 +58,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
           <Hidden mdUp implementation="css">
             <Stack>
               {user ? (
-                <AvatarPop
-                  handleCloseUserMenu={handleCloseUserMenu}
-                  handleCloseNavAvatar={handleCloseNavAvatar}
-                  anchorElAvat={anchorElAvat}
-                  handleOpenNavAvatar={handleOpenNavAvatar}
-                />
+                <HeaderPopUpMenu />
               ) : (
                 <>
                   <Tooltip title="Menu">
@@ -184,27 +149,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
               </Box>
             </Stack>
           </Hidden>
-          <Box mr={1} width={35}>
-            <IconButton disableRipple onClick={handleOpenLangModal}>
-              <LanguageIcon />
-            </IconButton>
-            <Modal open={open} onClose={handleCloseLangModal}>
-              <Stack justifyContent="center" alignItems="center">
-                <Container
-                  maxWidth="md"
-                  sx={{
-                    bgcolor: "background.paper",
-                    top: 77,
-                    position: "absolute",
-                    height: 580,
-                    borderRadius: 5,
-                  }}
-                >
-                  <HeaderLanguage handleCloseLangModal={handleCloseLangModal} />
-                </Container>
-              </Stack>
-            </Modal>
-          </Box>
+          <HeaderLanguage />
           <Box>
             {!user ? (
               <>
@@ -331,12 +276,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
                   </Menu>
                 </Hidden>
                 <Hidden mdDown implementation="css">
-                  <AvatarPop
-                    handleCloseUserMenu={handleCloseUserMenu}
-                    handleCloseNavAvatar={handleCloseNavAvatar}
-                    anchorElAvat={anchorElAvat}
-                    handleOpenNavAvatar={handleOpenNavAvatar}
-                  />
+                  <HeaderPopUpMenu />
                 </Hidden>
               </Stack>
             )}
@@ -347,250 +287,3 @@ const Header: FC<HeaderProps> = ({ user }) => {
   );
 };
 export default Header;
-
-const AvatarPop: FC<AvatarPopProps> = ({
-  handleCloseUserMenu,
-  handleCloseNavAvatar,
-  anchorElAvat,
-  handleOpenNavAvatar,
-}) => {
-  return (
-    <>
-      <IconButton onClick={handleOpenNavAvatar} sx={{ p: 0 }}>
-        <Avatar>AD</Avatar>
-      </IconButton>
-      <Menu
-        sx={{
-          mt: 5.7,
-        }}
-        id="menu-appbar"
-        anchorEl={anchorElAvat}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        keepMounted
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        open={Boolean(anchorElAvat)}
-        onClose={handleCloseNavAvatar}
-      >
-        <Stack
-          width={{ xs: "100%", md: 310 }}
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Box borderRadius={3} p={1} bgcolor="background.default" mx={2}>
-            <Grid
-              container
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Grid item xs={4}>
-                <MenuItem
-                  sx={{ justifyContent: "center", borderRadius: 1 }}
-                  component={Link}
-                  disableRipple
-                  href={routes.userDashboard}
-                  onClick={handleCloseNavAvatar}
-                >
-                  <Stack justifyContent="center" alignItems="center">
-                    <IconButton
-                      disableRipple
-                      sx={{
-                        "&.hover": {
-                          bgcolor: "transparent",
-                        },
-                      }}
-                    >
-                      <DashboardIcon />
-                    </IconButton>
-                    <Typography variant="caption">Dashboard</Typography>
-                  </Stack>
-                </MenuItem>
-              </Grid>
-              <Grid item xs={4}>
-                <MenuItem
-                  sx={{ justifyContent: "center", borderRadius: 1 }}
-                  component={Link}
-                  disableRipple
-                  href={routes.userAccount}
-                  onClick={handleCloseNavAvatar}
-                >
-                  <Stack justifyContent="center" alignItems="center">
-                    <IconButton
-                      disableRipple
-                      sx={(theme) => ({
-                        "&.hover": {
-                          bgcolor: "transparent",
-                        },
-                      })}
-                    >
-                      <ManageAccountsIcon />
-                    </IconButton>
-                    <Typography variant="caption">Account</Typography>
-                  </Stack>
-                </MenuItem>
-              </Grid>
-              <Grid item xs={4}>
-                <MenuItem
-                  sx={{ justifyContent: "center", borderRadius: 1 }}
-                  component={Link}
-                  disableRipple
-                  href={`${routes.profile}/slug`}
-                  onClick={handleCloseNavAvatar}
-                >
-                  <Stack justifyContent="center" alignItems="center">
-                    <IconButton
-                      disableRipple
-                      sx={{
-                        "&.hover": {
-                          bgcolor: "transparent",
-                        },
-                      }}
-                    >
-                      <AccountCircleIcon />
-                    </IconButton>
-                    <Typography variant="caption">Profile</Typography>
-                  </Stack>
-                </MenuItem>
-              </Grid>
-
-              <Grid item xs={4}>
-                <MenuItem
-                  sx={{ justifyContent: "center", borderRadius: 1 }}
-                  component={Link}
-                  disableRipple
-                  href={routes.userListing}
-                  onClick={handleCloseNavAvatar}
-                >
-                  <Stack justifyContent="center" alignItems="center">
-                    <IconButton
-                      disableRipple
-                      sx={{
-                        "&.hover": {
-                          bgcolor: "transparent",
-                        },
-                      }}
-                    >
-                      <ListAltIcon />
-                    </IconButton>
-                    <Typography variant="caption">Listing</Typography>
-                  </Stack>
-                </MenuItem>
-              </Grid>
-              <Grid item xs={4}>
-                <MenuItem
-                  sx={{ justifyContent: "center", borderRadius: 1 }}
-                  component={Link}
-                  disableRipple
-                  href={routes.userBookmark}
-                  onClick={handleCloseNavAvatar}
-                >
-                  <Stack justifyContent="center" alignItems="center">
-                    <IconButton
-                      disableRipple
-                      sx={{
-                        "&.hover": {
-                          bgcolor: "transparent",
-                        },
-                      }}
-                    >
-                      <BookmarksIcon />
-                    </IconButton>
-                    <Typography variant="caption">Bookmark</Typography>
-                  </Stack>
-                </MenuItem>
-              </Grid>
-
-              <Grid item xs={4}>
-                <MenuItem
-                  sx={{ justifyContent: "center", borderRadius: 1 }}
-                  component={Link}
-                  disableRipple
-                  href={routes.userSetting}
-                  onClick={handleCloseNavAvatar}
-                >
-                  <Stack justifyContent="center" alignItems="center">
-                    <IconButton
-                      disableRipple
-                      sx={{
-                        "&.hover": {
-                          bgcolor: "transparent",
-                        },
-                      }}
-                    >
-                      <ShoppingCartIcon />
-                    </IconButton>
-                    <Typography variant="caption">Order</Typography>
-                  </Stack>
-                </MenuItem>
-              </Grid>
-
-              <Grid item xs={4}>
-                <MenuItem
-                  sx={{ justifyContent: "center", borderRadius: 1 }}
-                  component={Link}
-                  disableRipple
-                  href={routes.userSetting}
-                  onClick={handleCloseNavAvatar}
-                >
-                  <Stack justifyContent="center" alignItems="center">
-                    <IconButton
-                      disableRipple
-                      sx={{
-                        "&.hover": {
-                          bgcolor: "transparent",
-                        },
-                      }}
-                    >
-                      <SettingsIcon />
-                    </IconButton>
-                    <Typography variant="caption">Setting</Typography>
-                  </Stack>
-                </MenuItem>
-              </Grid>
-              <Grid item xs={4}>
-                <MenuItem
-                  sx={{ justifyContent: "center", borderRadius: 1 }}
-                  disableRipple
-                  onClick={() => {
-                    handleCloseUserMenu();
-                    signOut();
-                  }}
-                >
-                  <Stack justifyContent="center" alignItems="center">
-                    <IconButton
-                      disableRipple
-                      sx={{
-                        "&.hover": {
-                          bgcolor: "transparent",
-                        },
-                      }}
-                    >
-                      <LogoutIcon />
-                    </IconButton>
-                    <Typography variant="caption"> Log out</Typography>
-                  </Stack>
-                </MenuItem>
-              </Grid>
-            </Grid>
-          </Box>
-          <Box pt={3} pb={2}>
-            <Button
-              href={routes.listingCreate}
-              size="small"
-              variant="outlined"
-              endIcon={<AddIcon />}
-            >
-              add a Listing
-            </Button>
-          </Box>
-        </Stack>
-      </Menu>
-    </>
-  );
-};
