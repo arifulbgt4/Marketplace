@@ -11,8 +11,7 @@ import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import BlockIcon from "@mui/icons-material/Block";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
-
-import { MoreVert } from "@mui/icons-material";
+import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 
 import { OrderDetailsProps } from "./Types";
 
@@ -21,7 +20,7 @@ function CorrectRenderLink2() {
     <Stack direction="row">
       <Button size="small">Download</Button>
       <IconButton>
-        <MoreVert />
+        <MoreHorizRoundedIcon />
       </IconButton>
     </Stack>
   );
