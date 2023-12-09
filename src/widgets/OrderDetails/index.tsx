@@ -259,9 +259,9 @@ const OrderDetails: FC<OrderDetailsProps> = ({ orderDetailsData }) => {
       }} */
       autoHeight={true}
       pageSizeOptions={[10]}
-      disableRowSelectionOnClick
       showColumnVerticalBorder={false}
       getRowHeight={() => "auto"}
+      checkboxSelection
     />
   );
 };
