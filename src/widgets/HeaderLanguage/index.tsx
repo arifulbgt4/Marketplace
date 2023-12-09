@@ -46,8 +46,8 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
 
   return (
     <Box mr={1} width={35}>
-      <IconButton disableRipple onClick={handleOpenLangModal}>
-        <LanguageIcon />
+      <IconButton onClick={handleOpenLangModal}>
+        <LanguageIcon fontSize="small" />
       </IconButton>
       <Modal open={open} onClose={handleCloseLangModal}>
         <Stack justifyContent="center" alignItems="center">
@@ -69,7 +69,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                 },
               }}
               height="100%"
-              pl={2}
+              px={2}
               pb={5}
             >
               <Box
@@ -86,7 +86,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                     onClick={handleCloseLangModal}
                     sx={{
                       position: "absolute",
-                      right: 4,
+                      right: -15,
                       top: -40,
                       bgcolor: "action.active",
                       color: "#fff",
@@ -115,7 +115,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                       Suggested languages and regions
                     </Typography>
 
-                    <Grid container rowSpacing={2}>
+                    <Grid container spacing={2}>
                       <Grid
                         item
                         xs={6}
@@ -186,7 +186,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                     <Typography variant="h5">
                       Suggested languages and regions
                     </Typography>
-                    <Grid container rowSpacing={2}>
+                    <Grid container spacing={2}>
                       <Grid
                         item
                         xs={6}
@@ -229,9 +229,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                           const currencies: any = Object.values(
                             country?.currencies
                           )[0];
-
                           var currencie = Object.keys(country?.currencies);
-
                           return (
                             <Grid
                               item
@@ -290,6 +288,7 @@ const CountriFlag = ({
       gap={1}
       p={1}
       border={1}
+      borderRadius={1}
       borderColor={(theme) =>
         select ? theme.palette.divider : "background.paper"
       }
