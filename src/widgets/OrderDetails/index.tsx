@@ -1,55 +1,121 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
-import { Stack, IconButton, Typography, Box } from "@mui/material";
+import {
+  Stack,
+  IconButton,
+  Typography,
+  Box,
+  Avatar,
+  Button,
+} from "@mui/material";
 import { MoreVert, OpenInNew } from "@mui/icons-material";
+import { GridCellParams } from "@mui/x-data-grid";
 
 import { OrderDetailsProps } from "./Types";
 
 function CorrectRenderLink2() {
   return (
     <Stack direction="row">
-      <IconButton>
-        <OpenInNew />
-      </IconButton>
+      <Button size="small">Download</Button>
       <IconButton>
         <MoreVert />
       </IconButton>
     </Stack>
   );
 }
+const listItems = [
+  {
+    id: "INV-1234",
+    date: "Feb 3, 2023",
+    status: "Refunded",
+    customer: {
+      initial: "O",
+      name: "Olivia Ryhe",
+      email: "olivia@email.com",
+    },
+  },
+  {
+    id: "INV-1233",
+    date: "Feb 3, 2023",
+    status: "Paid",
+    customer: {
+      initial: "S",
+      name: "Steve Hampton",
+      email: "steve.hamp@email.com",
+    },
+  },
+  {
+    id: "INV-1232",
+    date: "Feb 3, 2023",
+    status: "Refunded",
+    customer: {
+      initial: "C",
+      name: "Ciaran Murray",
+      email: "ciaran.murray@email.com",
+    },
+  },
+  {
+    id: "INV-1231",
+    date: "Feb 3, 2023",
+    status: "Refunded",
+    customer: {
+      initial: "M",
+      name: "Maria Macdonald",
+      email: "maria.mc@email.com",
+    },
+  },
+  {
+    id: "INV-1230",
+    date: "Feb 3, 2023",
+    status: "Cancelled",
+    customer: {
+      initial: "C",
+      name: "Charles Fulton",
+      email: "fulton@email.com",
+    },
+  },
+  {
+    id: "INV-1229",
+    date: "Feb 3, 2023",
+    status: "Cancelled",
+    customer: {
+      initial: "J",
+      name: "Jay Hooper",
+      email: "hooper@email.com",
+    },
+  },
+];
 
 const OrderDetails: FC<OrderDetailsProps> = ({ orderDetailsData }) => {
   const columns: GridColDef[] = [
     {
-      field: "orderNo",
-      headerName: "#ORDER",
-      minWidth: 130,
+      field: "id",
+      headerName: "Invoice",
+      width: 150,
+      editable: true,
     },
     {
-      field: "product",
-      headerName: "PRODUCT",
-      width: 260,
+      field: "date",
+      headerName: "Date",
+      width: 140,
     },
     {
-      field: "sxu",
-      headerName: "SXU",
+      field: "status",
+      headerName: "Status",
       width: 130,
-    },
-    {
-      field: "category",
-      headerName: "CATEGORY",
-      width: 132,
-    },
-
-    {
-      field: "payment",
-      headerName: "PAYMENT",
     },
     {
       field: "orderstatus",
-      width: 130,
-      headerName: "ORDERSTATUS",
+      width: 90,
+      renderCell: (params) => <Avatar src={params.value} />,
     },
+    {
+      field: "customer",
+      headerName: "Customer",
+      width: 132,
+      valueGetter: (params) => params.row.customer.name,
+    },
+
     {
       field: "actions",
       headerName: "ACTIONS",
@@ -68,7 +134,7 @@ const OrderDetails: FC<OrderDetailsProps> = ({ orderDetailsData }) => {
         },
       }}
       columns={columns}
-      rows={orderDetailsData}
+      rows={listItems}
       initialState={{
         pagination: {
           paginationModel: {
