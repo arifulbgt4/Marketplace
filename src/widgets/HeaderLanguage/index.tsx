@@ -1,5 +1,5 @@
 "use client";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import {
   Grid,
   Stack,
@@ -9,6 +9,9 @@ import {
   Box,
   Modal,
   Container,
+  List,
+  ListItemButton,
+  ListItemIcon,
 } from "@mui/material";
 import LanguageIcon from "@mui/icons-material/Language";
 import Tab from "@mui/material/Tab";
@@ -18,6 +21,7 @@ import TabPanel from "@mui/lab/TabPanel";
 import CloseIcon from "@mui/icons-material/Close";
 
 import { HeaderLanguageProps } from "./Types";
+import CounttryLanRegion from "src/components/CountryLanRegion";
 
 const HeaderLanguage: FC<HeaderLanguageProps> = () => {
   const [value, setValue] = useState("1");
@@ -34,15 +38,13 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
     setValue(newValue);
   };
 
-  useEffect(() => {
-    fetch("https://restcountries.com/v3.1/all")
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setCountris(data);
-      });
-  }, []);
+  fetch("https://restcountries.com/v3.1/all")
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      setCountris(data);
+    });
 
   return (
     <Box mr={1} width={35}>
@@ -74,11 +76,11 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
             >
               <Box
                 sx={{
-                  pt: 8,
                   height: "fit-content",
                   position: "sticky",
                   top: 0,
                   bgcolor: "background.paper",
+                  pt: 5,
                 }}
               >
                 <Box position="relative">
@@ -87,7 +89,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                     sx={{
                       position: "absolute",
                       right: -15,
-                      top: -40,
+                      top: -15,
                       bgcolor: "action.active",
                       color: "#fff",
                       p: 0.2,
@@ -125,7 +127,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                         alignItems="center"
                         gap={1.25}
                       >
-                        <CountriFlag
+                        <CounttryLanRegion
                           name="Bangladesh"
                           language="Bengali"
                           flag="https://t4.ftcdn.net/jpg/01/04/47/13/360_F_104471360_1xohRUSRjfdGxoaRDtLg2z4ztBHkT21K.jpg"
@@ -140,7 +142,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                         alignItems="center"
                         gap={1.25}
                       >
-                        <CountriFlag
+                        <CounttryLanRegion
                           name="Unaited Kingdom"
                           language="Bengali"
                           flag="https://cdn.britannica.com/29/22529-004-ED1907BE/Union-Flag-Cross-St-Andrew-of-George.jpg"
@@ -169,7 +171,8 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                               alignItems="center"
                               gap={1.25}
                             >
-                              <CountriFlag
+                              <CounttryLanRegion
+                                indexCoun={index}
                                 name={country.name.common}
                                 language={languages[0]}
                                 flag={country.flags.svg}
@@ -196,9 +199,10 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                         alignItems="center"
                         gap={1.25}
                       >
-                        <CountriFlag
-                          name="Bangladesh"
-                          language="Bengali"
+                        <CounttryLanRegion
+                          currenciesName="Bangladeshi"
+                          currencie="BDT"
+                          currenciesSymbole="TK"
                           flag="https://t4.ftcdn.net/jpg/01/04/47/13/360_F_104471360_1xohRUSRjfdGxoaRDtLg2z4ztBHkT21K.jpg"
                         />
                       </Grid>
@@ -211,9 +215,10 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                         alignItems="center"
                         gap={1.25}
                       >
-                        <CountriFlag
-                          name="Unaited Kingdom"
-                          language="Bengali"
+                        <CounttryLanRegion
+                          currenciesName="Unaited Kingdom"
+                          currencie="Dolar"
+                          currenciesSymbole="$"
                           flag="https://cdn.britannica.com/29/22529-004-ED1907BE/Union-Flag-Cross-St-Andrew-of-George.jpg"
                         />
                       </Grid>
@@ -230,6 +235,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                             country?.currencies
                           )[0];
                           var currencie = Object.keys(country?.currencies);
+
                           return (
                             <Grid
                               item
@@ -241,7 +247,8 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                               alignItems="center"
                               gap={1}
                             >
-                              <CountriFlag
+                              <CounttryLanRegion
+                                indexCoun={index}
                                 currencie={currencie}
                                 currenciesName={currencies.name}
                                 flag={country.flags.svg}
@@ -264,56 +271,3 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
 };
 
 export default HeaderLanguage;
-
-const CountriFlag = ({
-  name,
-  flag,
-  currenciesSymbole,
-  currenciesName,
-  language,
-  currencie,
-  isSelect = false,
-}: any) => {
-  const [select, setSelect] = useState(isSelect);
-
-  const handleRegion = () => {
-    setSelect((prev: any) => !prev);
-  };
-
-  return (
-    <Stack
-      flexDirection="row"
-      alignItems="center"
-      width="100%"
-      gap={1}
-      p={1}
-      border={1}
-      borderRadius={1}
-      borderColor={(theme) =>
-        select ? theme.palette.divider : "background.paper"
-      }
-      onClick={handleRegion}
-    >
-      <Box
-        p={1.25}
-        border={1}
-        borderColor="action.focus"
-        borderRadius={1}
-        width={70}
-      >
-        <CardMedia component="img" height={24} image={flag} />
-      </Box>
-      <Box width={115}>
-        <Typography variant="h6">
-          {language && language}
-
-          {currenciesName && currenciesName.slice(0, 11)}
-        </Typography>
-        <Typography color="text.secondary" variant="body2">
-          {name && name.slice(0, 12)}
-          {currencie} {currenciesSymbole && <>-{currenciesSymbole}</>}
-        </Typography>
-      </Box>
-    </Stack>
-  );
-};
