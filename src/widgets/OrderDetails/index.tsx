@@ -143,18 +143,20 @@ const OrderDetails: FC<OrderDetailsProps> = ({ orderDetailsData }) => {
     {
       field: "id",
       headerName: "Invoice",
-      width: 150,
-      editable: true,
+      flex: 0.5,
+      minWidth: 90,
     },
     {
       field: "date",
       headerName: "Date",
-      width: 150,
+      flex: 0.5,
+      minWidth: 100,
     },
     {
       field: "status",
       headerName: "Status",
-      width: 180,
+      flex: 0.5,
+      minWidth: 140,
       renderCell: (cellValues) => {
         if (cellValues.value == "Refunded") {
           return (
@@ -200,7 +202,8 @@ const OrderDetails: FC<OrderDetailsProps> = ({ orderDetailsData }) => {
     {
       field: "customer",
       headerName: "Customer",
-      width: 300,
+      flex: 1,
+      minWidth: 270,
       renderCell: (cellValues) => {
         return (
           <Stack
@@ -224,7 +227,8 @@ const OrderDetails: FC<OrderDetailsProps> = ({ orderDetailsData }) => {
       headerName: "ACTIONS",
       renderCell: CorrectRenderLink2,
 
-      width: 130,
+      flex: 0.5,
+      minWidth: 150,
     },
   ];
 
