@@ -19,8 +19,6 @@ const CounttryLanRegion: FC<CounttryLanRegionProps> = ({
   language,
   currencie,
 }: any) => {
-  console.log("objdfghcgfhjnect", indexCoun);
-
   const [selectedIndex, setSelectedIndex] = useState(1);
 
   const handleListItemClick = (index: number) => {

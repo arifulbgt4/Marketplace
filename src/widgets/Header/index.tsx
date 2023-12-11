@@ -22,9 +22,9 @@ import { useSticky } from "src/global/hooks";
 import Logo from "src/components/Logo";
 import routes from "src/global/routes";
 import HeaderLanguage from "../HeaderLanguage";
+import HeaderPopUpMenu from "../HeaderPopUpMenu";
 
 import { HeaderProps } from "./Types";
-import HeaderPopUpMenu from "../HeaderPopUpMenu";
 
 const Header: FC<HeaderProps> = ({ user }) => {
   const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null);
