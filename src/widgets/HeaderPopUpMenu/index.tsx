@@ -194,7 +194,7 @@ const HeaderPopUpMenu: FC<HeaderPopUpMenuProps> = () => {
                   sx={{ justifyContent: "center", borderRadius: 1 }}
                   component={Link}
                   disableRipple
-                  href={routes.userSetting}
+                  href={routes.userOrder}
                   onClick={handleCloseNavAvatar}
                 >
                   <Stack justifyContent="center" alignItems="center">
