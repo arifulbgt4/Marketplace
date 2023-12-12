@@ -36,8 +36,8 @@ const CounttryLanRegion: FC<CounttryLanRegionProps> = ({
         >
           <Stack flexDirection="row" alignItems="center" width="100%" gap={1}>
             <Box
-              p={1.25}
-              border={1}
+              p={{ lg: 1.25, md: 1.25, sm: 1.25 }}
+              border={{ lg: 1, md: 1, sm: 0.5 }}
               borderColor="action.focus"
               borderRadius={1}
               width={70}
