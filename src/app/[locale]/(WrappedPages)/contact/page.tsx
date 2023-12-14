@@ -1,32 +1,42 @@
-import { Box, Container, Grid, Paper } from "@mui/material";
+import { Box, Container, Grid, Paper, Stack, Typography } from "@mui/material";
 
-import BreadcumbBanner from "src/widgets/BreadcumbBanner";
-import ConatactHelpInfo from "src/widgets/ConatactHelpInfo";
+import ContactHelpInfo from "src/components/ContactHelpInfo";
 import ContactForm from "src/forms/ContactForm";
+import ContactInfo from "src/widgets/ContactInfo";
 
 const Conatact = () => {
   return (
-    <>
-      <Grid container>
-        <Grid item xs={12}>
-          <BreadcumbBanner title="Contact us" />
-        </Grid>
-      </Grid>
-      <Box pt={{ xs: 3, md: 5 }}>
-        <Container maxWidth="lg">
-          <Grid container columnSpacing={8} rowSpacing={5}>
-            <Grid item xs={12} md={8}>
-              <Paper sx={{ p: { xs: 2, md: 4 } }}>
+    <Box pt={5}>
+      <Container maxWidth="lg">
+        <Stack flexDirection="row">
+          <Paper sx={{ p: 5, borderRadius: 5 }}>
+            <Grid container columnSpacing={10}>
+              <Grid item xs={6}>
+                <Stack gap={1} pb={3}>
+                  <Typography color="primary.main" variant="h4">
+                    GET IN TOUCH
+                  </Typography>
+                  <Typography color="text.secondary" variant="body2">
+                    Lorem ipsum dolor sit amet consectetur. Purus viverra eget
+                    integer sit dictum.
+                  </Typography>
+                </Stack>
                 <ContactForm />
-              </Paper>
+              </Grid>
+              <Grid item xs={6}>
+                <Stack justifyContent="space-between" height="100%">
+                  <Box>
+                    <Typography variant="h3"> Map</Typography>
+                  </Box>
+                  <ContactInfo />
+                </Stack>
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={4}>
-              <ConatactHelpInfo />
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
-    </>
+          </Paper>
+          <ContactHelpInfo />
+        </Stack>
+      </Container>
+    </Box>
   );
 };
 
