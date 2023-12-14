@@ -6,12 +6,19 @@ import ContactInfo from "src/widgets/ContactInfo";
 
 const Conatact = () => {
   return (
-    <Box pt={5}>
+    <Box pt={{ xs: 2, md: 5 }}>
       <Container maxWidth="lg">
-        <Stack flexDirection="row">
-          <Paper sx={{ p: 5, borderRadius: 5 }}>
-            <Grid container columnSpacing={10}>
-              <Grid item xs={6}>
+        <Stack flexDirection={{ md: "row" }}>
+          <Paper
+            sx={{
+              p: { xs: 2, md: 5 },
+              borderRadius: 5,
+              borderBottomLeftRadius: { xs: 0, md: 5 },
+              borderBottomRightRadius: { xs: 0, md: 5 },
+            }}
+          >
+            <Grid container columnSpacing={10} rowSpacing={4}>
+              <Grid item xs={12} md={6}>
                 <Stack gap={1} pb={3}>
                   <Typography color="primary.main" variant="h4">
                     GET IN TOUCH
@@ -23,7 +30,7 @@ const Conatact = () => {
                 </Stack>
                 <ContactForm />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12} md={6}>
                 <Stack justifyContent="space-between" height="100%">
                   <Box>
                     <Typography variant="h3"> Map</Typography>
