@@ -5,6 +5,8 @@ import SocialIconLink from "src/components/SocialILink";
 import Logo from "src/components/Logo";
 
 import { FooterProps } from "./Types";
+import Link from "next/link";
+import routes from "src/global/routes";
 
 const Footer: FC<FooterProps> = () => {
   return (
@@ -19,12 +21,15 @@ const Footer: FC<FooterProps> = () => {
           <Grid item xs={12} container spacing={3}>
             <Grid item lg={3} sm={6} xs={12}>
               <Stack gap={2} padding={{ xs: 1, md: 0 }}>
-                <Typography variant="h6">PRIVACY POLICY</Typography>
-                <Typography color="text.secondary">
-                  Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-                  odit aut fugit, sed quia consequuntur ma
+                <Typography variant="h5">LINKS</Typography>
+                <Typography
+                  component={Link}
+                  href={routes.search}
+                  color="text.secondary"
+                >
+                  PROPERTIES
                 </Typography>
-                <Typography color="text.secondary"> Louis Vuitton</Typography>
+                <Typography color="text.secondary"> OPEN A SHOP</Typography>
               </Stack>
             </Grid>
             <Grid item lg={3} sm={6} xs={12}>
