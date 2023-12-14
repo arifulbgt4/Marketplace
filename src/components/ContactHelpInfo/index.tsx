@@ -16,7 +16,14 @@ const ContactHelpInfo: FC<ContactHelpInfoPrps> = () => {
         px={2.5}
         py={3}
         bgcolor="primary.main"
-        sx={{ borderTopRightRadius: 8, borderBottomRightRadius: 24 }}
+        flexDirection={{ xs: "row", md: "column" }}
+        sx={{
+          borderTopRightRadius: { md: 8 },
+          borderBottomRightRadius: { xs: 20, md: 24 },
+          borderBottomLeftRadius: { xs: 20, md: 0 },
+        }}
+        width="100%"
+        justifyContent="space-around"
       >
         <Link href="#" target="_blank">
           <TwitterIcon

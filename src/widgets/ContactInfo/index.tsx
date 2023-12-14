@@ -14,7 +14,7 @@ import { ContactInfoProps } from "./Types";
 const ContactInfo: FC<ContactInfoProps> = () => {
   return (
     <List disablePadding>
-      <ListItem disablePadding sx={{ pb: 4 }}>
+      <ListItem disablePadding sx={{ pb: { xs: 2, md: 4 } }}>
         <ListItemIcon>
           <Stack
             justifyContent="center"
@@ -35,7 +35,7 @@ const ContactInfo: FC<ContactInfoProps> = () => {
           }
         />
       </ListItem>
-      <ListItem disablePadding sx={{ pb: 4 }}>
+      <ListItem disablePadding sx={{ pb: { xs: 2, md: 4 } }}>
         <ListItemIcon>
           <Stack
             justifyContent="center"
