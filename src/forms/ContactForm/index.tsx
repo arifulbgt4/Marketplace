@@ -1,9 +1,8 @@
 "use client";
 import { FC } from "react";
-import { Grid, Button } from "@mui/material";
-
 import { Form as FinalForm } from "react-final-form";
 import { FormApi } from "final-form";
+import { Grid, Button } from "@mui/material";
 
 import { TextField } from "src/components/Input";
 
@@ -25,18 +24,7 @@ const ContactForm: FC<ContactFormProps> = () => {
       render={({ handleSubmit, values, errors, submitting }) => {
         return (
           <form onSubmit={handleSubmit}>
-            <Grid container rowGap={2}>
-              <Grid item xs={12}>
-                <TextField
-                  name="name"
-                  fullWidth
-                  id="name"
-                  label="Your name"
-                  variant="outlined"
-                  required
-                />
-              </Grid>
-
+            <Grid container rowGap={3}>
               <Grid item xs={12}>
                 <TextField
                   type="email"
@@ -44,8 +32,9 @@ const ContactForm: FC<ContactFormProps> = () => {
                   fullWidth
                   id="email"
                   label="Your Email"
-                  variant="outlined"
+                  variant="filled"
                   required
+                  size="small"
                 />
               </Grid>
 
@@ -55,7 +44,8 @@ const ContactForm: FC<ContactFormProps> = () => {
                   fullWidth
                   id="subject"
                   label="Subject"
-                  variant="outlined"
+                  variant="filled"
+                  size="small"
                   required
                 />
               </Grid>
@@ -65,16 +55,16 @@ const ContactForm: FC<ContactFormProps> = () => {
                   name="message"
                   fullWidth
                   multiline
-                  rows={4}
+                  rows={5}
                   id="message"
                   label="message"
-                  variant="outlined"
+                  variant="filled"
                   required
+                  size="small"
                 />
               </Grid>
-
               <Grid item xs={12}>
-                <Button variant="outlined" type="submit">
+                <Button fullWidth variant="contained" type="submit">
                   Send
                 </Button>
               </Grid>
