@@ -6,7 +6,6 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-
 import CircleIcon from "@mui/icons-material/Circle";
 
 import { toggleMessagesPane } from "./util";
@@ -27,7 +26,7 @@ export default function ChatListItem(props: ChatListItemProps) {
   const { id, sender, messages, selectedChatId, setSelectedChat } = props;
   const selected = selectedChatId === id;
   return (
-    <ListItem>
+    <ListItem sx={{ p: 0 }}>
       <ListItemButton
         onClick={() => {
           toggleMessagesPane();
@@ -43,8 +42,10 @@ export default function ChatListItem(props: ChatListItemProps) {
         <Stack direction="row" spacing={1.5}>
           <AvatarWithStatus online={sender.online} src={sender.avatar} />
           <Box sx={{ flex: 1 }}>
-            <Typography>{sender.name}</Typography>
-            <Typography>{sender.username}</Typography>
+            <Typography variant="subtitle2">{sender.name}</Typography>
+            <Typography variant="subtitle2" color="text.secondary">
+              {sender.username}
+            </Typography>
           </Box>
           <Box
             sx={{
@@ -55,13 +56,18 @@ export default function ChatListItem(props: ChatListItemProps) {
             {messages[0].unread && (
               <CircleIcon sx={{ fontSize: 12 }} color="primary" />
             )}
-            <Typography display={{ xs: "none", md: "block" }} noWrap>
+            <Typography
+              variant="caption"
+              display={{ xs: "none", md: "block" }}
+              noWrap
+            >
               5 mins ago
             </Typography>
           </Box>
         </Stack>
         <Typography
-          variant="body2"
+          variant="subtitle2"
+          color="text.secondary"
           sx={{
             display: "-webkit-box",
             WebkitLineClamp: "2",
@@ -70,7 +76,8 @@ export default function ChatListItem(props: ChatListItemProps) {
             textOverflow: "ellipsis",
           }}
         >
-          {messages[0].content}
+          {messages[0].content.slice(0, 44)}
+          {"...."}
         </Typography>
       </ListItemButton>
     </ListItem>

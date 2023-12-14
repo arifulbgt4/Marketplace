@@ -29,8 +29,11 @@ export default function MessageInput(props: MessageInputProps) {
     }
   };
   return (
-    <Box sx={{ px: { lg: 2, xs: 1 }, pb: 2 }}>
-      <FormControl fullWidth sx={{ border: 2, borderRadius: 2 }}>
+    <Box sx={{ px: { md: 2, xs: 1 }, pb: 2 }}>
+      <FormControl
+        fullWidth
+        sx={{ border: 2, borderColor: "divider", borderRadius: 2 }}
+      >
         <Box pl={1}>
           <TextField
             multiline
@@ -45,7 +48,7 @@ export default function MessageInput(props: MessageInputProps) {
               setTextAreaValue(e.target.value);
             }}
             value={textAreaValue}
-            minRows={3}
+            minRows={1}
             maxRows={10}
             onKeyDown={(event) => {
               if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
@@ -67,28 +70,29 @@ export default function MessageInput(props: MessageInputProps) {
           sx={{
             py: 1,
             pr: 1,
-            borderTop: 1,
+            borderTop: 2,
+            borderColor: "divider",
           }}
         >
           <Box>
-            <IconButton size="small">
-              <FormatBoldRoundedIcon />
+            <IconButton size="small" disableRipple>
+              <FormatBoldRoundedIcon fontSize="small" />
             </IconButton>
-            <IconButton size="small">
-              <FormatItalicRoundedIcon />
+            <IconButton size="small" disableRipple>
+              <FormatItalicRoundedIcon fontSize="small" />
             </IconButton>
-            <IconButton size="small">
-              <StrikethroughSRoundedIcon />
+            <IconButton size="small" disableRipple>
+              <StrikethroughSRoundedIcon fontSize="small" />
             </IconButton>
-            <IconButton size="small">
-              <FormatListBulletedRoundedIcon />
+            <IconButton size="small" disableRipple>
+              <FormatListBulletedRoundedIcon fontSize="small" />
             </IconButton>
           </Box>
           <Button
             size="small"
             color="primary"
             sx={{ alignSelf: "center", borderRadius: 1 }}
-            startIcon={<SendRoundedIcon />}
+            startIcon={<SendRoundedIcon fontSize="small" />}
             onClick={handleClick}
           >
             Send

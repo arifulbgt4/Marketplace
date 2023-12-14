@@ -14,8 +14,14 @@ export default function AvatarWithStatus(props: AvatarWithStatusProps) {
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         invisible={false}
         overlap="circular"
+        sx={{
+          "& .MuiBadge-badge": {
+            boxShadow: `0 0 0 2px #fff`,
+            mb: 0.2,
+          },
+        }}
       >
-        <Avatar {...other} />
+        <Avatar sx={{ height: 32, width: 32 }} {...other} />
       </Badge>
     </Box>
   );
