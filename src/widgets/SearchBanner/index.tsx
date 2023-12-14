@@ -21,7 +21,7 @@ const SearchBanner: FC<SearchBannerProps> = () => {
       }}
       gap={3}
       direction="column"
-      justifyContent="center"
+      justifyContent={{ xs: "flex-end", md: "center" }}
       alignItems="center"
     >
       <Box textAlign="center">
@@ -35,10 +35,11 @@ const SearchBanner: FC<SearchBannerProps> = () => {
           pb={4}
           color="common.white"
           sx={{ opacity: 0.8 }}
+          textAlign="center"
         >
-          25,000 rooms amd houses available now on Dream House n
+          25,000 rooms amd houses available now on Dream House
         </Typography>
-        <Box p={1.5} bgcolor="background.paper" borderRadius={2}>
+        <Box p={1.5} bgcolor="background.paper" borderRadius={{ md: 2 }}>
           <SearchFilterForm />
         </Box>
       </Stack>
