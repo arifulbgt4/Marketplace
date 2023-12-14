@@ -10,6 +10,8 @@ import {
 import CelebrationOutlinedIcon from "@mui/icons-material/CelebrationOutlined";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import InsertDriveFileRoundedIcon from "@mui/icons-material/InsertDriveFileRounded";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import CelebrationIcon from "@mui/icons-material/Celebration";
 
 import { MessageProps } from "./Types";
 
@@ -31,8 +33,12 @@ export default function ChatBubble(props: ChatBubbleProps) {
         spacing={2}
         sx={{ mb: 0.25 }}
       >
-        <Typography>{sender === "You" ? sender : sender.name}</Typography>
-        <Typography variant="subtitle2">{timestamp}</Typography>
+        <Typography fontWeight={500} variant="caption" color="text.secondary">
+          {sender === "You" ? sender : sender.name}
+        </Typography>
+        <Typography fontWeight={500} variant="caption" color="text.secondary">
+          {timestamp}
+        </Typography>
       </Stack>
       {attachment ? (
         <Paper
@@ -68,10 +74,11 @@ export default function ChatBubble(props: ChatBubbleProps) {
 
               borderTopRightRadius: isSent ? 0 : 10,
               borderTopLeftRadius: isSent ? 10 : 0,
-              backgroundColor: isSent ? "primary.main" : "Background.default",
+              backgroundColor: isSent ? "primary.main" : "background.paper",
             }}
           >
             <Typography
+              variant="subtitle2"
               sx={{
                 color: isSent ? "common.white" : "text.primary",
               }}
@@ -100,18 +107,27 @@ export default function ChatBubble(props: ChatBubbleProps) {
               }}
             >
               <IconButton
+                disableRipple
                 color={isLiked ? "error" : "default"}
                 size="small"
                 onClick={() => setIsLiked((prevState) => !prevState)}
               >
-                {isLiked ? "❤️" : <FavoriteBorderIcon />}
+                {isLiked ? (
+                  <FavoriteIcon fontSize="small" color="error" />
+                ) : (
+                  <FavoriteBorderIcon fontSize="small" />
+                )}
               </IconButton>
               <IconButton
-                color={isCelebrated ? "warning" : "default"}
+                disableRipple
                 size="small"
                 onClick={() => setIsCelebrated((prevState) => !prevState)}
               >
-                {isCelebrated ? "🎉" : <CelebrationOutlinedIcon />}
+                {isCelebrated ? (
+                  <CelebrationIcon color="warning" fontSize="small" />
+                ) : (
+                  <CelebrationOutlinedIcon fontSize="small" />
+                )}
               </IconButton>
             </Stack>
           )}

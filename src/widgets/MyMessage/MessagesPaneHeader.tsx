@@ -46,8 +46,9 @@ export default function MessagesPaneHeader(props: MessagesPaneHeaderProps) {
         </IconButton>
         <Avatar sizes="large" src={sender.avatar} />
         <Box>
-          <Typography variant="h5">
-            {sender.name}
+          <Stack flexDirection="row" gap={1}>
+            <Typography variant="h6">{sender.name}</Typography>
+
             {sender.online ? (
               <Chip
                 label="Online"
@@ -57,17 +58,22 @@ export default function MessagesPaneHeader(props: MessagesPaneHeaderProps) {
                 sx={{
                   borderRadius: 1,
                 }}
-                icon={<CircleIcon sx={{ fontSize: 8 }} color="success" />}
+                icon={
+                  <CircleIcon sx={{ height: 10, width: 10 }} color="success" />
+                }
               />
             ) : undefined}
-          </Typography>
+          </Stack>
 
-          <Typography variant="subtitle1">{sender.username}</Typography>
+          <Typography variant="subtitle2" color="text.secondary">
+            {sender.username}
+          </Typography>
         </Box>
       </Stack>
       <Stack spacing={1} direction="row" alignItems="center">
         <Button
           startIcon={<PhoneInTalkRoundedIcon />}
+          color="inherit"
           variant="outlined"
           size="small"
           sx={{
@@ -79,6 +85,7 @@ export default function MessagesPaneHeader(props: MessagesPaneHeaderProps) {
         <Button
           variant="outlined"
           size="small"
+          color="inherit"
           sx={{
             display: { xs: "none", md: "inline-flex" },
           }}
@@ -86,7 +93,7 @@ export default function MessagesPaneHeader(props: MessagesPaneHeaderProps) {
           View profile
         </Button>
         <IconButton size="small">
-          <MoreVertRoundedIcon />
+          <MoreVertRoundedIcon fontSize="small" />
         </IconButton>
       </Stack>
     </Stack>

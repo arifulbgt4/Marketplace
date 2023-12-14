@@ -53,7 +53,7 @@ export default function ChatsPane(props: ChatsPaneProps) {
         overflowY: { xs: "scroll", lg: "auto" },
       }}
     >
-      <Box position="sticky" top={2} zIndex={1} bgcolor="common.white">
+      <Box position="sticky" top={2} zIndex={1} bgcolor="background.paper">
         <Stack
           direction="row"
           spacing={1}
@@ -71,11 +71,12 @@ export default function ChatsPane(props: ChatsPaneProps) {
             <Chip label={4} size="small" />
           </Box>
           <IconButton
+            disableRipple
             size="small"
             aria-label="edit"
             sx={{ display: { xs: "none", sm: "unset" } }}
           >
-            <EditNoteRoundedIcon />
+            <EditNoteRoundedIcon fontSize="small" />
           </IconButton>
           <IconButton
             aria-label="edit"
@@ -85,11 +86,12 @@ export default function ChatsPane(props: ChatsPaneProps) {
             }}
             sx={{ display: { sm: "none" } }}
           >
-            <CloseRoundedIcon />
+            <CloseRoundedIcon fontSize="small" />
           </IconButton>
         </Stack>
         <Box sx={{ px: 2, pb: 1.5 }}>
           <TextField
+            size="small"
             fullWidth
             type="search"
             InputProps={{
