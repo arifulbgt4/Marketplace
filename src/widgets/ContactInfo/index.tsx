@@ -78,31 +78,6 @@ const ContactInfo: FC<ContactInfoProps> = () => {
         />
       </ListItem>
     </List>
-    // <Stack
-    //   justifyContent="space-between"
-    //   alignItems="center"
-    //   height="100%"
-    //   bgcolor="red"
-    // >
-    //   <Stack flexDirection="row">
-    //     <Box p={1.5} border={1}>
-    //       <PlaceIcon />
-    //     </Box>
-    //     <Typography variant="h6">3605 Parker Rd.</Typography>
-    //   </Stack>
-    //   <Stack>
-    //     <Box p={1.5} border={1}>
-    //       <PhoneIphoneIcon />
-    //     </Box>
-    //     <Typography variant="h6">3605 Parker Rd.</Typography>
-    //   </Stack>
-    //   <Stack>
-    //     <Box p={1.5} border={1}>
-    //       <MailIcon />
-    //     </Box>
-    //     <Typography variant="h6">3605 Parker Rd.</Typography>
-    //   </Stack>
-    // </Stack>
   );
 };
 
