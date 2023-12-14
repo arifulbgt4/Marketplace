@@ -11,66 +11,94 @@ import routes from "src/global/routes";
 const Footer: FC<FooterProps> = () => {
   return (
     <Box bgcolor="action.hover" boxShadow={2}>
-      <Container>
+      <Container maxWidth="md">
         <Grid
           container
-          gap={{ xs: 4, md: 10 }}
-          pt={{ xs: 5 }}
-          pb={{ xs: 5, md: 10 }}
+          py={{ xs: 5, lg: 10 }}
+          spacing={3}
+          display="flex"
+          justifyContent="space-between"
         >
-          <Grid item xs={12} container spacing={3}>
-            <Grid item lg={3} sm={6} xs={12}>
-              <Stack gap={2} padding={{ xs: 1, md: 0 }}>
-                <Typography variant="h5">LINKS</Typography>
-                <Typography
-                  component={Link}
-                  href={routes.search}
-                  color="text.secondary"
-                >
-                  PROPERTIES
-                </Typography>
-                <Typography color="text.secondary"> OPEN A SHOP</Typography>
-              </Stack>
-            </Grid>
-            <Grid item lg={3} sm={6} xs={12}>
-              <Stack gap={2} padding={{ xs: 1, md: 0 }}>
-                <Typography variant="h6">LOCATION</Typography>
-                <Typography color="text.secondary">
-                  2972 Westheimer Rd. Santa Ana, Illinois 85486
-                </Typography>
-              </Stack>
-            </Grid>
-            <Grid item lg={3} sm={6} xs={12}>
-              <Stack gap={2} padding={{ xs: 1, md: 0 }}>
-                <Typography variant="h6">CONTACT US</Typography>
-                <Typography color="text.secondary">
-                  michelle.rivera@example.com
-                </Typography>
-                <Typography color="text.secondary"> (480) 555-0103</Typography>
-              </Stack>
-            </Grid>
-            <Grid item lg={3} sm={6} xs={12}>
-              <Stack gap={2} padding={{ xs: 1, md: 0 }}>
-                <Typography variant="h6">COMMUNITIES</Typography>
-                <Typography>
-                  3517 W. Gray St. Utica, Pennsylvania 57867
-                </Typography>
-                <Typography color="text.secondary"> (217) 555-0113</Typography>
-                <Typography color="text.secondary">Acme Co.</Typography>
-              </Stack>
-            </Grid>
+          <Grid item lg={3} sm={6} xs={12}>
+            <Stack gap={2} padding={{ xs: 1, md: 0 }}>
+              <Typography variant="h5">LINKS</Typography>
+              <Typography
+                sx={{ textDecoration: "none" }}
+                component={Link}
+                href={routes.search}
+                color="text.secondary"
+              >
+                PROPERTIES
+              </Typography>
+              <Typography
+                sx={{ textDecoration: "none" }}
+                component={Link}
+                href={"#"}
+                color="text.secondary"
+              >
+                OPEN A SHOP
+              </Typography>
+              <Typography
+                sx={{ textDecoration: "none" }}
+                component={Link}
+                href={routes.about}
+                color="text.secondary"
+              >
+                ABOUT US
+              </Typography>
+              <Typography
+                sx={{ textDecoration: "none" }}
+                component={Link}
+                href={routes.contact}
+                color="text.secondary"
+              >
+                CONTACT US
+              </Typography>
+              <Typography
+                sx={{ textDecoration: "none" }}
+                component={Link}
+                href={"#"}
+                color="text.secondary"
+              >
+                PRIVACY POLICY
+              </Typography>
+              <Typography
+                sx={{ textDecoration: "none" }}
+                component={Link}
+                href={"#"}
+                color="text.secondary"
+              >
+                TERMS OF SERVICE
+              </Typography>
+            </Stack>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item lg={3} sm={6} xs={12}>
+            <Stack gap={2} padding={{ xs: 1, md: 0 }}>
+              <Typography variant="h5">CONTACT</Typography>
+              <Typography color="text.secondary">
+                2972 Westheimer Rd. Santa Ana, Illinois 85486
+              </Typography>
+              <Typography color="text.secondary">(239) 555-0108</Typography>
+              <Typography color="text.secondary">(702) 555-0122</Typography>
+              <Typography color="text.secondary">
+                kenzi.lawson@example.com
+              </Typography>
+            </Stack>
+          </Grid>
+          <Grid item lg={3} sm={6} xs={12}>
             <Stack
               direction="column"
-              justifyContent="center"
-              alignItems="center"
-              gap={4}
+              padding={{ xs: 1, md: 0 }}
+              gap={{ lg: 4, xs: 2 }}
+              alignItems="flex-start"
             >
+              <Logo />
+              <Typography color="text.secondary">
+                Lorem ipsum dolor sit amet consectetur. Ornare at et bibendum mi
+                enim cum.
+              </Typography>
+              <Typography variant="h5">FOLLOW ON</Typography>
               <SocialIconLink />
-              <Box pl={2}>
-                <Logo />
-              </Box>
             </Stack>
           </Grid>
         </Grid>
