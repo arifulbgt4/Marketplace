@@ -47,8 +47,8 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
     });
 
   return (
-    <Box mr={1} width={35}>
-      <IconButton onClick={handleOpenLangModal}>
+    <Box mr={{ md: 2 }}>
+      <IconButton sx={{ p: 0 }} onClick={handleOpenLangModal}>
         <LanguageIcon fontSize="small" />
       </IconButton>
       <Modal open={open} onClose={handleCloseLangModal}>
