@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Stack, Paper } from "@mui/material";
 
 import MessagesPaneHeader from "./MessagesPaneHeader";
@@ -12,20 +12,18 @@ type MessagesPaneProps = {
   chat: ChatProps;
   setSelectedChat: (chat: ChatProps) => void;
   selectedChatId: string;
-  submitedArry?: any;
+
   msg?: any;
 };
 
 export default function MessagesPane(props: MessagesPaneProps) {
-  const { chat, setSelectedChat, submitedArry, selectedChatId, msg } = props;
+  const { chat, setSelectedChat, selectedChatId } = props;
   const [chatMessages, setChatMessages] = useState(chat.messages);
   const [textAreaValue, setTextAreaValue] = useState("");
 
-  // useEffect(() => {
-  //   setChatMessages(chat.messages);
-  // }, [chat.messages]);
-
-  submitedArry(chatMessages);
+  useEffect(() => {
+    setChatMessages(chat.messages);
+  }, [chat.messages]);
 
   return (
     <Stack
@@ -51,7 +49,7 @@ export default function MessagesPane(props: MessagesPaneProps) {
         }}
       >
         <Stack spacing={2} justifyContent="flex-end">
-          {msg.map((message: MessageProps, index: number) => {
+          {chatMessages.map((message: MessageProps, index: number) => {
             const isYou = message.sender === "You";
             return (
               <Stack
