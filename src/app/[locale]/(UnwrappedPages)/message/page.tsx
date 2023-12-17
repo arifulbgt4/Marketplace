@@ -8,11 +8,6 @@ import { chats } from "src/widgets/MyMessage/data";
 
 const MessagePage = () => {
   const [selectedChat, setSelectedChat] = useState(chats[0]);
-  const [msg, setMsg] = useState(chats[0].messages);
-
-  const submitedArry = (value: any) => {
-    setMsg(value);
-  };
 
   return (
     <Paper sx={{ height: "calc(100vh - 64px)" }}>
@@ -29,8 +24,6 @@ const MessagePage = () => {
           </Hidden>
           <Grid item xs={12} md={8.5}>
             <MessagesPane
-              msg={msg}
-              submitedArry={submitedArry}
               chat={selectedChat}
               setSelectedChat={setSelectedChat}
               selectedChatId={selectedChat.id}
