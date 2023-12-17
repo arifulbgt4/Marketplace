@@ -1,5 +1,6 @@
-import Header from "src/widgets/Header";
 import { Stack } from "@mui/material";
+
+import Header from "src/widgets/Header";
 
 const PageLayout = ({ children }: { children: React.ReactNode }) => {
   const HEADER_HEIGHT = 64;

@@ -1,15 +1,44 @@
 "use client";
-import { Container, Grid, Stack } from "@mui/material";
+import { useState } from "react";
+import { Container, Grid, Hidden, Paper } from "@mui/material";
 
-import MyMessage from "src/widgets/MyMessage";
+import ChatsPane from "src/widgets/MyMessage/ChatsPane";
+import MessagesPane from "src/widgets/MyMessage/MessagesPane";
+import { chats } from "src/widgets/MyMessage/data";
 
 const MessagePage = () => {
+  const [selectedChat, setSelectedChat] = useState(chats[0]);
+  const [msg, setMsg] = useState(chats[0].messages);
+
+  const submitedArry = (value: any) => {
+    setMsg(value);
+  };
+
   return (
-    <Stack height="calc(100vh - 64px)">
+    <Paper sx={{ height: "calc(100vh - 64px)" }}>
       <Container sx={{ px: { xs: 0, md: 2 } }}>
-        <MyMessage />
+        <Grid container>
+          <Hidden mdDown>
+            <Grid item md={3.5}>
+              <ChatsPane
+                chats={chats}
+                selectedChatId={selectedChat.id}
+                setSelectedChat={setSelectedChat}
+              />
+            </Grid>
+          </Hidden>
+          <Grid item xs={12} md={8.5}>
+            <MessagesPane
+              msg={msg}
+              submitedArry={submitedArry}
+              chat={selectedChat}
+              setSelectedChat={setSelectedChat}
+              selectedChatId={selectedChat.id}
+            />
+          </Grid>
+        </Grid>
       </Container>
-    </Stack>
+    </Paper>
   );
 };
 

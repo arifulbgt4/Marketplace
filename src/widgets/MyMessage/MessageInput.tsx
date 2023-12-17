@@ -67,12 +67,10 @@ export default function MessageInput(props: MessageInputProps) {
           justifyContent="space-between"
           alignItems="center"
           flexGrow={1}
-          sx={{
-            py: 1,
-            pr: 1,
-            borderTop: 2,
-            borderColor: "divider",
-          }}
+          py={1}
+          pr={1}
+          borderTop={2}
+          borderColor="divider"
         >
           <Box>
             <IconButton size="small" disableRipple>
@@ -91,8 +89,9 @@ export default function MessageInput(props: MessageInputProps) {
           <Button
             size="small"
             color="primary"
+            variant="contained"
             sx={{ alignSelf: "center", borderRadius: 1 }}
-            startIcon={<SendRoundedIcon fontSize="small" />}
+            endIcon={<SendRoundedIcon fontSize="small" />}
             onClick={handleClick}
           >
             Send

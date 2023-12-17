@@ -5,7 +5,6 @@ import {
   Chip,
   IconButton,
   TextField,
-  Paper,
   InputAdornment,
   Typography,
   List,
@@ -15,7 +14,6 @@ import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 import ChatListItem from "./ChatListItem";
-import { toggleMessagesPane } from "./util";
 
 import { ChatProps } from "./Types";
 
@@ -23,14 +21,18 @@ type ChatsPaneProps = {
   chats: ChatProps[];
   setSelectedChat: (chat: ChatProps) => void;
   selectedChatId: string;
+  CloseMobileDrawer?: () => void;
 };
 
 export default function ChatsPane(props: ChatsPaneProps) {
-  const { chats, setSelectedChat, selectedChatId } = props;
+  const { chats, setSelectedChat, selectedChatId, CloseMobileDrawer } = props;
   const [state, setstate] = useState({
     query: "",
     list: chats,
   });
+
+  console.log("dfcvddvcsvc", state.list);
+
   const hanldeChatFilter = (e: any) => {
     const results = chats.filter((post) => {
       if (e.target.value === "") return chats;
@@ -45,15 +47,16 @@ export default function ChatsPane(props: ChatsPaneProps) {
   };
 
   return (
-    <Paper
+    <Box
       sx={{
         borderRight: "1px solid",
         borderColor: "divider",
+
         height: "calc(100vh - 64px)",
         overflowY: { xs: "scroll", lg: "auto" },
       }}
     >
-      <Box position="sticky" top={2} zIndex={1} bgcolor="background.paper">
+      <Box bgcolor="background.paper" width={{ xs: "100vw", md: "auto" }}>
         <Stack
           direction="row"
           spacing={1}
@@ -81,9 +84,7 @@ export default function ChatsPane(props: ChatsPaneProps) {
           <IconButton
             aria-label="edit"
             size="small"
-            onClick={() => {
-              toggleMessagesPane();
-            }}
+            onClick={CloseMobileDrawer}
             sx={{ display: { sm: "none" } }}
           >
             <CloseRoundedIcon fontSize="small" />
@@ -118,6 +119,7 @@ export default function ChatsPane(props: ChatsPaneProps) {
           return state.query === "" ? (
             <Box key={index}>
               <ChatListItem
+                CloseMobileDrawer={CloseMobileDrawer}
                 id={chat.id}
                 sender={chat.sender}
                 messages={chat.messages}
@@ -136,6 +138,6 @@ export default function ChatsPane(props: ChatsPaneProps) {
           );
         })}
       </List>
-    </Paper>
+    </Box>
   );
 }

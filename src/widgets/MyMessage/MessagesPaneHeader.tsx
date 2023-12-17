@@ -1,27 +1,40 @@
+import { useState } from "react";
 import {
-  Avatar,
   Button,
   Chip,
   IconButton,
   Stack,
   Box,
   Typography,
+  Hidden,
+  Drawer,
 } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
-import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import PhoneInTalkRoundedIcon from "@mui/icons-material/PhoneInTalkRounded";
 import MoreVertRoundedIcon from "@mui/icons-material/MoreVertRounded";
+import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 
-import { toggleMessagesPane } from "./util";
+import ChatsPane from "./ChatsPane";
+import { chats } from "./data";
 
-import { UserProps } from "./Types";
+import { ChatProps, UserProps } from "./Types";
 
 type MessagesPaneHeaderProps = {
   sender: UserProps;
+  setSelectedChat: (chat: ChatProps) => void;
+  selectedChatId: string;
 };
 
 export default function MessagesPaneHeader(props: MessagesPaneHeaderProps) {
-  const { sender } = props;
+  const [open, setOpen] = useState(true);
+  const openMobileDrawer = () => {
+    setOpen(true);
+  };
+  const CloseMobileDrawer = () => {
+    setOpen(false);
+  };
+  const { sender, setSelectedChat, selectedChatId } = props;
+
   return (
     <Stack
       direction="row"
@@ -29,22 +42,31 @@ export default function MessagesPaneHeader(props: MessagesPaneHeaderProps) {
       sx={{
         borderBottom: "1px solid",
         borderColor: "divider",
-        backgroundColor: "Background.defult",
+        backgroundColor: "background.paper",
       }}
       py={{ xs: 2, md: 2 }}
       px={{ xs: 1, md: 2 }}
     >
-      <Stack direction="row" spacing={{ xs: 1, md: 2 }} alignItems="center">
-        <IconButton
-          size="small"
-          sx={{
-            display: { xs: "inline-flex", sm: "none" },
-          }}
-          onClick={() => toggleMessagesPane()}
-        >
-          <ArrowBackIosNewRoundedIcon />
-        </IconButton>
-        <Avatar sizes="large" src={sender.avatar} />
+      <Stack
+        direction="row"
+        gap={{ xs: 1, md: 2 }}
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Hidden mdUp>
+          <IconButton onClick={openMobileDrawer} size="small">
+            <ArrowBackIosNewRoundedIcon fontSize="small" />
+          </IconButton>
+          <Drawer open={open} onClose={CloseMobileDrawer} anchor="left">
+            <ChatsPane
+              chats={chats}
+              selectedChatId={selectedChatId}
+              setSelectedChat={setSelectedChat}
+              CloseMobileDrawer={CloseMobileDrawer}
+            />
+          </Drawer>
+        </Hidden>
+        {/* <Avatar sx={{ ml: 0 }} sizes="large" src={sender.avatar} /> */}
         <Box>
           <Stack flexDirection="row" gap={1}>
             <Typography variant="h6">{sender.name}</Typography>
