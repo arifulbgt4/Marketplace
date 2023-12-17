@@ -1,14 +1,12 @@
 import Box from "@mui/material/Box";
 import {
   ListItem,
-  ListItemButton,
   ListItemButtonProps,
   Stack,
   Typography,
 } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
 
-import { toggleMessagesPane } from "./util";
 import AvatarWithStatus from "./AvatarWithStatus";
 
 import { ChatProps, MessageProps, UserProps } from "./Types";
@@ -20,66 +18,62 @@ type ChatListItemProps = ListItemButtonProps & {
   messages: MessageProps[];
   selectedChatId?: string;
   setSelectedChat: (chat: ChatProps) => void;
+  CloseMobileDrawer?: any;
 };
 
 export default function ChatListItem(props: ChatListItemProps) {
-  const { id, sender, messages, selectedChatId, setSelectedChat } = props;
+  const {
+    id,
+    sender,
+    messages,
+    selectedChatId,
+    setSelectedChat,
+    CloseMobileDrawer,
+  } = props;
   const selected = selectedChatId === id;
+
+  // console.log(id, selectedChatId);
   return (
-    <ListItem sx={{ p: 0 }}>
-      <ListItemButton
-        onClick={() => {
-          toggleMessagesPane();
-          setSelectedChat({ id, sender, messages });
-        }}
-        selected={selected}
-        sx={{
-          flexDirection: "column",
-          alignItems: "initial",
-          gap: 1,
-        }}
-      >
-        <Stack direction="row" spacing={1.5}>
+    <ListItem
+      onClick={() => {
+        setSelectedChat({ id, sender, messages });
+        // CloseMobileDrawer();
+      }}
+      selected={selected}
+      sx={{
+        display: "inherit",
+        flexDirection: "column",
+        alignItems: "initial",
+        gap: 1,
+      }}
+    >
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Stack flexDirection="row" gap={1} alignItems="center">
           <AvatarWithStatus online={sender.online} src={sender.avatar} />
-          <Box sx={{ flex: 1 }}>
+          <Box>
             <Typography variant="subtitle2">{sender.name}</Typography>
             <Typography variant="subtitle2" color="text.secondary">
               {sender.username}
             </Typography>
           </Box>
-          <Box
-            sx={{
-              lineHeight: 1.5,
-              textAlign: "right",
-            }}
-          >
-            {messages[0].unread && (
-              <CircleIcon sx={{ fontSize: 12 }} color="primary" />
-            )}
-            <Typography
-              variant="caption"
-              display={{ xs: "none", md: "block" }}
-              noWrap
-            >
-              5 mins ago
-            </Typography>
-          </Box>
         </Stack>
-        <Typography
-          variant="subtitle2"
-          color="text.secondary"
-          sx={{
-            display: "-webkit-box",
-            WebkitLineClamp: "2",
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-        >
-          {messages[0].content.slice(0, 44)}
-          {"...."}
-        </Typography>
-      </ListItemButton>
+        <Box>
+          {messages[0].unread && (
+            <CircleIcon sx={{ fontSize: 12 }} color="primary" />
+          )}
+          <Typography
+            variant="caption"
+            display={{ xs: "none", md: "block" }}
+            noWrap
+          >
+            5 mins ago
+          </Typography>
+        </Box>
+      </Stack>
+      <Typography variant="subtitle2" color="text.secondary">
+        {messages[messages.length - 1].content.slice(0, 44)}
+        {messages[messages.length - 1].content.length > 43 && "....."}
+      </Typography>
     </ListItem>
   );
 }
