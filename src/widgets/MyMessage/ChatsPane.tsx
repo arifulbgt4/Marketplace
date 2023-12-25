@@ -31,8 +31,6 @@ export default function ChatsPane(props: ChatsPaneProps) {
     list: chats,
   });
 
-  console.log("dfcvddvcsvc", state.list);
-
   const hanldeChatFilter = (e: any) => {
     const results = chats.filter((post) => {
       if (e.target.value === "") return chats;

@@ -10,6 +10,7 @@ import CircleIcon from "@mui/icons-material/Circle";
 import AvatarWithStatus from "./AvatarWithStatus";
 
 import { ChatProps, MessageProps, UserProps } from "./Types";
+import { useEffect, useRef } from "react";
 
 type ChatListItemProps = ListItemButtonProps & {
   id: string;
@@ -32,12 +33,15 @@ export default function ChatListItem(props: ChatListItemProps) {
   } = props;
   const selected = selectedChatId === id;
 
-  // console.log(id, selectedChatId);
+  // console.log("object", messages[messages.length - 1].content);
+
+  const textAreaRef = useRef(null);
+
   return (
     <ListItem
       onClick={() => {
         setSelectedChat({ id, sender, messages });
-        // CloseMobileDrawer();
+        CloseMobileDrawer();
       }}
       selected={selected}
       sx={{
@@ -70,10 +74,16 @@ export default function ChatListItem(props: ChatListItemProps) {
           </Typography>
         </Box>
       </Stack>
-      <Typography variant="subtitle2" color="text.secondary">
-        {messages[messages.length - 1].content.slice(0, 44)}
-        {messages[messages.length - 1].content.length > 43 && "....."}
-      </Typography>
+      <Box>
+        <Typography
+          ref={textAreaRef}
+          variant="subtitle2"
+          color="text.secondary"
+        >
+          {messages[messages.length - 1].content.slice(0, 44)}
+          {messages[messages.length - 1].content.length > 43 && "....."}
+        </Typography>
+      </Box>
     </ListItem>
   );
 }
