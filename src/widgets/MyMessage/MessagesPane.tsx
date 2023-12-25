@@ -12,18 +12,12 @@ type MessagesPaneProps = {
   chat: ChatProps;
   setSelectedChat: (chat: ChatProps) => void;
   selectedChatId: string;
-
-  msg?: any;
 };
 
 export default function MessagesPane(props: MessagesPaneProps) {
   const { chat, setSelectedChat, selectedChatId } = props;
-  const [chatMessages, setChatMessages] = useState(chat.messages);
-  const [textAreaValue, setTextAreaValue] = useState("");
 
-  useEffect(() => {
-    setChatMessages(chat.messages);
-  }, [chat.messages]);
+  const [textAreaValue, setTextAreaValue] = useState("");
 
   return (
     <Stack
@@ -49,7 +43,7 @@ export default function MessagesPane(props: MessagesPaneProps) {
         }}
       >
         <Stack spacing={2} justifyContent="flex-end">
-          {chatMessages.map((message: MessageProps, index: number) => {
+          {chat.messages.map((message: MessageProps, index: number) => {
             const isYou = message.sender === "You";
             return (
               <Stack
@@ -77,7 +71,7 @@ export default function MessagesPane(props: MessagesPaneProps) {
         textAreaValue={textAreaValue}
         setTextAreaValue={setTextAreaValue}
         onSubmit={() => {
-          const newId = chatMessages.length + 1;
+          const newId = chat.messages.length + 1;
           const newIdString = newId.toString();
           chat.messages.push({
             id: newIdString,
