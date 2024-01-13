@@ -8,6 +8,7 @@ import {
   Typography,
   Hidden,
   Drawer,
+  Avatar,
 } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
 import PhoneInTalkRoundedIcon from "@mui/icons-material/PhoneInTalkRounded";
@@ -66,11 +67,10 @@ export default function MessagesPaneHeader(props: MessagesPaneHeaderProps) {
             />
           </Drawer>
         </Hidden>
-        {/* <Avatar sx={{ ml: 0 }} sizes="large" src={sender.avatar} /> */}
+        <Avatar sx={{ ml: 0 }} sizes="large" src={sender.avatar} />
         <Box>
           <Stack flexDirection="row" gap={1}>
             <Typography variant="h6">{sender.name}</Typography>
-
             {sender.online ? (
               <Chip
                 label="Online"
