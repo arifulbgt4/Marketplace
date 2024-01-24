@@ -7,7 +7,7 @@ import { OwnListingProps } from "./Types";
 
 const OwnListing: FC<OwnListingProps> = ({ data }) => {
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={4}>
       {data.map((data) => {
         const { id, image, title, description, rating, slug, address } = data;
         return (

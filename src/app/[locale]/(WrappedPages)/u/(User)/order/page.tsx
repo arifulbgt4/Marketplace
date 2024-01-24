@@ -84,7 +84,7 @@ const Order = () => {
           </Paper>
         </Drawer>
       </Hidden>
-      <Grid container columnSpacing={5}>
+      <Grid container columnSpacing={4}>
         <Hidden mdDown>
           <Grid item xs={12} md={3} gap={4} container>
             <Grid item xs={12} container gap={2}>

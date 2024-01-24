@@ -19,9 +19,8 @@ const VisitorStatistic: FC<VisitorStatisticProps> = ({ visitorData }) => {
         <Typography variant="h4">Visitors</Typography>
         <Typography variant="h4">{visitors}</Typography>
       </Stack>
-
       <LineChart
-        height={168}
+        height={179}
         series={[{ type: "line", data: uData, area: true, showMark: false }]}
         xAxis={[{ scaleType: "point", data: xLabels }]}
         bottomAxis={{ disableLine: true }}
