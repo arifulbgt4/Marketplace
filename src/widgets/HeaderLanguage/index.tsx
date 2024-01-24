@@ -38,13 +38,13 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
     setValue(newValue);
   };
 
-  fetch("https://restcountries.com/v3.1/all")
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      setCountris(data);
-    });
+  // fetch("https://restcountries.com/v3.1/all")
+  //   .then((res) => {
+  //     return res.json();
+  //   })
+  //   .then((data) => {
+  //     setCountris(data);
+  //   });
 
   return (
     <Box mr={{ md: 2 }}>
