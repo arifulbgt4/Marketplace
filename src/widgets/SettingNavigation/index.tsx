@@ -21,7 +21,7 @@ import { SettingNavigationProps } from "./Types";
 const SettingNavigation: FC<SettingNavigationProps> = () => {
   const pathname = usePathname();
   return (
-    <MenuList>
+    <MenuList sx={{ p: 0 }}>
       <MenuItem
         component={Link}
         href={routes.userSetting}

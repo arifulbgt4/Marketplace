@@ -27,6 +27,7 @@ const ListingPage = () => {
         justifyContent={{ xs: "space-around", md: "space-between" }}
         gap={{ xs: 1, md: 0 }}
         alignItems="center"
+        pb={{ xs: 4 }}
       >
         <Hidden mdUp>
           <ListAltIcon color="primary" />
@@ -38,7 +39,7 @@ const ListingPage = () => {
           <Button
             disableRipple
             size="small"
-            sx={{ px: 1.25 }}
+            sx={{ px: 1.25, py: 1 }}
             onClick={() => setValue("1")}
             variant={value === "1" ? "contained" : "text"}
           >
@@ -47,7 +48,7 @@ const ListingPage = () => {
           <Button
             disableRipple
             size="small"
-            sx={{ px: 1.25 }}
+            sx={{ px: 1.25, py: 1 }}
             onClick={() => setValue("2")}
             variant={value === "2" ? "contained" : "text"}
           >
@@ -56,7 +57,7 @@ const ListingPage = () => {
           <Button
             disableRipple
             size="small"
-            sx={{ px: 1.25 }}
+            sx={{ px: 1.25, py: 1 }}
             onClick={() => setValue("3")}
             variant={value === "3" ? "contained" : "text"}
           >
@@ -64,7 +65,7 @@ const ListingPage = () => {
           </Button>
         </ButtonGroup>
       </Stack>
-      <Box pt={{ xs: 2, md: 5 }}>
+      <Box>
         {value === "1" ? (
           <OwnListing data={ownListingPublishData} />
         ) : value === "2" ? (

@@ -5,7 +5,7 @@ import BookmarkItemGroup from "src/widgets/BookmarkItemGroup";
 
 const BookmarkPage = () => {
   return (
-    <Grid container rowSpacing={5}>
+    <Grid container rowSpacing={4}>
       <Grid item xs={12}>
         <Typography variant="h3" color={(theme) => theme.palette.text.primary}>
           Bookmars

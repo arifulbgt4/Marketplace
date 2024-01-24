@@ -15,7 +15,7 @@ const Footer: FC<FooterProps> = () => {
         <Grid
           container
           py={{ xs: 5, lg: 10 }}
-          spacing={3}
+          gap={3}
           display="flex"
           justifyContent="space-between"
         >
@@ -73,7 +73,7 @@ const Footer: FC<FooterProps> = () => {
             </Stack>
           </Grid>
           <Grid item lg={3} sm={6} xs={12}>
-            <Stack gap={2} padding={{ xs: 1, md: 0 }}>
+            <Stack gap={2}>
               <Typography variant="h5">CONTACT</Typography>
               <Typography color="text.secondary">
                 2972 Westheimer Rd. Santa Ana, Illinois 85486

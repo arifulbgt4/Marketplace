@@ -22,7 +22,7 @@ const UserSellStatistic: FC<UserSellStatisticProps> = ({
         border: `2px solid ${theme.palette.primary.light}`,
       })}
     >
-      <Grid container columnSpacing={7.5} rowSpacing={4}>
+      <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
           <Stack gap={2}>
             <Typography variant="h5">Sell Statistic</Typography>

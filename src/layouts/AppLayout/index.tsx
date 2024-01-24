@@ -17,7 +17,7 @@ const AppLayout: FC<AppLayoutProps> = async ({ children }) => {
       <Grid item xs={12} height={HEADER_HEIGHT}>
         <Header user={session?.user} />
       </Grid>
-      <Grid item xs={12} pb={5}>
+      <Grid item xs={12}>
         {children}
       </Grid>
       <Grid item xs={12}>

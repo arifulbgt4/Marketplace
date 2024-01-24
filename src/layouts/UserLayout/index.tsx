@@ -89,7 +89,7 @@ const UserLayout: FC<UserLayoutProps> = ({ children }) => {
         </Container>
       </Box>
       <Container>
-        <Box pt={{ xs: 3, md: 5 }}>{children}</Box>
+        <Box>{children}</Box>
       </Container>
     </Box>
   );
