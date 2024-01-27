@@ -17,6 +17,7 @@ import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRound
 
 import ChatsPane from "./ChatsPane";
 import { chats } from "./data";
+import Header from "../Header";
 
 import { ChatProps, UserProps } from "./Types";
 
@@ -26,7 +27,8 @@ type MessagesPaneHeaderProps = {
   selectedChatId: string;
 };
 
-export default function MessagesPaneHeader(props: MessagesPaneHeaderProps) {
+const MessagesPaneHeader = (props: MessagesPaneHeaderProps) => {
+  const HEADER_HEIGHT = 64;
   const [open, setOpen] = useState(true);
   const openMobileDrawer = () => {
     setOpen(true);
@@ -59,6 +61,9 @@ export default function MessagesPaneHeader(props: MessagesPaneHeaderProps) {
             <ArrowBackIosNewRoundedIcon fontSize="small" />
           </IconButton>
           <Drawer open={open} onClose={CloseMobileDrawer} anchor="left">
+            <Box height={HEADER_HEIGHT}>
+              <Header />
+            </Box>
             <ChatsPane
               chats={chats}
               selectedChatId={selectedChatId}
@@ -120,4 +125,6 @@ export default function MessagesPaneHeader(props: MessagesPaneHeaderProps) {
       </Stack>
     </Stack>
   );
-}
+};
+
+export default MessagesPaneHeader;

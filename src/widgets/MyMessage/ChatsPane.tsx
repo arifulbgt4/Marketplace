@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import EditNoteRoundedIcon from "@mui/icons-material/EditNoteRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 import ChatListItem from "./ChatListItem";
 
@@ -60,15 +59,15 @@ export default function ChatsPane(props: ChatsPaneProps) {
           spacing={1}
           alignItems="center"
           justifyContent="space-between"
-          p={2}
-          pb={1.5}
+          p={1}
+          pl={2}
         >
           <Box
             display="flex"
             alignItems="center"
             justifyContent="space-between"
           >
-            <Typography p={1}>Messages</Typography>
+            <Typography>Messages</Typography>
             <Chip label={4} size="small" />
           </Box>
           <IconButton
@@ -78,14 +77,6 @@ export default function ChatsPane(props: ChatsPaneProps) {
             sx={{ display: { xs: "none", sm: "unset" } }}
           >
             <EditNoteRoundedIcon fontSize="small" />
-          </IconButton>
-          <IconButton
-            aria-label="edit"
-            size="small"
-            onClick={CloseMobileDrawer}
-            sx={{ display: { sm: "none" } }}
-          >
-            <CloseRoundedIcon fontSize="small" />
           </IconButton>
         </Stack>
         <Box sx={{ px: 2, pb: 1.5 }}>
