@@ -1,13 +1,16 @@
+import { getServerSession } from "next-auth";
 import { Stack } from "@mui/material";
 
+import { authOptions } from "src/lib/auth";
 import Header from "src/widgets/Header";
 
-const PageLayout = ({ children }: { children: React.ReactNode }) => {
+const PageLayout = async ({ children }: { children: React.ReactNode }) => {
+  const session = await getServerSession(authOptions);
   const HEADER_HEIGHT = 64;
   return (
     <>
       <Stack height={HEADER_HEIGHT}>
-        <Header />
+        <Header user={session?.user} />
       </Stack>
       {children}
     </>
