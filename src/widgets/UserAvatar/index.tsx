@@ -24,9 +24,9 @@ import AddIcon from "@mui/icons-material/Add";
 
 import routes from "src/global/routes";
 
-import { HeaderPopUpMenuProps } from "./Types";
+import { UserAvatarProps } from "./Types";
 
-const HeaderPopUpMenu: FC<HeaderPopUpMenuProps> = () => {
+const UserAvatar: FC<UserAvatarProps> = () => {
   const [anchorElAvat, setAnchorElAvat] = useState<HTMLElement | null>(null);
 
   const handleOpenNavAvatar = (event: React.MouseEvent<HTMLElement>) => {
@@ -278,4 +278,4 @@ const HeaderPopUpMenu: FC<HeaderPopUpMenuProps> = () => {
   );
 };
 
-export default HeaderPopUpMenu;
+export default UserAvatar;
