@@ -1,22 +1,18 @@
 "use client";
 import { FC } from "react";
-import {
-  Box,
-  Container,
-  Grid,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Container, Grid, Stack, Typography, Link } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/LocalPhone";
+import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
-import SocialIconLink from "src/components/SocialILink";
+import routes from "src/global/routes";
+import { siteConfig } from "src/global/config";
 import Logo from "src/components/Logo";
 
 import { FooterProps } from "./Types";
-import Link from "next/link";
-import routes from "src/global/routes";
-import { siteConfig } from "src/global/config";
 
 const Footer: FC<FooterProps> = () => {
   return (
@@ -31,45 +27,41 @@ const Footer: FC<FooterProps> = () => {
           item
           xs={12}
           container
+          spacing={2.5}
           py={5}
           justifyContent="space-between"
           alignItems="center"
         >
-          <Grid item xs={4}>
-            <Logo />
-            {/* <Stack gap={2} flexDirection="row">
-              <Box>
-                <Typography color="text.secondary">Email</Typography>
-                <Typography color="text.secondary">
-                  kenzi.lawson@example.com
-                </Typography>
-              </Box>
-              <Box>
-                <Typography color="text.secondary">Phone Number</Typography>
-                <Typography color="text.secondary">+ (239) 555-0108</Typography>
-              </Box>
-            </Stack> */}
+          <Grid item md={4} xs={12}>
+            <Stack
+              justifyContent={{ xs: "center", md: "flex-start" }}
+              alignItems={{ xs: "center", md: "flex-start" }}
+            >
+              <Logo />
+            </Stack>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item md={4} xs={12}>
             <Stack
               gap={2}
-              padding={{ xs: 1, md: 0 }}
               flexDirection="row"
               justifyContent="space-around"
+              flexWrap="wrap"
             >
               <Typography
                 sx={{ textDecoration: "none" }}
                 component={Link}
                 href={routes.about}
                 color="text.secondary"
+                variant="subtitle2"
               >
                 About
               </Typography>
               <Typography
                 sx={{ textDecoration: "none" }}
                 component={Link}
-                href={"#"}
+                href={routes.blog}
                 color="text.secondary"
+                variant="subtitle2"
               >
                 Blog
               </Typography>
@@ -78,41 +70,84 @@ const Footer: FC<FooterProps> = () => {
                 component={Link}
                 href={routes.contact}
                 color="text.secondary"
+                variant="subtitle2"
               >
                 Contact
               </Typography>
               <Typography
                 sx={{ textDecoration: "none" }}
                 component={Link}
-                href={"#"}
+                href={routes.faq}
                 color="text.secondary"
+                variant="subtitle2"
               >
                 FAQ
               </Typography>
             </Stack>
           </Grid>
-          <Grid item xs={4}>
-            <SocialIconLink />
-            {/* <Typography variant="h5" maxWidth={260}>
-              Join our newsletter to keep up to date with us!
-            </Typography>
-            <Stack>
-              <TextField />
-              <Button variant="contained">Subscribe</Button>
-            </Stack> */}
+          <Grid item md={4} xs={12}>
+            <Stack
+              direction="row"
+              alignItems="center"
+              justifyContent={{ xs: "center", md: "end" }}
+              gap={2}
+            >
+              <Link href="#" target="_blank">
+                <TwitterIcon
+                  sx={(theme) => ({
+                    width: 22,
+                    height: 22,
+                    color: theme.palette.text.primary,
+                  })}
+                />
+              </Link>
+              <Link href="#" target="_blank">
+                <FacebookRoundedIcon
+                  sx={(theme) => ({
+                    width: 22,
+                    height: 22,
+                    color: theme.palette.text.primary,
+                  })}
+                />
+              </Link>
+              <Link href="#" target="_blank">
+                <InstagramIcon
+                  sx={(theme) => ({
+                    width: 22,
+                    height: 22,
+                    color: theme.palette.text.primary,
+                  })}
+                />
+              </Link>
+              <Link href="#" target="_blank">
+                <LinkedInIcon
+                  sx={(theme) => ({
+                    width: 22,
+                    height: 22,
+                    color: theme.palette.text.primary,
+                  })}
+                />
+              </Link>
+            </Stack>
           </Grid>
         </Grid>
-        <Grid item xs={12} container pb={4}>
-          <Grid item xs={6}>
-            <Stack flexDirection="row">
-              <Typography>
+        <Grid item xs={12} container pb={3} spacing={1}>
+          <Grid item xs={12} md={6}>
+            <Stack
+              flexDirection="row"
+              flexWrap="wrap"
+              justifyContent={{ xs: "center", md: "start" }}
+              alignItems={{ xs: "center", md: "start" }}
+            >
+              <Typography variant="caption" color="text.secondary">
                 © {new Date().getFullYear()} {siteConfig.name}
               </Typography>
               <Stack flexDirection="row" ml={2} gap={2}>
                 <Typography
                   sx={{ textDecoration: "none" }}
                   component={Link}
-                  href={"#"}
+                  href={routes.termas}
+                  variant="caption"
                   color="text.secondary"
                 >
                   Termas
@@ -120,7 +155,8 @@ const Footer: FC<FooterProps> = () => {
                 <Typography
                   sx={{ textDecoration: "none" }}
                   component={Link}
-                  href={"#"}
+                  href={routes.privacy}
+                  variant="caption"
                   color="text.secondary"
                 >
                   Privacy
@@ -128,7 +164,8 @@ const Footer: FC<FooterProps> = () => {
                 <Typography
                   sx={{ textDecoration: "none" }}
                   component={Link}
-                  href={"#"}
+                  href={routes.cookies}
+                  variant="caption"
                   color="text.secondary"
                 >
                   Cookies
@@ -138,22 +175,31 @@ const Footer: FC<FooterProps> = () => {
           </Grid>
           <Grid
             item
-            xs={6}
-            alignContent="end"
-            justifyContent="end"
+            xs={12}
+            md={6}
+            justifyContent={{ xs: "center", md: "end" }}
+            alignItems={{ xs: "center", md: "end" }}
+            flexWrap="wrap"
             component={Stack}
           >
             <Stack
               alignItems="center"
               justifyContent="center"
               flexDirection="row"
-              mr={2}
+              mr={3}
             >
-              <PhoneIcon fontSize="small" />
+              <PhoneIcon
+                sx={(theme) => ({
+                  height: 16,
+                  width: 16,
+                  color: theme.palette.text.secondary,
+                })}
+              />
               <Typography
                 sx={{ textDecoration: "none", ml: 0.5 }}
                 component={Link}
                 href={"#"}
+                variant="caption"
                 color="text.secondary"
               >
                 + (123) 456789
@@ -164,11 +210,18 @@ const Footer: FC<FooterProps> = () => {
               justifyContent="center"
               flexDirection="row"
             >
-              <EmailIcon fontSize="small" />
+              <EmailIcon
+                sx={(theme) => ({
+                  height: 16,
+                  width: 16,
+                  color: theme.palette.text.secondary,
+                })}
+              />
               <Typography
                 sx={{ textDecoration: "none", ml: 0.5 }}
                 component={Link}
                 href={"#"}
+                variant="caption"
                 color="text.secondary"
               >
                 email@example.info
@@ -177,98 +230,6 @@ const Footer: FC<FooterProps> = () => {
           </Grid>
         </Grid>
       </Grid>
-      {/* <Container maxWidth="md">
-        <Grid
-          container
-          py={{ xs: 5, lg: 10 }}
-          gap={3}
-          display="flex"
-          justifyContent="space-between"
-        >
-          <Grid item lg={3} sm={6} xs={12}>
-            <Stack gap={2} padding={{ xs: 1, md: 0 }}>
-              <Typography variant="h5">LINKS</Typography>
-              <Typography
-                sx={{ textDecoration: "none" }}
-                component={Link}
-                href={routes.search}
-                color="text.secondary"
-              >
-                PROPERTIES
-              </Typography>
-              <Typography
-                sx={{ textDecoration: "none" }}
-                component={Link}
-                href={"#"}
-                color="text.secondary"
-              >
-                OPEN A SHOP
-              </Typography>
-              <Typography
-                sx={{ textDecoration: "none" }}
-                component={Link}
-                href={routes.about}
-                color="text.secondary"
-              >
-                ABOUT US
-              </Typography>
-              <Typography
-                sx={{ textDecoration: "none" }}
-                component={Link}
-                href={routes.contact}
-                color="text.secondary"
-              >
-                CONTACT US
-              </Typography>
-              <Typography
-                sx={{ textDecoration: "none" }}
-                component={Link}
-                href={"#"}
-                color="text.secondary"
-              >
-                PRIVACY POLICY
-              </Typography>
-              <Typography
-                sx={{ textDecoration: "none" }}
-                component={Link}
-                href={"#"}
-                color="text.secondary"
-              >
-                TERMS OF SERVICE
-              </Typography>
-            </Stack>
-          </Grid>
-          <Grid item lg={3} sm={6} xs={12}>
-            <Stack gap={2}>
-              <Typography variant="h5">CONTACT</Typography>
-              <Typography color="text.secondary">
-                2972 Westheimer Rd. Santa Ana, Illinois 85486
-              </Typography>
-              <Typography color="text.secondary">(239) 555-0108</Typography>
-              <Typography color="text.secondary">(702) 555-0122</Typography>
-              <Typography color="text.secondary">
-                kenzi.lawson@example.com
-              </Typography>
-            </Stack>
-          </Grid>
-          <Grid item lg={3} sm={6} xs={12}>
-            <Stack
-              direction="column"
-              padding={{ xs: 1, md: 0 }}
-              gap={{ lg: 4, xs: 2 }}
-              alignItems="flex-start"
-            >
-              <Logo />
-              <Typography color="text.secondary">
-                Lorem ipsum dolor sit amet consectetur. Ornare at et bibendum mi
-                enim cum.
-              </Typography>
-              <Typography variant="h5">FOLLOW ON</Typography>
-              <SocialIconLink />
-            </Stack>
-          </Grid>
-        </Grid>
-      </Container> */}
     </Container>
   );
 };
