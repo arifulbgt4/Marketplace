@@ -59,8 +59,9 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
         borderRadius={40}
         sx={(theme) => ({
           color: "primary.main",
+          cursor: "pointer",
           "&:hover": {
-            bgcolor: "divider",
+            bgcolor: "action.hover",
             color: "common.black",
           },
         })}

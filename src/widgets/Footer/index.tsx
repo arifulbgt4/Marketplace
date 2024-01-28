@@ -28,7 +28,8 @@ const Footer: FC<FooterProps> = () => {
           xs={12}
           container
           spacing={2.5}
-          py={5}
+          pt={5}
+          pb={3}
           justifyContent="space-between"
           alignItems="center"
         >
@@ -51,7 +52,7 @@ const Footer: FC<FooterProps> = () => {
                 sx={{ textDecoration: "none" }}
                 component={Link}
                 href={routes.about}
-                color="text.secondary"
+                color="text.primary"
                 variant="subtitle2"
               >
                 About
@@ -60,7 +61,7 @@ const Footer: FC<FooterProps> = () => {
                 sx={{ textDecoration: "none" }}
                 component={Link}
                 href={routes.blog}
-                color="text.secondary"
+                color="text.primary"
                 variant="subtitle2"
               >
                 Blog
@@ -69,7 +70,7 @@ const Footer: FC<FooterProps> = () => {
                 sx={{ textDecoration: "none" }}
                 component={Link}
                 href={routes.contact}
-                color="text.secondary"
+                color="text.primary"
                 variant="subtitle2"
               >
                 Contact
@@ -78,7 +79,7 @@ const Footer: FC<FooterProps> = () => {
                 sx={{ textDecoration: "none" }}
                 component={Link}
                 href={routes.faq}
-                color="text.secondary"
+                color="text.primary"
                 variant="subtitle2"
               >
                 FAQ
