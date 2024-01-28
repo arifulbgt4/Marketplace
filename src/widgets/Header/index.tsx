@@ -12,9 +12,8 @@ import {
   Stack,
   Link,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 
-// import { useSticky } from "src/global/hooks";
 import Logo from "src/components/Logo";
 import routes from "src/global/routes";
 import HeaderLanguage from "../HeaderLanguage";
@@ -49,10 +48,17 @@ const Header: FC<HeaderProps> = ({ user }) => {
                 {!user ? (
                   <>
                     <IconButton onClick={handleOpenNavMenu} sx={{ p: 0 }}>
-                      <MenuIcon />
+                      <AccountCircleRoundedIcon
+                        sx={{
+                          height: 45,
+                          width: 45,
+                          color: "primary.main",
+                          "&:hover": { color: "primary.dark" },
+                        }}
+                      />
                     </IconButton>
                     <Menu
-                      sx={{ mt: "45px" }}
+                      sx={{ mt: 5.5 }}
                       id="menu-appbar"
                       anchorEl={anchorElNav}
                       anchorOrigin={{
@@ -111,15 +117,21 @@ const Header: FC<HeaderProps> = ({ user }) => {
                 {!user ? (
                   <>
                     <IconButton onClick={handleOpenNavMenu} sx={{ p: 0 }}>
-                      <MenuIcon />
+                      <AccountCircleRoundedIcon
+                        sx={{
+                          height: 45,
+                          width: 45,
+                          color: "primary.main",
+                          "&:hover": { color: "primary.dark" },
+                        }}
+                      />
                     </IconButton>
                     <Menu
-                      sx={{ mt: "45px" }}
                       id="menu-appbar"
                       anchorEl={anchorElNav}
                       anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
+                        vertical: "bottom",
+                        horizontal: "left",
                       }}
                       keepMounted
                       transformOrigin={{

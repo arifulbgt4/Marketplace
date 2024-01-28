@@ -4,16 +4,12 @@ import {
   Grid,
   Stack,
   Typography,
-  CardMedia,
   IconButton,
   Box,
   Modal,
   Container,
-  List,
-  ListItemButton,
-  ListItemIcon,
+  Avatar,
 } from "@mui/material";
-import LanguageIcon from "@mui/icons-material/Language";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
@@ -27,6 +23,10 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
   const [value, setValue] = useState("1");
   const [open, setOpen] = useState(false);
   const [countris, setCountris] = useState([]);
+  const [region, setRegion] = useState({
+    flag: "https://cdn.britannica.com/29/22529-004-ED1907BE/Union-Flag-Cross-St-Andrew-of-George.jpg",
+    language: "Bengali",
+  });
   const handleOpenLangModal = () => {
     setOpen((prev) => !prev);
   };
@@ -48,9 +48,26 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
 
   return (
     <Box mr={{ md: 2 }}>
-      <IconButton sx={{ p: 0 }} onClick={handleOpenLangModal}>
-        <LanguageIcon fontSize="small" />
-      </IconButton>
+      <Stack
+        onClick={handleOpenLangModal}
+        flexDirection="row"
+        gap={1}
+        justifyContent="center"
+        alignItems="center"
+        px={2}
+        py={1}
+        borderRadius={40}
+        sx={(theme) => ({
+          color: "primary.main",
+          "&:hover": {
+            bgcolor: "divider",
+            color: "common.black",
+          },
+        })}
+      >
+        <Avatar sx={{ height: 24, width: 24 }} src={region.flag} />
+        <Typography variant="h6">EN</Typography>
+      </Stack>
       <Modal open={open} onClose={handleCloseLangModal}>
         <Stack justifyContent="center" alignItems="center">
           <Container
