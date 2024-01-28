@@ -55,7 +55,7 @@ export default {
   },
   text: {
     primary: "rgb(10, 37, 64)",
-    secondary: "rgb(66, 84, 102)",
+    secondary: "rgb(96 111 126)",
     disabled: "rgb(26, 31, 54)",
   },
   action: {

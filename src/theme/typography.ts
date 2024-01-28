@@ -69,8 +69,8 @@ export default {
   },
   subtitle2: {
     ...dm_sans.style,
-    fontWeight: 500,
-    fontSize: "0.834rem",
+    fontWeight: 600,
+    fontSize: "1rem",
     lineHeight: 1.57,
     letterSpacing: "0.013em",
   },
@@ -98,8 +98,8 @@ export default {
   },
   caption: {
     ...dm_sans.style,
-    fontWeight: 300,
-    fontSize: "0.688rem",
+    fontWeight: 400,
+    fontSize: "0.938rem",
     lineHeight: 1.6,
     letterSpacing: "0.01875em",
   },

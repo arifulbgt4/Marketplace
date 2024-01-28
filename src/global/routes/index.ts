@@ -19,8 +19,11 @@ export default {
   userSecuritySetting: "/u/setting/security",
   userSocialSetting: "/u/setting/social",
   about: "/about",
+  blog: "/blog",
   contact: "/contact",
   faq: "/faq",
-  policy: "/policy",
+  privacy: "/privacy",
   message: "/message",
+  termas: "/termas",
+  cookies: "/cookies",
 };
