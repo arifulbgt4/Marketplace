@@ -103,7 +103,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
               bottom: 0,
               left: 0,
               right: 0,
-              background: theme.palette.background.default,
+              background: theme.palette.background.paper,
             })}
           >
             <Stack

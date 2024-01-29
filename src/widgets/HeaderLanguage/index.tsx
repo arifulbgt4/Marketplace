@@ -16,8 +16,9 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import CloseIcon from "@mui/icons-material/Close";
 
-import { HeaderLanguageProps } from "./Types";
 import CounttryLanRegion from "src/components/CountryLanRegion";
+
+import { HeaderLanguageProps } from "./Types";
 
 const HeaderLanguage: FC<HeaderLanguageProps> = () => {
   const [value, setValue] = useState("1");
@@ -54,8 +55,8 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
         gap={1}
         justifyContent="center"
         alignItems="center"
-        px={2}
-        py={1}
+        px={{ md: 2 }}
+        py={{ md: 1 }}
         borderRadius={40}
         sx={(theme) => ({
           color: "primary.main",
@@ -75,12 +76,36 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
             maxWidth="md"
             sx={{
               bgcolor: "background.paper",
-              top: 77,
+              top: { md: 77 },
+              bottom: 0,
               position: "absolute",
-              height: 580,
-              borderRadius: 5,
+              height: { md: 580, xs: "calc(100vh - 48px)" },
+              borderRadius: 2.5,
+              borderBottomLeftRadius: { xs: 0, md: 10 },
+              borderBottomRightRadius: { xs: 0, md: 10 },
             }}
           >
+            <Box position="relative">
+              <IconButton
+                onClick={handleCloseLangModal}
+                sx={{
+                  position: "absolute",
+                  zIndex: 1,
+                  right: { xs: -8, md: 0 },
+                  top: { xs: -32, md: 25 },
+                  bgcolor: "action.active",
+                  color: "#fff",
+                  p: 0.2,
+                  "&:hover": {
+                    bgcolor: "action.active",
+                    color: "#fff",
+                  },
+                }}
+                disableRipple
+              >
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </Box>
             <Box
               sx={{
                 overflow: "scroll",
@@ -92,7 +117,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
               px={2}
               pb={5}
             >
-              <Box
+              {/* <Box
                 sx={{
                   height: "fit-content",
                   position: "sticky",
@@ -100,30 +125,9 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                   bgcolor: "background.paper",
                   pt: 5,
                 }}
-              >
-                <Box position="relative">
-                  <IconButton
-                    onClick={handleCloseLangModal}
-                    sx={{
-                      position: "absolute",
-                      right: -15,
-                      top: -15,
-                      bgcolor: "action.active",
-                      color: "#fff",
-                      p: 0.2,
-                      "&:hover": {
-                        bgcolor: "action.active",
-                        color: "#fff",
-                      },
-                    }}
-                    disableRipple
-                  >
-                    <CloseIcon fontSize="small" />
-                  </IconButton>
-                </Box>
-              </Box>
+              ></Box> */}
               <TabContext value={value}>
-                <Stack>
+                <Stack mt={{ xs: 2, md: 3.5 }}>
                   <TabList onChange={handleChange}>
                     <Tab sx={{ pl: 0 }} label="Language and region" value="1" />
                     <Tab label="Currency" value="2" />

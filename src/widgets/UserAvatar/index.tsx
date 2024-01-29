@@ -21,6 +21,7 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AddIcon from "@mui/icons-material/Add";
+import Popper from "@mui/material/Popper";
 
 import routes from "src/global/routes";
 
@@ -43,8 +44,11 @@ const UserAvatar: FC<UserAvatarProps> = () => {
         <Avatar>AD</Avatar>
       </IconButton>
       <Menu
+        elevation={0}
         sx={{
-          mt: 5.7,
+          mt: { xs: -4.7, md: 5.7 },
+          right: { xs: -16, md: 0 },
+          left: { xs: -16, md: 0 },
         }}
         id="menu-appbar"
         anchorEl={anchorElAvat}
@@ -61,11 +65,18 @@ const UserAvatar: FC<UserAvatarProps> = () => {
         onClose={handleCloseNavAvatar}
       >
         <Stack
-          width={{ xs: "100%", md: 310 }}
+          width={{ md: 310 }}
           justifyContent="center"
           alignItems="center"
+          sx={{}}
         >
-          <Box borderRadius={3} p={1} bgcolor="background.default" mx={2}>
+          <Box
+            borderRadius={3}
+            p={1}
+            mt={2}
+            bgcolor="background.default"
+            mx={2}
+          >
             <Grid
               container
               display="flex"
