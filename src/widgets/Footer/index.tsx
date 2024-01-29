@@ -19,7 +19,8 @@ const Footer: FC<FooterProps> = () => {
     <Container
       sx={(theme) => ({
         background: theme.palette.background.default,
-        mt: 6,
+        mt: 7.5,
+        mb: { xs: 8, md: 0 },
       })}
     >
       <Grid container>
@@ -29,7 +30,7 @@ const Footer: FC<FooterProps> = () => {
           container
           spacing={2.5}
           pt={5}
-          pb={3}
+          pb={4}
           justifyContent="space-between"
           alignItems="center"
         >
