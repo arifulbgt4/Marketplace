@@ -10,6 +10,7 @@ import { TextField } from "src/components/Input";
 import { useQueryString } from "src/global/hooks";
 import routes from "src/global/routes";
 
+import SearchLocation from "./SearchLocation";
 import { FIELDS, SearchFilterFormProps } from "./Types";
 
 const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
@@ -47,33 +48,11 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
             >
               <TextField
                 fullWidth
-                placeholder="Location"
-                name={FIELDS.location}
-                size={size === "small" ? "small" : "medium"}
-                sx={{
-                  borderColor: "transparent",
-                }}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <LocationOnSharpIcon />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-              <TextField
-                fullWidth
+                label="Keyword"
                 name={FIELDS.keyword}
-                placeholder="Keyword"
                 size={size === "small" ? "small" : "medium"}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment sx={{ borderRadius: 0 }} position="end">
-                      <SearchSharpIcon />
-                    </InputAdornment>
-                  ),
-                }}
               />
+              <SearchLocation size={size} />
 
               <Button
                 sx={{
