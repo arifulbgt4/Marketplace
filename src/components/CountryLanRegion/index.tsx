@@ -18,7 +18,9 @@ const CounttryLanRegion: FC<CounttryLanRegionProps> = ({
   currenciesName,
   language,
   currencie,
-}: any) => {
+  isActive = false,
+  onClick,
+}) => {
   const [selectedIndex, setSelectedIndex] = useState(1);
 
   const handleListItemClick = (index: number) => {
@@ -26,32 +28,28 @@ const CounttryLanRegion: FC<CounttryLanRegionProps> = ({
   };
 
   return (
-    <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+    <Box
+      sx={{
+        width: "100%",
+        maxWidth: 360,
+        bgcolor: "background.paper",
+        cursor: "pointer",
+      }}
+    >
       <List component="nav" aria-label="main mailbox folders">
-        <ListItem
-          selected={selectedIndex === indexCoun ? true : false}
-          onClick={() => {
-            handleListItemClick(indexCoun);
-          }}
-        >
+        <ListItem selected={isActive} onClick={onClick && onClick}>
           <Stack flexDirection="row" alignItems="center" width="100%" gap={1}>
-            <Box
-              p={{ lg: 1.25, md: 1.25, sm: 1.25 }}
-              border={{ lg: 1, md: 1, sm: 0.5 }}
-              borderColor="action.focus"
-              borderRadius={1}
-              width={70}
-            >
-              <CardMedia component="img" height={24} image={flag} />
+            <Box borderColor="action.focus" borderRadius={1} width={70}>
+              <Typography variant="h1">{flag}</Typography>
             </Box>
             <Box width={115}>
               <Typography variant="h6">
                 {language && language}
-                {currenciesName && currenciesName.slice(0, 9)}
+                {currenciesName && currenciesName}
               </Typography>
               <Typography color="text.secondary" variant="body2">
                 {name && name.slice(0, 9)}
-                {currencie} {currenciesSymbole && <>-{currenciesSymbole}</>}
+                {currencie}
               </Typography>
             </Box>
           </Stack>
