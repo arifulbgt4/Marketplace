@@ -1,5 +1,5 @@
 "use client";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import {
   Grid,
   Stack,
@@ -16,18 +16,30 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import CloseIcon from "@mui/icons-material/Close";
 
-import CounttryLanRegion from "src/components/CountryLanRegion";
-
 import { HeaderLanguageProps } from "./Types";
+import CounttryLanRegion from "src/components/CountryLanRegion";
 
 const HeaderLanguage: FC<HeaderLanguageProps> = () => {
   const [value, setValue] = useState("1");
   const [open, setOpen] = useState(false);
   const [countris, setCountris] = useState([]);
   const [region, setRegion] = useState({
-    flag: "https://cdn.britannica.com/29/22529-004-ED1907BE/Union-Flag-Cross-St-Andrew-of-George.jpg",
-    language: "Bengali",
+    cca2: "BD",
+    languages: { ben: "Bengali" },
+    flag: "🇧🇩",
+    name: { common: "Bangladesh" },
+    currencies: { BDT: { name: "Bangladeshi taka", symbol: "৳" } },
   });
+
+  const [currency, setCurrency] = useState({
+    cca2: "BD",
+    languages: { ben: "Bengali" },
+    flag: "🇧🇩",
+    name: { common: "Bangladesh" },
+    currencies: { BDT: { name: "Bangladeshi taka", symbol: "৳" } },
+  });
+  console.log("region", region);
+
   const handleOpenLangModal = () => {
     setOpen((prev) => !prev);
   };
@@ -39,13 +51,18 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
     setValue(newValue);
   };
 
-  // fetch("https://restcountries.com/v3.1/all")
-  //   .then((res) => {
-  //     return res.json();
-  //   })
-  //   .then((data) => {
-  //     setCountris(data);
-  //   });
+  const getRegions = async () => {
+    const res = await fetch("https://restcountries.com/v3.1/all", {
+      method: "GET",
+    });
+    const data = await res.json();
+    setCountris(data);
+    return data;
+  };
+
+  useEffect(() => {
+    getRegions();
+  }, []);
 
   return (
     <Box mr={{ md: 2 }}>
@@ -55,8 +72,8 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
         gap={1}
         justifyContent="center"
         alignItems="center"
-        px={{ md: 2 }}
-        py={{ md: 1 }}
+        px={2}
+        py={1}
         borderRadius={40}
         sx={(theme) => ({
           color: "primary.main",
@@ -67,8 +84,21 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
           },
         })}
       >
-        <Avatar sx={{ height: 24, width: 24 }} src={region.flag} />
-        <Typography variant="h6">EN</Typography>
+        <Avatar
+          variant="square"
+          sx={{
+            height: 30,
+            width: 30,
+            marginBottom: "-3px",
+            fontSize: 30,
+            background: "transparent",
+          }}
+        >
+          {region.flag}
+        </Avatar>
+        <Typography variant="h6">
+          {Object.keys(region?.languages)[0]}
+        </Typography>
       </Stack>
       <Modal open={open} onClose={handleCloseLangModal}>
         <Stack justifyContent="center" alignItems="center">
@@ -76,36 +106,12 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
             maxWidth="md"
             sx={{
               bgcolor: "background.paper",
-              top: { md: 77 },
-              bottom: 0,
+              top: 77,
               position: "absolute",
-              height: { md: 580, xs: "calc(100vh - 48px)" },
-              borderRadius: 2.5,
-              borderBottomLeftRadius: { xs: 0, md: 10 },
-              borderBottomRightRadius: { xs: 0, md: 10 },
+              height: 580,
+              borderRadius: 5,
             }}
           >
-            <Box position="relative">
-              <IconButton
-                onClick={handleCloseLangModal}
-                sx={{
-                  position: "absolute",
-                  zIndex: 1,
-                  right: { xs: -8, md: 0 },
-                  top: { xs: -32, md: 25 },
-                  bgcolor: "action.active",
-                  color: "#fff",
-                  p: 0.2,
-                  "&:hover": {
-                    bgcolor: "action.active",
-                    color: "#fff",
-                  },
-                }}
-                disableRipple
-              >
-                <CloseIcon fontSize="small" />
-              </IconButton>
-            </Box>
             <Box
               sx={{
                 overflow: "scroll",
@@ -117,7 +123,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
               px={2}
               pb={5}
             >
-              {/* <Box
+              <Box
                 sx={{
                   height: "fit-content",
                   position: "sticky",
@@ -125,9 +131,30 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                   bgcolor: "background.paper",
                   pt: 5,
                 }}
-              ></Box> */}
+              >
+                <Box position="relative">
+                  <IconButton
+                    onClick={handleCloseLangModal}
+                    sx={{
+                      position: "absolute",
+                      right: -15,
+                      top: -15,
+                      bgcolor: "action.active",
+                      color: "#fff",
+                      p: 0.2,
+                      "&:hover": {
+                        bgcolor: "action.active",
+                        color: "#fff",
+                      },
+                    }}
+                    disableRipple
+                  >
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+                </Box>
+              </Box>
               <TabContext value={value}>
-                <Stack mt={{ xs: 2, md: 3.5 }}>
+                <Stack>
                   <TabList onChange={handleChange}>
                     <Tab sx={{ pl: 0 }} label="Language and region" value="1" />
                     <Tab label="Currency" value="2" />
@@ -136,7 +163,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                 <TabPanel sx={{ px: 0 }} value="1">
                   <Stack pb={4} gap={3}>
                     <Typography variant="h5">
-                      Suggested languages and regions
+                      Selected languages and regions
                     </Typography>
 
                     <Grid container spacing={2}>
@@ -150,24 +177,16 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                         gap={1.25}
                       >
                         <CounttryLanRegion
-                          name="Bangladesh"
-                          language="Bengali"
-                          flag="https://t4.ftcdn.net/jpg/01/04/47/13/360_F_104471360_1xohRUSRjfdGxoaRDtLg2z4ztBHkT21K.jpg"
-                        />
-                      </Grid>
-                      <Grid
-                        item
-                        xs={6}
-                        md={3}
-                        display="flex"
-                        flexDirection="row"
-                        alignItems="center"
-                        gap={1.25}
-                      >
-                        <CounttryLanRegion
-                          name="Unaited Kingdom"
-                          language="Bengali"
-                          flag="https://cdn.britannica.com/29/22529-004-ED1907BE/Union-Flag-Cross-St-Andrew-of-George.jpg"
+                          name={region?.name?.common}
+                          flag={region.flag}
+                          language={
+                            (region?.languages &&
+                              (Object?.values(
+                                region?.languages
+                              )[1] as string)) ||
+                            (Object?.values(region?.languages)[0] as string)
+                          }
+                          isActive
                         />
                       </Grid>
                     </Grid>
@@ -177,40 +196,41 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                       Choose a language and region
                     </Typography>
                     <Grid container spacing={1}>
-                      {countris.map((country: any, index) => {
-                        if (country?.languages) {
-                          const languages: any = Object.values(
-                            country?.languages
-                          );
-                          return (
-                            <Grid
-                              item
-                              xs={6}
-                              md={3}
-                              key={index}
-                              display="flex"
-                              flexDirection="row"
-                              alignItems="center"
-                              gap={1.25}
-                            >
-                              <CounttryLanRegion
-                                indexCoun={index}
-                                name={country.name.common}
-                                language={languages[0]}
-                                flag={country.flags.svg}
-                              />
-                            </Grid>
-                          );
-                        }
-                      })}
+                      {countris.map((country: any, index) => (
+                        <Grid
+                          item
+                          xs={6}
+                          md={3}
+                          key={index}
+                          display="flex"
+                          flexDirection="row"
+                          alignItems="center"
+                          gap={1.25}
+                        >
+                          <CounttryLanRegion
+                            indexCoun={index}
+                            name={country?.name.common}
+                            language={
+                              country?.languages &&
+                              ((Object?.values(
+                                country?.languages
+                              )[1] as string) ||
+                                (Object?.values(
+                                  country?.languages
+                                )[0] as string))
+                            }
+                            flag={country.flag}
+                            isActive={Boolean(region.cca2 === country.cca2)}
+                            onClick={() => setRegion(country)}
+                          />
+                        </Grid>
+                      ))}
                     </Grid>
                   </Stack>
                 </TabPanel>
                 <TabPanel sx={{ px: 0 }} value="2">
                   <Stack pb={4} gap={3}>
-                    <Typography variant="h5">
-                      Suggested languages and regions
-                    </Typography>
+                    <Typography variant="h5">Selected Currency</Typography>
                     <Grid container spacing={2}>
                       <Grid
                         item
@@ -222,26 +242,20 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                         gap={1.25}
                       >
                         <CounttryLanRegion
-                          currenciesName="Bangladeshi"
-                          currencie="BDT"
-                          currenciesSymbole="TK"
-                          flag="https://t4.ftcdn.net/jpg/01/04/47/13/360_F_104471360_1xohRUSRjfdGxoaRDtLg2z4ztBHkT21K.jpg"
-                        />
-                      </Grid>
-                      <Grid
-                        item
-                        xs={6}
-                        md={3}
-                        display="flex"
-                        flexDirection="row"
-                        alignItems="center"
-                        gap={1.25}
-                      >
-                        <CounttryLanRegion
-                          currenciesName="Unaited Kingdom"
-                          currencie="Dolar"
-                          currenciesSymbole="$"
-                          flag="https://cdn.britannica.com/29/22529-004-ED1907BE/Union-Flag-Cross-St-Andrew-of-George.jpg"
+                          currencie={
+                            Object.values(currency?.currencies)[0]?.name
+                          }
+                          currenciesName={`${
+                            Object.keys(currency?.currencies)[0]
+                          }
+                                 - ${
+                                   Object.values(currency?.currencies)[0].symbol
+                                 }`}
+                          flag={currency?.flag}
+                          currenciesSymbole={
+                            Object.values(currency?.currencies)[0].symbol
+                          }
+                          isActive
                         />
                       </Grid>
                     </Grid>
@@ -255,8 +269,8 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                         if (country?.currencies) {
                           const currencies: any = Object.values(
                             country?.currencies
-                          )[0];
-                          var currencie = Object.keys(country?.currencies);
+                          );
+                          console.log("currencies", currencies[0]);
 
                           return (
                             <Grid
@@ -271,10 +285,16 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                             >
                               <CounttryLanRegion
                                 indexCoun={index}
-                                currencie={currencie}
-                                currenciesName={currencies.name}
-                                flag={country.flags.svg}
-                                currenciesSymbole={currencies.symbol}
+                                currencie={currencies[0]?.name}
+                                currenciesName={`${
+                                  Object.keys(country?.currencies)[0]
+                                } - ${currencies[0].symbol}`}
+                                flag={country?.flag}
+                                currenciesSymbole={currencies[0].symbol}
+                                isActive={Boolean(
+                                  currency?.cca2 === country?.cca2
+                                )}
+                                onClick={() => setCurrency(country)}
                               />
                             </Grid>
                           );

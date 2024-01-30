@@ -6,4 +6,6 @@ export interface CounttryLanRegionProps {
   currenciesName?: string;
   language?: string;
   currencie?: any;
+  isActive: boolean;
+  onClick?: () => void;
 }
