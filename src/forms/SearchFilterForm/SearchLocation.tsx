@@ -8,7 +8,9 @@ import Typography from "@mui/material/Typography";
 import { debounce } from "@mui/material/utils";
 
 import getLocations from "./action";
+
 import { PlaceType, SearchLocationProps } from "./Types";
+// import { TextField } from "src/components/Input";
 
 export default function SearchLocation({ size }: SearchLocationProps) {
   const [inputValue, setInputValue] = React.useState("");
@@ -53,7 +55,7 @@ export default function SearchLocation({ size }: SearchLocationProps) {
     <Autocomplete
       id="mapbox-search"
       freeSolo
-      sx={{ width: 500 }}
+      sx={{ width: "auto", pl: 2 }}
       getOptionLabel={(option) =>
         typeof option === "string" ? "" : option?.properties?.place_formatted
       }
@@ -67,7 +69,13 @@ export default function SearchLocation({ size }: SearchLocationProps) {
         setInputValue(newInputValue);
       }}
       renderInput={(params) => (
-        <TextField {...params} label="Location" fullWidth />
+        <TextField
+          {...params}
+          label="Where?"
+          placeholder="Location"
+          fullWidth
+          variant="filled"
+        />
       )}
       renderOption={(props, option: PlaceType) => {
         return (
