@@ -8,7 +8,12 @@ const MuiFormControl: Components<Theme>["MuiFormControl"] = {
 
 const MuiAutocomplete: Components<Theme>["MuiAutocomplete"] = {
   styleOverrides: {
-    root: ({ theme, ownerState }) => ({}),
+    root: ({ theme, ownerState }) => ({
+      "&.Mui-focused": {
+        backgroundColor: theme.palette.action.hover,
+        borderRadius: 50,
+      },
+    }),
   },
 };
 

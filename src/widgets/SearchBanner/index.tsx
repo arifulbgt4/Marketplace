@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Typography, Box, Stack } from "@mui/material";
+import { Typography, Box, Stack, Container } from "@mui/material";
 
 import SearchFilterForm from "src/forms/SearchFilterForm";
 
@@ -22,7 +22,7 @@ const SearchBanner: FC<SearchBannerProps> = () => {
       gap={3}
       direction="column"
       justifyContent={{ xs: "flex-end", md: "center" }}
-      alignItems="center"
+      bgcolor="red"
     >
       <Box textAlign="center">
         <Typography variant="h1" color="common.white">
@@ -39,9 +39,11 @@ const SearchBanner: FC<SearchBannerProps> = () => {
         >
           25,000 rooms amd houses available now on Dream House
         </Typography>
-        <Box p={1.5} bgcolor="background.paper" borderRadius={{ md: 2 }}>
+        {/* <Box p={1.5} bgcolor="background.paper" borderRadius={{ md: 2 }}> */}
+        <Container maxWidth="md">
           <SearchFilterForm />
-        </Box>
+        </Container>
+        {/* </Box> */}
       </Stack>
     </Stack>
   );

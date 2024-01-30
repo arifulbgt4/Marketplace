@@ -9,12 +9,36 @@ const MuiTextField: Components<Theme>["MuiTextField"] = {
 const MuiInput: Components<Theme>["MuiInput"] = {
   styleOverrides: {
     root: ({ theme, ownerState }) => ({}),
+    input: ({ theme, ownerState }) => ({}),
   },
 };
 
 const MuiFilledInput: Components<Theme>["MuiFilledInput"] = {
   styleOverrides: {
-    root: ({ theme, ownerState }) => ({}),
+    root: ({ theme, ownerState }) => ({
+      height: 72,
+
+      background: "none",
+      "&:hover": {
+        background: "transparent",
+      },
+      "&::before": {
+        content: "none",
+        borderBottom: "none",
+      },
+      "&.Mui-focused": {
+        backgroundColor: "transparent",
+        "&:hover": {
+          background: "transparent",
+        },
+      },
+    }),
+
+    underline: ({ theme, ownerState }) => ({
+      "&::after": {
+        borderBottom: "none",
+      },
+    }),
   },
 };
 
@@ -32,7 +56,10 @@ const MuiInputBase: Components<Theme>["MuiInputBase"] = {
 
 const MuiInputLabel: Components<Theme>["MuiInputLabel"] = {
   styleOverrides: {
-    root: ({ theme, ownerState }) => ({}),
+    root: ({ theme, ownerState }) => ({
+      paddingTop: 10,
+      fontWeight: 600,
+    }),
   },
 };
 const MuiOutlinedInput: Components<Theme>["MuiOutlinedInput"] = {
