@@ -1,5 +1,5 @@
 "use client";
-import { FC, useEffect, useState } from "react";
+import { FC, useState, useCallback } from "react";
 import {
   Grid,
   Stack,
@@ -8,61 +8,46 @@ import {
   Box,
   Modal,
   Container,
-  Avatar,
+  Tab,
 } from "@mui/material";
-import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import CloseIcon from "@mui/icons-material/Close";
 
+import { languages as languagesData } from "src/global/staticData";
+import Language from "src/components/Language";
+
+import { LanguageOptions } from "src/global/types";
 import { HeaderLanguageProps } from "./Types";
-import CounttryLanRegion from "src/components/CountryLanRegion";
 
 const HeaderLanguage: FC<HeaderLanguageProps> = () => {
   const [value, setValue] = useState("1");
   const [open, setOpen] = useState(false);
-  const [countris, setCountris] = useState([]);
-  const [region, setRegion] = useState({
-    cca2: "BD",
-    languages: { ben: "Bengali" },
-    flag: "🇧🇩",
-    name: { common: "Bangladesh" },
-    currencies: { BDT: { name: "Bangladeshi taka", symbol: "৳" } },
+  const [language, setLanguage] = useState<LanguageOptions>({
+    key: "en",
+    name: "English",
+    eng: "English",
   });
 
-  const [currency, setCurrency] = useState({
-    cca2: "BD",
-    languages: { ben: "Bengali" },
-    flag: "🇧🇩",
-    name: { common: "Bangladesh" },
-    currencies: { BDT: { name: "Bangladeshi taka", symbol: "৳" } },
-  });
-  console.log("region", region);
+  const [currency, setCurrency] = useState();
 
-  const handleOpenLangModal = () => {
+  //---------------------------------------------------//
+  // Controling Language and Currency modal open/close //
+  //---------------------------------------------------//
+  const handleOpenLangModal = useCallback(() => {
     setOpen((prev) => !prev);
-  };
-  const handleCloseLangModal = () => {
-    setOpen((prev) => !prev);
-  };
-
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  };
-
-  const getRegions = async () => {
-    const res = await fetch("https://restcountries.com/v3.1/all", {
-      method: "GET",
-    });
-    const data = await res.json();
-    setCountris(data);
-    return data;
-  };
-
-  useEffect(() => {
-    getRegions();
   }, []);
+  const handleCloseLangModal = useCallback(() => {
+    setOpen((prev) => !prev);
+  }, []);
+
+  const handleChange = useCallback(
+    (event: React.SyntheticEvent, newValue: string) => {
+      setValue(newValue);
+    },
+    []
+  );
 
   return (
     <Box mr={{ md: 2 }}>
@@ -84,20 +69,8 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
           },
         })}
       >
-        <Avatar
-          variant="square"
-          sx={{
-            height: 30,
-            width: 30,
-            marginBottom: "-3px",
-            fontSize: 30,
-            background: "transparent",
-          }}
-        >
-          {region.flag}
-        </Avatar>
-        <Typography variant="h6">
-          {Object.keys(region?.languages)[0]}
+        <Typography variant="h6" textTransform="uppercase">
+          {language.key}
         </Typography>
       </Stack>
       <Modal open={open} onClose={handleCloseLangModal}>
@@ -162,9 +135,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                 </Stack>
                 <TabPanel sx={{ px: 0 }} value="1">
                   <Stack pb={4} gap={3}>
-                    <Typography variant="h5">
-                      Selected languages and regions
-                    </Typography>
+                    <Typography variant="h5">Selected languages</Typography>
 
                     <Grid container spacing={2}>
                       <Grid
@@ -176,27 +147,19 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                         alignItems="center"
                         gap={1.25}
                       >
-                        <CounttryLanRegion
-                          name={region?.name?.common}
-                          flag={region.flag}
-                          language={
-                            (region?.languages &&
-                              (Object?.values(
-                                region?.languages
-                              )[1] as string)) ||
-                            (Object?.values(region?.languages)[0] as string)
-                          }
+                        <Language
+                          name={language.name}
+                          langKey={language.key}
+                          eng={language.eng}
                           isActive
                         />
                       </Grid>
                     </Grid>
                   </Stack>
                   <Stack gap={3}>
-                    <Typography variant="h5">
-                      Choose a language and region
-                    </Typography>
+                    <Typography variant="h5">Choose a language</Typography>
                     <Grid container spacing={1}>
-                      {countris.map((country: any, index) => (
+                      {languagesData?.map((lang: LanguageOptions, index) => (
                         <Grid
                           item
                           xs={6}
@@ -207,21 +170,12 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                           alignItems="center"
                           gap={1.25}
                         >
-                          <CounttryLanRegion
-                            indexCoun={index}
-                            name={country?.name.common}
-                            language={
-                              country?.languages &&
-                              ((Object?.values(
-                                country?.languages
-                              )[1] as string) ||
-                                (Object?.values(
-                                  country?.languages
-                                )[0] as string))
-                            }
-                            flag={country.flag}
-                            isActive={Boolean(region.cca2 === country.cca2)}
-                            onClick={() => setRegion(country)}
+                          <Language
+                            name={lang.name}
+                            langKey={lang.key}
+                            eng={lang.eng}
+                            isActive={Boolean(language.key === lang.key)}
+                            onClick={() => setLanguage(lang)}
                           />
                         </Grid>
                       ))}
@@ -241,7 +195,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                         alignItems="center"
                         gap={1.25}
                       >
-                        <CounttryLanRegion
+                        {/* <CounttryLanRegion
                           currencie={
                             Object.values(currency?.currencies)[0]?.name
                           }
@@ -256,7 +210,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                             Object.values(currency?.currencies)[0].symbol
                           }
                           isActive
-                        />
+                        /> */}
                       </Grid>
                     </Grid>
                   </Stack>
@@ -264,7 +218,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                     <Typography variant="h5">
                       Choose a language and region
                     </Typography>
-                    <Grid container spacing={1}>
+                    {/* <Grid container spacing={1}>
                       {countris.map((country: any, index) => {
                         if (country?.currencies) {
                           const currencies: any = Object.values(
@@ -300,7 +254,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                           );
                         }
                       })}
-                    </Grid>
+                    </Grid> */}
                   </Stack>
                 </TabPanel>
               </TabContext>
