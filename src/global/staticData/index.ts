@@ -1,6 +1,49 @@
 import { BathtubSharp } from "@mui/icons-material";
 
-import { CheckboxGroupOptions } from "../types";
+import { CheckboxGroupOptions, LanguageOptions } from "../types";
+
+export const languages: LanguageOptions[] = [
+  {
+    key: "en",
+    name: "English",
+    eng: "English",
+  },
+  {
+    key: "af",
+    name: "Afrikaans",
+    eng: "Afrikaans",
+  },
+  {
+    key: "am",
+    name: "አማርኛ",
+    eng: "Amharic",
+  },
+  {
+    key: "ar",
+    name: "العربية",
+    eng: "Arabic",
+  },
+  {
+    key: "hy",
+    name: "Հայերեն",
+    eng: "Armenian",
+  },
+  {
+    key: "as",
+    name: "অসমীযা়",
+    eng: "Assamese",
+  },
+  {
+    key: "az",
+    name: "Azərbaycanca",
+    eng: "Azerbaijani",
+  },
+  {
+    key: "bn",
+    name: "বাংলা",
+    eng: "Bengali",
+  },
+];
 
 export const amenities: CheckboxGroupOptions[] = [
   {
