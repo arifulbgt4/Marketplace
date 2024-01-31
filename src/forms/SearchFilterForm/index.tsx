@@ -1,21 +1,27 @@
 "use client";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Form as FinalForm } from "react-final-form";
-import { Paper, Typography, Grid, Stack, IconButton, Box } from "@mui/material";
-// import SearchIcon from "@mui/icons-material/Search";
+import {
+  Typography,
+  Grid,
+  Stack,
+  IconButton,
+  Box,
+  Hidden,
+} from "@mui/material";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
-import LocationOnSharpIcon from "@mui/icons-material/LocationOnSharp";
 
-// import { TextField } from "src/components/Input";
 import { useQueryString } from "src/global/hooks";
 import routes from "src/global/routes";
 
 import SearchLocation from "./SearchLocation";
-import { FIELDS, SearchFilterFormProps } from "./Types";
 import SearchKeyword from "../SearchKeyword";
 
+import { FIELDS, SearchFilterFormProps } from "./Types";
+
 const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
+  const [dateSelect, setDateSelect] = useState("");
   const router = useRouter();
   const { createQuery, getQuery } = useQueryString();
 
@@ -36,7 +42,11 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
   };
 
   return (
-    <Stack component={Paper} borderRadius={25}>
+    <Stack
+      bgcolor={{ xs: "background.paper" }}
+      borderRadius={{ md: 25 }}
+      justifyContent="center"
+    >
       <FinalForm
         initialValues={getQuery([FIELDS.keyword, FIELDS.location])}
         onSubmit={onSubmitForm}
@@ -48,24 +58,51 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
                 component={Stack}
                 justifyContent="center"
                 alignItems="center"
-                spacing={0.5}
+                columnSpacing={0.5}
+                rowSpacing={1.5}
               >
-                <Grid item xs={4}>
-                  <Box
+                <Grid item xs={12} md={4}>
+                  <Stack
                     sx={(theme) => ({
-                      "&:hover": {
-                        bgcolor: theme.palette.action.hover,
-                        borderRadius: 25,
-                        boxShadow: "0px 3px 6px #00000029",
+                      background: {
+                        xs: theme.palette.action.hover,
+                        md: "transparent",
                       },
+                      borderRadius: { xs: 50, md: "none" },
+                      boxShadow: { xs: "0px 3px 6px #00000029", md: "none" },
                     })}
                   >
                     <SearchLocation size={size} />
-                  </Box>
+                  </Stack>
                 </Grid>
-                <Grid item xs={4}>
-                  <Box
+                <Grid item xs={12} md={4}>
+                  <Stack
                     sx={(theme) => ({
+                      background: {
+                        xs: theme.palette.action.hover,
+                        md: "transparent",
+                      },
+                      borderRadius: { xs: 50, md: "none" },
+                      boxShadow: { xs: "0px 3px 6px #00000029", md: "none" },
+                    })}
+                  >
+                    <SearchKeyword size={size} />
+                  </Stack>
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                  <Box
+                    component={Stack}
+                    position="relative"
+                    height={{ xs: 50, md: 72 }}
+                    justifyContent="center"
+                    sx={(theme) => ({
+                      background: {
+                        xs: theme.palette.action.hover,
+                        md: "transparent",
+                      },
+                      borderRadius: { xs: 50, md: "none" },
+                      boxShadow: { xs: "0px 3px 6px #00000029", md: "none" },
                       "&:hover": {
                         bgcolor: theme.palette.action.hover,
                         borderRadius: 25,
@@ -73,64 +110,90 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
                       },
                     })}
                   >
-                    <SearchKeyword size={size} />
+                    {dateSelect === "" && (
+                      <Typography
+                        fontWeight={600}
+                        color="text.secondary"
+                        pl={2}
+                      >
+                        When?
+                      </Typography>
+                    )}
+                    {dateSelect !== "" && (
+                      <Stack>
+                        <Typography
+                          fontWeight={600}
+                          fontSize={13.408}
+                          // color="primary.main"
+                          pl={2}
+                          variant="caption"
+                        >
+                          What?
+                        </Typography>
+                        <Typography
+                          fontWeight={300}
+                          // color="text.secondary"
+                          pl={2}
+                        >
+                          05/02/2023
+                        </Typography>
+                      </Stack>
+                    )}
                   </Box>
-                  {/* <TextField
-                    defaultValue="Hello World"
-                    required
-                    id="outlined-required"
-                    variant="filled"
-                    label="Keyword"
-                    name={FIELDS.keyword}
-                    size={size === "small" ? "small" : "medium"}
-                  /> */}
                 </Grid>
-
-                <Grid
-                  item
-                  xs={4}
-                  component={Stack}
-                  position="relative"
-                  height={72}
-                  justifyContent="center"
-                  alignItems="center"
-                  sx={(theme) => ({
-                    "&:hover": {
-                      bgcolor: theme.palette.action.hover,
-                      borderRadius: 25,
-                      boxShadow: "0px 3px 6px #00000029",
-                    },
-                  })}
-                >
-                  <Typography>date</Typography>
-                </Grid>
-                <Box position="relative">
-                  <IconButton
-                    type="submit"
-                    size="large"
-                    sx={(theme) => ({
-                      position: "absolute",
-                      right: 0,
-                      top: -33,
-                      border: 10,
-                      borderColor: "background.paper",
-
-                      bgcolor: theme.palette.info.main,
-                      "&:hover": {
-                        bgcolor: theme.palette.info.dark,
-                      },
-                    })}
-                  >
-                    <SearchSharpIcon
+                <Hidden mdDown>
+                  <Box position="relative">
+                    <IconButton
+                      type="submit"
+                      size="large"
                       sx={(theme) => ({
-                        transform: "rotate(90deg)",
-                        height: 27,
-                        width: 27,
-                        color: theme.palette.info.contrastText,
+                        position: "absolute",
+                        right: 0,
+                        top: -29,
+                        border: 10,
+                        borderColor: "background.paper",
+
+                        bgcolor: theme.palette.info.main,
+                        "&:hover": {
+                          bgcolor: theme.palette.info.dark,
+                        },
                       })}
-                    />
-                  </IconButton>
-                </Box>
+                    >
+                      <SearchSharpIcon
+                        sx={(theme) => ({
+                          transform: "rotate(90deg)",
+                          height: 27,
+                          width: 27,
+                          color: theme.palette.info.contrastText,
+                        })}
+                      />
+                    </IconButton>
+                  </Box>
+                </Hidden>
+                <Hidden mdUp>
+                  <Grid item xs={12}>
+                    <Box
+                      sx={(theme) => ({
+                        bgcolor: theme.palette.primary.main,
+                        borderRadius: 25,
+                      })}
+                      component={Stack}
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <IconButton type="submit" size="large">
+                        <SearchSharpIcon
+                          sx={(theme) => ({
+                            transform: "rotate(90deg)",
+                            height: 27,
+                            width: 27,
+                            color: theme.palette.info.contrastText,
+                          })}
+                        />
+                      </IconButton>
+                    </Box>
+                  </Grid>
+                </Hidden>
               </Grid>
             </form>
           );

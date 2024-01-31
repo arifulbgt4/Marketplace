@@ -55,7 +55,7 @@ export default function SearchLocation({ size }: SearchLocationProps) {
     <Autocomplete
       id="mapbox-search"
       freeSolo
-      sx={{ width: "auto", pl: 2 }}
+      sx={{ pl: { xs: 1, md: 2 } }}
       getOptionLabel={(option) =>
         typeof option === "string" ? "" : option?.properties?.place_formatted
       }
@@ -65,6 +65,7 @@ export default function SearchLocation({ size }: SearchLocationProps) {
       includeInputInList
       filterSelectedOptions
       noOptionsText="No locations"
+      size="small"
       onInputChange={(event, newInputValue) => {
         setInputValue(newInputValue);
       }}
@@ -75,6 +76,7 @@ export default function SearchLocation({ size }: SearchLocationProps) {
           placeholder="Location"
           fullWidth
           variant="filled"
+          sx={{ label: { pt: { md: 1.4 } } }}
         />
       )}
       renderOption={(props, option: PlaceType) => {
