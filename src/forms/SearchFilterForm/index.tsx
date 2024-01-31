@@ -123,8 +123,9 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
                     {dateSelect !== "" && (
                       <Typography
                         fontWeight={300}
-                        // color="text.secondary"
+                        color="text.secondary"
                         pl={2}
+                        sx={{ opacity: 0.6 }}
                       >
                         {dateSelect}
                       </Typography>
