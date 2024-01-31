@@ -111,34 +111,23 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
                       },
                     })}
                   >
-                    {dateSelect === "" && (
+                    <Typography
+                      fontWeight={600}
+                      fontSize={dateSelect !== "" ? 13.408 : 18}
+                      color="text.secondary"
+                      variant={dateSelect === "" ? "body1" : "caption"}
+                      pl={2}
+                    >
+                      When?
+                    </Typography>
+                    {dateSelect !== "" && (
                       <Typography
-                        fontWeight={600}
-                        color="text.secondary"
+                        fontWeight={300}
+                        // color="text.secondary"
                         pl={2}
                       >
-                        When?
+                        {dateSelect}
                       </Typography>
-                    )}
-                    {dateSelect !== "" && (
-                      <Stack>
-                        <Typography
-                          fontWeight={600}
-                          fontSize={13.408}
-                          // color="primary.main"
-                          pl={2}
-                          variant="caption"
-                        >
-                          What?
-                        </Typography>
-                        <Typography
-                          fontWeight={300}
-                          // color="text.secondary"
-                          pl={2}
-                        >
-                          05/02/2023
-                        </Typography>
-                      </Stack>
                     )}
                   </Box>
                 </Grid>
