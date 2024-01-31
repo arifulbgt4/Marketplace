@@ -101,6 +101,7 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
                         xs: theme.palette.action.hover,
                         md: "transparent",
                       },
+                      cursor: "pointer",
                       borderRadius: { xs: 50, md: "none" },
                       boxShadow: { xs: "0px 3px 6px #00000029", md: "none" },
                       "&:hover": {
