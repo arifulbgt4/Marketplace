@@ -2,6 +2,7 @@ import { Metadata, Viewport } from "next";
 import { useLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { siteConfig } from "src/global/config";
 import NextAuthProvider from "src/layouts/NextAuthProvider";
@@ -76,6 +77,7 @@ export default function RootLayout({
         <body suppressHydrationWarning={true}>
           <NextAuthProvider>{children}</NextAuthProvider>
           <Analytics />
+          <SpeedInsights />
         </body>
       </ThemeContextProvider>
     </html>
