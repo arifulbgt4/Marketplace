@@ -107,18 +107,55 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
           {language?.key || defaultLang?.key}
         </Typography>
       </Stack>
-      <Modal open={open} onClose={handleCloseLangModal}>
+      <Modal
+        slotProps={{
+          backdrop: {
+            sx: (theme) => ({
+              background: {
+                xs: `linear-gradient(to bottom,${theme.palette.action.active} 30% , transparent 70%,  transparent 100%)`,
+                md: `linear-gradient(to bottom,${theme.palette.action.focus} 30% , transparent 70%,  transparent 100%)`,
+              },
+            }),
+          },
+        }}
+        open={open}
+        onClose={handleCloseLangModal}
+      >
         <Stack justifyContent="center" alignItems="center">
           <Container
             maxWidth="md"
             sx={{
               bgcolor: "background.paper",
-              top: 77,
+              top: { md: 77 },
+              bottom: { xs: 48, md: 0 },
               position: "absolute",
-              height: 580,
-              borderRadius: 5,
+              height: { md: 580, xs: "calc(100vh - 104px - 48px)" },
+              borderRadius: 2.5,
+              borderBottomLeftRadius: { xs: 0, md: 10 },
+              borderBottomRightRadius: { xs: 0, md: 10 },
             }}
           >
+            <Box position="relative">
+              <IconButton
+                onClick={handleCloseLangModal}
+                sx={{
+                  position: "absolute",
+                  zIndex: 1,
+                  right: { xs: -8, md: 0 },
+                  top: { xs: -32, md: 25 },
+                  bgcolor: "action.active",
+                  color: "#fff",
+                  p: 0.2,
+                  "&:hover": {
+                    bgcolor: "action.active",
+                    color: "#fff",
+                  },
+                }}
+                disableRipple
+              >
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </Box>
             <Box
               sx={{
                 overflow: "scroll",
@@ -130,36 +167,6 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
               px={2}
               pb={5}
             >
-              <Box
-                sx={{
-                  height: "fit-content",
-                  position: "sticky",
-                  top: 0,
-                  bgcolor: "background.paper",
-                  pt: 5,
-                }}
-              >
-                <Box position="relative">
-                  <IconButton
-                    onClick={handleCloseLangModal}
-                    sx={{
-                      position: "absolute",
-                      right: -15,
-                      top: -15,
-                      bgcolor: "action.active",
-                      color: "#fff",
-                      p: 0.2,
-                      "&:hover": {
-                        bgcolor: "action.active",
-                        color: "#fff",
-                      },
-                    }}
-                    disableRipple
-                  >
-                    <CloseIcon fontSize="small" />
-                  </IconButton>
-                </Box>
-              </Box>
               <TabContext value={value}>
                 <Stack>
                   <TabList onChange={handleChange}>
