@@ -66,7 +66,7 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
                   <Stack
                     sx={(theme) => ({
                       background: {
-                        xs: theme.palette.action.hover,
+                        xs: theme.palette.background.default,
                         md: "transparent",
                       },
                       borderRadius: { xs: 50, md: "none" },
@@ -80,11 +80,11 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
                   <Stack
                     sx={(theme) => ({
                       background: {
-                        xs: theme.palette.action.hover,
+                        xs: theme.palette.background.default,
                         md: "transparent",
                       },
                       borderRadius: { xs: 50, md: "none" },
-                      boxShadow: { xs: "0px 3px 6px #00000029", md: 0 },
+                      boxShadow: { xs: 10, md: 0 },
                     })}
                   >
                     <SearchKeyword size={size} />
@@ -99,12 +99,12 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
                     justifyContent="center"
                     sx={(theme) => ({
                       background: {
-                        xs: theme.palette.action.hover,
+                        xs: theme.palette.background.default,
                         md: "transparent",
                       },
                       cursor: "pointer",
                       borderRadius: { xs: 50, md: "none" },
-                      boxShadow: { xs: "0px 3px 6px #00000029", md: 0 },
+                      boxShadow: { xs: 10, md: 0 },
                       "&:hover": {
                         bgcolor: theme.palette.action.hover,
                         borderRadius: 25,
@@ -144,7 +144,6 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
                         top: -29,
                         border: 10,
                         borderColor: "background.paper",
-
                         bgcolor: theme.palette.info.main,
                         "&:hover": {
                           bgcolor: theme.palette.info.dark,
