@@ -102,31 +102,55 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
                   onClose={() => {
                     setOpenModal(false);
                   }}
+                  slotProps={{
+                    backdrop: {
+                      sx: {
+                        backgroundColor: "transparent",
+                      },
+                    },
+                  }}
                   aria-labelledby="modal-modal-title"
                   aria-describedby="modal-modal-description"
+                  sx={{ bgcolor: "transparent", top: 48 }}
                 >
-                  <Paper sx={{ minHeight: "100vh" }}>
-                    <Stack gap={1} px={3} py={8} position="relative">
-                      <Box position="absolute" top={0} left={0}>
-                        <IconButton
-                          onClick={() => {
-                            setOpenModal(false);
-                          }}
-                        >
-                          <CloseIcon />
-                        </IconButton>
-                      </Box>
-                      <Typography variant="h5">Where to ?</Typography>
-                      <Suspense>
-                        <SearchFilterForm
-                          size="small"
-                          onClose={() => {
-                            setOpenModal(false);
-                          }}
+                  <Stack
+                    component={Paper}
+                    gap={1}
+                    px={2.8}
+                    pt={2}
+                    pb={6}
+                    position="relative"
+                    sx={{
+                      borderBottomRightRadius: 18,
+                      borderBottomLeftRadius: 18,
+                    }}
+                  >
+                    <Typography variant="h5">Where to ?</Typography>
+                    <Suspense>
+                      <SearchFilterForm
+                        size="small"
+                        onClose={() => {
+                          setOpenModal(false);
+                        }}
+                      />
+                     </Suspense>
+                    <Box position="absolute" bottom={10} left="45%">
+                      <IconButton
+                        size="small"
+                        sx={(theme) => ({
+                          bgcolor: theme.palette.action.disabled,
+                        })}
+                        onClick={() => {
+                          setOpenModal(false);
+                        }}
+                      >
+                        <CloseIcon
+                          sx={{ height: 18, width: 18 }}
+                          fontSize="small"
                         />
-                      </Suspense>
-                    </Stack>
-                  </Paper>
+                      </IconButton>
+                    </Box>
+                  </Stack>
                 </Modal>
               </Paper>
             </Grid>

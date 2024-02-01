@@ -9,12 +9,9 @@ const SearchKeyword: FC<SearchKeywordProps> = ({ size }) => {
   return (
     <Autocomplete
       sx={{
-        pl: 2,
-        "& .MuiInputLabel-root": {
-          pt: 1.6,
-        },
+        pl: { xs: 1, md: 2 },
       }}
-      id="size-small-standard"
+      id="search keyword"
       freeSolo
       size="small"
       noOptionsText="No product"
@@ -25,13 +22,14 @@ const SearchKeyword: FC<SearchKeywordProps> = ({ size }) => {
       getOptionLabel={(option) =>
         typeof option === "string" ? "" : option?.title
       }
-      defaultValue={top100Films[1]}
       renderInput={(params) => (
         <TextField
           {...params}
+          fullWidth
           variant="filled"
           label="What?"
           placeholder="KeyWord"
+          sx={{ label: { pt: { md: 1.4 } } }}
         />
       )}
     />

@@ -5,8 +5,8 @@ const MuiMenu: Components<Theme>["MuiMenu"] = {
     root: ({ theme, ownerState }) => ({}),
     paper: ({ theme, ownerState }) => ({
       [theme.breakpoints.down("md")]: {
-        borderTopRightRadius: 10,
-        borderTopLeftRadius: 10,
+        borderTopRightRadius: 18,
+        borderTopLeftRadius: 18,
       },
     }),
   },

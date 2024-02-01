@@ -16,8 +16,12 @@ const MuiInput: Components<Theme>["MuiInput"] = {
 const MuiFilledInput: Components<Theme>["MuiFilledInput"] = {
   styleOverrides: {
     root: ({ theme, ownerState }) => ({
-      height: 72,
-
+      [theme.breakpoints.up("xs")]: {
+        minHeight: 50,
+      },
+      [theme.breakpoints.up("md")]: {
+        minHeight: 72,
+      },
       background: "none",
       "&:hover": {
         background: "transparent",
@@ -57,7 +61,6 @@ const MuiInputBase: Components<Theme>["MuiInputBase"] = {
 const MuiInputLabel: Components<Theme>["MuiInputLabel"] = {
   styleOverrides: {
     root: ({ theme, ownerState }) => ({
-      paddingTop: 10,
       fontWeight: 600,
     }),
   },
