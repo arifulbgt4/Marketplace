@@ -1,4 +1,5 @@
 "use client";
+import { Suspense } from "react";
 import {
   Container,
   Stack,
@@ -7,13 +8,12 @@ import {
   Button,
   Grid,
   IconButton,
-  Box,
 } from "@mui/material";
 import { FacebookRounded, Google } from "@mui/icons-material";
 
 import Logo from "src/components/Logo";
-import SigninForm from "src/forms/SigninForm";
 import routes from "src/global/routes";
+import SigninForm from "src/forms/SigninForm";
 
 export default function SignIn() {
   return (
@@ -28,7 +28,9 @@ export default function SignIn() {
             <Typography textAlign="center" variant="h3">
               Sign In
             </Typography>
-            <SigninForm />
+            <Suspense>
+              <SigninForm />
+            </Suspense>
             <Grid
               container
               display="flex"
@@ -66,9 +68,9 @@ export default function SignIn() {
                 <FacebookRounded fontSize="large" color="primary" />
               </IconButton>
             </Stack>
-            <Box alignItems="center" justifyContent="center" display="flex">
-              <Button size="small">Forgot password?</Button>
-            </Box>
+            {/* <Box alignItems="center" justifyContent="center" display="flex"> */}
+            <Button size="small">Forgot password?</Button>
+            {/* </Box> */}
           </Stack>
           <Stack
             flexDirection="row"

@@ -2,6 +2,17 @@ import { BathtubSharp } from "@mui/icons-material";
 
 import { CheckboxGroupOptions, LanguageOptions } from "../types";
 
+export const locales = [
+  "en",
+  // "af",
+  // "am",
+  // "ar",
+  // "hy",
+  // "as",
+  // "az",
+  "bn",
+];
+
 export const languages: LanguageOptions[] = [
   {
     key: "en",

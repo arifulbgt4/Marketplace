@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, Suspense } from "react";
 import { Grid, Typography } from "@mui/material";
 
 import SearchCategoryFilter from "src/widgets/SearchCategoryFilter";
@@ -14,7 +14,9 @@ const ListingsSidebarFilter: FC<ListingsSidebarFilter> = () => {
         <SearchCategoryFilter />
       </Grid>
       <Grid item xs={12}>
-        <SearchFilterForm />
+        <Suspense>
+          <SearchFilterForm />
+        </Suspense>
       </Grid>
     </Grid>
   );
