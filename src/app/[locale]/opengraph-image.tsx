@@ -2,7 +2,6 @@
 import { ImageResponse } from "next/og";
 import { siteConfig } from "src/global/config";
 
-// export const runtime = "edge";
 export const alt = siteConfig.shortName;
 export const contentType = "image/png";
 

@@ -14,9 +14,7 @@ const FeaturedListings: FC<FeaturedListingsProps> = () => {
       <Container>
         <Grid container spacing={4}>
           <Grid item xs={12}>
-            <Typography variant="h3">
-              {t("sectionTitle.featuredProperties")}
-            </Typography>
+            <Typography variant="h3">Featured Properties</Typography>
           </Grid>
 
           <Grid item xs={12} spacing={4} container>

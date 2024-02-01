@@ -14,9 +14,7 @@ const RecentListings: FC<RecentListingsProps> = () => {
       <Container>
         <Grid container spacing={4}>
           <Grid item xs={12}>
-            <Typography variant="h3">
-              {t("sectionTitle.recentProperties")}
-            </Typography>
+            <Typography variant="h3">Recent Properties</Typography>
           </Grid>
 
           <Grid item container xs={12} spacing={4}>
