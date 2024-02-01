@@ -19,11 +19,8 @@ export default function Home({
       <Grid item xs={12}>
         <SearchBanner />
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={12} zIndex={99}>
         <FeaturedListings />
-      </Grid>
-      <Grid item xs={12}>
-        <RecentListings />
       </Grid>
     </Grid>
   );
