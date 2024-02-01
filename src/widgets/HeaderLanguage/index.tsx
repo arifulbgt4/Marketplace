@@ -54,6 +54,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
 
   const defaultLang = useMemo(() => {
     return languagesData.filter((d) => d.key === locale)[0];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //---------------------------------------------------//
@@ -66,6 +67,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
   const handleCloseLangModal = useCallback(() => {
     setOpen((prev) => !prev);
     router.replace(pathName, { locale: language.key });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [language]);
 
   const handleChange = useCallback(
