@@ -1,5 +1,5 @@
-import { Grid } from "@mui/material";
 import { unstable_setRequestLocale } from "next-intl/server";
+import { Box, Grid } from "@mui/material";
 // import { useTranslations } from "next-intl";
 
 import FeaturedListings from "src/widgets/FeaturedListings";
@@ -15,13 +15,15 @@ export default function Home({
 
   // const t = useTranslations();
   return (
-    <Grid container rowSpacing={5}>
-      <Grid item xs={12}>
-        <SearchBanner />
+    <Box pt={{ xs: 8, md: 0 }}>
+      <Grid container rowSpacing={5}>
+        <Grid item xs={12}>
+          <SearchBanner />
+        </Grid>
+        <Grid item xs={12} zIndex={99}>
+          <FeaturedListings />
+        </Grid>
       </Grid>
-      <Grid item xs={12} zIndex={99}>
-        <FeaturedListings />
-      </Grid>
-    </Grid>
+    </Box>
   );
 }
