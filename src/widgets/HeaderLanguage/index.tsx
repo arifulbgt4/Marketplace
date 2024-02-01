@@ -72,9 +72,9 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
   // replace language on modale close
   const handleCloseLangModal = useCallback(() => {
     setOpen((prev) => !prev);
-    router.replace(pathName, { locale: language.key });
+    router.replace(pathName, { locale: language.key, scroll: false });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [language]);
+  }, [language, pathName]);
 
   const handleChange = useCallback(
     (event: React.SyntheticEvent, newValue: string) => {
@@ -113,8 +113,10 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
             sx: (theme) => ({
               background: {
                 xs: `linear-gradient(to bottom,${theme.palette.action.active} 30% , transparent 70%,  transparent 100%)`,
-                md: `linear-gradient(to bottom,${theme.palette.action.focus} 30% , transparent 70%,  transparent 100%)`,
+                md: "transparent",
               },
+              bottom: { xs: 48, md: 0 },
+              backdropFilter: "blur(2px)",
             }),
           },
         }}
@@ -130,30 +132,27 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
               bottom: { xs: 48, md: 0 },
               position: "absolute",
               height: { md: 580, xs: "calc(100vh - 104px - 48px)" },
-              borderRadius: 2.5,
+              borderRadius: { xs: 6, md: 2.5 },
               borderBottomLeftRadius: { xs: 0, md: 10 },
               borderBottomRightRadius: { xs: 0, md: 10 },
+              boxShadow: { xs: 0, md: 5 },
             }}
           >
             <Box position="relative">
               <IconButton
                 onClick={handleCloseLangModal}
-                sx={{
+                sx={(theme) => ({
                   position: "absolute",
                   zIndex: 1,
-                  right: { xs: -8, md: 0 },
+                  right: { xs: -5, md: 0 },
                   top: { xs: -32, md: 25 },
-                  bgcolor: "action.active",
-                  color: "#fff",
+                  bgcolor: "transparent",
+                  color: theme.palette.grey[100],
                   p: 0.2,
-                  "&:hover": {
-                    bgcolor: "action.active",
-                    color: "#fff",
-                  },
-                }}
+                })}
                 disableRipple
               >
-                <CloseIcon fontSize="small" />
+                <CloseIcon />
               </IconButton>
             </Box>
             <Box
