@@ -60,7 +60,7 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
                 justifyContent="center"
                 alignItems="center"
                 columnSpacing={0.5}
-                rowSpacing={1.5}
+                rowSpacing={2}
               >
                 <Grid item xs={12} md={4}>
                   <Stack
