@@ -1,7 +1,8 @@
 {
   "Metatags": {
     "Landing": {
-      "title": "B2C Marketplace System"
+      "title": "B2C Marketplace System",
+      "description": "It provides a frontend, backend, and database schema that startups can use to create their own B2C applications with a few simple changes. This can help startups to get a head start on their development and to launch their applications more quickly and affordably"
     }
   }
 }
