@@ -6,11 +6,6 @@ export const locales = ["en", "af", "am", "ar", "hy", "as", "az", "bn"];
 
 export const languages: LanguageOptions[] = [
   {
-    key: "en",
-    name: "English",
-    eng: "English",
-  },
-  {
     key: "af",
     name: "Afrikaans",
     eng: "Afrikaans",
@@ -25,11 +20,7 @@ export const languages: LanguageOptions[] = [
     name: "العربية",
     eng: "Arabic",
   },
-  {
-    key: "hy",
-    name: "Հայերեն",
-    eng: "Armenian",
-  },
+
   {
     key: "as",
     name: "অসমীযা়",
@@ -44,6 +35,16 @@ export const languages: LanguageOptions[] = [
     key: "bn",
     name: "বাংলা",
     eng: "Bengali",
+  },
+  {
+    key: "en",
+    name: "English",
+    eng: "English",
+  },
+  {
+    key: "hy",
+    name: "Հայերեն",
+    eng: "Armenian",
   },
 ];
 
