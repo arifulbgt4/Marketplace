@@ -22,7 +22,6 @@ const SearchBanner: FC<SearchBannerProps> = () => {
       gap={3}
       direction="column"
       justifyContent={{ xs: "flex-end", md: "center" }}
-      bgcolor="red"
     >
       <Box textAlign="center">
         <Typography variant="h1" color="common.white">
