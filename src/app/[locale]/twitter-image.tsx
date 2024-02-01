@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { getTranslations } from "next-intl/server";
 import { ImageResponse } from "next/og";
 import { siteConfig } from "src/global/config";
 
@@ -10,7 +11,12 @@ export const size = {
   height: 630,
 };
 
-export default async function Image() {
+export default async function Image({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) {
+  const t = await getTranslations({ locale });
   return new ImageResponse(
     (
       <div
@@ -35,7 +41,7 @@ export default async function Image() {
             lineHeight: 1.0002,
           }}
         >
-          {siteConfig.shortName}
+          {t("Metatags.Landing.title")}
         </h1>
       </div>
     ),
