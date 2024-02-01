@@ -34,7 +34,7 @@ export async function generateMetadata({
       default: t("Metatags.Landing.title"),
       template: `${t("Metatags.Landing.title")} - %s`,
     },
-    description: siteConfig.description,
+    description: t("Metatags.Landing.description"),
     keywords: siteConfig.keywords,
     authors: [{ name: siteConfig.author, url: siteConfig.url }],
     creator: siteConfig.creator,
@@ -49,22 +49,22 @@ export async function generateMetadata({
       type: "website",
       locale: siteConfig.localeUpperSpace,
       url: siteConfig.url,
-      title: siteConfig.shortName,
-      description: siteConfig.description,
-      siteName: siteConfig.name,
+      title: t("Metatags.Landing.title"),
+      description: t("Metatags.Landing.description"),
+      siteName: t("Metatags.Landing.title"),
       images: [
         {
           url: siteConfig.ogImage,
           width: 1200,
           height: 630,
-          alt: siteConfig.name,
+          alt: t("Metatags.Landing.title"),
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: siteConfig.shortName,
-      description: siteConfig.description,
+      title: t("Metatags.Landing.title"),
+      description: t("Metatags.Landing.description"),
       images: [siteConfig.ogImage],
       creator: "@ArifulI60735491",
     },
@@ -76,7 +76,7 @@ export default function RootLayout({ children, params: { locale } }: Props) {
   unstable_setRequestLocale(locale);
 
   return (
-    <html lang={locale}>
+    <html lang={locale} dir={locale === "ar" ? "rtl" : ""}>
       <ThemeContextProvider>
         <body suppressHydrationWarning={true}>
           <NextAuthProvider>{children}</NextAuthProvider>
