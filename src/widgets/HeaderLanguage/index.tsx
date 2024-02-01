@@ -32,6 +32,12 @@ export const { Link, redirect, usePathname, useRouter } =
       "/": "/",
       [routes.about]: {
         en: routes.about,
+        af: routes.about,
+        am: routes.about,
+        ar: routes.about,
+        hy: routes.about,
+        as: routes.about,
+        az: routes.about,
         bn: routes.about,
       },
     },
