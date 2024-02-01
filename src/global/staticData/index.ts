@@ -1,4 +1,4 @@
-import { BathtubSharp } from "@mui/icons-material";
+// import { BathtubSharp } from "@mui/icons-material";
 
 import { CheckboxGroupOptions, LanguageOptions } from "../types";
 
@@ -61,28 +61,28 @@ export const amenities: CheckboxGroupOptions[] = [
     label: "Shared Home",
     value: "shared_bathroom",
     data: {
-      icon: BathtubSharp,
+      icon: "BathtubSharp",
     },
   },
   {
     label: "Another one",
     value: "shared_b",
     data: {
-      icon: BathtubSharp,
+      icon: "BathtubSharp",
     },
   },
   {
     label: "Balcuny",
     value: "shared_bathroom2",
     data: {
-      icon: BathtubSharp,
+      icon: "BathtubSharp",
     },
   },
   {
     label: "Another two",
     value: "shared_b3",
     data: {
-      icon: BathtubSharp,
+      icon: "BathtubSharp",
     },
   },
 ];
