@@ -4,8 +4,15 @@ import { Grid } from "@mui/material";
 import FeaturedListings from "src/widgets/FeaturedListings";
 import SearchBanner from "src/widgets/SearchBanner";
 import RecentListings from "src/widgets/RecentListings";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-export default function Home() {
+export default function Home({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) {
+  unstable_setRequestLocale(locale);
+
   // const t = useTranslations();
   return (
     <Grid container rowSpacing={5}>

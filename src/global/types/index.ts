@@ -1,6 +1,11 @@
 import { SvgIconComponent } from "@mui/icons-material";
 import { User } from "@prisma/client";
 
+export interface LanguageOptions {
+  key: string;
+  name: string;
+  eng: string;
+}
 export interface AnyObject {
   [key: string]: any;
 }

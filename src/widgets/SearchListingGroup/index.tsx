@@ -1,5 +1,5 @@
 "use client";
-import { FC, useState } from "react";
+import { FC, Suspense, useState } from "react";
 import {
   Grid,
   Box,
@@ -126,12 +126,14 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
                     }}
                   >
                     <Typography variant="h5">Where to ?</Typography>
-                    <SearchFilterForm
-                      size="small"
-                      onClose={() => {
-                        setOpenModal(false);
-                      }}
-                    />
+                    <Suspense>
+                      <SearchFilterForm
+                        size="small"
+                        onClose={() => {
+                          setOpenModal(false);
+                        }}
+                      />
+                     </Suspense>
                     <Box position="absolute" bottom={10} left="45%">
                       <IconButton
                         size="small"
@@ -155,7 +157,9 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
           </Hidden>
           <Hidden mdDown>
             <Grid item md={6}>
-              <SearchFilterForm size="small" />
+              <Suspense>
+                <SearchFilterForm size="small" />
+              </Suspense>
             </Grid>
           </Hidden>
           <Hidden mdDown>

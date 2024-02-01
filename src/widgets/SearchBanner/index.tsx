@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, Suspense } from "react";
 import { Typography, Box, Stack, Container } from "@mui/material";
 
 import SearchFilterForm from "src/forms/SearchFilterForm";
@@ -41,7 +41,9 @@ const SearchBanner: FC<SearchBannerProps> = () => {
         </Typography>
         {/* <Box p={1.5} bgcolor="background.paper" borderRadius={{ md: 2 }}> */}
         <Container maxWidth="md">
-          <SearchFilterForm />
+          <Suspense>
+            <SearchFilterForm />
+          </Suspense>
         </Container>
         {/* </Box> */}
       </Stack>
