@@ -4,8 +4,7 @@ import createIntlMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 
 import { siteConfig } from "src/global/config";
-
-const locales = ["en"];
+import { locales } from "src/global/staticData";
 
 const publicPages = [
   "/",
@@ -77,7 +76,7 @@ export const config = {
 
     // Set a cookie to remember the previous locale for
     // all requests that have a locale prefix
-    "/(en|bn)/:path*",
+    `/(${locales.join("|")})/:path*`,
 
     // Enable redirects that add missing locales
     // (e.g. `/pathnames` -> `/en/pathnames`),
