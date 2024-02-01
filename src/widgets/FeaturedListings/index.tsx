@@ -13,11 +13,11 @@ const FeaturedListings: FC<FeaturedListingsProps> = () => {
     <Box>
       <Container>
         <Grid container spacing={4}>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <Typography variant="h3">Featured Properties</Typography>
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} spacing={4} container>
+          <Grid item xs={12} spacing={4} container justifyContent="center">
             {featurePostData.map((data) => {
               const {
                 id,
@@ -30,7 +30,7 @@ const FeaturedListings: FC<FeaturedListingsProps> = () => {
                 address,
               } = data;
               return (
-                <Grid item xs={12} md={4} key={id}>
+                <Grid item xs={12} md={3} key={id}>
                   <Listing
                     id={id}
                     address={address}

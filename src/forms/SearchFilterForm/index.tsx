@@ -44,6 +44,7 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
   return (
     <Stack
       bgcolor={{ xs: "background.paper" }}
+      boxShadow={2}
       borderRadius={{ md: 25 }}
       justifyContent="center"
     >
