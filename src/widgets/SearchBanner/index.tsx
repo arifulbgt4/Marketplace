@@ -13,9 +13,6 @@ import SearchFilterForm from "src/forms/SearchFilterForm";
 
 import { SearchBannerProps } from "./Types";
 
-const BANNER_BG =
-  "https://images.unsplash.com/photo-1500964757637-c85e8a162699?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=925&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTcwMDAyMTMzMg&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1920";
-
 const SearchBanner: FC<SearchBannerProps> = () => {
   return (
     <Stack

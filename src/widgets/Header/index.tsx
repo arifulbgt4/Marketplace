@@ -178,6 +178,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
           <Toolbar
             sx={(theme) => ({
               position: "fixed",
+              boxShadow: 10,
               bottom: 0,
               left: 0,
               right: 0,
