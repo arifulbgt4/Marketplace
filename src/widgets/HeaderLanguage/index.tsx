@@ -1,5 +1,5 @@
 "use client";
-import { FC, useState, useCallback } from "react";
+import { FC, useState, useCallback, useMemo } from "react";
 import {
   Grid,
   Stack,
@@ -14,23 +14,47 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import CloseIcon from "@mui/icons-material/Close";
+import { useLocale } from "next-intl";
+import { createLocalizedPathnamesNavigation } from "next-intl/navigation";
 
 import { languages as languagesData } from "src/global/staticData";
+import routes from "src/global/routes";
+import { LanguageOptions } from "src/global/types";
+import { locales } from "src/global/staticData";
 import Language from "src/components/Language";
 
-import { LanguageOptions } from "src/global/types";
 import { HeaderLanguageProps } from "./Types";
 
+export const { Link, redirect, usePathname, useRouter } =
+  createLocalizedPathnamesNavigation({
+    locales,
+    pathnames: {
+      "/": "/",
+      [routes.about]: {
+        en: routes.about,
+        bn: routes.about,
+      },
+    },
+  });
+
 const HeaderLanguage: FC<HeaderLanguageProps> = () => {
+  const [currency, setCurrency] = useState();
   const [value, setValue] = useState("1");
   const [open, setOpen] = useState(false);
   const [language, setLanguage] = useState<LanguageOptions>({
-    key: "en",
-    name: "English",
-    eng: "English",
+    key: "",
+    name: "",
+    eng: "",
   });
 
-  const [currency, setCurrency] = useState();
+  const router = useRouter();
+  const pathName = usePathname();
+
+  const locale = useLocale();
+
+  const defaultLang = useMemo(() => {
+    return languagesData.filter((d) => d.key === locale)[0];
+  }, []);
 
   //---------------------------------------------------//
   // Controling Language and Currency modal open/close //
@@ -38,9 +62,11 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
   const handleOpenLangModal = useCallback(() => {
     setOpen((prev) => !prev);
   }, []);
+  // replace language on modale close
   const handleCloseLangModal = useCallback(() => {
     setOpen((prev) => !prev);
-  }, []);
+    router.replace(pathName, { locale: language.key });
+  }, [language]);
 
   const handleChange = useCallback(
     (event: React.SyntheticEvent, newValue: string) => {
@@ -70,7 +96,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
         })}
       >
         <Typography variant="h6" textTransform="uppercase">
-          {language.key}
+          {language?.key || defaultLang?.key}
         </Typography>
       </Stack>
       <Modal open={open} onClose={handleCloseLangModal}>
@@ -148,9 +174,9 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                         gap={1.25}
                       >
                         <Language
-                          name={language.name}
-                          langKey={language.key}
-                          eng={language.eng}
+                          name={language?.name || defaultLang?.name}
+                          langKey={language?.key || defaultLang?.key}
+                          eng={language?.eng || defaultLang?.eng}
                           isActive
                         />
                       </Grid>
@@ -174,7 +200,9 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                             name={lang.name}
                             langKey={lang.key}
                             eng={lang.eng}
-                            isActive={Boolean(language.key === lang.key)}
+                            isActive={Boolean(
+                              (language?.key || defaultLang?.key) === lang.key
+                            )}
                             onClick={() => setLanguage(lang)}
                           />
                         </Grid>
