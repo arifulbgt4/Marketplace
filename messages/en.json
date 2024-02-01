@@ -1,9 +1,9 @@
 {
-  "Index": {
+  "LocaleLayout": {
     "title": "Hello world!"
   },
-  "sectionTitle":{
-    "featuredProperties":"Featured Properties",
-    "recentProperties":"Recent Properties"
+  "sectionTitle": {
+    "featuredProperties": "Featured Properties",
+    "recentProperties": "Recent Properties"
   }
 }

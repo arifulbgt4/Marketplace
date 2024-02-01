@@ -1,9 +1,9 @@
 {
-  "Index": {
+  "LocaleLayout": {
     "title": "Hello world!"
   },
-  "sectionTitle":{
-    "featuredProperties":"বৈশিষ্ট্যযুক্ত প্রোপার্টি",
-    "recentProperties":"Recent Properties"
+  "sectionTitle": {
+    "featuredProperties": "বৈশিষ্ট্যযুক্ত প্রোপার্টি",
+    "recentProperties": "Recent Properties"
   }
 }
