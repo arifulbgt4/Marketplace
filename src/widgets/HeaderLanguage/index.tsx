@@ -1,4 +1,6 @@
 "use client";
+import { useLocale } from "next-intl";
+import { createLocalizedPathnamesNavigation } from "next-intl/navigation";
 import { FC, useState, useCallback, useMemo } from "react";
 import {
   Grid,
@@ -14,8 +16,7 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import CloseIcon from "@mui/icons-material/Close";
-import { useLocale } from "next-intl";
-import { createLocalizedPathnamesNavigation } from "next-intl/navigation";
+import TranslateIcon from "@mui/icons-material/Translate";
 
 import { languages as languagesData } from "src/global/staticData";
 import routes from "src/global/routes";
@@ -103,6 +104,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
           },
         })}
       >
+        <TranslateIcon fontSize="small" />
         <Typography variant="h6" textTransform="uppercase">
           {language?.key || defaultLang?.key}
         </Typography>
@@ -147,7 +149,10 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                   right: { xs: -5, md: 0 },
                   top: { xs: -32, md: 25 },
                   bgcolor: "transparent",
-                  color: theme.palette.grey[100],
+                  color: {
+                    xs: theme.palette.grey[100],
+                    md: theme.palette.text.primary,
+                  },
                   p: 0.2,
                 })}
                 disableRipple
