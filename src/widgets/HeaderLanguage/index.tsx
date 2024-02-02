@@ -92,8 +92,8 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
         gap={1}
         justifyContent="center"
         alignItems="center"
-        px={2}
-        py={1}
+        px={{ xs: 0, md: 2 }}
+        py={{ xs: 0, md: 1 }}
         borderRadius={40}
         sx={(theme) => ({
           color: "primary.main",
