@@ -60,7 +60,7 @@ const UserLogIn: FC<UserLogInProps> = () => {
         open={Boolean(anchorElNav)}
         onClose={handleCloseNavMenu}
       >
-        <Stack width={{ xs: "100vw", md: 310 }}>
+        <Stack width={{ xs: "100vw", md: "auto" }}>
           <ListItem
             disablePadding
             component={Link}
