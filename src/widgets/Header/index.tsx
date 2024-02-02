@@ -88,22 +88,6 @@ const Header: FC<HeaderProps> = ({ user }) => {
                     }}
                   />
                 </Suspense>
-                {/* <Box position="absolute" bottom={10} left="45%">
-                  <IconButton
-                    size="small"
-                    sx={(theme) => ({
-                      bgcolor: theme.palette.action.disabled,
-                    })}
-                    onClick={() => {
-                      setOpenModal(false);
-                    }}
-                  >
-                    <CloseIcon
-                      sx={{ height: 18, width: 18 }}
-                      fontSize="small"
-                    />
-                  </IconButton>
-                </Box> */}
               </Stack>
             </Modal>
           </Hidden>
