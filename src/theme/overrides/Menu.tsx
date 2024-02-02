@@ -8,6 +8,9 @@ const MuiMenu: Components<Theme>["MuiMenu"] = {
         borderTopRightRadius: 18,
         borderTopLeftRadius: 18,
       },
+      [theme.breakpoints.up("md")]: {
+        top: "0px !important",
+      },
     }),
   },
 };
@@ -18,9 +21,10 @@ const MuiMenuItem: Components<Theme>["MuiMenuItem"] = {
   },
 };
 
-const MuiMenuList: Components<Theme>["MuiMenuList"] = {
+const MuiMenuList: Components<Theme>["MuiPopover"] = {
   styleOverrides: {
     root: ({ theme, ownerState }) => ({}),
+    paper: ({ theme, ownerState }) => ({}),
   },
 };
 
