@@ -6,39 +6,25 @@ import {
   Toolbar,
   Box,
   IconButton,
-  MenuItem,
-  Menu,
   Hidden,
   Stack,
-  Link,
   Modal,
   Typography,
   Paper,
 } from "@mui/material";
-import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
-import CloseIcon from "@mui/icons-material/Close";
 
 import Logo from "src/components/Logo";
-import routes from "src/global/routes";
 import SearchFilterForm from "src/forms/SearchFilterForm";
 import HeaderLanguage from "../HeaderLanguage";
 import UserAvatar from "../UserAvatar";
+import UserLogIn from "../UserLogIn";
 
 import { HeaderProps } from "./Types";
 
 const Header: FC<HeaderProps> = ({ user }) => {
-  const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null);
   const [openModal, setOpenModal] = useState(false);
   // const { sticky, stickyRef } = useSticky(10);
-
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
 
   return (
     <AppBar position="fixed" color="inherit" elevation={0}>
@@ -124,55 +110,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
           <Hidden mdDown>
             <Stack direction="row" justifyContent="end" alignItems="center">
               <HeaderLanguage />
-              <Box>
-                {!user ? (
-                  <>
-                    <IconButton onClick={handleOpenNavMenu} sx={{ p: 0 }}>
-                      <AccountCircleRoundedIcon
-                        sx={{
-                          height: 45,
-                          width: 45,
-                          color: "primary.main",
-                          "&:hover": { color: "primary.dark" },
-                        }}
-                      />
-                    </IconButton>
-                    <Menu
-                      sx={{ mt: 5.5 }}
-                      id="menu-appbar"
-                      anchorEl={anchorElNav}
-                      anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      keepMounted
-                      transformOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      open={Boolean(anchorElNav)}
-                      onClose={handleCloseNavMenu}
-                    >
-                      <MenuItem
-                        component={Link}
-                        onClick={handleCloseNavMenu}
-                        href={routes.signin}
-                      >
-                        Sign In
-                      </MenuItem>
-                      <MenuItem
-                        onClick={handleCloseNavMenu}
-                        component={Link}
-                        href={routes.signup}
-                      >
-                        Sign Up
-                      </MenuItem>
-                    </Menu>
-                  </>
-                ) : (
-                  <UserAvatar />
-                )}
-              </Box>
+              <Box>{!user ? <UserLogIn /> : <UserAvatar />}</Box>
             </Stack>
           </Hidden>
         </Toolbar>
@@ -194,54 +132,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
               flex={1}
             >
               <HeaderLanguage />
-              <Box>
-                {!user ? (
-                  <>
-                    <IconButton onClick={handleOpenNavMenu} sx={{ p: 0 }}>
-                      <AccountCircleRoundedIcon
-                        sx={{
-                          height: 45,
-                          width: 45,
-                          color: "primary.main",
-                          "&:hover": { color: "primary.dark" },
-                        }}
-                      />
-                    </IconButton>
-                    <Menu
-                      id="menu-appbar"
-                      anchorEl={anchorElNav}
-                      anchorOrigin={{
-                        vertical: "bottom",
-                        horizontal: "left",
-                      }}
-                      keepMounted
-                      transformOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      open={Boolean(anchorElNav)}
-                      onClose={handleCloseNavMenu}
-                    >
-                      <MenuItem
-                        component={Link}
-                        onClick={handleCloseNavMenu}
-                        href={routes.signin}
-                      >
-                        Sign In
-                      </MenuItem>
-                      <MenuItem
-                        onClick={handleCloseNavMenu}
-                        component={Link}
-                        href={routes.signup}
-                      >
-                        Sign Up
-                      </MenuItem>
-                    </Menu>
-                  </>
-                ) : (
-                  <UserAvatar />
-                )}
-              </Box>
+              <Box>{!user ? <UserLogIn /> : <UserAvatar />}</Box>
             </Stack>
           </Toolbar>
         </Hidden>
