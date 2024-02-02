@@ -79,7 +79,7 @@ const SearchBanner: FC<SearchBannerProps> = () => {
       >
         <Box
           sx={(theme) => ({
-            borderWidth: 3,
+            borderWidth: 1,
             borderStyle: "dotted",
             borderColor: theme.palette.primary.dark,
             position: "absolute",
@@ -94,7 +94,7 @@ const SearchBanner: FC<SearchBannerProps> = () => {
         >
           <Box
             sx={(theme) => ({
-              borderWidth: 3,
+              borderWidth: 2,
               borderStyle: "dotted",
               borderColor: theme.palette.primary.main,
               position: "absolute",
@@ -120,7 +120,7 @@ const SearchBanner: FC<SearchBannerProps> = () => {
             >
               <Box
                 sx={(theme) => ({
-                  borderWidth: 3,
+                  borderWidth: 2,
                   borderStyle: "dotted",
                   borderColor: theme.palette.primary.light,
                   position: "absolute",
@@ -133,7 +133,7 @@ const SearchBanner: FC<SearchBannerProps> = () => {
               >
                 <Box
                   sx={(theme) => ({
-                    borderWidth: 3,
+                    borderWidth: 2,
                     borderStyle: "dotted",
                     borderColor: theme.palette.primary.light,
                     position: "absolute",
