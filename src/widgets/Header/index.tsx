@@ -70,9 +70,11 @@ const Header: FC<HeaderProps> = ({ user }) => {
               }}
               slotProps={{
                 backdrop: {
-                  sx: {
-                    backgroundColor: "transparent",
-                  },
+                  sx: (theme) => ({
+                    background: "transparent",
+                    top: 48,
+                    backdropFilter: "blur(2px)",
+                  }),
                 },
               }}
               aria-labelledby="modal-modal-title"
