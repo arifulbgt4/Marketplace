@@ -69,6 +69,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
             >
               <Stack
                 component={Paper}
+                elevation={4}
                 gap={1}
                 px={2.8}
                 pt={2}

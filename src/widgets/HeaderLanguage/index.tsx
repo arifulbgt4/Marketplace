@@ -96,11 +96,10 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
         py={{ xs: 0, md: 1 }}
         borderRadius={40}
         sx={(theme) => ({
-          color: "primary.main",
+          color: "text.primary",
           cursor: "pointer",
           "&:hover": {
-            bgcolor: "action.hover",
-            color: "common.black",
+            bgcolor: { md: "action.hover" },
           },
         })}
       >
@@ -113,12 +112,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
         slotProps={{
           backdrop: {
             sx: (theme) => ({
-              background: {
-                xs: `linear-gradient(to bottom,${theme.palette.action.active} 30% , transparent 70%,  transparent 100%)`,
-                md: "transparent",
-              },
               bottom: { xs: 48, md: 0 },
-              backdropFilter: "blur(2px)",
             }),
           },
         }}
@@ -133,11 +127,11 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
               top: { md: 77 },
               bottom: { xs: 48, md: 0 },
               position: "absolute",
-              height: { md: 580, xs: "calc(100vh - 104px - 48px)" },
+              height: { md: 580, xs: "calc(100vh - 180px - 48px)" },
               borderRadius: { xs: 6, md: 2.5 },
               borderBottomLeftRadius: { xs: 0, md: 10 },
               borderBottomRightRadius: { xs: 0, md: 10 },
-              boxShadow: { xs: 0, md: 5 },
+              boxShadow: { xs: 15, md: 5 },
             }}
           >
             <Box position="relative">
@@ -147,13 +141,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                   position: "absolute",
                   zIndex: 1,
                   right: { xs: -5, md: 0 },
-                  top: { xs: -32, md: 25 },
-                  bgcolor: "transparent",
-                  color: {
-                    xs: theme.palette.grey[100],
-                    md: theme.palette.text.primary,
-                  },
-                  p: 0.2,
+                  top: { xs: -40, md: 25 },
                 })}
                 disableRipple
               >
