@@ -43,15 +43,20 @@ const UserAvatar: FC<UserAvatarProps> = () => {
         <Avatar>AD</Avatar>
       </IconButton>
       <Menu
-        // component={Backdrop}
-        elevation={0}
         sx={(theme) => ({
-          mt: { xs: -4.7, md: 7.9 },
+          mt: { xs: -4.6, md: 7.9 },
           right: { xs: -16, md: 0 },
           left: { xs: -16, md: 0 },
-          mb: { xs: 7, md: 0 },
+          mb: { xs: 6, md: 0 },
           background: "transparent",
           backdropFilter: "blur(2px)",
+          top: "0px !important",
+          "& .MuiMenu-paper": {
+            borderTopRightRadius: { xs: 24, md: 4 },
+            borderTopLeftRadius: { xs: 24, md: 4 },
+            boxShadow: { xs: 15, md: 4 },
+            top: { md: "0px !important" },
+          },
         })}
         id="menu-appbar"
         anchorEl={anchorElAvat}

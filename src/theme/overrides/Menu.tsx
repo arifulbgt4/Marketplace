@@ -4,12 +4,8 @@ const MuiMenu: Components<Theme>["MuiMenu"] = {
   styleOverrides: {
     root: ({ theme, ownerState }) => ({}),
     paper: ({ theme, ownerState }) => ({
-      [theme.breakpoints.down("md")]: {
-        borderTopRightRadius: 24,
-        borderTopLeftRadius: 24,
-      },
       [theme.breakpoints.up("md")]: {
-        top: "0px !important",
+        // top: "0px !important",
       },
     }),
   },
