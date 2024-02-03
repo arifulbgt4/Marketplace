@@ -54,7 +54,7 @@ export default {
     A700: "#616161",
   },
   text: {
-    primary: "rgb(10, 37, 64)",
+    primary: "#111111",
     secondary: "rgb(96 111 126)",
     disabled: "rgb(26, 31, 54)",
   },
