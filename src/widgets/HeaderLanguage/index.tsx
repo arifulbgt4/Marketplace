@@ -124,6 +124,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
             maxWidth="md"
             sx={{
               bgcolor: "background.paper",
+              pt: 2,
               top: { md: 177 },
               bottom: { xs: 48, md: 0 },
               position: "absolute",
@@ -140,8 +141,8 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                 sx={(theme) => ({
                   position: "absolute",
                   zIndex: 1,
-                  right: { xs: -5, md: 0 },
-                  top: { xs: -40, md: 25 },
+                  right: { xs: -5, md: -5 },
+                  top: { xs: -55, md: 0 },
                 })}
                 disableRipple
               >
@@ -156,8 +157,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                 },
               }}
               height="100%"
-              px={2}
-              pb={5}
+              p={{ xs: 1, md: 2 }}
             >
               <TabContext value={value}>
                 <Stack>
@@ -167,10 +167,11 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                   </TabList>
                 </Stack>
                 <TabPanel sx={{ px: 0 }} value="1">
-                  <Stack pb={4} gap={3}>
-                    <Typography variant="h5">Selected languages</Typography>
-
-                    <Grid container spacing={2}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <Typography variant="h5">Selected languages</Typography>
+                    </Grid>
+                    <Grid item container spacing={2} pb={2}>
                       <Grid
                         item
                         xs={6}
@@ -188,10 +189,12 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                         />
                       </Grid>
                     </Grid>
-                  </Stack>
-                  <Stack gap={3}>
-                    <Typography variant="h5">Choose a language</Typography>
-                    <Grid container spacing={0.3}>
+                  </Grid>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <Typography variant="h5">Choose a language</Typography>
+                    </Grid>
+                    <Grid item container spacing={1}>
                       {languagesData?.map((lang: LanguageOptions, index) => (
                         <Grid
                           item
@@ -215,7 +218,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                         </Grid>
                       ))}
                     </Grid>
-                  </Stack>
+                  </Grid>
                 </TabPanel>
                 <TabPanel sx={{ px: 0 }} value="2">
                   <Stack pb={4} gap={3}>

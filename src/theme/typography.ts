@@ -105,8 +105,8 @@ export default {
   },
   overline: {
     ...dm_sans.style,
-    fontWeight: 400,
-    fontSize: "0.688rem",
+    fontWeight: 500,
+    fontSize: "0.875rem",
     lineHeight: 2.66,
     letterSpacing: "0.013em",
     textTransform: "uppercase",
