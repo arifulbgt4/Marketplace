@@ -18,6 +18,7 @@ const publicPages = [
   "/contact",
   "/s",
   "/l",
+  "/message",
 ];
 
 const intlMiddleware = createIntlMiddleware({
