@@ -1,5 +1,12 @@
 import { FC } from "react";
-import { Box, List, ListItem, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  List,
+  ListItemButton,
+  Stack,
+  Typography,
+  alpha,
+} from "@mui/material";
 
 import { LanguageProps } from "./Types";
 
@@ -19,20 +26,46 @@ const Language: FC<LanguageProps> = ({
         cursor: "pointer",
       }}
     >
-      <List component="nav" aria-label="main mailbox folders">
-        <ListItem selected={isActive} onClick={onClick && onClick}>
+      <List sx={{ p: 0 }} component="nav" aria-label="main mailbox folders">
+        <ListItemButton
+          selected={isActive}
+          sx={(theme) => ({
+            borderRadius: 2,
+            // boxShadow: 10,
+            bgcolor: alpha(
+              theme.palette.primary.dark,
+              theme.palette.action.focusOpacity
+            ),
+
+            ":hover": {
+              // boxShadow: 14,
+              bgcolor: alpha(
+                theme.palette.primary.light,
+                theme.palette.action.selectedOpacity
+              ),
+            },
+          })}
+          onClick={onClick && onClick}
+        >
           <Stack flexDirection="row" alignItems="center" width="100%" gap={1}>
-            <Typography variant="h4" textTransform="uppercase" px={1}>
+            <Typography
+              fontWeight={600}
+              variant="h4"
+              textTransform="uppercase"
+              px={1}
+            >
               {langKey}
             </Typography>
             <Box width={115}>
-              <Typography variant="h6">{name}</Typography>
+              <Typography variant="h6" fontWeight={500}>
+                {name}
+              </Typography>
               <Typography color="text.secondary" variant="body2">
                 {eng}
               </Typography>
             </Box>
           </Stack>
-        </ListItem>
+        </ListItemButton>
       </List>
     </Box>
   );

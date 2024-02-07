@@ -45,6 +45,12 @@ const UserLogIn: FC<UserLogInProps> = () => {
           mb: { xs: 7, md: 0 },
           background: "transparent",
           backdropFilter: "blur(2px)",
+          "& .MuiMenu-paper": {
+            borderTopRightRadius: { xs: 24, md: 4 },
+            borderTopLeftRadius: { xs: 24, md: 4 },
+            boxShadow: { xs: 15, md: 4 },
+            top: { md: "0px !important" },
+          },
         })}
         id="menu-appbar"
         anchorEl={anchorElNav}

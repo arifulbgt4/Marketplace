@@ -124,7 +124,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
             maxWidth="md"
             sx={{
               bgcolor: "background.paper",
-              top: { md: 77 },
+              top: { md: 177 },
               bottom: { xs: 48, md: 0 },
               position: "absolute",
               height: { md: 580, xs: "calc(100vh - 180px - 48px)" },
@@ -191,7 +191,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
                   </Stack>
                   <Stack gap={3}>
                     <Typography variant="h5">Choose a language</Typography>
-                    <Grid container spacing={1}>
+                    <Grid container spacing={0.3}>
                       {languagesData?.map((lang: LanguageOptions, index) => (
                         <Grid
                           item
