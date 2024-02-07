@@ -5,15 +5,10 @@ import {
   Box,
   Stack,
   Container,
-  Card,
-  CardContent,
-  CardActions,
-  IconButton,
   Paper,
   Link,
   SvgIcon,
 } from "@mui/material";
-import AirlineSeatFlatIcon from "@mui/icons-material/AirlineSeatFlat";
 
 import SearchFilterForm from "src/forms/SearchFilterForm";
 
