@@ -33,7 +33,7 @@ function shadowsTheme({ shadows }: PaletteOptions): ShadowsOptions {
     `0px 18px 36px -18px ${TRANSPARENT_ONE},0px 30px 45px -30px ${TRANSPARENT_TWO}`,
     `0px 18px 36px -18px ${TRANSPARENT_ONE},0px 30px 45px -30px ${TRANSPARENT_TWO}`,
     `0px 18px 36px -18px ${TRANSPARENT_ONE},0px 30px 45px -30px ${TRANSPARENT_TWO}`,
-    `0px 18px 36px -18px ${TRANSPARENT_ONE},0px 30px 45px -30px ${TRANSPARENT_TWO}`,
+    ` 0 2px 4px 0 ${TRANSPARENT_ONE}, 0 2px 4px 0 ${TRANSPARENT_TWO}`,
   ];
 }
 

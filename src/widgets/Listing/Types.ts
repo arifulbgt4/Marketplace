@@ -1,5 +1,6 @@
 export interface ListingProps {
   id: number;
+  name?: string;
   isMark?: boolean;
   isGrid?: boolean;
   slug: string;
