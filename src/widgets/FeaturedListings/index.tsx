@@ -17,7 +17,7 @@ const FeaturedListings: FC<FeaturedListingsProps> = () => {
             <Typography variant="h3">Featured Properties</Typography>
           </Grid> */}
 
-          <Grid item xs={12} spacing={4} container justifyContent="center">
+          <Grid item xs={12} spacing={6} container justifyContent="center">
             {featurePostData.map((data) => {
               const {
                 id,
