@@ -1,8 +1,14 @@
 import { TypographyVariants as TypographyVariantsOption } from "@mui/material/styles";
-import { DM_Sans } from "next/font/google";
+import { Rubik, Roboto } from "next/font/google";
 
-export const dm_sans = DM_Sans({
-  weight: ["100", "300", "400", "500", "600", "700"],
+export const roboto = Roboto({
+  weight: ["100", "300", "400", "500", "700"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  display: "swap",
+});
+export const rubik = Rubik({
+  weight: ["300", "400", "500", "600", "700", "900"],
   style: ["normal", "italic"],
   subsets: ["latin"],
   display: "swap",
@@ -11,7 +17,7 @@ export const dm_sans = DM_Sans({
 export interface TypographyVariants extends TypographyVariantsOption {}
 
 export default {
-  fontFamily: `${dm_sans.style.fontFamily}`,
+  fontFamily: `${roboto.style.fontFamily}, ${rubik.style.fontFamily}`,
   htmlFontSize: 16,
   fontSize: 14,
   fontWeightLight: 300,
@@ -19,77 +25,77 @@ export default {
   fontWeightMedium: 500,
   fontWeightBold: 700,
   h1: {
-    ...dm_sans.style,
+    ...rubik.style,
     fontWeight: 500,
-    fontSize: "3.5rem",
+    fontSize: "3.75rem",
     lineHeight: 1.167,
-    letterSpacing: "-0.02em",
+    letterSpacing: "0.01em",
   },
   h2: {
-    ...dm_sans.style,
+    ...rubik.style,
     fontWeight: 500,
     fontSize: "2.5rem",
     lineHeight: 1.263157895,
     letterSpacing: "-0.013",
   },
   h3: {
-    ...dm_sans.style,
+    ...roboto.style,
     fontWeight: 400,
-    fontSize: "1.62rem",
+    fontSize: "1.25rem",
     lineHeight: 1.384615385,
-    letterSpacing: "0em",
+    letterSpacing: "0.01em",
   },
   h4: {
-    ...dm_sans.style,
+    ...roboto.style,
     fontWeight: 500,
     fontSize: "1.5rem",
     lineHeight: 1.33333,
     letterSpacing: "0.006",
   },
   h5: {
-    ...dm_sans.style,
+    ...roboto.style,
     fontWeight: 500,
     fontSize: "1.25rem",
     lineHeight: 1.334,
     letterSpacing: "0em",
   },
   h6: {
-    ...dm_sans.style,
+    ...roboto.style,
     fontWeight: 500,
     fontSize: "1.125rem",
     lineHeight: 1.6,
     letterSpacing: "0.0075em",
   },
   subtitle1: {
-    ...dm_sans.style,
+    ...roboto.style,
     fontWeight: 400,
     fontSize: "1.125rem",
     lineHeight: 1.75,
     letterSpacing: "0.013em",
   },
   subtitle2: {
-    ...dm_sans.style,
+    ...roboto.style,
     fontWeight: 500,
     fontSize: "1rem",
     lineHeight: 1.57,
     letterSpacing: "0.013em",
   },
   body1: {
-    ...dm_sans.style,
+    ...roboto.style,
     fontWeight: 300,
     fontSize: "1.125rem",
     lineHeight: 1.555555556,
     letterSpacing: "0.013em",
   },
   body2: {
-    ...dm_sans.style,
+    ...roboto.style,
     fontWeight: 400,
     fontSize: "0.938rem",
     lineHeight: 1.4,
     letterSpacing: "0.01071em",
   },
   button: {
-    ...dm_sans.style,
+    ...rubik.style,
     fontWeight: 500,
     fontSize: "0.938rem",
     lineHeight: 1.6,
@@ -97,14 +103,14 @@ export default {
     textTransform: "uppercase",
   },
   caption: {
-    ...dm_sans.style,
+    ...rubik.style,
     fontWeight: 400,
     fontSize: "0.938rem",
     lineHeight: 1.6,
     letterSpacing: "0.01875em",
   },
   overline: {
-    ...dm_sans.style,
+    ...rubik.style,
     fontWeight: 500,
     fontSize: "0.875rem",
     lineHeight: 2.66,

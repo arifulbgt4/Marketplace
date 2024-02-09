@@ -37,12 +37,25 @@ const SearchBanner: FC<SearchBannerProps> = () => {
         mt={8}
         mb={12}
       >
-        <Stack justifyContent="center" gap={2} mb={9}>
-          <Typography variant="h1" align="center">
-            Find Home Together
+        <Stack justifyContent="center" gap={3} mb={9}>
+          <Typography
+            variant="h1"
+            align="center"
+            sx={(theme) => ({
+              backgroundcolor: "primary",
+              backgroundImage: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main},${theme.palette.primary.main})`,
+              backgroundSize: "100%",
+              backgroundRepeat: "repeat",
+              backgroundClip: "text",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            })}
+          >
+            Discover, Shop & Thrive
           </Typography>
-          <Typography variant="h3" sx={{ opacity: 0.8 }} align="center">
-            25,000 rooms amd houses available now on Dream House
+          <Typography variant="h3" align="center">
+            Explore Endless Possibilities: Over 25,000+ Listings Await You in
+            Our Global Marketplace
           </Typography>
         </Stack>
         <Stack justifyContent="center" mb={12}>
