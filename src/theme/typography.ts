@@ -27,7 +27,7 @@ export default {
   h1: {
     ...rubik.style,
     fontWeight: 500,
-    fontSize: "3.75rem",
+    fontSize: "3.5rem",
     lineHeight: 1.167,
     letterSpacing: "0.01em",
   },

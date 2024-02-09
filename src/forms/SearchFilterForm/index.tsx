@@ -43,8 +43,8 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
 
   return (
     <Stack
-      bgcolor={{ md: "background.default" }}
-      boxShadow={{ xs: 0, md: 14 }}
+      bgcolor={{ md: "background.paper" }}
+      boxShadow={{ xs: 0, md: 10 }}
       borderRadius={{ md: 25 }}
       justifyContent="center"
     >
@@ -113,7 +113,7 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
                     })}
                   >
                     <Typography
-                      fontWeight={600}
+                      fontWeight={500}
                       fontSize={dateSelect !== "" ? 13.408 : 18}
                       color="text.secondary"
                       variant={dateSelect === "" ? "body1" : "caption"}

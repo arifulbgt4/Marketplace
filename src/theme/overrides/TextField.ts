@@ -61,7 +61,7 @@ const MuiInputBase: Components<Theme>["MuiInputBase"] = {
 const MuiInputLabel: Components<Theme>["MuiInputLabel"] = {
   styleOverrides: {
     root: ({ theme, ownerState }) => ({
-      fontWeight: 600,
+      fontWeight: 500,
     }),
   },
 };
