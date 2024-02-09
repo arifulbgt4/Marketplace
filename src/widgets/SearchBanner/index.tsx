@@ -36,8 +36,14 @@ const SearchBanner: FC<SearchBannerProps> = () => {
         zIndex={999}
         mt={8}
         mb={12}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-evenly",
+          flex: 1,
+        }}
       >
-        <Stack justifyContent="center" gap={3} mb={9}>
+        <Stack justifyContent="center" gap={3}>
           <Typography
             variant="h1"
             align="center"
@@ -58,10 +64,10 @@ const SearchBanner: FC<SearchBannerProps> = () => {
             Our Global Marketplace
           </Typography>
         </Stack>
-        <Stack justifyContent="center" mb={12}>
+        <Stack justifyContent="center">
           <SearchFilterForm />
         </Stack>
-        <Stack gap={2} flexDirection="row" justifyContent="center">
+        <Stack gap={2} flexDirection="row" pt={3} justifyContent="center">
           <CategoryButton
             href="#"
             text="services"
