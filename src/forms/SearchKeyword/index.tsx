@@ -28,7 +28,6 @@ const SearchKeyword: FC<SearchKeywordProps> = ({ size }) => {
           fullWidth
           variant="filled"
           label="What?"
-          placeholder="KeyWord"
           sx={{ label: { pt: { md: 1.4 } } }}
         />
       )}
