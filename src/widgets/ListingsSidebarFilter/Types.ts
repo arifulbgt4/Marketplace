@@ -1,1 +1,1 @@
-export interface ListingsSidebarFilter {}
+export interface ListingsSidebarFilterProps {}

@@ -4,9 +4,9 @@ import { Grid, Typography } from "@mui/material";
 import SearchCategoryFilter from "src/widgets/SearchCategoryFilter";
 import SearchFilterForm from "src/forms/SearchFilterForm";
 
-import { ListingsSidebarFilter } from "./Types";
+import { ListingsSidebarFilterProps } from "./Types";
 
-const ListingsSidebarFilter: FC<ListingsSidebarFilter> = () => {
+const ListingsSidebarFilter: FC<ListingsSidebarFilterProps> = () => {
   return (
     <Grid container gap={2}>
       <Grid item xs={12}>
