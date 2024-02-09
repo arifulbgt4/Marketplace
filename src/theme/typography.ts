@@ -99,7 +99,7 @@ export default {
     fontWeight: 500,
     fontSize: "0.938rem",
     lineHeight: 1.6,
-    letterSpacing: "0.013em",
+    letterSpacing: "0.02em",
     textTransform: "uppercase",
   },
   caption: {
