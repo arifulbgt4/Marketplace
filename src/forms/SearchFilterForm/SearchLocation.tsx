@@ -73,7 +73,6 @@ export default function SearchLocation({ size }: SearchLocationProps) {
         <TextField
           {...params}
           label="Where?"
-          placeholder="Location"
           fullWidth
           variant="filled"
           sx={{ label: { pt: { md: 1.4 } } }}
