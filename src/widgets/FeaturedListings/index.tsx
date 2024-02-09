@@ -10,43 +10,41 @@ import { FeaturedListingsProps } from "./Types";
 const FeaturedListings: FC<FeaturedListingsProps> = () => {
   const t = useTranslations();
   return (
-    <Box>
-      <Container>
-        <Grid container spacing={4}>
-          {/* <Grid item xs={12}>
+    <Container>
+      <Grid container spacing={4}>
+        {/* <Grid item xs={12}>
             <Typography variant="h3">Featured Properties</Typography>
           </Grid> */}
 
-          <Grid item xs={12} spacing={6} container justifyContent="center">
-            {featurePostData.map((data) => {
-              const {
-                id,
-                image,
-                title,
+        <Grid item xs={12} spacing={6} container justifyContent="center">
+          {featurePostData.map((data) => {
+            const {
+              id,
+              image,
+              title,
 
-                description,
-                rating,
-                slug,
-                address,
-              } = data;
-              return (
-                <Grid item xs={12} md={3} key={id}>
-                  <Listing
-                    id={id}
-                    address={address}
-                    slug={slug}
-                    image={image}
-                    title={title}
-                    description={description}
-                    rating={rating}
-                  />
-                </Grid>
-              );
-            })}
-          </Grid>
+              description,
+              rating,
+              slug,
+              address,
+            } = data;
+            return (
+              <Grid item xs={12} md={3} key={id}>
+                <Listing
+                  id={id}
+                  address={address}
+                  slug={slug}
+                  image={image}
+                  title={title}
+                  description={description}
+                  rating={rating}
+                />
+              </Grid>
+            );
+          })}
         </Grid>
-      </Container>
-    </Box>
+      </Grid>
+    </Container>
   );
 };
 

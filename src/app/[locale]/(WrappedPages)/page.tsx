@@ -16,7 +16,7 @@ export default function Home({
   // const t = useTranslations();
   return (
     <Box pt={{ xs: 8, md: 0 }}>
-      <Grid container rowSpacing={5}>
+      <Grid container>
         <Grid item xs={12}>
           <SearchBanner />
         </Grid>

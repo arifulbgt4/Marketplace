@@ -24,10 +24,10 @@ const SearchBanner: FC<SearchBannerProps> = () => {
         background: theme.palette.background.paper,
         mt: -10,
         pt: 10,
+        minHeight: `calc(100vh - 75px)`,
       })}
-      // gap={3}
       direction="column"
-      justifyContent={{ xs: "flex-end", md: "center" }}
+      justifyContent="center"
     >
       <Container
         component={Stack}
