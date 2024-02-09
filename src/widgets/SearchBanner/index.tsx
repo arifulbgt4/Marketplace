@@ -13,6 +13,7 @@ import {
 import SearchFilterForm from "src/forms/SearchFilterForm";
 
 import { SearchBannerProps } from "./Types";
+import CategoryButton from "src/components/CategoryButton";
 
 const SearchBanner: FC<SearchBannerProps> = () => {
   return (
@@ -47,23 +48,13 @@ const SearchBanner: FC<SearchBannerProps> = () => {
         <Stack justifyContent="center" mb={12}>
           <SearchFilterForm />
         </Stack>
-        <Stack gap={4} flexDirection="row" justifyContent="center">
-          <Paper
-            sx={{ borderRadius: 2, ":hover": { boxShadow: 10 } }}
-            // elevation={0}
-            px={2}
-            py={1}
-            display="flex"
-            flexDirection="column"
-            component={Link}
+        <Stack gap={2} flexDirection="row" justifyContent="center">
+          <CategoryButton
             href="#"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <SvgIcon sx={{ height: 50, width: 50 }}>
+            text="services"
+            svg={
               <svg
                 viewBox="-102.4 -102.4 1228.80 1228.80"
-                // class="icon"
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="#000000"
@@ -120,22 +111,12 @@ const SearchBanner: FC<SearchBannerProps> = () => {
                   ></path>
                 </g>
               </svg>
-            </SvgIcon>
-            <Typography variant="overline">Searvices</Typography>
-          </Paper>
-          <Paper
-            sx={{ borderRadius: 2, ":hover": { boxShadow: 10 } }}
-            // elevation={0}
-            px={2}
-            py={1}
-            display="flex"
-            flexDirection="column"
-            component={Link}
+            }
+          />
+          <CategoryButton
             href="#"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <SvgIcon sx={{ height: 50, width: 50 }}>
+            text="guides"
+            svg={
               <svg
                 viewBox="-12.16 -12.16 88.32 88.32"
                 xmlns="http://www.w3.org/2000/svg"
@@ -192,22 +173,12 @@ const SearchBanner: FC<SearchBannerProps> = () => {
                   </g>
                 </g>
               </svg>
-            </SvgIcon>
-            <Typography variant="overline">guides</Typography>
-          </Paper>
-          <Paper
-            sx={{ borderRadius: 2, ":hover": { boxShadow: 10 } }}
-            // elevation={0}
-            px={2}
-            py={1}
-            display="flex"
-            flexDirection="column"
-            component={Link}
+            }
+          />
+          <CategoryButton
             href="#"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <SvgIcon sx={{ height: 50, width: 50 }}>
+            text="For Sale"
+            svg={
               <svg
                 version="1.1"
                 id="_x36_"
@@ -312,22 +283,12 @@ const SearchBanner: FC<SearchBannerProps> = () => {
                   </g>
                 </g>
               </svg>
-            </SvgIcon>
-            <Typography variant="overline">For Sale</Typography>
-          </Paper>
-          <Paper
-            sx={{ borderRadius: 2, ":hover": { boxShadow: 10 } }}
-            // elevation={0}
-            px={2}
-            py={1}
-            display="flex"
-            flexDirection="column"
-            component={Link}
+            }
+          />
+          <CategoryButton
             href="#"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <SvgIcon sx={{ height: 50, width: 50 }}>
+            text="Real Estate"
+            svg={
               <svg
                 version="1.1"
                 id="Layer_1"
@@ -386,22 +347,12 @@ const SearchBanner: FC<SearchBannerProps> = () => {
                   </g>
                 </g>
               </svg>
-            </SvgIcon>
-            <Typography variant="overline">Real Estate</Typography>
-          </Paper>
-          <Paper
-            sx={{ borderRadius: 2, ":hover": { boxShadow: 10 } }}
-            // elevation={0}
-            px={2}
-            py={1}
-            display="flex"
-            flexDirection="column"
-            component={Link}
+            }
+          />
+          <CategoryButton
             href="#"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <SvgIcon sx={{ height: 50, width: 50 }}>
+            text="booking"
+            svg={
               <svg
                 version="1.1"
                 id="Layer_1"
@@ -514,9 +465,8 @@ const SearchBanner: FC<SearchBannerProps> = () => {
                   </g>
                 </g>
               </svg>
-            </SvgIcon>
-            <Typography variant="overline">booking</Typography>
-          </Paper>
+            }
+          />
         </Stack>
       </Container>
 
