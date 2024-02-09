@@ -95,7 +95,13 @@ const Header: FC<HeaderProps> = ({ user }) => {
           <Hidden mdDown>
             <Stack direction="row" justifyContent="end" alignItems="center">
               <HeaderLanguage />
-              <Box>{!user ? <UserLogIn /> : <UserAvatar />}</Box>
+              <Box>
+                {!user ? (
+                  <UserLogIn />
+                ) : (
+                  <UserAvatar userimg="https://scontent.fdac151-1.fna.fbcdn.net/v/t39.30808-6/323216917_849017493050726_3721557920749209294_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=9c7eae&_nc_eui2=AeEg_ZuDfeIZyNvIkur8oJxa-R-XXFY9otj5H5dcVj2i2F-q_E15Th8XGkIuYHY_M647hRz0lqxtUUKOg1e94LNt&_nc_ohc=OoSWGP2Y1ygAX8hVnd1&_nc_oc=AQlIAUbde8IqW0VqAaxTOniMl8EU7gHqNmqkQzHijCo2LV4S1Eysa24NGvIc_FK6cts&_nc_ht=scontent.fdac151-1.fna&oh=00_AfC0BwrjeDMqwVEKnZDA3XcHxZtV1rZ2M9CQIsashvMC9w&oe=65CBE083" />
+                )}
+              </Box>
             </Stack>
           </Hidden>
         </Toolbar>
@@ -117,7 +123,13 @@ const Header: FC<HeaderProps> = ({ user }) => {
               flex={1}
             >
               <HeaderLanguage />
-              <Box>{!user ? <UserLogIn /> : <UserAvatar />}</Box>
+              <Box>
+                {!user ? (
+                  <UserLogIn />
+                ) : (
+                  <UserAvatar userimg="https://scontent.fdac151-1.fna.fbcdn.net/v/t39.30808-6/323216917_849017493050726_3721557920749209294_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=9c7eae&_nc_eui2=AeEg_ZuDfeIZyNvIkur8oJxa-R-XXFY9otj5H5dcVj2i2F-q_E15Th8XGkIuYHY_M647hRz0lqxtUUKOg1e94LNt&_nc_ohc=OoSWGP2Y1ygAX8hVnd1&_nc_oc=AQlIAUbde8IqW0VqAaxTOniMl8EU7gHqNmqkQzHijCo2LV4S1Eysa24NGvIc_FK6cts&_nc_ht=scontent.fdac151-1.fna&oh=00_AfC0BwrjeDMqwVEKnZDA3XcHxZtV1rZ2M9CQIsashvMC9w&oe=65CBE083" />
+                )}
+              </Box>
             </Stack>
           </Toolbar>
         </Hidden>
