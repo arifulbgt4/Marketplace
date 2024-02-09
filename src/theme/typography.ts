@@ -95,7 +95,7 @@ export default {
     letterSpacing: "0.01071em",
   },
   button: {
-    ...rubik.style,
+    ...roboto.style,
     fontWeight: 500,
     fontSize: "0.938rem",
     lineHeight: 1.6,

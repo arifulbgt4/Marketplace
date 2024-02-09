@@ -24,7 +24,7 @@ const SearchBanner: FC<SearchBannerProps> = () => {
         background: theme.palette.background.paper,
         mt: -10,
         pt: 10,
-        minHeight: `calc(100vh - 75px)`,
+        minHeight: `calc(100vh - 30px)`,
       })}
       direction="column"
       justifyContent="center"
@@ -67,7 +67,7 @@ const SearchBanner: FC<SearchBannerProps> = () => {
         <Stack justifyContent="center">
           <SearchFilterForm />
         </Stack>
-        <Stack gap={2} flexDirection="row" pt={3} justifyContent="center">
+        <Stack gap={5} flexDirection="row" pt={3} justifyContent="center">
           <CategoryButton
             href="#"
             text="services"
@@ -128,6 +128,70 @@ const SearchBanner: FC<SearchBannerProps> = () => {
                     d="M374.7 436.2c-4.3-5.1-9.3-9.6-14.9-13.4-11.7-8-25.9-12.6-41.1-12.6-28.7 0-53.7 16.6-65.7 40.7-3 5.9-5.1 12.3-6.4 19-0.8 4.4-1.3 9-1.3 13.7 0 40.5 32.9 73.4 73.4 73.4 29.4 0 54.9-17.4 66.6-42.5 2.8-6 4.8-12.4 5.9-19.1 0.6-3.8 1-7.8 1-11.8 0-18.1-6.6-34.6-17.5-47.4z m-2.8 52.9c-0.7 6.8-2.7 13.3-5.8 19.1-8.9 17-26.8 28.7-47.3 28.7-29.4 0-53.4-24-53.4-53.4 0-2.6 0.2-5.1 0.5-7.5 1-6.8 3.2-13.2 6.5-18.9 9.2-16.1 26.5-27 46.4-27 29.4 0 53.4 24 53.4 53.4 0 2-0.1 3.8-0.3 5.6z"
                     fill="#52f6ff"
                   ></path>
+                </g>
+              </svg>
+            }
+          />
+          <CategoryButton
+            href="#"
+            text="Real Estate"
+            svg={
+              <svg
+                version="1.1"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="-163.84 -163.84 839.68 839.68"
+                fill="#000000"
+              >
+                <g id="SVGRepo_bgCarrier" strokeWidth="0">
+                  <path
+                    transform="translate(-163.84, -163.84), scale(52.48)"
+                    fill="#7ed0ec"
+                    d="M9.166.33a2.25 2.25 0 00-2.332 0l-5.25 3.182A2.25 2.25 0 00.5 5.436v5.128a2.25 2.25 0 001.084 1.924l5.25 3.182a2.25 2.25 0 002.332 0l5.25-3.182a2.25 2.25 0 001.084-1.924V5.436a2.25 2.25 0 00-1.084-1.924L9.166.33z"
+                  ></path>
+                </g>
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  <polygon
+                    style={{ fill: "#b79434" }}
+                    points="256,0 235.085,299.824 256,512 463.15,512 463.15,234.767 493.439,234.767 "
+                  ></polygon>
+                  <polygon
+                    style={{ fill: "#FBE27B" }}
+                    points="18.561,234.767 48.85,234.767 48.85,512 256,512 256,0 "
+                  ></polygon>
+                  <path
+                    style={{ fill: "#288FD9" }}
+                    d="M256,387.641l102.63-113.087c-7.84-22.706-20.617-42.64-34.551-59.34L256,272.836l-20.915,50.037 L256,387.641z"
+                  ></path>
+                  <path
+                    style={{ fill: "#8BCBF1" }}
+                    d="M256,272.836l-68.079-57.622c-13.934,16.699-26.711,36.633-34.551,59.34L256,387.641V272.836z"
+                  ></path>
+                  <g>
+                    <path
+                      style={{ fill: "#0079CE" }}
+                      d="M324.079,215.214C292.903,177.852,256,156.651,256,156.651l-20.915,60.34L256,283.294 L324.079,215.214z"
+                    ></path>
+                    <path
+                      style={{ fill: "#0079CE" }}
+                      d="M256,377.184l-20.915,24.405L256,431.76c61.091,0,110.616-49.524,110.616-110.616 c0-16.58-2.998-32.144-7.986-46.591L256,377.184z"
+                    ></path>
+                  </g>
+                  <g>
+                    <path
+                      style={{ fill: "#288FD9" }}
+                      d="M256,156.651c0,0-36.903,21.201-68.079,58.563L256,283.294V156.651z"
+                    ></path>
+                    <path
+                      style={{ fill: "#288FD9" }}
+                      d="M153.37,274.553c-4.988,14.447-7.986,30.01-7.986,46.591c0,61.091,49.524,110.616,110.616,110.616 v-54.576L153.37,274.553z"
+                    ></path>
+                  </g>
                 </g>
               </svg>
             }
@@ -304,70 +368,7 @@ const SearchBanner: FC<SearchBannerProps> = () => {
               </svg>
             }
           />
-          <CategoryButton
-            href="#"
-            text="Real Estate"
-            svg={
-              <svg
-                version="1.1"
-                id="Layer_1"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="-163.84 -163.84 839.68 839.68"
-                fill="#000000"
-              >
-                <g id="SVGRepo_bgCarrier" strokeWidth="0">
-                  <path
-                    transform="translate(-163.84, -163.84), scale(52.48)"
-                    fill="#7ed0ec"
-                    d="M9.166.33a2.25 2.25 0 00-2.332 0l-5.25 3.182A2.25 2.25 0 00.5 5.436v5.128a2.25 2.25 0 001.084 1.924l5.25 3.182a2.25 2.25 0 002.332 0l5.25-3.182a2.25 2.25 0 001.084-1.924V5.436a2.25 2.25 0 00-1.084-1.924L9.166.33z"
-                  ></path>
-                </g>
-                <g
-                  id="SVGRepo_tracerCarrier"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                ></g>
-                <g id="SVGRepo_iconCarrier">
-                  <polygon
-                    style={{ fill: "#b79434" }}
-                    points="256,0 235.085,299.824 256,512 463.15,512 463.15,234.767 493.439,234.767 "
-                  ></polygon>
-                  <polygon
-                    style={{ fill: "#FBE27B" }}
-                    points="18.561,234.767 48.85,234.767 48.85,512 256,512 256,0 "
-                  ></polygon>
-                  <path
-                    style={{ fill: "#288FD9" }}
-                    d="M256,387.641l102.63-113.087c-7.84-22.706-20.617-42.64-34.551-59.34L256,272.836l-20.915,50.037 L256,387.641z"
-                  ></path>
-                  <path
-                    style={{ fill: "#8BCBF1" }}
-                    d="M256,272.836l-68.079-57.622c-13.934,16.699-26.711,36.633-34.551,59.34L256,387.641V272.836z"
-                  ></path>
-                  <g>
-                    <path
-                      style={{ fill: "#0079CE" }}
-                      d="M324.079,215.214C292.903,177.852,256,156.651,256,156.651l-20.915,60.34L256,283.294 L324.079,215.214z"
-                    ></path>
-                    <path
-                      style={{ fill: "#0079CE" }}
-                      d="M256,377.184l-20.915,24.405L256,431.76c61.091,0,110.616-49.524,110.616-110.616 c0-16.58-2.998-32.144-7.986-46.591L256,377.184z"
-                    ></path>
-                  </g>
-                  <g>
-                    <path
-                      style={{ fill: "#288FD9" }}
-                      d="M256,156.651c0,0-36.903,21.201-68.079,58.563L256,283.294V156.651z"
-                    ></path>
-                    <path
-                      style={{ fill: "#288FD9" }}
-                      d="M153.37,274.553c-4.988,14.447-7.986,30.01-7.986,46.591c0,61.091,49.524,110.616,110.616,110.616 v-54.576L153.37,274.553z"
-                    ></path>
-                  </g>
-                </g>
-              </svg>
-            }
-          />
+
           <CategoryButton
             href="#"
             text="booking"

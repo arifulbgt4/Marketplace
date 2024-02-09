@@ -12,10 +12,12 @@ const CategoryButton: FC<CategoryButtonProps> = ({ href, text, svg }) => {
           "& svg": {
             transform: `scale(1.8)`,
           },
+          "& span": {
+            opacity: 1,
+          },
         },
       }}
-      px={2}
-      py={1}
+      pt={6}
       display="flex"
       flexDirection="column"
       component={Link}
@@ -26,7 +28,7 @@ const CategoryButton: FC<CategoryButtonProps> = ({ href, text, svg }) => {
       <SvgIcon
         fontSize="large"
         sx={{
-          filter: `drop-shadow(2px 3px 0.9px rgb(0 0 0 / 0.5))`,
+          filter: `drop-shadow(2px 3px 0.9px rgb(0 0 0 / 0.2))`,
           transition: "transform 0.3s ease-in-out",
           transform: `scale(1.6)`,
           mb: 2.25,
@@ -39,6 +41,7 @@ const CategoryButton: FC<CategoryButtonProps> = ({ href, text, svg }) => {
         variant="button"
         color="text.primary"
         textTransform="capitalize"
+        sx={{ opacity: 0.6 }}
       >
         {text}
       </Typography>
