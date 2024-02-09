@@ -80,7 +80,7 @@ const UserAvatar: FC<UserAvatarProps> = ({ userimg }) => {
         sx={(theme) => ({
           mt: { xs: -4.6, md: 7.9 },
           right: { xs: -16, md: 0 },
-          left: { xs: -16, md: 0 },
+          left: { xs: -16, md: 2.5 },
           mb: { xs: 6, md: 0 },
           background: "transparent",
           backdropFilter: "blur(2px)",
