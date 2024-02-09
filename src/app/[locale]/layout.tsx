@@ -77,6 +77,7 @@ export default function RootLayout({ children, params: { locale } }: Props) {
 
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : ""}>
+      <link rel="preconnect" href="https://fonts.gstatic.com" />
       <ThemeContextProvider>
         <body suppressHydrationWarning={true}>
           <NextAuthProvider>{children}</NextAuthProvider>

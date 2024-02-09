@@ -21,7 +21,9 @@ export default function Home({
           <SearchBanner />
         </Grid>
         <Grid item xs={12} zIndex={99}>
-          <FeaturedListings />
+          <div>
+            <FeaturedListings />
+          </div>
         </Grid>
       </Grid>
     </Box>
