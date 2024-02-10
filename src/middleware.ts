@@ -5,20 +5,23 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { siteConfig } from "./global/config";
 import { locales } from "./global/staticData";
+import routes from "./global/routes";
 
 const publicPages = [
-  "/",
-  "/signin",
-  "/signup",
-  "/lab",
-  "/faq",
+  routes.home,
+  routes.signin,
+  routes.signup,
+  routes.lab,
+  routes.faq,
+  routes.about,
+  routes.blog,
+  routes.contact,
+  routes.listings,
+  routes.termas,
+  routes.privacy,
+  routes.cookies,
   "/opengraph-image",
   "/twitter-image",
-  "/about",
-  "/contact",
-  "/s",
-  "/l",
-  "/message",
 ];
 
 const intlMiddleware = createIntlMiddleware({
@@ -39,7 +42,7 @@ const authMiddleware = withAuth(
       authorized: ({ token }) => token != null,
     },
     pages: {
-      signIn: "/signin",
+      signIn: routes.signin,
     },
   }
 );
@@ -49,20 +52,28 @@ export default async function middleware(req: NextRequest) {
     `^(/(${locales.join("|")}))?(${publicPages.join("|")})?/?$`,
     "i"
   );
+
+  const dynamicPublicPathRegex = RegExp(
+    `^(/(${locales.join("|")}))?[${routes.listing}|${
+      routes.merchant
+    }]+[A-Za-z0-9_-]*$`
+  );
+
   const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
+  const isDynamicPublicPage = dynamicPublicPathRegex.test(req.nextUrl.pathname);
 
   const token = await getToken({ req });
   const isAuth = !!token;
 
   if (
-    (req.nextUrl.pathname === "/signin" ||
-      req.nextUrl.pathname === "/signup") &&
+    (req.nextUrl.pathname === routes.signin ||
+      req.nextUrl.pathname === routes.signup) &&
     isAuth
   ) {
-    return NextResponse.redirect(new URL("/", req.url));
+    return NextResponse.redirect(new URL(routes.home, req.url));
   }
 
-  if (isPublicPage) {
+  if (isPublicPage || isDynamicPublicPage) {
     return intlMiddleware(req);
   }
   return (authMiddleware as any)(req);

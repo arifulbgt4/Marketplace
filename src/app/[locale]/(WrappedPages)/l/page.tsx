@@ -1,27 +1,25 @@
-"use client";
-import { Box, Container, Grid } from "@mui/material";
-import { NextPage } from "next";
+import { Box, Container, Grid, Hidden } from "@mui/material";
+import ListSearchFiltersForm from "src/forms/ListSearchFiltersForm";
 
-// import ListingsSidebarFilter from "src/widgets/ListingsSidebarFilter";
-// import SearchFilter from "src/widgets/SearchFilter";
+import SearchListingGroup from "src/widgets/SearchListingGroup";
 
-const ListingEditPage: NextPage = () => {
+const ListingsSearchPage = () => {
   return (
     <Box>
-      {/* <Container>
-        <Grid container>
-          <Grid item xs={12}>
-            <SearchFilter />
-          </Grid>
-          <Grid item xs={12} container>
-            <Grid item xs={4}>
-              <ListingsSidebarFilter />
+      <Container>
+        <Grid container columnSpacing={10}>
+          <Hidden mdDown>
+            <Grid item md={3}>
+              <ListSearchFiltersForm />
             </Grid>
+          </Hidden>
+          <Grid item xs={12} md={9}>
+            <SearchListingGroup />
           </Grid>
         </Grid>
-      </Container> */}
+      </Container>
     </Box>
   );
 };
 
-export default ListingEditPage;
+export default ListingsSearchPage;

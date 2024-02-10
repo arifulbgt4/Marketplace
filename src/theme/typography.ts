@@ -108,11 +108,11 @@ export default {
     letterSpacing: "0.01071em",
   },
   button: {
-    ...rubik.style,
+    ...roboto.style,
     fontWeight: 500,
     fontSize: "0.938rem",
     lineHeight: 1.6,
-    letterSpacing: "0.013em",
+    letterSpacing: "0.02em",
     textTransform: "uppercase",
   },
   caption: {

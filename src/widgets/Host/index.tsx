@@ -16,7 +16,7 @@ import { HostProps } from "./Types";
 
 const Host: FC<HostProps> = ({ src, rating, review, name }) => {
   return (
-    <Box component={Link} href={`${routes.profile}/profile`}>
+    <Box component={Link} href={`${routes.merchant}/profile`}>
       <Stack
         sx={{ borderRadius: 2, p: 2 }}
         elevation={0}
