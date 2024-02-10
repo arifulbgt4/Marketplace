@@ -1,6 +1,5 @@
 export default {
   home: "/",
-  search: "/s",
   listings: "/l",
   listing: "/l/",
   lab: "/lab",
@@ -20,12 +19,12 @@ export default {
   userMediaSetting: "/u/setting/media",
   userSecuritySetting: "/u/setting/security",
   userSocialSetting: "/u/setting/social",
+  message: "/message",
   about: "/about",
   blog: "/blog",
   contact: "/contact",
   faq: "/faq",
   privacy: "/privacy",
-  message: "/message",
   termas: "/termas",
   cookies: "/cookies",
 };
