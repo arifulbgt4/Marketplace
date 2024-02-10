@@ -297,7 +297,7 @@ const UserAvatar: FC<UserAvatarProps> = ({ userimg, gender }) => {
                   sx={{ justifyContent: "center", borderRadius: 1 }}
                   component={Link}
                   disableRipple
-                  href={`${routes.profile}/slug`}
+                  href={`${routes.merchant}/slug`}
                   onClick={handleCloseNavAvatar}
                 >
                   <Stack justifyContent="center" alignItems="center">
