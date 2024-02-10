@@ -1,5 +1,10 @@
-import { TypographyVariants as TypographyVariantsOption } from "@mui/material/styles";
+import {
+  TypographyVariants as TypographyVariantsOption,
+  createTheme,
+  useTheme,
+} from "@mui/material/styles";
 import { Rubik, Roboto } from "next/font/google";
+import breakpoints from "./breakpoints";
 
 export const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700"],
@@ -16,6 +21,8 @@ export const rubik = Rubik({
 
 export interface TypographyVariants extends TypographyVariantsOption {}
 
+const theme = createTheme({ breakpoints });
+
 export default {
   fontFamily: `${roboto.style.fontFamily}, ${rubik.style.fontFamily}`,
   htmlFontSize: 16,
@@ -30,11 +37,14 @@ export default {
     fontSize: "3.5rem",
     lineHeight: 1.167,
     letterSpacing: "0.01em",
+    [theme.breakpoints.down("md")]: {
+      fontSize: "1.5rem",
+    },
   },
   h2: {
     ...rubik.style,
     fontWeight: 500,
-    fontSize: "2.5rem",
+    fontSize: "1.75rem",
     lineHeight: 1.263157895,
     letterSpacing: "-0.013",
   },
@@ -44,6 +54,9 @@ export default {
     fontSize: "1.25rem",
     lineHeight: 1.384615385,
     letterSpacing: "0.01em",
+    [theme.breakpoints.down("md")]: {
+      fontSize: "1rem",
+    },
   },
   h4: {
     ...roboto.style,
