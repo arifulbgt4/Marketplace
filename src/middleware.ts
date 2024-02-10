@@ -11,16 +11,14 @@ const publicPages = [
   routes.home,
   routes.signin,
   routes.signup,
-  "/lab",
-  "/faq",
+  routes.lab,
+  routes.faq,
+  routes.about,
+  routes.blog,
+  routes.contact,
+  routes.listings,
   "/opengraph-image",
   "/twitter-image",
-  "/about",
-  "/blog",
-  "/contact",
-  "/s",
-  "/l",
-  "/message",
 ];
 
 const intlMiddleware = createIntlMiddleware({
@@ -53,7 +51,9 @@ export default async function middleware(req: NextRequest) {
   );
 
   const dynamicPublicPathRegex = RegExp(
-    `^(/(${locales.join("|")}))?[/l/|/merchant/]+[A-Za-z0-9_-]*$`
+    `^(/(${locales.join("|")}))?[${routes.listing}|${
+      routes.merchant
+    }]+[A-Za-z0-9_-]*$`
   );
 
   const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
