@@ -37,7 +37,7 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
       },
     ]);
 
-    router.push(`${routes.search}?${query}`, { scroll: false });
+    router.push(`${routes.listings}?${query}`, { scroll: false });
     onClose && onClose();
   };
 

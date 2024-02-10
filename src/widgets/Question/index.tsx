@@ -40,7 +40,7 @@ const Question: FC<QuestionProps> = () => {
 
         <Box
           component={Link}
-          href={routes.search}
+          href={routes.listings}
           px={{ md: 15 }}
           py={{ md: 12, xs: 2 }}
           bgcolor="secondary.main"
