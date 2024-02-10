@@ -59,17 +59,17 @@ const SearchBanner: FC<SearchBannerProps> = () => {
           >
             Discover, Shop & Thrive
           </Typography>
-          <Typography variant="h3" align="center">
+          <Typography variant="h3" component="p" align="center">
             Explore Endless Possibilities: Over 25,000+ Listings Await You in
             Our Global Marketplace
           </Typography>
         </Stack>
-        <Hidden mdDown>
+        <Hidden mdDown implementation="css">
           <Stack justifyContent="center">
             <SearchFilterForm />
           </Stack>
         </Hidden>
-        <Hidden mdUp>
+        <Hidden mdUp implementation="css">
           <Box display="flex" justifyContent="center" alignItems="center">
             <Stack
               height={60}
@@ -108,7 +108,7 @@ const SearchBanner: FC<SearchBannerProps> = () => {
           </Box>
         </Hidden>
         <Stack
-          gap={{ xs: 1, md: 2 }}
+          gap={{ xs: 1, md: 3 }}
           flexDirection="row"
           flexWrap="wrap"
           pt={{ md: 3 }}

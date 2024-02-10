@@ -9,7 +9,14 @@ const LinkBehavior = forwardRef<
   Omit<LinkProps, "href"> & { href: LinkProps["href"] }
 >((props, ref) => {
   const { href, ...other } = props;
-  return <LinkNext ref={ref} href={href} {...other} />;
+  return (
+    <LinkNext
+      aria-label="Read more about marketplace"
+      ref={ref}
+      href={href}
+      {...other}
+    />
+  );
 });
 
 const MuiLink: Components<Theme>["MuiLink"] = {

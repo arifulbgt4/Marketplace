@@ -125,7 +125,9 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
             sx={{
               bgcolor: "background.paper",
               pt: 2,
-              top: { md: 177 },
+              top: { md: "50%" },
+              left: { md: "50%" },
+              transform: { md: "translate(-50%, -50%)" },
               bottom: { xs: 48, md: 0 },
               position: "absolute",
               height: { md: 580, xs: "calc(100vh - 180px - 48px)" },

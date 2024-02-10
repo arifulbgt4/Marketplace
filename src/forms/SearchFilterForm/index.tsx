@@ -138,6 +138,9 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
                     <IconButton
                       type="submit"
                       size="large"
+                      aria-label="search-button"
+                      role="button"
+                      aria-labelledby="search-button"
                       sx={(theme) => ({
                         position: "absolute",
                         right: 0,
@@ -172,7 +175,13 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <IconButton type="submit" size="large">
+                      <IconButton
+                        type="submit"
+                        size="large"
+                        aria-label="search-button"
+                        role="button"
+                        aria-labelledby="search-button"
+                      >
                         <SearchSharpIcon
                           sx={(theme) => ({
                             transform: "rotate(90deg)",

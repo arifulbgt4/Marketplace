@@ -114,7 +114,9 @@ const Listing: FC<ListingProps> = ({
           }}
         >
           <LocationOnIcon fontSize="small" />
-          <Typography variant="h6">{address.slice(0, 24)}</Typography>
+          <Typography variant="h6" component="p">
+            {address.slice(0, 24)}
+          </Typography>
         </Stack>
         <Stack
           flexDirection="row"
