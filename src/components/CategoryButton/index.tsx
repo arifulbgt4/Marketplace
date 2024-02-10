@@ -30,7 +30,7 @@ const CategoryButton: FC<CategoryButtonProps> = ({ href, text, svg }) => {
         sx={{
           filter: `drop-shadow(2px 3px 0.9px rgb(0 0 0 / 0.2))`,
           transition: "transform 0.3s ease-in-out",
-          transform: `scale(1.6)`,
+          transform: { xs: `scale(1)`, md: `scale(1.6)` },
           mb: 2.25,
           willChange: "transform",
         }}

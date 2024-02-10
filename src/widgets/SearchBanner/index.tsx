@@ -5,15 +5,15 @@ import {
   Box,
   Stack,
   Container,
-  Paper,
-  Link,
-  SvgIcon,
+  IconButton,
+  Hidden,
 } from "@mui/material";
+import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 
 import SearchFilterForm from "src/forms/SearchFilterForm";
+import CategoryButton from "src/components/CategoryButton";
 
 import { SearchBannerProps } from "./Types";
-import CategoryButton from "src/components/CategoryButton";
 
 const SearchBanner: FC<SearchBannerProps> = () => {
   return (
@@ -23,7 +23,7 @@ const SearchBanner: FC<SearchBannerProps> = () => {
         position: "relative",
         background: theme.palette.background.paper,
         mt: -10,
-        pt: 10,
+        pt: { md: 10 },
         minHeight: `calc(100vh - 30px)`,
       })}
       direction="column"
@@ -34,7 +34,7 @@ const SearchBanner: FC<SearchBannerProps> = () => {
         maxWidth="md"
         position="relative"
         zIndex={999}
-        mt={8}
+        mt={{ xs: 2, md: 8 }}
         mb={12}
         sx={{
           display: "flex",
@@ -45,8 +45,8 @@ const SearchBanner: FC<SearchBannerProps> = () => {
       >
         <Stack justifyContent="center" gap={3}>
           <Typography
-            variant="h1"
             align="center"
+            variant="h1"
             sx={(theme) => ({
               backgroundcolor: "primary",
               backgroundImage: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main},${theme.palette.primary.main})`,
@@ -64,10 +64,56 @@ const SearchBanner: FC<SearchBannerProps> = () => {
             Our Global Marketplace
           </Typography>
         </Stack>
-        <Stack justifyContent="center">
-          <SearchFilterForm />
-        </Stack>
-        <Stack gap={5} flexDirection="row" pt={3} justifyContent="center">
+        <Hidden mdDown>
+          <Stack justifyContent="center">
+            <SearchFilterForm />
+          </Stack>
+        </Hidden>
+        <Hidden mdUp>
+          <Box display="flex" justifyContent="center" alignItems="center">
+            <Stack
+              height={60}
+              width={220}
+              maxWidth="100%"
+              flexDirection="row"
+              justifyContent="space-between"
+              alignItems="center"
+              sx={(theme) => ({
+                background: theme.palette.background.paper,
+                borderRadius: 50,
+                boxShadow: 10,
+              })}
+            >
+              <Typography pl={3} color="text.secondary" variant="subtitle2">
+                Find Activity
+              </Typography>
+              <IconButton
+                size="small"
+                sx={(theme) => ({
+                  border: 10,
+                  borderColor: "background.paper",
+                  bgcolor: theme.palette.info.main,
+                })}
+              >
+                <SearchSharpIcon
+                  sx={(theme) => ({
+                    transform: "rotate(90deg)",
+                    height: 29,
+                    width: 29,
+                    color: theme.palette.info.contrastText,
+                  })}
+                />
+              </IconButton>
+            </Stack>
+          </Box>
+        </Hidden>
+        <Stack
+          gap={{ xs: 1, md: 2 }}
+          flexDirection="row"
+          flexWrap="wrap"
+          pt={{ md: 3 }}
+          justifyContent="center"
+        >
           <CategoryButton
             href="#"
             text="services"
