@@ -133,7 +133,7 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
                     )}
                   </Box>
                 </Grid>
-                <Hidden mdDown>
+                <Hidden mdDown implementation="css">
                   <Box position="relative">
                     <IconButton
                       type="submit"
@@ -161,7 +161,7 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
                     </IconButton>
                   </Box>
                 </Hidden>
-                <Hidden mdUp>
+                <Hidden mdUp implementation="css">
                   <Grid item xs={12}>
                     <Box
                       sx={(theme) => ({

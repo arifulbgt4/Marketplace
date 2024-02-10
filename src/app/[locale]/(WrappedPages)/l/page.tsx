@@ -8,11 +8,9 @@ const ListingsSearchPage = () => {
     <Box>
       <Container>
         <Grid container columnSpacing={10}>
-          <Hidden mdDown>
-            <Grid item md={3}>
-              <ListSearchFiltersForm />
-            </Grid>
-          </Hidden>
+          <Grid mdDown implementation="css" component={Hidden} item md={3}>
+            <ListSearchFiltersForm />
+          </Grid>
           <Grid item xs={12} md={9}>
             <SearchListingGroup />
           </Grid>

@@ -92,7 +92,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
               </Stack>
             </Modal>
           </Hidden>
-          <Hidden mdDown>
+          <Hidden mdDown implementation="css">
             <Stack direction="row" justifyContent="end" alignItems="center">
               <HeaderLanguage />
               <Box>
