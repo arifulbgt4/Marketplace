@@ -34,6 +34,7 @@ const Logo: FC<LogoProps> = ({ iconOnly = false }) => {
       {!iconOnly && (
         <Typography
           variant="h6"
+          component="p"
           noWrap
           sx={{
             mr: { md: 2 },
