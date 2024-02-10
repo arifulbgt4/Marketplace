@@ -47,18 +47,6 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
               </Drawer>
             </Grid>
           </Hidden>
-          <Hidden mdDown>
-            <Grid item md={6}>
-              <Suspense>
-                <SearchFilterForm size="small" />
-              </Suspense>
-            </Grid>
-          </Hidden>
-          <Hidden mdDown>
-            <Grid item md={3}>
-              <ListGridView isGrid={isGrid} toggleGridList={toggleGridList} />
-            </Grid>
-          </Hidden>
         </Grid>
         <Grid item container xs={12} columnSpacing={4} rowSpacing={4}>
           {searchListingData.map((data) => {
