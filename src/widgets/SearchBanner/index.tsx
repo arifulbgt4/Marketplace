@@ -86,7 +86,8 @@ const SearchBanner: FC<SearchBannerProps> = () => {
             <SearchFilterForm />
           </Stack>
         </Hidden>
-        {/* <Hidden mdDown implementation="css"> */}
+
+     
         <Box display="flex" justifyContent="center" alignItems="center">
           <Stack
             height={60}
@@ -101,7 +102,7 @@ const SearchBanner: FC<SearchBannerProps> = () => {
               boxShadow: 10,
             })}
             onClick={() => {
-              // <pathname>?sort=asc
+            
               router.push(pathname + "?" + createQueryString("sort", "asc"));
             }}
           >
@@ -110,6 +111,8 @@ const SearchBanner: FC<SearchBannerProps> = () => {
             </Typography>
             <IconButton
               size="small"
+
+
               sx={(theme) => ({
                 border: 10,
                 borderColor: "background.paper",
@@ -127,7 +130,7 @@ const SearchBanner: FC<SearchBannerProps> = () => {
             </IconButton>
           </Stack>
         </Box>
-        {/* </Hidden> */}
+    
         <Stack
           gap={{ xs: 1, md: 3 }}
           flexDirection="row"
