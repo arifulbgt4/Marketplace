@@ -1,17 +1,10 @@
 "use client";
 import { FC, useState } from "react";
-import {
-  CardMedia,
-  Typography,
-  Link,
-  Stack,
-  IconButton,
-  Box,
-} from "@mui/material";
+import { CardMedia, Typography, Link, Stack, IconButton } from "@mui/material";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
-import CategoryIcon from "@mui/icons-material/Category";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 
 import routes from "src/global/routes";
 
@@ -32,89 +25,94 @@ const Listing: FC<ListingProps> = ({
   name,
 }) => {
   const [isSelect, setIsSelect] = useState(isMark);
-  const [show, setShow] = useState(false);
 
   return (
     <Stack
       component={Link}
       href={`${routes.listingDetails}/${slug}`}
-      sx={{
+      sx={(theme) => ({
+        transition: "all 1s",
+        ":hover": {
+          bgcolor: theme.palette.background.paper,
+          "& .MuiCardMedia-root": {
+            boxShadow: 14,
+          },
+          "& h5": {
+            color: theme.palette.primary.contrastText,
+          },
+          "& button": {
+            color: theme.palette.primary.contrastText,
+          },
+          "& span": {
+            background: `linear-gradient(to top, ${theme.palette.action.active} 20%, transparent 40%)`,
+          },
+        },
+
         flexDirection: isGrid ? "column" : "row",
         gap: isGrid ? 0 : 3,
         position: "relative",
         borderRadius: 4.5,
-
-        bgcolor: "transparent",
-        ":hover": {
-          boxShadow: 10,
-        },
-      }}
-      onMouseOver={() => setShow(true)}
-      onMouseOut={() => setShow(false)}
+      })}
     >
       <CardMedia
         sx={{
           borderRadius: 3,
+          transition: "all 5s",
         }}
         image={image}
       >
-        <Stack height={isGrid ? 250 : 223} overflow="hidden">
-          {show && (
-            <Stack
-              p={2}
-              justifyContent="space-between"
-              alignItems="end"
-              flexDirection="row"
-              sx={(theme) => ({
-                background: `linear-gradient(to top, ${theme.palette.action.active} 20%, transparent 40%)`,
-                overflow: "hidden",
-              })}
-              borderRadius={3}
-              height="100%"
+        <Stack height={250} overflow="hidden">
+          <Stack
+            component="span"
+            p={2}
+            justifyContent="space-between"
+            alignItems="end"
+            flexDirection="row"
+            sx={(theme) => ({
+              transition: "opacity 5s linear",
+            })}
+            borderRadius={3}
+            height="100%"
+          >
+            <Typography
+              pb={0.5}
+              variant="h5"
+              sx={{ color: "transparent", transition: "all 1s" }}
             >
-              <Typography pb={0.5} variant="h5" color="#fff">
-                {title}
-              </Typography>
-              <IconButton
-                sx={(theme) => ({
-                  bgcolor: theme.palette.background.default,
-                  ":hover": { bgcolor: theme.palette.background.default },
-                })}
-                onClick={() => {
-                  setIsSelect((prv) => !prv);
-                }}
-                size="large"
-              >
-                {isSelect ? (
-                  <BookmarkIcon
-                    sx={{ height: 18, width: 18 }}
-                    color="primary"
-                  />
-                ) : (
-                  <BookmarkBorderOutlinedIcon
-                    sx={{ height: 18, width: 18 }}
-                    color="primary"
-                  />
-                )}
-              </IconButton>
-            </Stack>
-          )}
+              {title}
+            </Typography>
+            <IconButton
+              sx={(theme) => ({
+                color: "transparent",
+                transition: "all 1s",
+              })}
+              onClick={() => {
+                setIsSelect((prv) => !prv);
+              }}
+              size="small"
+            >
+              {isSelect ? (
+                <BookmarkIcon
+                // sx={{ height: 28, width: 28, color: "transparent" }}
+                />
+              ) : (
+                <BookmarkBorderOutlinedIcon
+                // sx={{ height: 28, width: 28, color: "transparent" }}
+                />
+              )}
+            </IconButton>
+          </Stack>
         </Stack>
       </CardMedia>
       <Stack flexDirection="row" p={2} justifyContent="space-between">
         <Stack
           flexDirection="row"
           alignItems="center"
-          gap={1}
+          gap={0.5}
           color="text.primary"
-          sx={{
-            ":hover": {
-              color: "primary.main",
-            },
-          }}
         >
-          <LocationOnIcon fontSize="small" />
-          <Typography variant="h6" component="p">
+          <LocationOnIcon sx={{ height: 16, width: 16 }} />
+          <Typography fontWeight={400} variant="subtitle1" component="p">
             {address.slice(0, 24)}
           </Typography>
         </Stack>
@@ -122,12 +120,21 @@ const Listing: FC<ListingProps> = ({
           flexDirection="row"
           justifyContent="center"
           alignItems="center"
-          gap={0.5}
           color="text.secondary"
         >
-          <CategoryIcon sx={{ height: 18, width: 18 }} />
-          <Typography fontWeight={600} variant="caption">
-            2.5
+          <AttachMoneyIcon sx={{ height: 18, width: 18 }} />
+          <Typography fontWeight={500} variant="subtitle1">
+            2.2
+          </Typography>
+          <Typography
+            component="p"
+            variant="caption"
+            letterSpacing={-0.3}
+            sx={(theme) => ({
+              opacity: 0.6,
+            })}
+          >
+            /mon
           </Typography>
         </Stack>
       </Stack>
