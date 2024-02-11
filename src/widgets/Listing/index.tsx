@@ -70,6 +70,10 @@ const Listing: FC<ListingProps> = ({
             flexDirection="row"
             sx={(theme) => ({
               transition: "all 1s",
+              background: {
+                xs: `linear-gradient(to top, ${theme.palette.action.active} 20%, transparent 40%)`,
+                md: "transparent",
+              },
             })}
             borderRadius={3}
             height="100%"
