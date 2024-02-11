@@ -69,7 +69,7 @@ const Listing: FC<ListingProps> = ({
             alignItems="end"
             flexDirection="row"
             sx={(theme) => ({
-              transition: "opacity 5s linear",
+              transition: "all 1s",
             })}
             borderRadius={3}
             height="100%"
@@ -77,13 +77,22 @@ const Listing: FC<ListingProps> = ({
             <Typography
               pb={0.5}
               variant="h5"
-              sx={{ color: "transparent", transition: "all 1s" }}
+              sx={(theme) => ({
+                color: {
+                  xs: theme.palette.primary.contrastText,
+                  md: "transparent",
+                },
+                transition: "all 1s",
+              })}
             >
               {title}
             </Typography>
             <IconButton
               sx={(theme) => ({
-                color: "transparent",
+                color: {
+                  xs: theme.palette.primary.contrastText,
+                  md: "transparent",
+                },
                 transition: "all 1s",
               })}
               onClick={() => {
@@ -91,15 +100,7 @@ const Listing: FC<ListingProps> = ({
               }}
               size="small"
             >
-              {isSelect ? (
-                <BookmarkIcon
-                // sx={{ height: 28, width: 28, color: "transparent" }}
-                />
-              ) : (
-                <BookmarkBorderOutlinedIcon
-                // sx={{ height: 28, width: 28, color: "transparent" }}
-                />
-              )}
+              {isSelect ? <BookmarkIcon /> : <BookmarkBorderOutlinedIcon />}
             </IconButton>
           </Stack>
         </Stack>
