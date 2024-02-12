@@ -1,10 +1,9 @@
 import { unstable_setRequestLocale } from "next-intl/server";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Link } from "@mui/material";
 // import { useTranslations } from "next-intl";
 
 import FeaturedListings from "src/widgets/FeaturedListings";
 import SearchBanner from "src/widgets/SearchBanner";
-import RecentListings from "src/widgets/RecentListings";
 
 export default function Home({
   params: { locale },
