@@ -98,7 +98,7 @@ export const featurePostData = [
     image:
       "https://cf.bstatic.com/xdata/images/hotel/270x200/447686392.webp?k=1e4619ecc292958d207c5a132daf1acd9b71bdc182f02d4b9e019a2a9905c08e&o=",
 
-    title: "Heritage Collection",
+    title: "Heritage Collection VicHaus Serviced Apartment",
     description: "Every unit features a private bathroom and bidet",
     rating: 4.8,
     address:
@@ -109,7 +109,7 @@ export const featurePostData = [
     slug: "fraser",
     image:
       "https://cf.bstatic.com/xdata/images/hotel/270x200/200326697.webp?k=5ce2c22a49917dec5ae4e8d61b0e05cbb745a8ff3452b9a13a6986f89e2c6254&o=",
-    title: "Fraser Residence ",
+    title: "Fraser Residence Heritage Collection VicHaus Serviced Apartment ",
 
     description: "Fraser Residence Orchard Singapore is set  1.5 km",
     rating: 3.8,
@@ -120,7 +120,8 @@ export const featurePostData = [
     slug: "singapoor",
     image:
       "https://cf.bstatic.com/xdata/images/hotel/270x200/343485515.webp?k=c9ba04cb027d2f7ba0e9f5a2ea577aaa2a7c30f63773ab44ada5007b406f7e08&o=",
-    title: "The Center of Singapore",
+    title:
+      "The Center of Singapore Fraser Residence Heritage Collection VicHaus Serviced Apartment",
 
     description: "Distance in property description is calculated using",
     rating: 5,
@@ -131,7 +132,8 @@ export const featurePostData = [
     slug: "orachad",
     image:
       "https://cf.bstatic.com/xdata/images/hotel/270x200/384201358.webp?k=cb72af5a676efce0aa61ccc762813204ae2411187d7ecaf51df249a259b98cc5&o=",
-    title: " Singapore Orchard",
+    title:
+      " Singapore Orchard Fraser Residence Heritage Collection VicHaus Serviced Apartment Fraser Residence Heritage Collection VicHaus Serviced Apartment",
 
     description: " En suite and common bathrooms have either a showe",
     rating: 3.8,
@@ -293,6 +295,50 @@ export const featurePostData = [
   },
   {
     id: 263,
+    slug: "bidet",
+    image:
+      "https://cf.bstatic.com/xdata/images/hotel/270x200/231112937.webp?k=bab405f03c94b7d5efc0460ea9dfe39b1a81f95053308b2a3fbc14e88a0fa33e&o=",
+    title: "lyf Farrer Park Singapore",
+
+    description: "There is a fully equipped private bathroom with bidet",
+    rating: 4.78,
+    address: "Elgin State. Celina, Delaware 10299",
+  },
+  {
+    id: 28,
+    slug: "orachad",
+    image:
+      "https://cf.bstatic.com/xdata/images/hotel/270x200/384201358.webp?k=cb72af5a676efce0aa61ccc762813204ae2411187d7ecaf51df249a259b98cc5&o=",
+    title: " Singapore Orchard",
+
+    description: " En suite and common bathrooms have either a showe",
+    rating: 3.8,
+    address: "Elgin State. Celina, Delaware 10299",
+  },
+  {
+    id: 269,
+    slug: "bidet",
+    image:
+      "https://cf.bstatic.com/xdata/images/hotel/270x200/231112937.webp?k=bab405f03c94b7d5efc0460ea9dfe39b1a81f95053308b2a3fbc14e88a0fa33e&o=",
+    title: "lyf Farrer Park Singapore",
+
+    description: "There is a fully equipped private bathroom with bidet",
+    rating: 4.78,
+    address: "Elgin State. Celina, Delaware 10299",
+  },
+  {
+    id: 258,
+    slug: "orachad",
+    image:
+      "https://cf.bstatic.com/xdata/images/hotel/270x200/384201358.webp?k=cb72af5a676efce0aa61ccc762813204ae2411187d7ecaf51df249a259b98cc5&o=",
+    title: " Singapore Orchard",
+
+    description: " En suite and common bathrooms have either a showe",
+    rating: 3.8,
+    address: "Elgin State. Celina, Delaware 10299",
+  },
+  {
+    id: 222,
     slug: "bidet",
     image:
       "https://cf.bstatic.com/xdata/images/hotel/270x200/231112937.webp?k=bab405f03c94b7d5efc0460ea9dfe39b1a81f95053308b2a3fbc14e88a0fa33e&o=",
