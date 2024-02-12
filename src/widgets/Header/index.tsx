@@ -1,5 +1,6 @@
 "use client";
-import { FC, Suspense, useState } from "react";
+import { FC, Suspense, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   AppBar,
   Container,
@@ -23,8 +24,17 @@ import UserLogIn from "../UserLogIn";
 import { HeaderProps } from "./Types";
 
 const Header: FC<HeaderProps> = ({ user }) => {
+  const searchParams = useSearchParams();
+
   const [openModal, setOpenModal] = useState(false);
-  // const { sticky, stickyRef } = useSticky(10);
+  // const { sticky, stickyRef } = useSticky(10);\
+
+  useEffect(() => {
+    const url = `${searchParams}`;
+    if (url) {
+      setOpenModal((prev) => !prev);
+    }
+  }, [searchParams]);
 
   return (
     <AppBar position="fixed" color="inherit" elevation={0}>

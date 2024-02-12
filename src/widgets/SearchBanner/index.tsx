@@ -1,5 +1,6 @@
 "use client";
-import { FC } from "react";
+import { FC, useCallback } from "react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import {
   Typography,
   Box,
@@ -16,6 +17,22 @@ import CategoryButton from "src/components/CategoryButton";
 import { SearchBannerProps } from "./Types";
 
 const SearchBanner: FC<SearchBannerProps> = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // Get a new searchParams string by merging the current
+  // searchParams with a provided key/value pair
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+
   return (
     <Stack
       component="div"
@@ -69,44 +86,51 @@ const SearchBanner: FC<SearchBannerProps> = () => {
             <SearchFilterForm />
           </Stack>
         </Hidden>
-        <Hidden mdUp implementation="css">
-          <Box display="flex" justifyContent="center" alignItems="center">
-            <Stack
-              height={60}
-              width={220}
-              maxWidth="100%"
-              flexDirection="row"
-              justifyContent="space-between"
-              alignItems="center"
+
+     
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <Stack
+            height={60}
+            width={220}
+            maxWidth="100%"
+            flexDirection="row"
+            justifyContent="space-between"
+            alignItems="center"
+            sx={(theme) => ({
+              background: theme.palette.background.paper,
+              borderRadius: 50,
+              boxShadow: 10,
+            })}
+            onClick={() => {
+            
+              router.push(pathname + "?" + createQueryString("sort", "asc"));
+            }}
+          >
+            <Typography pl={3} color="text.secondary" variant="subtitle2">
+              Find Activity
+            </Typography>
+            <IconButton
+              size="small"
+
+
               sx={(theme) => ({
-                background: theme.palette.background.paper,
-                borderRadius: 50,
-                boxShadow: 10,
+                border: 10,
+                borderColor: "background.paper",
+                bgcolor: theme.palette.info.main,
               })}
             >
-              <Typography pl={3} color="text.secondary" variant="subtitle2">
-                Find Activity
-              </Typography>
-              <IconButton
-                size="small"
+              <SearchSharpIcon
                 sx={(theme) => ({
-                  border: 10,
-                  borderColor: "background.paper",
-                  bgcolor: theme.palette.info.main,
+                  transform: "rotate(90deg)",
+                  height: 29,
+                  width: 29,
+                  color: theme.palette.info.contrastText,
                 })}
-              >
-                <SearchSharpIcon
-                  sx={(theme) => ({
-                    transform: "rotate(90deg)",
-                    height: 29,
-                    width: 29,
-                    color: theme.palette.info.contrastText,
-                  })}
-                />
-              </IconButton>
-            </Stack>
-          </Box>
-        </Hidden>
+              />
+            </IconButton>
+          </Stack>
+        </Box>
+    
         <Stack
           gap={{ xs: 1, md: 3 }}
           flexDirection="row"
