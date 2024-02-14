@@ -89,7 +89,8 @@ export const featurePostData = [
 
     description: "2118 Thornridge Cir. Syracuse, Connecticut 35624",
     rating: 4.4,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address:
+      "Elgin State. Celina, Delaware 10299 Elgin State. Celina, Delaware 10299 Elgin State. Celina, Delaware 10299",
   },
   {
     id: 2,
@@ -97,43 +98,46 @@ export const featurePostData = [
     image:
       "https://cf.bstatic.com/xdata/images/hotel/270x200/447686392.webp?k=1e4619ecc292958d207c5a132daf1acd9b71bdc182f02d4b9e019a2a9905c08e&o=",
 
-    title: "Heritage Collection",
+    title: "Heritage Collection VicHaus Serviced Apartment",
     description: "Every unit features a private bathroom and bidet",
     rating: 4.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address:
+      "Elgin State. Celina, Delaware 10299 Elgin State. Celina, Delaware 10299",
   },
   {
     id: 3,
     slug: "fraser",
     image:
       "https://cf.bstatic.com/xdata/images/hotel/270x200/200326697.webp?k=5ce2c22a49917dec5ae4e8d61b0e05cbb745a8ff3452b9a13a6986f89e2c6254&o=",
-    title: "Fraser Residence ",
+    title: "Fraser Residence Heritage Collection VicHaus Serviced Apartment ",
 
     description: "Fraser Residence Orchard Singapore is set  1.5 km",
     rating: 3.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina",
   },
   {
     id: 4,
     slug: "singapoor",
     image:
       "https://cf.bstatic.com/xdata/images/hotel/270x200/343485515.webp?k=c9ba04cb027d2f7ba0e9f5a2ea577aaa2a7c30f63773ab44ada5007b406f7e08&o=",
-    title: "The Center of Singapore",
+    title:
+      "The Center of Singapore Fraser Residence Heritage Collection VicHaus Serviced Apartment",
 
     description: "Distance in property description is calculated using",
     rating: 5,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 5,
     slug: "orachad",
     image:
       "https://cf.bstatic.com/xdata/images/hotel/270x200/384201358.webp?k=cb72af5a676efce0aa61ccc762813204ae2411187d7ecaf51df249a259b98cc5&o=",
-    title: " Singapore Orchard",
+    title:
+      " Singapore Orchard Fraser Residence Heritage Collection VicHaus Serviced Apartment Fraser Residence Heritage Collection VicHaus Serviced Apartment",
 
     description: " En suite and common bathrooms have either a showe",
     rating: 3.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 6,
@@ -144,7 +148,7 @@ export const featurePostData = [
 
     description: "There is a fully equipped private bathroom with bidet",
     rating: 4.78,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 11,
@@ -155,7 +159,7 @@ export const featurePostData = [
 
     description: "2118 Thornridge Cir. Syracuse, Connecticut 35624",
     rating: 4.4,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 12,
@@ -166,7 +170,7 @@ export const featurePostData = [
     title: "Heritage Collection",
     description: "Every unit features a private bathroom and bidet",
     rating: 4.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 13,
@@ -177,7 +181,7 @@ export const featurePostData = [
 
     description: "Fraser Residence Orchard Singapore is set  1.5 km",
     rating: 3.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 14,
@@ -188,7 +192,7 @@ export const featurePostData = [
 
     description: "Distance in property description is calculated using",
     rating: 5,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 15,
@@ -199,7 +203,7 @@ export const featurePostData = [
 
     description: " En suite and common bathrooms have either a showe",
     rating: 3.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 16,
@@ -210,7 +214,7 @@ export const featurePostData = [
 
     description: "There is a fully equipped private bathroom with bidet",
     rating: 4.78,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 21,
@@ -221,7 +225,7 @@ export const featurePostData = [
 
     description: "2118 Thornridge Cir. Syracuse, Connecticut 35624",
     rating: 4.4,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 22,
@@ -232,7 +236,7 @@ export const featurePostData = [
     title: "Heritage Collection",
     description: "Every unit features a private bathroom and bidet",
     rating: 4.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 23,
@@ -243,7 +247,7 @@ export const featurePostData = [
 
     description: "Fraser Residence Orchard Singapore is set  1.5 km",
     rating: 3.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 24,
@@ -254,7 +258,7 @@ export const featurePostData = [
 
     description: "Distance in property description is calculated using",
     rating: 5,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 25,
@@ -265,7 +269,7 @@ export const featurePostData = [
 
     description: " En suite and common bathrooms have either a showe",
     rating: 3.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 26,
@@ -276,7 +280,7 @@ export const featurePostData = [
 
     description: "There is a fully equipped private bathroom with bidet",
     rating: 4.78,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 253,
@@ -287,7 +291,7 @@ export const featurePostData = [
 
     description: " En suite and common bathrooms have either a showe",
     rating: 3.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 263,
@@ -298,7 +302,51 @@ export const featurePostData = [
 
     description: "There is a fully equipped private bathroom with bidet",
     rating: 4.78,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
+  },
+  {
+    id: 28,
+    slug: "orachad",
+    image:
+      "https://cf.bstatic.com/xdata/images/hotel/270x200/384201358.webp?k=cb72af5a676efce0aa61ccc762813204ae2411187d7ecaf51df249a259b98cc5&o=",
+    title: " Singapore Orchard",
+
+    description: " En suite and common bathrooms have either a showe",
+    rating: 3.8,
+    address: "Elgin State. Celina, Delaware 10299",
+  },
+  {
+    id: 269,
+    slug: "bidet",
+    image:
+      "https://cf.bstatic.com/xdata/images/hotel/270x200/231112937.webp?k=bab405f03c94b7d5efc0460ea9dfe39b1a81f95053308b2a3fbc14e88a0fa33e&o=",
+    title: "lyf Farrer Park Singapore",
+
+    description: "There is a fully equipped private bathroom with bidet",
+    rating: 4.78,
+    address: "Elgin State. Celina, Delaware 10299",
+  },
+  {
+    id: 258,
+    slug: "orachad",
+    image:
+      "https://cf.bstatic.com/xdata/images/hotel/270x200/384201358.webp?k=cb72af5a676efce0aa61ccc762813204ae2411187d7ecaf51df249a259b98cc5&o=",
+    title: " Singapore Orchard",
+
+    description: " En suite and common bathrooms have either a showe",
+    rating: 3.8,
+    address: "Elgin State. Celina, Delaware 10299",
+  },
+  {
+    id: 222,
+    slug: "bidet",
+    image:
+      "https://cf.bstatic.com/xdata/images/hotel/270x200/231112937.webp?k=bab405f03c94b7d5efc0460ea9dfe39b1a81f95053308b2a3fbc14e88a0fa33e&o=",
+    title: "lyf Farrer Park Singapore",
+
+    description: "There is a fully equipped private bathroom with bidet",
+    rating: 4.78,
+    address: "Elgin State. Celina, Delaware 10299",
   },
 ];
 
@@ -311,7 +359,7 @@ export const userListingData = [
     title: "VicHaus Serviced Apartment",
     description: "2118 Thornridge Cir. Syracuse, Connecticut 35624",
     rating: 4.4,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
     services: {
       bed: "1-2",
       bath: "0-1",
@@ -330,7 +378,7 @@ export const userListingData = [
 
     description: "Every unit features a private bathroom and bidet",
     rating: 4.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
     services: {
       bed: "1-2",
       bath: "0-1",
@@ -348,7 +396,7 @@ export const userListingData = [
 
     description: "Fraser Residence Orchard Singapore is set  1.5 km",
     rating: 3.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
     services: {
       bed: "1-2",
       bath: "0-1",
@@ -366,7 +414,7 @@ export const userListingData = [
 
     description: "Distance in property description is calculated using",
     rating: 5,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
     services: {
       bed: "1-2",
       bath: "0-1",
@@ -386,7 +434,7 @@ export const ownListingPublishData = [
 
     description: "2118 Thornridge Cir. Syracuse, Connecticut 35624",
     rating: 4.4,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 2,
@@ -398,7 +446,7 @@ export const ownListingPublishData = [
 
     description: "Every unit features a private bathroom and bidet",
     rating: 4.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 3,
@@ -409,7 +457,7 @@ export const ownListingPublishData = [
 
     description: "Fraser Residence Orchard Singapore is set  1.5 km",
     rating: 3.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 4,
@@ -420,7 +468,7 @@ export const ownListingPublishData = [
 
     description: "Distance in property description is calculated using",
     rating: 5,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 5,
@@ -431,7 +479,7 @@ export const ownListingPublishData = [
 
     description: " En suite and common bathrooms have either a showe",
     rating: 3.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 6,
@@ -442,7 +490,7 @@ export const ownListingPublishData = [
 
     description: "There is a fully equipped private bathroom with bidet",
     rating: 4.78,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
 ];
 
@@ -456,7 +504,7 @@ export const ownListingUnpublishData = [
 
     description: "2118 Thornridge Cir. Syracuse, Connecticut 35624",
     rating: 4.4,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 2,
@@ -468,7 +516,7 @@ export const ownListingUnpublishData = [
 
     description: "Every unit features a private bathroom and bidet",
     rating: 4.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 3,
@@ -480,7 +528,7 @@ export const ownListingUnpublishData = [
 
     description: "Fraser Residence Orchard Singapore is set  1.5 km",
     rating: 3.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 4,
@@ -491,7 +539,7 @@ export const ownListingUnpublishData = [
 
     description: "Distance in property description is calculated using",
     rating: 5,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
 ];
 
@@ -505,7 +553,7 @@ export const ownListingDraftData = [
 
     description: "2118 Thornridge Cir. Syracuse, Connecticut 35624",
     rating: 4.4,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 2,
@@ -517,7 +565,7 @@ export const ownListingDraftData = [
 
     description: "Every unit features a private bathroom and bidet",
     rating: 4.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 3,
@@ -528,7 +576,7 @@ export const ownListingDraftData = [
 
     description: "Fraser Residence Orchard Singapore is set  1.5 km",
     rating: 3.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
 ];
 
@@ -645,7 +693,7 @@ export const recentPostData = [
 
     description: "Set 800 metres from Bugis Street",
     rating: 4.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 2,
@@ -656,7 +704,7 @@ export const recentPostData = [
 
     description: "The en suite bathrooms have either a bathtub",
     rating: 4.4,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 3,
@@ -667,7 +715,7 @@ export const recentPostData = [
 
     description: "2118 Thornridge Cir. Syracuse, Connecticut 35624",
     rating: 3.4,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 4,
@@ -678,7 +726,7 @@ export const recentPostData = [
 
     description: "Somerset Bencoolen offers stylish apartments",
     rating: 3.4,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 5,
@@ -690,7 +738,7 @@ export const recentPostData = [
     description:
       "Spacious and luxurious, all newly-refurbished suites feature a living",
     rating: 4.2,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 6,
@@ -701,7 +749,7 @@ export const recentPostData = [
 
     description: "Accommodation is fitted with air conditioning",
     rating: 3.4,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
 ];
 
@@ -772,7 +820,7 @@ export const searchListingData = [
     },
     description: "2118 Thornridge Cir. Syracuse, Connecticut 35624",
     rating: 4.4,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 2,
@@ -790,7 +838,7 @@ export const searchListingData = [
     },
     description: "Every unit features a private bathroom and bidet",
     rating: 4.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 3,
@@ -807,7 +855,7 @@ export const searchListingData = [
     },
     description: "Fraser Residence Orchard Singapore is set  1.5 km",
     rating: 3.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 4,
@@ -824,7 +872,7 @@ export const searchListingData = [
     },
     description: "Distance in property description is calculated using",
     rating: 5,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 5,
@@ -841,7 +889,7 @@ export const searchListingData = [
     },
     description: " En suite and common bathrooms have either a showe",
     rating: 3.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 6,
@@ -858,7 +906,7 @@ export const searchListingData = [
     },
     description: "There is a fully equipped private bathroom with bidet",
     rating: 4.78,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 7,
@@ -875,7 +923,7 @@ export const searchListingData = [
     },
     description: "Set 800 metres from Bugis Street",
     rating: 4.8,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 8,
@@ -892,7 +940,7 @@ export const searchListingData = [
     },
     description: "The en suite bathrooms have either a bathtub",
     rating: 4.4,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 9,
@@ -909,7 +957,7 @@ export const searchListingData = [
     },
     description: "2118 Thornridge Cir. Syracuse, Connecticut 35624",
     rating: 3.4,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 10,
@@ -926,7 +974,7 @@ export const searchListingData = [
     },
     description: "Somerset Bencoolen offers stylish apartments",
     rating: 3.4,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 11,
@@ -944,7 +992,7 @@ export const searchListingData = [
     description:
       "Spacious and luxurious, all newly-refurbished suites feature a living",
     rating: 4.2,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 12,
@@ -961,7 +1009,7 @@ export const searchListingData = [
     },
     description: "Accommodation is fitted with air conditioning",
     rating: 3.4,
-    address: "6391 Elgin St. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
 ];
 

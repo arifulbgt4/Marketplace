@@ -1,16 +1,9 @@
 "use client";
 import { FC, useState } from "react";
-import {
-  CardMedia,
-  Typography,
-  Link,
-  Stack,
-  IconButton,
-  Box,
-} from "@mui/material";
+import { useRouter } from "next/navigation";
+import { CardMedia, Typography, Stack, IconButton } from "@mui/material";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
-import CategoryIcon from "@mui/icons-material/Category";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 import routes from "src/global/routes";
@@ -31,103 +24,159 @@ const Listing: FC<ListingProps> = ({
   services,
   name,
 }) => {
+  const router = useRouter();
   const [isSelect, setIsSelect] = useState(isMark);
-  const [show, setShow] = useState(false);
 
   return (
     <Stack
-      component={Link}
-      href={`${routes.listingDetails}/${slug}`}
-      sx={{
+      // component={Link}
+      // href={`${routes.listingDetails}/${slug}`}
+      onClick={() => router.push(`${routes.listingDetails}/${slug}`)}
+      sx={(theme) => ({
+        cursor: "pointer",
+        transition: "all .1s",
+
+        ":hover": {
+          bgcolor: theme.palette.background.paper,
+          "& .MuiCardMedia-root": {
+            boxShadow: 10,
+          },
+          "& h5": {
+            color: theme.palette.primary.contrastText,
+          },
+          "& button": {
+            color: theme.palette.primary.contrastText,
+          },
+          "& span": {
+            background: `linear-gradient(to top, ${theme.palette.action.active} 20%, transparent 40%)`,
+          },
+          "& .MuiTypography-subtitle2": {
+            opacity: 1,
+          },
+        },
         flexDirection: isGrid ? "column" : "row",
         gap: isGrid ? 0 : 3,
         position: "relative",
         borderRadius: 4.5,
-
-        bgcolor: "transparent",
-        ":hover": {
-          boxShadow: 10,
-        },
-      }}
-      onMouseOver={() => setShow(true)}
-      onMouseOut={() => setShow(false)}
+      })}
     >
       <CardMedia
         sx={{
           borderRadius: 3,
+          transition: "all .1s",
         }}
         image={image}
       >
-        <Stack height={isGrid ? 250 : 223} overflow="hidden">
-          {show && (
-            <Stack
-              p={2}
-              justifyContent="space-between"
-              alignItems="end"
-              flexDirection="row"
+        <Stack
+          component="span"
+          justifyContent="flex-end"
+          sx={(theme) => ({
+            transition: "all .1s",
+            background: {
+              xs: `linear-gradient(to top, ${theme.palette.action.active} 20%, transparent 40%)`,
+              md: "transparent",
+            },
+          })}
+          borderRadius={3}
+          height={250}
+        >
+          <Stack
+            flexDirection="row"
+            p={1}
+            gap={1}
+            justifyContent="space-between"
+            alignItems="start"
+          >
+            <Typography
+              pb={0.5}
+              variant="h5"
               sx={(theme) => ({
-                background: `linear-gradient(to top, ${theme.palette.action.active} 20%, transparent 40%)`,
+                color: {
+                  xs: theme.palette.primary.contrastText,
+                  md: "transparent",
+                },
+                display: "-webkit-box",
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: "vertical",
                 overflow: "hidden",
+                transition: "all .01s",
               })}
-              borderRadius={3}
-              height="100%"
             >
-              <Typography pb={0.5} variant="h5" color="#fff">
-                {title}
-              </Typography>
-              <IconButton
-                sx={(theme) => ({
-                  bgcolor: theme.palette.background.default,
-                  ":hover": { bgcolor: theme.palette.background.default },
-                })}
-                onClick={() => {
-                  setIsSelect((prv) => !prv);
-                }}
-                size="large"
-              >
-                {isSelect ? (
-                  <BookmarkIcon
-                    sx={{ height: 18, width: 18 }}
-                    color="primary"
-                  />
-                ) : (
-                  <BookmarkBorderOutlinedIcon
-                    sx={{ height: 18, width: 18 }}
-                    color="primary"
-                  />
-                )}
-              </IconButton>
-            </Stack>
-          )}
+              {title}
+            </Typography>
+
+            <IconButton
+              sx={(theme) => ({
+                color: {
+                  xs: theme.palette.primary.contrastText,
+                  md: "transparent",
+                },
+                transition: "all .1s",
+              })}
+              onClick={(event) => {
+                event.stopPropagation();
+                setIsSelect((prv) => !prv);
+              }}
+              // size="small"
+            >
+              {isSelect ? <BookmarkIcon /> : <BookmarkBorderOutlinedIcon />}
+            </IconButton>
+          </Stack>
         </Stack>
       </CardMedia>
-      <Stack flexDirection="row" p={2} justifyContent="space-between">
+      <Stack
+        flexDirection="row"
+        p={1}
+        gap={1}
+        justifyContent="space-between"
+        alignItems="flex-start"
+      >
         <Stack
           flexDirection="row"
-          alignItems="center"
-          gap={1}
+          alignItems="flex-start"
+          gap={0.5}
           color="text.primary"
-          sx={{
-            ":hover": {
-              color: "primary.main",
-            },
-          }}
         >
-          <LocationOnIcon fontSize="small" />
-          <Typography variant="h6" component="p">
-            {address.slice(0, 24)}
+          <LocationOnIcon
+            sx={{ height: 16, width: 16, mt: 0.5, opacity: 0.6 }}
+          />
+
+          <Typography
+            fontWeight={500}
+            variant="subtitle2"
+            sx={{
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+              transition: "all .01s",
+            }}
+            component="p"
+          >
+            {address}
           </Typography>
         </Stack>
         <Stack
           flexDirection="row"
           justifyContent="center"
           alignItems="center"
-          gap={0.5}
           color="text.secondary"
         >
-          <CategoryIcon sx={{ height: 18, width: 18 }} />
-          <Typography fontWeight={600} variant="caption">
-            2.5
+          <Typography pr={0.2} variant="subtitle2">
+            {"$"}
+          </Typography>
+          <Typography fontWeight={500} variant="subtitle1">
+            2.2
+          </Typography>
+          <Typography
+            component="p"
+            variant="caption"
+            letterSpacing={-0.3}
+            sx={(theme) => ({
+              opacity: 0.6,
+            })}
+          >
+            /mon
           </Typography>
         </Stack>
       </Stack>
