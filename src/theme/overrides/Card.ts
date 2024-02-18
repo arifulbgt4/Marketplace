@@ -22,7 +22,7 @@ const MuiCardContent: Components<Theme>["MuiCardContent"] = {
   styleOverrides: {
     root: ({ theme, ownerState }) => ({
       ":last-child": {
-        paddingBottom: 16,
+        // paddingBottom: 16,
       },
     }),
   },

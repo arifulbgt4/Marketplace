@@ -42,7 +42,9 @@ const Listing: FC<ListingProps> = ({
       elevation={0}
       sx={(theme) => ({
         cursor: "pointer",
+        position: "relative",
         borderRadius: 3,
+        transition: "all .5s",
         ":hover": {
           boxShadow: 10,
           "& article": {
@@ -51,27 +53,39 @@ const Listing: FC<ListingProps> = ({
         },
       })}
     >
+      <Box
+        sx={{
+          overflow: "hidden",
+          position: "absolute",
+          top: 24,
+          left: 24,
+          zIndex: 1,
+        }}
+      >
+        <Chip
+          label="For Sale"
+          sx={(theme) => ({
+            // background: `linear-gradient(to left, ${theme.palette.primary.main} 40%,  ${theme.palette.secondary.main} 100%)`,
+            bgcolor: theme.palette.primary.contrastText,
+            fontWeight: 500,
+          })}
+        />
+      </Box>
       <CardMedia image={image}>
         <Stack
           height={320}
           justifyContent="space-between"
-          sx={{ opacity: { md: 0 }, transition: "all .4s" }}
+          sx={{ opacity: { md: 0 }, transition: "all .5s" }}
           component="article"
         >
           <Stack
             sx={(theme) => ({
-              background: `linear-gradient(to bottom, ${theme.palette.action.active} 20%, transparent 100%)`,
+              background: `linear-gradient(to bottom, ${theme.palette.action.active} 40%, transparent 100%)`,
             })}
-            p={2}
+            p={3}
             flexDirection="row"
-            justifyContent="space-between"
+            justifyContent="flex-end"
           >
-            <Chip
-              label="For Sale"
-              sx={(theme) => ({
-                bgcolor: theme.palette.primary.contrastText,
-              })}
-            />
             <IconButton
               sx={(theme) => ({
                 color: theme.palette.primary.contrastText,
@@ -86,7 +100,7 @@ const Listing: FC<ListingProps> = ({
             </IconButton>
           </Stack>
           <Box
-            p={2}
+            p={3}
             sx={(theme) => ({
               background: `linear-gradient(to top, ${theme.palette.action.active} 40%, transparent 100%)`,
             })}
@@ -106,17 +120,12 @@ const Listing: FC<ListingProps> = ({
           </Box>
         </Stack>
       </CardMedia>
-      <CardContent>
-        <Stack
-          flexDirection="row"
-          gap={1}
-          justifyContent="space-between"
-          alignItems="flex-end"
-        >
+      <CardContent sx={{ p: 3 }}>
+        <Stack justifyContent="space-between">
           <Stack
             flexDirection="row"
-            alignItems="flex-start"
             gap={0.5}
+            mr={5}
             sx={{
               ":hover": {
                 color: "primary.dark",
@@ -126,7 +135,6 @@ const Listing: FC<ListingProps> = ({
             <LocationOnIcon
               sx={{ height: 16, width: 16, mt: 0.5, opacity: 0.6 }}
             />
-
             <Typography
               variant="h6"
               sx={{
@@ -141,11 +149,7 @@ const Listing: FC<ListingProps> = ({
               {address}
             </Typography>
           </Stack>
-          <Stack
-            flexDirection="row"
-            justifyContent="center"
-            alignItems="center"
-          >
+          <Stack flexDirection="row" justifyContent="end" alignItems="center">
             <Typography color="text.disabled" pr={0.2} variant="h5">
               {"$"}
             </Typography>
