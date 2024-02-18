@@ -46,7 +46,7 @@ const Listing: FC<ListingProps> = ({
         ":hover": {
           boxShadow: 10,
           "& article": {
-            opacity: 1,
+            opacity: { md: 1 },
           },
         },
       })}
