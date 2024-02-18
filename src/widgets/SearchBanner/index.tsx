@@ -86,51 +86,47 @@ const SearchBanner: FC<SearchBannerProps> = () => {
             <SearchFilterForm />
           </Stack>
         </Hidden>
-
-     
-        <Box display="flex" justifyContent="center" alignItems="center">
-          <Stack
-            height={60}
-            width={220}
-            maxWidth="100%"
-            flexDirection="row"
-            justifyContent="space-between"
-            alignItems="center"
-            sx={(theme) => ({
-              background: theme.palette.background.paper,
-              borderRadius: 50,
-              boxShadow: 10,
-            })}
-            onClick={() => {
-            
-              router.push(pathname + "?" + createQueryString("sort", "asc"));
-            }}
-          >
-            <Typography pl={3} color="text.secondary" variant="subtitle2">
-              Find Activity
-            </Typography>
-            <IconButton
-              size="small"
-
-
+        <Hidden mdUp>
+          <Box display="flex" justifyContent="center" alignItems="center">
+            <Stack
+              height={60}
+              width={220}
+              maxWidth="100%"
+              flexDirection="row"
+              justifyContent="space-between"
+              alignItems="center"
               sx={(theme) => ({
-                border: 10,
-                borderColor: "background.paper",
-                bgcolor: theme.palette.info.main,
+                background: theme.palette.background.paper,
+                borderRadius: 50,
+                boxShadow: 10,
               })}
+              onClick={() => {
+                router.push(pathname + "?" + createQueryString("sort", "asc"));
+              }}
             >
-              <SearchSharpIcon
+              <Typography pl={3} color="text.secondary" variant="subtitle2">
+                Find Activity
+              </Typography>
+              <IconButton
+                size="small"
                 sx={(theme) => ({
-                  transform: "rotate(90deg)",
-                  height: 29,
-                  width: 29,
-                  color: theme.palette.info.contrastText,
+                  border: 10,
+                  borderColor: "background.paper",
+                  bgcolor: theme.palette.info.main,
                 })}
-              />
-            </IconButton>
-          </Stack>
-        </Box>
-    
+              >
+                <SearchSharpIcon
+                  sx={(theme) => ({
+                    transform: "rotate(90deg)",
+                    height: 29,
+                    width: 29,
+                    color: theme.palette.info.contrastText,
+                  })}
+                />
+              </IconButton>
+            </Stack>
+          </Box>
+        </Hidden>
         <Stack
           gap={{ xs: 1, md: 3 }}
           flexDirection="row"
@@ -153,7 +149,6 @@ const SearchBanner: FC<SearchBannerProps> = () => {
                     transform="translate(-102.4, -102.4), scale(38.4)"
                     d="M16,26.95480041159317C18.47059434658302,26.99819340256183,20.12377632346754,31.325714916878237,22.438805263073498,30.46179340087108C24.666874238909962,29.63032356719341,23.290198425173305,25.728804853138996,24.60155567707757,23.744875518893693C25.667132594689924,22.13278293186145,28.743763359376246,22.16398292980836,29.16950746095078,20.27903236374912C29.613008985861672,18.315462117356482,26.66623908286864,16.89765239749821,26.602548576867676,14.885627239961138C26.531646756503537,12.645791898008188,29.28949174995815,10.796718163345282,28.800120273927114,8.6098471141886C28.355392678198545,6.6224776995515535,25.864017146737858,5.880956669557988,24.296557875390807,4.580767738169365C22.644671705119606,3.210547692416723,21.384497427483183,0.432628339839654,19.2539422491713,0.6914053200446979C16.752623378282784,0.9952152145395629,16.299733848748275,5.29222500731983,13.842656614077441,5.85049735010452C11.43782933301165,6.396897984666986,9.060498732942882,2.279754098398769,6.914604172099638,3.4950254421537092C4.915008366158343,4.627444306712515,7.235010347601197,8.286320516712067,6.057257394051916,10.259554879972706C4.853964479838515,12.275579480240939,1.0182988227235612,12.090955852079599,0.42772720803294995,14.36328817685179C-0.12123656236348601,16.47552670909846,2.2753567872633793,18.25888531414706,3.5106661488325237,20.058030561072687C4.529581595743335,21.54201258238604,6.1404858114089365,22.498637211877686,7.071398076833955,24.03934928154417C8.242122349162276,25.97696368799335,7.509101188555095,29.534672972735073,9.661115015459607,30.237368780826948C11.948036360371688,30.984115861359,13.594619451883407,26.91255282184013,16,26.95480041159317"
                     fill="#b3ecff"
-                    // strokewidth={0}
                   ></path>
                 </g>
                 <g
