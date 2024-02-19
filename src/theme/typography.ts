@@ -73,7 +73,7 @@ export default {
     letterSpacing: "0em",
   },
   h6: {
-    ...roboto.style,
+    ...rubik.style,
     fontWeight: 500,
     fontSize: "1.125rem",
     lineHeight: 1.6,
