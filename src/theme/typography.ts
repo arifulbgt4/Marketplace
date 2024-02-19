@@ -3,7 +3,7 @@ import {
   createTheme,
   useTheme,
 } from "@mui/material/styles";
-import { Rubik, Roboto } from "next/font/google";
+import { Rubik, Roboto, DM_Sans } from "next/font/google";
 import breakpoints from "./breakpoints";
 
 export const roboto = Roboto({
@@ -13,6 +13,12 @@ export const roboto = Roboto({
   display: "swap",
 });
 export const rubik = Rubik({
+  weight: ["300", "400", "500", "600", "700", "900"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  display: "swap",
+});
+export const dm_sans = DM_Sans({
   weight: ["300", "400", "500", "600", "700", "900"],
   style: ["normal", "italic"],
   subsets: ["latin"],
@@ -73,7 +79,7 @@ export default {
     letterSpacing: "0em",
   },
   h6: {
-    ...rubik.style,
+    ...dm_sans.style,
     fontWeight: 500,
     fontSize: "1.125rem",
     lineHeight: 1.6,

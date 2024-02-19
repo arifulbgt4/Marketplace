@@ -65,7 +65,6 @@ const Listing: FC<ListingProps> = ({
         <Chip
           label="For Sale"
           sx={(theme) => ({
-            // background: `linear-gradient(to left, ${theme.palette.primary.main} 40%,  ${theme.palette.secondary.main} 100%)`,
             bgcolor: theme.palette.primary.contrastText,
             fontWeight: 500,
           })}
@@ -88,9 +87,14 @@ const Listing: FC<ListingProps> = ({
           >
             <IconButton
               sx={(theme) => ({
+                border: 1,
                 color: theme.palette.primary.contrastText,
-                p: 0,
+                borderColor: "transparent",
+                ":hover": {
+                  borderColor: theme.palette.primary.contrastText,
+                },
               })}
+              size="small"
               onClick={(event) => {
                 event.stopPropagation();
                 setIsSelect((prv) => !prv);
@@ -154,7 +158,11 @@ const Listing: FC<ListingProps> = ({
               {"$"}
             </Typography>
             <Typography variant="h4">2.2</Typography>
-            <Typography color="text.disabled" variant="h6" letterSpacing={-0.3}>
+            <Typography
+              color="text.disabled"
+              variant="subtitle1"
+              letterSpacing={-0.3}
+            >
               {"/mon"}
             </Typography>
           </Stack>
