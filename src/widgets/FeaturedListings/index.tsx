@@ -11,7 +11,7 @@ const FeaturedListings: FC<FeaturedListingsProps> = () => {
   const t = useTranslations();
   return (
     <Container>
-      <Grid spacing={8} container>
+      <Grid spacing={5} container>
         {featurePostData.map((data) => {
           const {
             id,
@@ -24,16 +24,7 @@ const FeaturedListings: FC<FeaturedListingsProps> = () => {
             address,
           } = data;
           return (
-            <Grid
-              item
-              xs={12}
-              md={3}
-              key={id}
-              sx={{
-                flex: 1,
-                display: "flex",
-              }}
-            >
+            <Grid item xs={12} sm={4} md={3} lg={2.4} xl={2} key={id}>
               <Listing
                 id={id}
                 address={address}

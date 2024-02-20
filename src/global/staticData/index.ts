@@ -89,8 +89,7 @@ export const featurePostData = [
 
     description: "2118 Thornridge Cir. Syracuse, Connecticut 35624",
     rating: 4.4,
-    address:
-      "Elgin State. Celina, Delaware 10299 Elgin State. Celina, Delaware 10299 Elgin State. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299 State. Celina",
   },
   {
     id: 2,
@@ -101,8 +100,7 @@ export const featurePostData = [
     title: "Heritage Collection VicHaus Serviced Apartment",
     description: "Every unit features a private bathroom and bidet",
     rating: 4.8,
-    address:
-      "Elgin State. Celina, Delaware 10299 Elgin State. Celina, Delaware 10299",
+    address: "Elgin State. Celina, Delaware 10299",
   },
   {
     id: 3,
@@ -113,7 +111,7 @@ export const featurePostData = [
 
     description: "Fraser Residence Orchard Singapore is set  1.5 km",
     rating: 3.8,
-    address: "Elgin State. Celina",
+    address: "Elgin State.Celina State State",
   },
   {
     id: 4,
