@@ -44,7 +44,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
           sx={{ display: "flex", justifyContent: "space-between" }}
         >
           <Logo />
-          <Hidden mdUp>
+          <Hidden mdUp implementation="css">
             <IconButton
               type="submit"
               size="small"
@@ -118,7 +118,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
             </Stack>
           </Hidden>
         </Toolbar>
-        <Hidden mdUp>
+        <Hidden mdUp implementation="css">
           <Toolbar
             sx={(theme) => ({
               position: "fixed",

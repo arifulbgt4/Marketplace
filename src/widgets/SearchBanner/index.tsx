@@ -86,7 +86,7 @@ const SearchBanner: FC<SearchBannerProps> = () => {
             <SearchFilterForm />
           </Stack>
         </Hidden>
-        <Hidden mdUp>
+        <Hidden mdUp implementation="css">
           <Box display="flex" justifyContent="center" alignItems="center">
             <Stack
               height={60}
