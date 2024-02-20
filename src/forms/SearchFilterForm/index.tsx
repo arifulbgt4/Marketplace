@@ -1,7 +1,7 @@
 "use client";
 import { FC, useState } from "react";
-import { useRouter } from "next/navigation";
 import { Form as FinalForm } from "react-final-form";
+import { useRouter } from "next/navigation";
 import {
   Typography,
   Grid,
@@ -90,7 +90,6 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
                     <SearchKeyword size={size} />
                   </Stack>
                 </Grid>
-
                 <Grid item xs={12} md={4}>
                   <Box
                     component={Stack}
@@ -165,33 +164,33 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
                   </Box>
                 </Hidden>
                 <Hidden mdUp implementation="css">
-                  <Grid item xs={12}>
-                    <Box
-                      sx={(theme) => ({
-                        bgcolor: theme.palette.primary.main,
-                        borderRadius: 25,
-                      })}
-                      component={Stack}
-                      justifyContent="center"
-                      alignItems="center"
+                  <Grid
+                    item
+                    xs={12}
+                    sx={(theme) => ({
+                      bgcolor: theme.palette.primary.main,
+                      borderRadius: 25,
+                    })}
+                    component={Stack}
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <IconButton
+                      type="submit"
+                      size="large"
+                      aria-label="search-button"
+                      role="button"
+                      aria-labelledby="search-button"
                     >
-                      <IconButton
-                        type="submit"
-                        size="large"
-                        aria-label="search-button"
-                        role="button"
-                        aria-labelledby="search-button"
-                      >
-                        <SearchSharpIcon
-                          sx={(theme) => ({
-                            transform: "rotate(90deg)",
-                            height: 27,
-                            width: 27,
-                            color: theme.palette.info.contrastText,
-                          })}
-                        />
-                      </IconButton>
-                    </Box>
+                      <SearchSharpIcon
+                        sx={(theme) => ({
+                          transform: "rotate(90deg)",
+                          height: 27,
+                          width: 27,
+                          color: theme.palette.info.contrastText,
+                        })}
+                      />
+                    </IconButton>
                   </Grid>
                 </Hidden>
               </Grid>

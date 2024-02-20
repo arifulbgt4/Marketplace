@@ -1,47 +1,42 @@
-import { Box, Container, Grid, Paper, Stack, Typography } from "@mui/material";
+"use client";
+import { Box, Container, Grid, Typography } from "@mui/material";
 
-import ContactHelpInfo from "src/components/ContactHelpInfo";
 import ContactForm from "src/forms/ContactForm";
 import ContactInfo from "src/widgets/ContactInfo";
 
 const Conatact = () => {
   return (
-    <Box pt={{ xs: 2, md: 5 }}>
+    <Box pt={10}>
       <Container maxWidth="lg">
-        <Stack flexDirection={{ md: "row" }}>
-          <Paper
-            sx={{
-              p: { xs: 2, md: 5 },
-              borderRadius: 5,
-              borderBottomLeftRadius: { xs: 0, md: 5 },
-              borderBottomRightRadius: { xs: 0, md: 5 },
-            }}
-          >
-            <Grid container columnSpacing={10} rowSpacing={4}>
-              <Grid item xs={12} md={6}>
-                <Stack gap={1} pb={3}>
-                  <Typography color="primary.main" variant="h4">
-                    GET IN TOUCH
-                  </Typography>
-                  <Typography color="text.secondary" variant="body2">
-                    Lorem ipsum dolor sit amet consectetur. Purus viverra eget
-                    integer sit dictum.
-                  </Typography>
-                </Stack>
-                <ContactForm />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Stack justifyContent="space-between" height="100%">
-                  <Box>
-                    <Typography variant="h3"> Map</Typography>
-                  </Box>
-                  <ContactInfo />
-                </Stack>
-              </Grid>
+        <Grid container spacing={10}>
+          <Grid item xs={12}>
+            <Container maxWidth="md">
+              <Typography
+                sx={(theme) => ({
+                  backgroundcolor: "primary",
+                  backgroundImage: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main},${theme.palette.primary.main})`,
+                  backgroundSize: "100%",
+                  backgroundRepeat: "repeat",
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                })}
+                variant="h1"
+                textAlign="center"
+              >
+                We love meeting new people and helping them.
+              </Typography>
+            </Container>
+          </Grid>
+          <Grid item container xs={12} spacing={15}>
+            <Grid item xs={4}>
+              <ContactInfo />
             </Grid>
-          </Paper>
-          <ContactHelpInfo />
-        </Stack>
+            <Grid item xs={8}>
+              <ContactForm />
+            </Grid>
+          </Grid>
+        </Grid>
       </Container>
     </Box>
   );

@@ -1,12 +1,11 @@
 "use client";
 import { FC } from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import PlaceIcon from "@mui/icons-material/Place";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import MailIcon from "@mui/icons-material/Mail";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
 import { ContactInfoProps } from "./Types";
@@ -14,67 +13,27 @@ import { ContactInfoProps } from "./Types";
 const ContactInfo: FC<ContactInfoProps> = () => {
   return (
     <List disablePadding>
-      <ListItem disablePadding sx={{ pb: { xs: 2, md: 4 } }}>
-        <ListItemIcon>
-          <Stack
-            justifyContent="center"
-            alignItems="center"
-            p={1.5}
-            border={1}
-            borderRadius={50}
-            borderColor={(theme) => theme.palette.primary.main}
-          >
-            <PlaceIcon color="primary" />
-          </Stack>
-        </ListItemIcon>
+      <ListItem disablePadding sx={{ pb: { xs: 2, md: 5 } }}>
+        <MailIcon color="primary" />
         <ListItemText
+          sx={{ pl: 3 }}
           primary={
-            <Box pl={1.5}>
-              <Typography variant="h6">3605 Parker Rd.</Typography>
-            </Box>
+            <Typography variant="h6">nvt.isst.nute@gmail.com</Typography>
           }
         />
       </ListItem>
-      <ListItem disablePadding sx={{ pb: { xs: 2, md: 4 } }}>
-        <ListItemIcon>
-          <Stack
-            justifyContent="center"
-            alignItems="center"
-            p={1.5}
-            border={1}
-            borderRadius={50}
-            borderColor={(theme) => theme.palette.primary.main}
-          >
-            <PhoneIphoneIcon color="primary" />
-          </Stack>
-        </ListItemIcon>
+      <ListItem disablePadding sx={{ pb: { xs: 2, md: 5 } }}>
+        <PhoneIphoneIcon color="primary" />
         <ListItemText
-          primary={
-            <Box pl={1.5}>
-              <Typography variant="h6">(207) 555-0119</Typography>
-            </Box>
-          }
+          sx={{ pl: 3 }}
+          primary={<Typography variant="h6">(207) 555-0119</Typography>}
         />
       </ListItem>
       <ListItem disablePadding>
-        <ListItemIcon>
-          <Stack
-            justifyContent="center"
-            alignItems="center"
-            p={1.5}
-            border={1}
-            borderRadius={50}
-            borderColor={(theme) => theme.palette.primary.main}
-          >
-            <MailIcon color="primary" />
-          </Stack>
-        </ListItemIcon>
+        <PlaceIcon color="primary" />
         <ListItemText
-          primary={
-            <Box pl={1.5}>
-              <Typography variant="h6">nvt.isst.nute@gmail.com</Typography>
-            </Box>
-          }
+          sx={{ pl: 3 }}
+          primary={<Typography variant="h6">www.trivers.com</Typography>}
         />
       </ListItem>
     </List>

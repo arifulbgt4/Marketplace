@@ -75,7 +75,7 @@ export default function SearchLocation({ size }: SearchLocationProps) {
           label="Where?"
           fullWidth
           variant="filled"
-          sx={{ label: { pt: { md: 1.4 } } }}
+          sx={{ label: { pt: { md: 1.4 }, fontWeight: 500 } }}
         />
       )}
       renderOption={(props, option: PlaceType) => {

@@ -3,7 +3,6 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
 import { SearchKeywordProps } from "./Types";
-// import { TextField } from "src/components/Input";
 
 const SearchKeyword: FC<SearchKeywordProps> = ({ size }) => {
   return (
@@ -28,7 +27,7 @@ const SearchKeyword: FC<SearchKeywordProps> = ({ size }) => {
           fullWidth
           variant="filled"
           label="What?"
-          sx={{ label: { pt: { md: 1.4 } } }}
+          sx={{ label: { pt: { md: 1.4 }, fontWeight: 500 } }}
         />
       )}
     />

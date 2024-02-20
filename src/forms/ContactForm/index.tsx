@@ -1,7 +1,6 @@
 "use client";
 import { FC } from "react";
 import { Form as FinalForm } from "react-final-form";
-import { FormApi } from "final-form";
 import { Grid, Button } from "@mui/material";
 
 import { TextField } from "src/components/Input";
@@ -24,32 +23,59 @@ const ContactForm: FC<ContactFormProps> = () => {
       render={({ handleSubmit, values, errors, submitting }) => {
         return (
           <form onSubmit={handleSubmit}>
-            <Grid container rowSpacing={2}>
-              <Grid item xs={12}>
+            <Grid container spacing={6}>
+              <Grid item xs={6}>
+                <TextField
+                  type="text"
+                  name="name"
+                  fullWidth
+                  id="name"
+                  label="Name"
+                  variant="standard"
+                  required
+                  size="small"
+                  sx={{ label: { fontWeight: 400 } }}
+                />
+              </Grid>
+              <Grid item xs={6}>
                 <TextField
                   type="email"
                   name="email"
                   fullWidth
                   id="email"
                   label="Your Email"
-                  variant="filled"
+                  variant="standard"
                   required
                   size="small"
+                  sx={{ label: { fontWeight: 400 } }}
                 />
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid item xs={6}>
                 <TextField
                   name="subect"
                   fullWidth
                   id="subject"
                   label="Subject"
-                  variant="filled"
+                  variant="standard"
                   size="small"
                   required
+                  sx={{ label: { fontWeight: 400 } }}
                 />
               </Grid>
-
+              <Grid item xs={6}>
+                <TextField
+                  type="number"
+                  name="number"
+                  fullWidth
+                  id="number"
+                  label="Number"
+                  variant="standard"
+                  required
+                  size="small"
+                  sx={{ label: { fontWeight: 400 } }}
+                />
+              </Grid>
               <Grid item xs={12}>
                 <TextField
                   name="message"
@@ -57,14 +83,15 @@ const ContactForm: FC<ContactFormProps> = () => {
                   multiline
                   rows={5}
                   id="message"
-                  label="message"
-                  variant="filled"
+                  label="Hello Iam Intrested in.."
+                  variant="standard"
                   required
                   size="small"
+                  sx={{ label: { fontWeight: 500 } }}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <Button fullWidth variant="contained" type="submit">
+              <Grid item xs={12} display="flex" justifyContent="flex-end">
+                <Button variant="contained" type="submit">
                   Send
                 </Button>
               </Grid>
