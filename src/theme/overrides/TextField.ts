@@ -60,9 +60,7 @@ const MuiInputBase: Components<Theme>["MuiInputBase"] = {
 
 const MuiInputLabel: Components<Theme>["MuiInputLabel"] = {
   styleOverrides: {
-    root: ({ theme, ownerState }) => ({
-      fontWeight: 500,
-    }),
+    root: ({ theme, ownerState }) => ({}),
   },
 };
 const MuiOutlinedInput: Components<Theme>["MuiOutlinedInput"] = {
