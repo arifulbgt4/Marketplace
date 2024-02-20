@@ -24,7 +24,7 @@ const FeaturedListings: FC<FeaturedListingsProps> = () => {
             address,
           } = data;
           return (
-            <Grid item xs={12} sm={4} md={3} lg={2.4} xl={2} key={id}>
+            <Grid item xs={12} sm={6} md={4} lg={3} xl={2.4} xxl={2} key={id}>
               <Listing
                 id={id}
                 address={address}
