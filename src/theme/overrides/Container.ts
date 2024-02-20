@@ -5,7 +5,7 @@ const MuiContainer: Components<Theme>["MuiContainer"] = {
     root: ({ theme, ownerState }) => ({}),
   },
   defaultProps: {
-    maxWidth: "xl",
+    maxWidth: "xxl",
   },
 };
 
