@@ -8,12 +8,12 @@ import { UserListingsProps } from "./Types";
 
 const UserListings: FC<UserListingsProps> = () => {
   return (
-    <Grid container rowSpacing={3}>
+    <Grid container spacing={5}>
       <Grid item xs={12} display="flex" gap={1}>
         <Typography variant="h5">Listings</Typography>
         <Divider />
       </Grid>
-      <Grid item container xs={12} spacing={3}>
+      <Grid item container xs={12} spacing={5} justifyContent="center">
         {userListingData.map((data) => {
           const {
             id,
@@ -27,7 +27,7 @@ const UserListings: FC<UserListingsProps> = () => {
             services,
           } = data;
           return (
-            <Grid item xs={12} md={6} key={id}>
+            <Grid item xs={12} sm={6} lg={4} key={id}>
               <Listing
                 id={id}
                 slug={slug}

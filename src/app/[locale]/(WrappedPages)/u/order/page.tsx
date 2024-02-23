@@ -41,13 +41,17 @@ const Order = () => {
 
   return (
     <>
-      <Hidden mdUp>
+      <Hidden mdUp implementation="css">
         <Box pb={2} display="flex" justifyContent="center">
-          <Button disableRipple onClick={handleDrawerOpen} variant="contained">
-            Order <ArrowForwardIcon fontSize="small" />
+          <Button
+            endIcon={<ArrowForwardIcon fontSize="small" />}
+            disableRipple
+            onClick={handleDrawerOpen}
+            variant="contained"
+          >
+            Order
           </Button>
         </Box>
-
         <Drawer open={open} onClose={handleDrawerClose} anchor="bottom">
           <Paper>
             <Stack
@@ -84,16 +88,16 @@ const Order = () => {
           </Paper>
         </Drawer>
       </Hidden>
-      <Grid container columnSpacing={4}>
-        <Hidden mdDown>
-          <Grid item xs={12} md={3} gap={4} container>
+      <Grid container spacing={4}>
+        <Hidden mdDown implementation="css">
+          <Grid item md={2} gap={4} container>
             <Grid item xs={12} container gap={2}>
               <Typography variant="h3">Order</Typography>
               <Button variant="outlined" endIcon={<CalendarMonthIcon />}>
                 08/12/2023-08/24/2023
               </Button>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item md={12}>
               <OrderCards
                 orderData={orderData}
                 avRating={{ view: 60, rate: 34 }}
@@ -101,7 +105,7 @@ const Order = () => {
             </Grid>
           </Grid>
         </Hidden>
-        <Grid item xs={12} md={9}>
+        <Grid item xs={12} md={10}>
           <OrderDetails orderDetailsData={orderDetailsData} />
         </Grid>
       </Grid>
