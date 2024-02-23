@@ -2,6 +2,7 @@
 import { FC } from "react";
 import { Form as FinalForm } from "react-final-form";
 import { Grid, Button } from "@mui/material";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 import { TextField } from "src/components/Input";
 
@@ -24,7 +25,7 @@ const ContactForm: FC<ContactFormProps> = () => {
         return (
           <form onSubmit={handleSubmit}>
             <Grid container spacing={6}>
-              <Grid item xs={6}>
+              <Grid item xs={12} md={6}>
                 <TextField
                   type="text"
                   name="name"
@@ -37,7 +38,7 @@ const ContactForm: FC<ContactFormProps> = () => {
                   sx={{ label: { fontWeight: 400 } }}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12} md={6}>
                 <TextField
                   type="email"
                   name="email"
@@ -51,7 +52,7 @@ const ContactForm: FC<ContactFormProps> = () => {
                 />
               </Grid>
 
-              <Grid item xs={6}>
+              <Grid item xs={12} md={6}>
                 <TextField
                   name="subect"
                   fullWidth
@@ -63,7 +64,7 @@ const ContactForm: FC<ContactFormProps> = () => {
                   sx={{ label: { fontWeight: 400 } }}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12} md={6}>
                 <TextField
                   type="number"
                   name="number"
@@ -91,7 +92,11 @@ const ContactForm: FC<ContactFormProps> = () => {
                 />
               </Grid>
               <Grid item xs={12} display="flex" justifyContent="flex-end">
-                <Button variant="contained" type="submit">
+                <Button
+                  variant="contained"
+                  type="submit"
+                  endIcon={<KeyboardArrowRightIcon />}
+                >
                   Send
                 </Button>
               </Grid>
