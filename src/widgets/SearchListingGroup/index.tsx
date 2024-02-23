@@ -14,11 +14,7 @@ import { SearchListingGroupProps } from "./Types";
 
 const SearchListingGroup: FC<SearchListingGroupProps> = () => {
   const [open, setOpen] = useState(false);
-  const [isGrid, setIsGrid] = useState(true);
 
-  const toggleGridList = () => {
-    setIsGrid(!isGrid);
-  };
   const onSubmitForm = async () => {};
 
   return (
@@ -31,7 +27,7 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Hidden mdUp>
+          <Hidden mdUp implementation="css">
             <Grid item xs={12} display="flex">
               <Box>
                 <IconButton sx={{ border: 1 }} onClick={() => setOpen(true)}>
@@ -48,7 +44,7 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
             </Grid>
           </Hidden>
         </Grid>
-        <Grid item container xs={12} columnSpacing={4} rowSpacing={4}>
+        <Grid item container xs={12} spacing={5}>
           {searchListingData.map((data) => {
             const {
               id,
@@ -62,10 +58,9 @@ const SearchListingGroup: FC<SearchListingGroupProps> = () => {
               address,
             } = data;
             return (
-              <Grid item xs={12} sm={isGrid && 6} lg={isGrid && 4} key={id}>
+              <Grid item xs={12} sm={6} md={4} lg={3} xl={2.5} key={id}>
                 <Listing
                   id={id}
-                  isGrid={isGrid}
                   slug={slug}
                   image={image}
                   title={title}

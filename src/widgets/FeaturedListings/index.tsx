@@ -11,7 +11,7 @@ const FeaturedListings: FC<FeaturedListingsProps> = () => {
   const t = useTranslations();
   return (
     <Container>
-      <Grid spacing={5} container>
+      <Grid spacing={5} container justifyContent="center">
         {featurePostData.map((data) => {
           const {
             id,
