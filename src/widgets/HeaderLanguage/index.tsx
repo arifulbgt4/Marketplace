@@ -108,17 +108,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
           {language?.key || defaultLang?.key}
         </Typography>
       </Stack>
-      <Modal
-        slotProps={{
-          backdrop: {
-            sx: (theme) => ({
-              bottom: { xs: 48, md: 0 },
-            }),
-          },
-        }}
-        open={open}
-        onClose={handleCloseLangModal}
-      >
+      <Modal open={open} onClose={handleCloseLangModal}>
         <Stack justifyContent="center" alignItems="center">
           <Container
             maxWidth="md"
