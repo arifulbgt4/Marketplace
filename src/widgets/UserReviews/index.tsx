@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Grid, Button, Typography, Divider } from "@mui/material";
+import { Grid, Typography, Divider } from "@mui/material";
 
 import { userReviewData } from "src/global/staticData";
 import Review from "../Review";
@@ -8,16 +8,33 @@ import { UserReviewsProps } from "./Types";
 
 const UserReviews: FC<UserReviewsProps> = () => {
   return (
-    <Grid container rowSpacing={3}>
-      <Grid item xs={12} display="flex" gap={1}>
-        <Typography variant="h5">Listings</Typography>
+    <Grid container rowSpacing={5}>
+      <Grid
+        item
+        xs={12}
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Typography
+          textAlign="center"
+          variant="h2"
+          fontFamily="__DM_Sans_048603"
+          fontWeight={700}
+        >
+          What our customer say
+        </Typography>
+        <Typography textAlign="center" variant="h6" color="text.secondary">
+          Check honest reviews from our customer
+        </Typography>
         <Divider />
       </Grid>
-      <Grid item container xs={12} spacing={3}>
+      <Grid item container xs={12} spacing={5}>
         {userReviewData.map((data) => {
           const { id, title, subheader, description, img } = data;
           return (
-            <Grid key={id} item xs={12}>
+            <Grid key={id} xs={12} item md={4}>
               <Review
                 id={id}
                 title={title}
@@ -28,11 +45,6 @@ const UserReviews: FC<UserReviewsProps> = () => {
             </Grid>
           );
         })}
-        <Grid item xs={12}>
-          <Button variant="outlined" color="inherit" size="large">
-            Show all 24 reviews
-          </Button>
-        </Grid>
       </Grid>
     </Grid>
   );
