@@ -80,6 +80,16 @@ const SearchBanner: FC<SearchBannerProps> = () => {
             Explore Endless Possibilities: Over 25,000+ Listings Await You in
             Our Global Marketplace
           </Typography>
+          <Typography
+            variant="h3"
+            sx={(theme) => ({
+              color: theme.palette.primary.main,
+            })}
+            component="p"
+            align="center"
+          >
+            Contact: arifulbgt4@gmail.com
+          </Typography>
         </Stack>
         <Hidden mdDown implementation="css">
           <Stack justifyContent="center">
