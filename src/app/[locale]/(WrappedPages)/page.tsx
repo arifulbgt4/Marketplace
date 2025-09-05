@@ -1,16 +1,17 @@
-import { unstable_setRequestLocale } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 import { Box, Grid, Link } from "@mui/material";
 // import { useTranslations } from "next-intl";
 
 import FeaturedListings from "src/widgets/FeaturedListings";
 import SearchBanner from "src/widgets/SearchBanner";
 
-export default function Home({
-  params: { locale },
+export default async function Home({
+  params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  unstable_setRequestLocale(locale);
+  const { locale } = await params;
+  setRequestLocale(locale);
 
   // const t = useTranslations();
   return (

@@ -2,18 +2,22 @@ import { getRequestConfig } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { locales } from "src/global/staticData";
 
-export default getRequestConfig(
-  async ({ locale = "en" }: { locale: string }) => {
-    // Validate that the incoming `locale` parameter is valid
-    if (!locales.includes(locale as string)) notFound();
+export default getRequestConfig(async ({ requestLocale }) => {
+  // This typically corresponds to the `[locale]` segment
+  let locale = await requestLocale;
 
-    return {
-      messages: (
-        await (locale === "en"
-          ? // When using Turbopack, this will enable HMR for `en`
-            import("./messages/en.json")
-          : import(`./messages/${locale}.json`))
-      ).default,
-    };
+  // Ensure that a valid locale is used
+  if (!locale || !locales.includes(locale)) {
+    locale = "en"; // fallback
   }
-);
+
+  return {
+    locale,
+    messages: (
+      await (locale === "en"
+        ? // When using Turbopack, this will enable HMR for `en`
+          import("./messages/en.json")
+        : import(`./messages/${locale}.json`))
+    ).default,
+  };
+});

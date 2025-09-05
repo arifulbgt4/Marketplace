@@ -1,6 +1,6 @@
 "use client";
 import { useLocale } from "next-intl";
-import { createLocalizedPathnamesNavigation } from "next-intl/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { FC, useState, useCallback, useMemo } from "react";
 import {
   Grid,
@@ -25,24 +25,6 @@ import { locales } from "src/global/staticData";
 import Language from "src/components/Language";
 
 import { HeaderLanguageProps } from "./Types";
-
-export const { Link, redirect, usePathname, useRouter } =
-  createLocalizedPathnamesNavigation({
-    locales,
-    pathnames: {
-      "/": "/",
-      [routes.about]: {
-        en: routes.about,
-        af: routes.about,
-        am: routes.about,
-        ar: routes.about,
-        hy: routes.about,
-        as: routes.about,
-        az: routes.about,
-        bn: routes.about,
-      },
-    },
-  });
 
 const HeaderLanguage: FC<HeaderLanguageProps> = () => {
   const [currency, setCurrency] = useState();
@@ -73,7 +55,9 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
   // replace language on modale close
   const handleCloseLangModal = useCallback(() => {
     setOpen((prev) => !prev);
-    router.replace(pathName, { locale: language.key, scroll: false });
+    // For next-intl v4, we need to construct the URL with the locale prefix
+    const newPath = `/${language.key}${pathName}`;
+    router.replace(newPath);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [language, pathName]);
 

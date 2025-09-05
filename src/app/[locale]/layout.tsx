@@ -2,7 +2,8 @@ import { ReactNode } from "react";
 import { Viewport } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
 
 import { siteConfig } from "src/global/config";
 import NextAuthProvider from "src/layouts/NextAuthProvider";
@@ -11,7 +12,7 @@ import { locales } from "src/global/staticData";
 
 interface Props {
   children: ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }
 
 export const viewport: Viewport = {
@@ -24,9 +25,8 @@ export const viewport: Viewport = {
   ],
 };
 
-export async function generateMetadata({
-  params: { locale },
-}: Omit<Props, "children">) {
+export async function generateMetadata({ params }: Omit<Props, "children">) {
+  const { locale } = await params;
   const t = await getTranslations({ locale });
 
   return {
@@ -71,16 +71,26 @@ export async function generateMetadata({
   };
 }
 
-export default function RootLayout({ children, params: { locale } }: Props) {
+export default async function RootLayout({ children, params }: Props) {
+  const { locale } = await params;
   // Enable static rendering
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
+
+  // Fetch messages for the locale
+  const messages = (
+    await (locale === "en"
+      ? import("../../../messages/en.json")
+      : import(`../../../messages/${locale}.json`))
+  ).default;
 
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : ""}>
       <link rel="preconnect" href="https://fonts.gstatic.com" />
       <ThemeContextProvider>
         <body suppressHydrationWarning={true}>
-          <NextAuthProvider>{children}</NextAuthProvider>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <NextAuthProvider>{children}</NextAuthProvider>
+          </NextIntlClientProvider>
           <Analytics />
           <SpeedInsights />
         </body>
