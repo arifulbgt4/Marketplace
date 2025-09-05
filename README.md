@@ -1,8 +1,292 @@
-# Marketplace
-## Getting Started
+# 🏪 Marketplace
 
-First, run the development server: [Docs](https://dev--647c84907213dc4172ffdcde.chromatic.com/?path=/docs/installation--documentation)
+A modern, full-stack marketplace application built with Next.js, TypeScript, PostgreSQL, and Material-UI. This project features internationalization (i18n), authentication, real-time features, and a comprehensive design system with Storybook.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Features
 
+- 🌍 **Internationalization (i18n)** - Multi-language support with next-intl
+- 🔐 **Authentication** - Secure authentication with NextAuth.js
+- 🎨 **Design System** - Material-UI components with custom theming
+- 📚 **Storybook** - Component documentation and testing
+- 🗄️ **Database** - PostgreSQL with Prisma ORM
+- 🐳 **Docker** - Containerized database setup
+- 🌙 **Dark/Light Mode** - Theme switching support
+- 📱 **Responsive Design** - Mobile-first approach
+- 🗺️ **Maps Integration** - Mapbox integration for location features
+- 🔍 **Search & Filters** - Advanced search and filtering capabilities
 
+## 🛠️ Tech Stack
+
+### Frontend
+- **Next.js 15** - React framework with App Router
+- **TypeScript** - Type-safe development
+- **Material-UI (MUI)** - Component library and theming
+- **Emotion** - CSS-in-JS styling
+- **next-intl** - Internationalization
+
+### Backend
+- **PostgreSQL** - Primary database
+- **Prisma** - Database ORM and migrations
+- **NextAuth.js** - Authentication
+- **Vercel** - Deployment platform
+
+### Development Tools
+- **Storybook** - Component documentation
+- **Docker** - Local database development
+- **ESLint** - Code linting
+- **Prettier** - Code formatting
+- **pnpm** - Package manager
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js 18+ 
+- pnpm
+- Docker (for local database)
+
+### 1. Clone and Install
+```bash
+git clone https://github.com/arifulbgt4/Marketplace
+cd marketplace
+pnpm install
+```
+
+### 2. Environment Setup
+```bash
+# Copy environment template
+cp .env.example .env.local
+
+# Update .env.local with your values
+# Database URLs are pre-configured for Docker setup
+```
+
+### 3. Start Local Development
+
+#### Option A: Complete Setup (Recommended)
+```bash
+pnpm setup:local
+```
+This will:
+- Install dependencies
+- Start Docker database
+- Push database schema
+- Seed database
+- You can then run `pnpm dev`
+
+#### Option B: Manual Setup
+```bash
+# Start database
+pnpm db:start
+
+# Wait for database to be ready, then:
+pnpm db:push
+pnpm db:seed  # If you have seed data
+
+# Start development server
+pnpm dev
+```
+
+### 4. Access the Application
+- **Main App**: http://localhost:3000
+- **Storybook**: http://localhost:6006 (run `pnpm storybook`)
+- **Database UI**: http://localhost:5050 (run `pnpm pgadmin:start`)
+
+## 📜 Available Scripts
+
+### Development
+```bash
+pnpm dev              # Start development server
+pnpm build            # Build for production
+pnpm start            # Start production server
+pnpm lint             # Run linting
+pnpm lint:fix         # Fix linting issues
+pnpm type-check       # Type checking
+pnpm format           # Format code with Prettier
+```
+
+### Database Management
+```bash
+pnpm db:start         # Start PostgreSQL container
+pnpm db:stop          # Stop database
+pnpm db:reset         # Reset database (removes all data)
+pnpm db:studio        # Open Prisma Studio
+pnpm db:push          # Push schema to database
+pnpm db:seed          # Seed database
+pnpm db:migrate       # Create and run migration
+pnpm db:generate      # Generate Prisma client
+```
+
+### Docker Services
+```bash
+pnpm docker:up        # Start all Docker services
+pnpm docker:down      # Stop all Docker services
+pnpm docker:logs      # View Docker logs
+pnpm docker:clean     # Clean up Docker containers and volumes
+pnpm pgadmin:start    # Start pgAdmin web interface
+```
+
+### Storybook
+```bash
+pnpm storybook        # Start Storybook dev server
+pnpm build-storybook  # Build Storybook for production
+pnpm chromatic        # Deploy to Chromatic
+```
+
+### Utility
+```bash
+pnpm setup:local      # Complete local setup
+pnpm clean            # Clean build files and dependencies
+pnpm clean:install    # Clean and reinstall dependencies
+```
+
+## 🗄️ Database Setup
+
+The project uses PostgreSQL with Docker for local development:
+
+### Local Development Database
+- **Host**: localhost
+- **Port**: 5433
+- **Database**: marketplace
+- **Username**: marketplace_user
+- **Password**: marketplace_password
+
+### Database Management
+- **pgAdmin**: http://localhost:5050
+  - Login: admin@marketplace.com / admin123
+- **Prisma Studio**: `pnpm db:studio`
+
+## 🌍 Internationalization
+
+The app supports multiple languages:
+- English (en) - Default
+- Arabic (ar) - RTL support
+- Bengali (bn)
+- Amharic (am)
+- Armenian (hy)
+- Assamese (as)
+- Azerbaijani (az)
+- Afrikaans (af)
+
+Language files are located in `/messages/[locale].json`
+
+## 🎨 Design System
+
+The project includes a comprehensive design system built with Material-UI:
+
+### Storybook Documentation
+View all components and their variants:
+```bash
+pnpm storybook
+```
+
+### Theme Customization
+Custom themes are defined in `src/theme/` with support for:
+- Dark/Light mode
+- Custom color palettes
+- Typography scales
+- Component overrides
+- RTL support
+
+## 🔐 Authentication
+
+Authentication is handled by NextAuth.js with support for:
+- Email/Password authentication
+- OAuth providers (configurable)
+- Session management
+- Protected routes
+
+Configure providers in `src/app/api/auth/[...nextauth]/route.ts`
+
+## 📁 Project Structure
+
+```
+├── src/
+│   ├── app/                 # Next.js App Router
+│   │   ├── [locale]/        # Internationalized routes
+│   │   └── api/             # API routes
+│   ├── components/          # Reusable components
+│   ├── forms/               # Form components
+│   ├── layouts/             # Layout components
+│   ├── widgets/             # Complex UI widgets
+│   ├── global/              # Global utilities and config
+│   ├── theme/               # Material-UI theme
+│   └── lib/                 # Utility libraries
+├── messages/                # i18n translation files
+├── prisma/                  # Database schema and migrations
+├── docs/                    # Storybook stories
+├── docker/                  # Docker configuration
+└── public/                  # Static assets
+```
+
+## 🚢 Deployment
+
+### Vercel (Recommended)
+The project is optimized for Vercel deployment:
+
+1. Push to GitHub
+2. Connect to Vercel
+3. Configure environment variables
+4. Deploy
+
+### Environment Variables for Production
+```env
+NEXTAUTH_SECRET=your-production-secret
+NEXTAUTH_URL=https://your-domain.com
+POSTGRES_PRISMA_URL=your-production-db-url
+POSTGRES_URL_NON_POOLING=your-production-db-direct-url
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Make your changes
+4. Run tests: `pnpm lint && pnpm type-check`
+5. Commit changes: `git commit -m 'Add amazing feature'`
+6. Push to branch: `git push origin feature/amazing-feature`
+7. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🆘 Troubleshooting
+
+### Port Already in Use
+If you get port conflicts:
+```bash
+# Check what's using the port
+lsof -i :5433
+
+# Kill the process or change the port in docker-compose.yml
+```
+
+### Database Connection Issues
+```bash
+# Reset the database
+pnpm db:reset
+
+# Check Docker status
+docker ps
+```
+
+### Build Issues
+```bash
+# Clean and reinstall
+pnpm clean:install
+
+# Clear Next.js cache
+rm -rf .next
+```
+
+## 📚 Additional Resources
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Material-UI Documentation](https://mui.com/)
+- [Prisma Documentation](https://www.prisma.io/docs)
+- [NextAuth.js Documentation](https://next-auth.js.org/)
+- [Storybook Documentation](https://storybook.js.org/docs)
+
+---
+
+**Happy coding! 🎉**
