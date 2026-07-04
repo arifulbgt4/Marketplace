@@ -6,7 +6,8 @@ This Docker Compose configuration provides a local PostgreSQL database for devel
 
 ### PostgreSQL Database
 - **Container**: `marketplace-postgres`
-- **Port**: `5432`
+- **Host Port**: `5433`
+- **Container Port**: `5432`
 - **Database**: `marketplace`
 - **Username**: `marketplace_user`
 - **Password**: `marketplace_password`
@@ -37,12 +38,11 @@ docker-compose down -v
 
 ## Database Configuration
 
-The database connection is configured in `.env.local`:
+The database connection is configured in the project `.env` file:
 
 ```env
-POSTGRES_PRISMA_URL=postgresql://marketplace_user:marketplace_password@localhost:5432/marketplace
-POSTGRES_URL_NON_POOLING=postgresql://marketplace_user:marketplace_password@localhost:5432/marketplace
-DATABASE_URL=postgresql://marketplace_user:marketplace_password@localhost:5432/marketplace
+POSTGRES_PRISMA_URL=postgresql://marketplace_user:marketplace_password@localhost:5433/marketplace
+POSTGRES_URL_NON_POOLING=postgresql://marketplace_user:marketplace_password@localhost:5433/marketplace
 ```
 
 ## Prisma Commands
@@ -81,21 +81,22 @@ pnpm prisma db seed
 docker exec -it marketplace-postgres psql -U marketplace_user -d marketplace
 
 # Or use psql from your local machine (if installed)
-psql -h localhost -p 5432 -U marketplace_user -d marketplace
+psql -h localhost -p 5433 -U marketplace_user -d marketplace
 ```
 
 ## Troubleshooting
 
 ### Port Already in Use
-If port 5432 is already in use, change it in `docker-compose.yml`:
+If host port 5433 is already in use, change the host-side port in `docker-compose.yml`:
 ```yaml
 ports:
-  - "5433:5432"  # Use port 5433 instead
+  - "5434:5432"  # Example: use host port 5434 instead
 ```
 
-Then update your `.env.local`:
+Then update your `.env`:
 ```env
-DATABASE_URL=postgresql://marketplace_user:marketplace_password@localhost:5433/marketplace
+POSTGRES_PRISMA_URL=postgresql://marketplace_user:marketplace_password@localhost:5434/marketplace
+POSTGRES_URL_NON_POOLING=postgresql://marketplace_user:marketplace_password@localhost:5434/marketplace
 ```
 
 ### Reset Database

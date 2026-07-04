@@ -1,8 +1,24 @@
 # 🏪 Marketplace
 
-A modern, full-stack marketplace application built with Next.js, TypeScript, PostgreSQL, and Material-UI. This project features internationalization (i18n), authentication, real-time features, and a comprehensive design system with Storybook.
+A Next.js, TypeScript, PostgreSQL, Prisma, and Material-UI marketplace foundation. The current implementation is primarily a property/rental listing starter; the repository now includes a complete technical plan for evolving it into a configurable reusable B2C marketplace without changing the existing visual design.
 
-## ✨ Features
+## 📌 Current Status and Planning
+
+Implemented foundations and planned capabilities are intentionally documented separately. Do not treat roadmap items as already implemented.
+
+- **Planning start page:** [docs/PLANNING_INDEX.md](docs/PLANNING_INDEX.md)
+- **Verified current analysis:** [docs/CURRENT_PROJECT_ANALYSIS.md](docs/CURRENT_PROJECT_ANALYSIS.md)
+- **Target architecture:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
+- **Phase roadmap:** [docs/PROJECT_ROADMAP.md](docs/PROJECT_ROADMAP.md)
+- **Detailed agent task plan:** [docs/TASK_PLAN.md](docs/TASK_PLAN.md)
+- **COD and payment plan:** [docs/COD_AND_PAYMENT_PLAN.md](docs/COD_AND_PAYMENT_PLAN.md)
+- **Customization plan:** [docs/REUSABILITY_AND_CUSTOMIZATION_PLAN.md](docs/REUSABILITY_AND_CUSTOMIZATION_PLAN.md)
+- **Testing plan:** [docs/TESTING_PLAN.md](docs/TESTING_PLAN.md)
+- **Documentation plan:** [docs/DOCUMENTATION_PLAN.md](docs/DOCUMENTATION_PLAN.md)
+
+No marketplace implementation phase should be marked complete until its task acceptance criteria and related test requirements are satisfied.
+
+## ✨ Current Foundations
 
 - 🌍 **Internationalization (i18n)** - Multi-language support with next-intl
 - 🔐 **Authentication** - Secure authentication with NextAuth.js
@@ -13,7 +29,7 @@ A modern, full-stack marketplace application built with Next.js, TypeScript, Pos
 - 🌙 **Dark/Light Mode** - Theme switching support
 - 📱 **Responsive Design** - Mobile-first approach
 - 🗺️ **Maps Integration** - Mapbox integration for location features
-- 🔍 **Search & Filters** - Advanced search and filtering capabilities
+- 🔍 **Search & Filters** - Basic persisted listing search and filtering foundation
 
 ## 🛠️ Tech Stack
 
@@ -40,7 +56,7 @@ A modern, full-stack marketplace application built with Next.js, TypeScript, Pos
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+ 
+- Node.js 18+
 - pnpm
 - Docker (for local database)
 
@@ -54,9 +70,9 @@ pnpm install
 ### 2. Environment Setup
 ```bash
 # Copy environment template
-cp .env.example .env.local
+cp .env.example .env
 
-# Update .env.local with your values
+# Update .env with your values
 # Database URLs are pre-configured for Docker setup
 ```
 
@@ -191,7 +207,6 @@ Custom themes are defined in `src/theme/` with support for:
 
 Authentication is handled by NextAuth.js with support for:
 - Email/Password authentication
-- OAuth providers (configurable)
 - Session management
 - Protected routes
 
@@ -213,7 +228,7 @@ Configure providers in `src/app/api/auth/[...nextauth]/route.ts`
 │   └── lib/                 # Utility libraries
 ├── messages/                # i18n translation files
 ├── prisma/                  # Database schema and migrations
-├── docs/                    # Storybook stories
+├── docs/                    # Planning documents and Storybook content
 ├── docker/                  # Docker configuration
 └── public/                  # Static assets
 ```
