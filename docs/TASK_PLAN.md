@@ -26,17 +26,17 @@ Coding agent একটি task নেওয়ার আগে:
 
 ## Phase 1: Project analysis and documentation
 
-| ID এবং title | Goal ও context | Likely files/modules | Acceptance criteria | Dependencies ও agent note | Testing requirement |
-|---|---|---|---|---|---|
-| P1-01 Current architecture baseline | Existing request/data flow নথিভুক্ত করা | `docs/ARCHITECTURE.md`, `src/app`, `src/server`, `src/lib` | Diagram, layers, runtime boundaries documented | None; fact ও assumption আলাদা রাখতে হবে | Paths এবং imports manual cross-check |
-| P1-02 Route/API inventory | Pages, APIs, server actions এবং access level map করা | `src/app/**`, `src/server/**`, routes config | Route, method, auth এবং data source matrix complete | P1-01 | Filesystem inventory cross-check |
-| P1-03 Feature gap matrix | Functional, partial, mock এবং missing feature চিহ্নিত করা | Pages, forms, widgets, Prisma | প্রতিটি core module-এর verified status আছে | P1-01, P1-02 | Empty handler/mock searches rerun |
-| P1-04 Target architecture ADR | Single-business modular monolith এবং optional seller extension lock করা | `docs/ARCHITECTURE.md`, future ADRs | Scope, alternatives এবং boundaries approved | P1-03; multi-vendor assume করা যাবে না | Architecture review |
-| P1-05 Domain glossary | Product, cart, checkout, payment, order এবং fulfillment terms lock করা | Future `docs/domain` | Ambiguous term/status নেই | P1-04 | Product এবং engineering review |
-| P1-06 Permission matrix | Customer/admin/support/catalog-manager actions define করা | Auth/admin/API planning docs | প্রতিটি mutation-এর actor এবং policy আছে | P1-02, P1-05 | Deny-by-default matrix review |
-| P1-07 Design baseline | Existing responsive UI baseline record করা | Storybook, theme, key pages | Desktop/mobile/RTL states এবং no-redesign rule captured | P1-02 | Screenshot comparison |
-| P1-08 Data migration strategy | Listing/booking data Product/Order model-এ নেওয়ার plan | Prisma schema, seed, migration docs | Coexistence, backfill, rollback, archive rules আছে | P1-04, P1-05 | Representative legacy records review |
-| P1-09 Backlog and handoff convention | Agent task IDs, dependencies এবং completion reporting standard করা | `TASK_PLAN.md` | Every task assignable এবং dependency-aware | P1-01 through P1-08 | Dependency graph cycle review |
+| ID এবং title | Goal ও context | Likely files/modules | Acceptance criteria | Dependencies ও agent note | Testing requirement | Status |
+|---|---|---|---|---|---|---|
+| P1-01 Current architecture baseline | Existing request/data flow নথিভুক্ত করা | `docs/ARCHITECTURE.md`, `src/app`, `src/server`, `src/lib` | Diagram, layers, runtime boundaries documented | None; fact ও assumption আলাদা রাখতে হবে | Paths এবং imports manual cross-check | Complete |
+| P1-02 Route/API inventory | Pages, APIs, server actions এবং access level map করা | `src/app/**`, `src/server/**`, routes config | Route, method, auth এবং data source matrix complete | P1-01 | Filesystem inventory cross-check | Complete |
+| P1-03 Feature gap matrix | Functional, partial, mock এবং missing feature চিহ্নিত করা | Pages, forms, widgets, Prisma | প্রতিটি core module-এর verified status আছে | P1-01, P1-02 | Empty handler/mock searches rerun | Complete |
+| P1-04 Target architecture ADR | Single-business modular monolith এবং optional seller extension lock করা | `docs/ARCHITECTURE.md`, future ADRs | Scope, alternatives এবং boundaries approved | P1-03; multi-vendor assume করা যাবে না | Architecture review | Complete |
+| P1-05 Domain glossary | Product, cart, checkout, payment, order এবং fulfillment terms lock করা | `docs/P1-05_DOMAIN_GLOSSARY.md` | Ambiguous term/status নেই | P1-04 | Product এবং engineering review | Complete |
+| P1-06 Permission matrix | Customer/admin/support/catalog-manager actions define করা | `docs/P1-06_PERMISSION_MATRIX.md` | প্রতিটি mutation-এর actor এবং policy আছে | P1-02, P1-05 | Deny-by-default matrix review | Complete |
+| P1-07 Design baseline | Existing responsive UI baseline record করা | `docs/P1-07_DESIGN_BASELINE.md` | Desktop/mobile/RTL states এবং no-redesign rule captured | P1-02 | Screenshot comparison | Complete |
+| P1-08 Data migration strategy | Listing/booking data Product/Order model-এ নেওয়ার plan | `docs/P1-08_DATA_MIGRATION_STRATEGY.md` | Coexistence, backfill, rollback, archive rules আছে | P1-04, P1-05 | Representative legacy records review | Complete |
+| P1-09 Backlog and handoff convention | Agent task IDs, dependencies এবং completion reporting standard করা | `TASK_PLAN.md` | Every task assignable এবং dependency-aware | P1-01 through P1-08 | Dependency graph cycle review | Complete |
 
 ## Phase 2: Core marketplace foundation
 
