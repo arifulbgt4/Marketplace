@@ -9,27 +9,29 @@
 ## Start here
 
 ### Phase 1: Analysis and Planning Baseline
-1. [Current Project Analysis](./CURRENT_PROJECT_ANALYSIS.md) - P1-01
-2. [Architecture](./ARCHITECTURE.md) - P1-04
-3. [Route/API Inventory](./P1-02_ROUTE_API_INVENTORY.md) - P1-02
-4. [Feature Gap Matrix](./P1-03_FEATURE_GAP_MATRIX.md) - P1-03
-5. [Domain Glossary](./P1-05_DOMAIN_GLOSSARY.md) - P1-05
-6. [Permission Matrix](./P1-06_PERMISSION_MATRIX.md) - P1-06
-7. [Design Baseline](./P1-07_DESIGN_BASELINE.md) - P1-07
-8. [Data Migration Strategy](./P1-08_DATA_MIGRATION_STRATEGY.md) - P1-08
+1. [Phase 1 SQA Audit](./PHASE_1_SQA_AUDIT.md) - current gate verdict and feedback evidence
+2. [Current Project Analysis](./CURRENT_PROJECT_ANALYSIS.md) - P1-01
+3. [Architecture](./ARCHITECTURE.md) - P1-04
+4. [Route/API Inventory](./P1-02_ROUTE_API_INVENTORY.md) - P1-02
+5. [Feature Gap Matrix](./P1-03_FEATURE_GAP_MATRIX.md) - P1-03
+6. [Domain Glossary](./P1-05_DOMAIN_GLOSSARY.md) - P1-05
+7. [Permission Matrix](./P1-06_PERMISSION_MATRIX.md) - P1-06
+8. [Design Baseline](./P1-07_DESIGN_BASELINE.md) - P1-07
+9. [Data Migration Strategy](./P1-08_DATA_MIGRATION_STRATEGY.md) - P1-08
 
 ### Implementation Planning
-9. [Project Roadmap](./PROJECT_ROADMAP.md)
-10. [Detailed Task Plan](./TASK_PLAN.md) - P1-09
-11. [COD and Payment Plan](./COD_AND_PAYMENT_PLAN.md)
-12. [Reusability and Customization Plan](./REUSABILITY_AND_CUSTOMIZATION_PLAN.md)
-13. [Testing Plan](./TESTING_PLAN.md)
-14. [Documentation Plan](./DOCUMENTATION_PLAN.md)
+10. [Project Roadmap](./PROJECT_ROADMAP.md)
+11. [Detailed Task Plan](./TASK_PLAN.md) - P1-09
+12. [COD and Payment Plan](./COD_AND_PAYMENT_PLAN.md)
+13. [Reusability and Customization Plan](./REUSABILITY_AND_CUSTOMIZATION_PLAN.md)
+14. [Testing Plan](./TESTING_PLAN.md)
+15. [Documentation Plan](./DOCUMENTATION_PLAN.md)
 
 ## Canonical-document ownership
 
 | Concern | Canonical document |
 |---|---|
+| Phase quality verdict, findings and re-audit gate | `PHASE_1_SQA_AUDIT.md` |
 | বর্তমান implementation, gaps, risks | `CURRENT_PROJECT_ANALYSIS.md` |
 | Target boundaries ও technical decisions | `ARCHITECTURE.md` |
 | Pages, APIs, server actions inventory | `P1-02_ROUTE_API_INVENTORY.md` |
@@ -60,8 +62,8 @@
 
 | Phase | Status |
 |---|---|
-| Phase 1: Project analysis and documentation | Complete |
-| Phase 2: Core marketplace foundation | Not started |
+| Phase 1: Project analysis and documentation | Rework required — SQA gate failed; see `PHASE_1_SQA_AUDIT.md` |
+| Phase 2: Core marketplace foundation | Not started — blocked by Phase 1 exit gate |
 | Phase 3: Product/catalog system | Not started |
 | Phase 4: Cart and checkout | Not started |
 | Phase 5: COD and online payment | Not started |

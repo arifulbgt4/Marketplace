@@ -2,7 +2,9 @@
 
 ## Status and usage
 
-এই file reusable B2C marketplace implementation-এর canonical agent backlog। Phase 1-এর analysis/planning baseline documents তৈরি হয়েছে, তবে formal review/approval pending থাকতে পারে। কোনো Phase 2–9 code implementation task শুরু বা complete করা হয়নি; সেগুলোর default status `Not started`।
+এই file reusable B2C marketplace implementation-এর canonical agent backlog। 2026-07-05 SQA audit-এ Phase 1 exit gate failed হয়েছে; P1-FB-01 through P1-FB-10 complete এবং signed off না হওয়া পর্যন্ত Phase 1-এর status `Rework required` এবং Phase 2 blocked। কোনো Phase 2–9 code implementation task শুরু বা complete করা হয়নি; সেগুলোর default status `Not started`।
+
+Current audit evidence: [Phase 1 SQA Audit](./PHASE_1_SQA_AUDIT.md)।
 
 Coding agent একটি task নেওয়ার আগে:
 
@@ -28,15 +30,32 @@ Coding agent একটি task নেওয়ার আগে:
 
 | ID এবং title | Goal ও context | Likely files/modules | Acceptance criteria | Dependencies ও agent note | Testing requirement | Status |
 |---|---|---|---|---|---|---|
-| P1-01 Current architecture baseline | Existing request/data flow নথিভুক্ত করা | `docs/ARCHITECTURE.md`, `src/app`, `src/server`, `src/lib` | Diagram, layers, runtime boundaries documented | None; fact ও assumption আলাদা রাখতে হবে | Paths এবং imports manual cross-check | Complete |
-| P1-02 Route/API inventory | Pages, APIs, server actions এবং access level map করা | `src/app/**`, `src/server/**`, routes config | Route, method, auth এবং data source matrix complete | P1-01 | Filesystem inventory cross-check | Complete |
-| P1-03 Feature gap matrix | Functional, partial, mock এবং missing feature চিহ্নিত করা | Pages, forms, widgets, Prisma | প্রতিটি core module-এর verified status আছে | P1-01, P1-02 | Empty handler/mock searches rerun | Complete |
-| P1-04 Target architecture ADR | Single-business modular monolith এবং optional seller extension lock করা | `docs/ARCHITECTURE.md`, future ADRs | Scope, alternatives এবং boundaries approved | P1-03; multi-vendor assume করা যাবে না | Architecture review | Complete |
-| P1-05 Domain glossary | Product, cart, checkout, payment, order এবং fulfillment terms lock করা | `docs/P1-05_DOMAIN_GLOSSARY.md` | Ambiguous term/status নেই | P1-04 | Product এবং engineering review | Complete |
-| P1-06 Permission matrix | Customer/admin/support/catalog-manager actions define করা | `docs/P1-06_PERMISSION_MATRIX.md` | প্রতিটি mutation-এর actor এবং policy আছে | P1-02, P1-05 | Deny-by-default matrix review | Complete |
-| P1-07 Design baseline | Existing responsive UI baseline record করা | `docs/P1-07_DESIGN_BASELINE.md` | Desktop/mobile/RTL states এবং no-redesign rule captured | P1-02 | Screenshot comparison | Complete |
-| P1-08 Data migration strategy | Listing/booking data Product/Order model-এ নেওয়ার plan | `docs/P1-08_DATA_MIGRATION_STRATEGY.md` | Coexistence, backfill, rollback, archive rules আছে | P1-04, P1-05 | Representative legacy records review | Complete |
-| P1-09 Backlog and handoff convention | Agent task IDs, dependencies এবং completion reporting standard করা | `TASK_PLAN.md` | Every task assignable এবং dependency-aware | P1-01 through P1-08 | Dependency graph cycle review | Complete |
+| P1-01 Current architecture baseline | Existing request/data flow নথিভুক্ত করা | `docs/ARCHITECTURE.md`, `src/app`, `src/server`, `src/lib` | Diagram, layers, runtime boundaries documented | None; fact ও assumption আলাদা রাখতে হবে | Paths এবং imports manual cross-check | Rework required |
+| P1-02 Route/API inventory | Pages, APIs, server actions এবং access level map করা | `src/app/**`, `src/server/**`, routes config | Route, method, auth এবং data source matrix complete | P1-01 | Filesystem inventory cross-check | Rework required |
+| P1-03 Feature gap matrix | Functional, partial, mock এবং missing feature চিহ্নিত করা | Pages, forms, widgets, Prisma | প্রতিটি core module-এর verified status আছে | P1-01, P1-02 | Empty handler/mock searches rerun | Rework required |
+| P1-04 Target architecture ADR | Single-business modular monolith এবং optional seller extension lock করা | `docs/ARCHITECTURE.md`, future ADRs | Scope, alternatives এবং boundaries approved | P1-03; multi-vendor assume করা যাবে না | Architecture review | Rework required |
+| P1-05 Domain glossary | Product, cart, checkout, payment, order এবং fulfillment terms lock করা | `docs/P1-05_DOMAIN_GLOSSARY.md` | Ambiguous term/status নেই | P1-04 | Product এবং engineering review | Rework required |
+| P1-06 Permission matrix | Customer/admin/support/catalog-manager actions define করা | `docs/P1-06_PERMISSION_MATRIX.md` | প্রতিটি mutation-এর actor এবং policy আছে | P1-02, P1-05 | Deny-by-default matrix review | Rework required |
+| P1-07 Design baseline | Existing responsive UI baseline record করা | `docs/P1-07_DESIGN_BASELINE.md` | Desktop/mobile/RTL states এবং no-redesign rule captured | P1-02 | Screenshot comparison | Rework required |
+| P1-08 Data migration strategy | Listing/booking data Product/Order model-এ নেওয়ার plan | `docs/P1-08_DATA_MIGRATION_STRATEGY.md` | Coexistence, backfill, rollback, archive rules আছে | P1-04, P1-05 | Representative legacy records review | Rework required |
+| P1-09 Backlog and handoff convention | Agent task IDs, dependencies এবং completion reporting standard করা | `TASK_PLAN.md` | Every task assignable এবং dependency-aware | P1-01 through P1-08 | Dependency graph cycle review | Rework required |
+
+### Phase 1 SQA feedback backlog
+
+এই taskগুলো documentation, evidence এবং governance rework। এগুলো product code implementation authorize করে না।
+
+| ID এবং title | Priority | Owner role | Dependencies | Acceptance criteria | Required evidence | Status |
+|---|---|---|---|---|---|---|
+| P1-FB-01 Gate/status and approval workflow | P0 | Project manager + SQA | None | সব canonical document-এ Phase 1 `Rework required`; approval template-এ product, architecture, security/SQA owner, commit, date, decision এবং waiver fields আছে | Cross-document status search এবং blank approval record | Not started |
+| P1-FB-02 Source-derived route/API inventory | P0 | Backend/architecture agent | P1-FB-01 | App/system routes, locale behavior, API methods, server actions, middleware/layout/handler auth এবং actual resource scope complete; claim source path/line দিয়ে traceable | Generated filesystem inventory, access-case table including `/l/create`, `/message` and arbitrary-path regex cases | Not started |
+| P1-FB-03 Traceable current-state and gap baseline | P1 | Architecture/SQA agent | P1-FB-02 | একটিমাত্র defined status taxonomy; প্রতিটি material capability/gap source referenceসহ; command evidence commit/date/environmentসহ; environment/tooling risks current | Source-to-finding matrix, mock/no-op search output, refreshed verification record | Not started |
+| P1-FB-04 Formal target architecture ADR | P0 | Architecture owner + product owner | P1-FB-03 | Context, decision, alternatives, trade-offs, consequences, non-goals, migration posture, unresolved decisions এবং approval captured | Accepted ADR tied to commit; explicit decisions for single-business, seller extension and messaging/support scope | Not started |
+| P1-FB-05 Canonical domain/status contract | P0 | Domain/commerce agent | P1-FB-04 | Order, payment, fulfillment, inventory and refund terms এক document-এ canonical; COD/payment plan একই names ব্যবহার করে; transition ownership এবং terminal states unambiguous | Cross-document status-term check with zero conflict; product/engineering review | Not started |
+| P1-FB-06 Mutation-level permission matrix | P0 | Security/backend agent | P1-FB-02, P1-FB-05 | প্রতিটি current and planned mutation-এর actor, role, resource scope, ownership, field/PII constraint, audit rule এবং denial response আছে; deny-by-default gaps নেই | Endpoint/action-to-policy traceability matrix এবং security review record | Not started |
+| P1-FB-07 Evidence-backed design baseline | P1 | UI/QA agent | P1-FB-02 | Theme facts source-accurate; routes/states/viewports defined; desktop, mobile, tablet/wide and RTL baseline captured; no-redesign comparison process reproducible | Versioned screenshots/index tied to commit, viewport and locale; dark mode/spacing/`xxl` corrections | Not started |
+| P1-FB-08 Executable migration and rollback strategy | P0 | Data/architecture agent | P1-FB-04, P1-FB-05 | Legacy record disposition, ID mapping, source of truth, coexistence/cutover, idempotent checkpoint/resume, conflict policy, retention, measurable reconciliation, deployment compatibility and rollback are consistent; drop/archive contradiction removed | Representative anonymized-record dry run, counts/checksums, failure-resume and rollback rehearsal report | Not started |
+| P1-FB-09 Normalize backlog dependencies and statuses | P1 | Agile/project agent | P1-FB-04, P1-FB-05, P1-FB-06, P1-FB-08 | সব 135 implementation task-এর explicit status আছে; 28 vague range/phase/state dependencies exact task/gate IDs দিয়ে replaced; Definition of Ready এবং completion evidence fields defined | Automated graph report: 0 missing IDs, 0 cycles, 0 vague dependencies | Not started |
+| P1-FB-10 Phase 1 exit review and sign-off | P0 | Product owner + architecture owner + SQA | P1-FB-01, P1-FB-02, P1-FB-03, P1-FB-04, P1-FB-05, P1-FB-06, P1-FB-07, P1-FB-08, P1-FB-09 | P1-01 through P1-09 acceptance/tests pass; no open blocker/critical finding; approvals named and dated against one commit; waiver time-bound | Final SQA re-audit report and signed exit record; only then Phase 1 becomes `Complete` | Not started |
 
 ## Phase 2: Core marketplace foundation
 
@@ -208,11 +227,12 @@ Coding agent একটি task নেওয়ার আগে:
 
 Generic “implement next task” requests হলে এই order অনুসরণ করতে হবে:
 
-1. Lowest-numbered `Not started` task whose dependencies are complete।
-2. Security/data-correctness task UI polish-এর আগে।
-3. Schema task এবং migration task split করা যাবে না যদি partial state unsafe হয়।
-4. একই phase-এর independent UI/documentation work parallel হতে পারে।
-5. COD বা payment task prerequisite ছাড়া শুরু করা যাবে না।
+1. Phase 1 signed off না হওয়া পর্যন্ত শুধু lowest-numbered dependency-ready `P1-FB-*` task নেওয়া যাবে; Phase 2–9 blocked থাকবে।
+2. Phase gate open হলে lowest-numbered `Not started` task whose dependencies are complete নেওয়া যাবে।
+3. Security/data-correctness task UI polish-এর আগে।
+4. Schema task এবং migration task split করা যাবে না যদি partial state unsafe হয়।
+5. একই phase-এর independent UI/documentation work parallel হতে পারে।
+6. COD বা payment task prerequisite ছাড়া শুরু করা যাবে না।
 
 ## Status update format
 
