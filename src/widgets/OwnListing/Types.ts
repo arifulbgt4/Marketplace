@@ -1,11 +1,13 @@
 export interface OwnListingProps {
   data: {
-    id: number;
-    image: string;
+    id: string;
+    images: string[];
     title: string;
-    description: string;
-    rating: number;
+    description?: string;
     slug: string;
     address: string;
+    price: number;
+    status: string;
+    _count?: { reviews: number };
   }[];
 }

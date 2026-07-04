@@ -1,9 +1,14 @@
 "use client";
 import { Box, Container, Typography, Button } from "@mui/material";
-import Link from "next/link";
-import SearchOffIcon from "@mui/icons-material/SearchOff";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
-export default function NotFound() {
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
   return (
     <Container maxWidth="sm">
       <Box
@@ -14,20 +19,15 @@ export default function NotFound() {
         minHeight="60vh"
         gap={3}
       >
-        <SearchOffIcon sx={{ fontSize: 80, color: "text.secondary" }} />
+        <ErrorOutlineIcon sx={{ fontSize: 80, color: "error.main" }} />
         <Typography variant="h3" textAlign="center">
-          Page Not Found
+          Something went wrong
         </Typography>
         <Typography color="text.secondary" textAlign="center">
-          Sorry, we couldn&apos;t find the page you&apos;re looking for.
+          {error.message || "An unexpected error occurred"}
         </Typography>
-        <Button
-          component={Link}
-          href="/"
-          variant="contained"
-          size="large"
-        >
-          Go Home
+        <Button variant="contained" size="large" onClick={reset}>
+          Try Again
         </Button>
       </Box>
     </Container>

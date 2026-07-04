@@ -148,11 +148,11 @@ const Footer: FC<FooterProps> = () => {
                 <Typography
                   sx={{ textDecoration: "none" }}
                   component={Link}
-                  href={routes.termas}
+                  href={routes.terms}
                   variant="caption"
                   color="text.secondary"
                 >
-                  Termas
+                  Terms
                 </Typography>
                 <Typography
                   sx={{ textDecoration: "none" }}

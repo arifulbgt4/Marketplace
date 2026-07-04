@@ -27,14 +27,19 @@ const Listing: FC<ListingProps> = ({
   title,
   image,
   price,
+  type = "rent",
   description,
   rating,
   address,
+  bedrooms,
+  bathrooms,
   services,
   name,
 }) => {
   const router = useRouter();
   const [isSelect, setIsSelect] = useState(isMark);
+
+  const typeLabel = type === "sale" ? "For Sale" : "For Rent";
 
   return (
     <Card
@@ -75,7 +80,7 @@ const Listing: FC<ListingProps> = ({
         }}
       >
         <Chip
-          label="For Sale"
+          label={typeLabel}
           sx={(theme) => ({
             bgcolor: theme.palette.primary.contrastText,
             fontWeight: 500,
@@ -92,45 +97,47 @@ const Listing: FC<ListingProps> = ({
         }}
         image={image}
       >
-        <Chip
-          sx={(theme) => ({
-            bgcolor: theme.palette.action.active,
-            fontWeight: 500,
-            position: "absolute",
-            right: 16,
-            top: { xs: 27, md: 17 },
-            p: 0,
-            zIndex: 1,
-            transition: "all .5s",
-          })}
-          label={
-            <Stack flexDirection="row" justifyContent="end" alignItems="center">
-              <Typography
-                color={(theme) => theme.palette.common.white}
-                pr={0.2}
-                variant="caption"
-                fontSize={14}
-              >
-                {"$"}
-              </Typography>
-              <Typography
-                color={(theme) => theme.palette.common.white}
-                variant="subtitle2"
-                fontWeight={500}
-              >
-                2.2
-              </Typography>
-              <Typography
-                color={(theme) => theme.palette.common.white}
-                variant="caption"
-                letterSpacing={-0.3}
-                fontSize={12}
-              >
-                {"/mon"}
-              </Typography>
-            </Stack>
-          }
-        />
+        {price !== undefined && (
+          <Chip
+            sx={(theme) => ({
+              bgcolor: theme.palette.action.active,
+              fontWeight: 500,
+              position: "absolute",
+              right: 16,
+              top: { xs: 27, md: 17 },
+              p: 0,
+              zIndex: 1,
+              transition: "all .5s",
+            })}
+            label={
+              <Stack flexDirection="row" justifyContent="end" alignItems="center">
+                <Typography
+                  color={(theme) => theme.palette.common.white}
+                  pr={0.2}
+                  variant="caption"
+                  fontSize={14}
+                >
+                  {"$"}
+                </Typography>
+                <Typography
+                  color={(theme) => theme.palette.common.white}
+                  variant="subtitle2"
+                  fontWeight={500}
+                >
+                  {price}
+                </Typography>
+                <Typography
+                  color={(theme) => theme.palette.common.white}
+                  variant="caption"
+                  letterSpacing={-0.3}
+                  fontSize={12}
+                >
+                  {"/mon"}
+                </Typography>
+              </Stack>
+            }
+          />
+        )}
 
         <Stack
           justifyContent="space-between"
@@ -215,162 +222,22 @@ const Listing: FC<ListingProps> = ({
             {address}
           </Typography>
         </Stack>
+        {(bedrooms !== undefined || bathrooms !== undefined) && (
+          <Stack flexDirection="row" gap={1} mt={1}>
+            {bedrooms !== undefined && (
+              <Typography variant="caption" color="text.secondary">
+                {bedrooms} {bedrooms === 1 ? "bed" : "beds"}
+              </Typography>
+            )}
+            {bathrooms !== undefined && (
+              <Typography variant="caption" color="text.secondary">
+                {bathrooms} {bathrooms === 1 ? "bath" : "baths"}
+              </Typography>
+            )}
+          </Stack>
+        )}
       </CardContent>
     </Card>
-
-    // <Stack
-    //   // component={Link}
-    //   // href={`${routes.listingDetails}/${slug}`}
-    //   onClick={() => router.push(`${routes.listingDetails}/${slug}`)}
-    // sx={(theme) => ({
-    //   cursor: "pointer",
-    //   transition: "all .1s",
-
-    //   ":hover": {
-    //     bgcolor: theme.palette.background.paper,
-    //     "& .MuiCardMedia-root": {
-    //       boxShadow: 10,
-    //     },
-    //     "& h5": {
-    //       color: theme.palette.primary.contrastText,
-    //     },
-    //     "& button": {
-    //       color: theme.palette.primary.contrastText,
-    //     },
-    //     "& span": {
-    //       background: `linear-gradient(to top, ${theme.palette.action.active} 20%, transparent 40%)`,
-    //     },
-    //     "& .MuiTypography-subtitle2": {
-    //       opacity: 1,
-    //     },
-    //   },
-    //   flexDirection: isGrid ? "column" : "row",
-    //   gap: isGrid ? 0 : 3,
-    //   position: "relative",
-    //   borderRadius: 4.5,
-    // })}
-    // >
-    //   <CardMedia
-    //     sx={{
-    //       borderRadius: 3,
-    //       transition: "all .1s",
-    //     }}
-    //     image={image}
-    //   >
-    //     <Stack
-    //       component="span"
-    //       justifyContent="flex-end"
-    //       sx={(theme) => ({
-    //         transition: "all .1s",
-    //         background: {
-    //           xs: `linear-gradient(to top, ${theme.palette.action.active} 20%, transparent 40%)`,
-    //           md: "transparent",
-    //         },
-    //       })}
-    //       borderRadius={3}
-    //       height={250}
-    //     >
-    //       <Stack
-    //         flexDirection="row"
-    //         p={1}
-    //         gap={1}
-    //         justifyContent="space-between"
-    //         alignItems="start"
-    //       >
-    //         <Typography
-    //           pb={0.5}
-    //           variant="h5"
-    //           sx={(theme) => ({
-    //             color: {
-    //               xs: theme.palette.primary.contrastText,
-    //               md: "transparent",
-    //             },
-    //             display: "-webkit-box",
-    //             WebkitLineClamp: 2,
-    //             WebkitBoxOrient: "vertical",
-    //             overflow: "hidden",
-    //             transition: "all .01s",
-    //           })}
-    //         >
-    //           {title}
-    //         </Typography>
-
-    //         <IconButton
-    //           sx={(theme) => ({
-    //             color: {
-    //               xs: theme.palette.primary.contrastText,
-    //               md: "transparent",
-    //             },
-    //             transition: "all .1s",
-    //           })}
-    //           onClick={(event) => {
-    //             event.stopPropagation();
-    //             setIsSelect((prv) => !prv);
-    //           }}
-    //           // size="small"
-    //         >
-    //           {isSelect ? <BookmarkIcon /> : <BookmarkBorderOutlinedIcon />}
-    //         </IconButton>
-    //       </Stack>
-    //     </Stack>
-    //   </CardMedia>
-    //   <Stack
-    //     flexDirection="row"
-    //     p={1}
-    //     gap={1}
-    //     justifyContent="space-between"
-    //     alignItems="flex-start"
-    //   >
-    //     <Stack
-    //       flexDirection="row"
-    //       alignItems="flex-start"
-    //       gap={0.5}
-    //       color="text.primary"
-    //     >
-    //       <LocationOnIcon
-    //         sx={{ height: 16, width: 16, mt: 0.5, opacity: 0.6 }}
-    //       />
-
-    //       <Typography
-    //         fontWeight={500}
-    //         variant="subtitle2"
-    //         sx={{
-    //           display: "-webkit-box",
-    //           WebkitLineClamp: 2,
-    //           WebkitBoxOrient: "vertical",
-    //           overflow: "hidden",
-    //           transition: "all .01s",
-    //         }}
-    //         component="p"
-    //       >
-    //         {address}
-    //       </Typography>
-    //     </Stack>
-    //     <Stack
-    //       flexDirection="row"
-    //       justifyContent="center"
-    //       alignItems="center"
-    //       color="text.secondary"
-    //     >
-    //       <Typography pr={0.2} variant="subtitle2">
-    //         {"$"}
-    //       </Typography>
-    //       <Typography fontWeight={500} variant="subtitle1">
-    //         2.2
-    //       </Typography>
-    //       <Typography
-    //         component="p"
-    //         variant="caption"
-    //         letterSpacing={-0.3}
-    //         sx={(theme) => ({
-    //           opacity: 0.6,
-    //         })}
-    //       >
-    //         /mon
-    //       </Typography>
-    //     </Stack>
-    //   </Stack>
-    // </Stack>
   );
 };
 

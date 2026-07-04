@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Stack,
   Typography,
@@ -7,18 +7,37 @@ import {
   Box,
   Hidden,
   ButtonGroup,
+  Skeleton,
 } from "@mui/material";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 
 import OwnListing from "src/widgets/OwnListing";
-import {
-  ownListingPublishData,
-  ownListingUnpublishData,
-  ownListingDraftData,
-} from "src/global/staticData";
+import { getUserListings } from "src/server/user";
 
 const ListingPage = () => {
   const [value, setValue] = useState("1");
+  const [listings, setListings] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchListings = async () => {
+      try {
+        const data = await getUserListings();
+        setListings(data);
+      } catch (error) {
+        console.error("Failed to fetch listings:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchListings();
+  }, []);
+
+  const filteredListings = listings.filter((listing) => {
+    if (value === "1") return listing.status === "published";
+    if (value === "2") return listing.status === "archived";
+    return listing.status === "draft";
+  });
 
   return (
     <Box>
@@ -33,7 +52,7 @@ const ListingPage = () => {
           <ListAltIcon color="primary" />
         </Hidden>
         <Hidden mdDown>
-          <Typography variant="h3">My LIstings</Typography>
+          <Typography variant="h3">My Listings</Typography>
         </Hidden>
         <ButtonGroup>
           <Button
@@ -66,12 +85,14 @@ const ListingPage = () => {
         </ButtonGroup>
       </Stack>
       <Box>
-        {value === "1" ? (
-          <OwnListing data={ownListingPublishData} />
-        ) : value === "2" ? (
-          <OwnListing data={ownListingUnpublishData} />
+        {loading ? (
+          <Stack spacing={2}>
+            {Array.from({ length: 3 }).map((_, index) => (
+              <Skeleton key={index} variant="rounded" height={100} />
+            ))}
+          </Stack>
         ) : (
-          <OwnListing data={ownListingDraftData} />
+          <OwnListing data={filteredListings} />
         )}
       </Box>
     </Box>

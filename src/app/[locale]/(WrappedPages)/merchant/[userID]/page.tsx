@@ -1,3 +1,4 @@
+"use client";
 import { Box, CardMedia, Container, Stack } from "@mui/material";
 
 import UserListings from "src/widgets/UserListings";
@@ -16,8 +17,8 @@ const HostProfile = () => {
       <Container maxWidth="lg" sx={{ mt: { xs: -12, md: -18 } }}>
         <Stack gap={10}>
           <UserProfile />
-          <UserListings />
-          <UserReviews />
+          <UserListings listings={[]} />
+          <UserReviews reviews={[]} />
         </Stack>
       </Container>
     </Box>

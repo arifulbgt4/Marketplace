@@ -1,7 +1,8 @@
 export interface ReviewProps {
-  id: number;
+  id: string;
   title: string;
   subheader: string;
   img: string;
   description?: string;
+  rating?: number;
 }

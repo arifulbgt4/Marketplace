@@ -17,7 +17,7 @@ const publicPages = [
   routes.blog,
   routes.contact,
   routes.listings,
-  routes.termas,
+  routes.terms,
   routes.privacy,
   routes.cookies,
   "/opengraph-image",

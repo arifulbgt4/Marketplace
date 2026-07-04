@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { Box, Container, Grid, Hidden } from "@mui/material";
 
 import ListingContents from "src/widgets/ListingContents";
@@ -9,149 +10,71 @@ import ListingLocation from "src/widgets/ListingLocation";
 import BookingForm from "src/forms/BookingForm";
 import ListingReport from "src/widgets/ListingReport";
 import Host from "src/widgets/Host";
+import { getListingBySlug } from "src/server/listing";
 
-const unsplashPhotos = [
-  {
-    src: "https://source.unsplash.com/8gVv6nxq6gY/1080x800",
+interface Props {
+  params: Promise<{ slug: string }>;
+}
+
+const ListingDetailsPage = async ({ params }: Props) => {
+  const { slug } = await params;
+  const listing = await getListingBySlug(slug);
+
+  if (!listing) {
+    notFound();
+  }
+
+  const photos = listing.images.map((src) => ({
+    src,
     width: 1080,
     height: 800,
-  },
-  {
-    src: "https://source.unsplash.com/Dhmn6ete6g8/1080x1620",
-    width: 1080,
-    height: 1620,
-  },
-  {
-    src: "https://source.unsplash.com/RkBTPqPEGDo/1080x720",
-    width: 1080,
-    height: 720,
-  },
-  {
-    src: "https://source.unsplash.com/Yizrl9N_eDA/1080x721",
-    width: 1080,
-    height: 721,
-  },
-  {
-    src: "https://source.unsplash.com/KG3TyFi0iTU/1080x1620",
-    width: 1080,
-    height: 1620,
-  },
-  {
-    src: "https://source.unsplash.com/Jztmx9yqjBw/1080x607",
-    width: 1080,
-    height: 607,
-  },
-  {
-    src: "https://source.unsplash.com/-heLWtuAN3c/1080x608",
-    width: 1080,
-    height: 608,
-  },
-  {
-    src: "https://source.unsplash.com/ALrCdq-ui_Q/1080x720",
-    width: 1080,
-    height: 720,
-  },
-  {
-    src: "https://source.unsplash.com/1azAjl8FTnU/1080x1549",
-    width: 1080,
-    height: 1549,
-  },
-  {
-    src: "https://source.unsplash.com/xOigCUcFdA8/1080x720",
-    width: 1080,
-    height: 720,
-  },
-  {
-    src: "https://source.unsplash.com/twukN12EN7c/1080x694",
-    width: 1080,
-    height: 694,
-  },
-  {
-    src: "https://source.unsplash.com/9UjEyzA6pP4/1080x1620",
-    width: 1080,
-    height: 1620,
-  },
-  {
-    src: "https://source.unsplash.com/sEXGgun3ZiE/1080x720",
-    width: 1080,
-    height: 720,
-  },
-  {
-    src: "https://source.unsplash.com/S-cdwrx-YuQ/1080x1440",
-    width: 1080,
-    height: 1440,
-  },
-  {
-    src: "https://source.unsplash.com/q-motCAvPBM/1080x1620",
-    width: 1080,
-    height: 1620,
-  },
-  {
-    src: "https://source.unsplash.com/Xn4L310ztMU/1080x810",
-    width: 1080,
-    height: 810,
-  },
-  {
-    src: "https://source.unsplash.com/iMchCC-3_fE/1080x610",
-    width: 1080,
-    height: 610,
-  },
-  {
-    src: "https://source.unsplash.com/X48pUOPKf7A/1080x160",
-    width: 1080,
-    height: 160,
-  },
-  {
-    src: "https://source.unsplash.com/GbLS6YVXj0U/1080x810",
-    width: 1080,
-    height: 810,
-  },
-  {
-    src: "https://source.unsplash.com/9CRd1J1rEOM/1080x720",
-    width: 1080,
-    height: 720,
-  },
-  {
-    src: "https://source.unsplash.com/xKhtkhc9HbQ/1080x1440",
-    width: 1080,
-    height: 1440,
-  },
-];
+  }));
 
-const ListingDetailsPage = () => {
   return (
     <Box pt={5}>
       <Container maxWidth="lg">
         <Grid container rowSpacing={5}>
           <Grid item xs={12}>
             <ListingHeader
-              title="Bungalow 15 : Calm:Serene:Soulful"
-              rating={4.92}
-              review={12}
-              creator="Superhost"
-              address="2118 Thornridge Cir. Syracuse, Connecticut 35624"
+              title={listing.title}
+              rating={
+                listing._count.reviews > 0
+                  ? listing.reviews.reduce((acc, r) => acc + r.rating, 0) /
+                    listing.reviews.length
+                  : 0
+              }
+              review={listing._count.reviews}
+              creator={listing.user.name}
+              address={listing.address}
             />
           </Grid>
           <Grid item xs={12}>
-            <Album photos={unsplashPhotos} />
+            <Album photos={photos.length > 0 ? photos : [{ src: "", width: 1080, height: 800 }]} />
           </Grid>
           <Hidden mdUp>
             <Grid item xs={12}>
               <Host
-                src="https://thumbs.dreastime.com/b/unknown-male-avatar-profile-image-businessman-vector-unknown-male-avatar-profile-image-businessman-vector-profile-179373829.jpg"
+                src={listing.user.image || ""}
                 rating={4.9}
-                review={12}
-                name="Jhon Doue"
+                review={listing._count.reviews}
+                name={listing.user.name}
               />
             </Grid>
           </Hidden>
           <Grid item container xs={12} columnSpacing={8.7}>
             <Grid container item xs={12} md={8}>
               <Grid item xs={12}>
-                <ListingContents />
+                <ListingContents
+                  description={listing.description}
+                  bedrooms={listing.bedrooms}
+                  bathrooms={listing.bathrooms}
+                  area={listing.area}
+                  maxGuests={listing.maxGuests}
+                  amenities={listing.amenities}
+                />
               </Grid>
               <Grid item xs={12}>
-                <ListingLocation address="2118 Thornridge Cir. Syracuse, Connecticut 35624" />
+                <ListingLocation address={listing.address} />
               </Grid>
             </Grid>
             <Hidden mdDown>
@@ -167,38 +90,59 @@ const ListingDetailsPage = () => {
                 }}
               >
                 <Grid item xs={12}>
-                  <BookingForm />
+                  <BookingForm
+                    listingId={listing.id}
+                    price={listing.price}
+                    maxGuests={listing.maxGuests}
+                  />
                 </Grid>
                 <Grid item xs={12}>
                   <ListingReport />
                 </Grid>
                 <Grid item xs={12}>
                   <Host
-                    src="https://thumbs.dreastime.com/b/unknown-male-avatar-profile-image-businessman-vector-unknown-male-avatar-profile-image-businessman-vector-profile-179373829.jpg"
+                    src={listing.user.image || ""}
                     rating={4.9}
-                    review={12}
-                    name="Jhon Doue"
+                    review={listing._count.reviews}
+                    name={listing.user.name}
                   />
                 </Grid>
               </Grid>
             </Hidden>
           </Grid>
+          {listing._count.reviews > 0 && (
+            <Grid item xs={12}>
+              <ListingRatings
+                avaragerating={
+                  listing.reviews.reduce((acc, r) => acc + r.rating, 0) /
+                  listing.reviews.length
+                }
+                review={listing._count.reviews}
+                rating={{
+                  cleanliness:
+                    listing.reviews.reduce((acc, r) => acc + (r.cleanliness || 0), 0) /
+                    listing.reviews.length,
+                  communication:
+                    listing.reviews.reduce((acc, r) => acc + (r.communication || 0), 0) /
+                    listing.reviews.length,
+                  checkIn:
+                    listing.reviews.reduce((acc, r) => acc + (r.checkIn || 0), 0) /
+                    listing.reviews.length,
+                  accuracy:
+                    listing.reviews.reduce((acc, r) => acc + (r.accuracy || 0), 0) /
+                    listing.reviews.length,
+                  location:
+                    listing.reviews.reduce((acc, r) => acc + (r.location || 0), 0) /
+                    listing.reviews.length,
+                  value:
+                    listing.reviews.reduce((acc, r) => acc + (r.value || 0), 0) /
+                    listing.reviews.length,
+                }}
+              />
+            </Grid>
+          )}
           <Grid item xs={12}>
-            <ListingRatings
-              avaragerating={4.93}
-              review={12}
-              rating={{
-                cleanliness: 4,
-                communication: 5,
-                checkIn: 2,
-                accuracy: 8,
-                location: 9,
-                value: 7,
-              }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <ListingReviews />
+            <ListingReviews listingId={listing.id} reviews={listing.reviews} />
           </Grid>
         </Grid>
       </Container>

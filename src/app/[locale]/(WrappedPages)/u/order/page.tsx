@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   Grid,
@@ -10,26 +10,41 @@ import {
   Drawer,
   IconButton,
   Paper,
+  Skeleton,
 } from "@mui/material";
-import CachedIcon from "@mui/icons-material/Cached";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import OrderCards from "src/widgets/OrderCards";
 import OrderDetails from "src/widgets/OrderDetails";
-import { orderDetailsData } from "src/global/staticData";
-
-const orderData = {
-  orderComlete: 1232,
-  orderConfirm: 4321,
-  orderCancle: 123,
-  orderRefound: 432,
-};
+import { getUserOrders } from "src/server/order";
 
 const Order = () => {
   const [open, setOpen] = useState(false);
+  const [orders, setOrders] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const data = await getUserOrders();
+        setOrders(data);
+      } catch (error) {
+        console.error("Failed to fetch orders:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchOrders();
+  }, []);
+
+  const orderData = {
+    orderComlete: orders.filter((o) => o.status === "completed").length,
+    orderConfirm: orders.filter((o) => o.status === "confirmed").length,
+    orderCancle: orders.filter((o) => o.status === "cancelled").length,
+    orderRefound: 0,
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -74,14 +89,18 @@ const Order = () => {
                 <Grid item xs={12} container gap={2}>
                   <Typography variant="h3">Order</Typography>
                   <Button variant="outlined" endIcon={<CalendarMonthIcon />}>
-                    08/12/2023-08/24/2023
+                    All Orders
                   </Button>
                 </Grid>
                 <Grid item xs={12}>
-                  <OrderCards
-                    orderData={orderData}
-                    avRating={{ view: 60, rate: 34 }}
-                  />
+                  {loading ? (
+                    <Skeleton variant="rounded" height={150} />
+                  ) : (
+                    <OrderCards
+                      orderData={orderData}
+                      avRating={{ view: orders.length, rate: 0 }}
+                    />
+                  )}
                 </Grid>
               </Grid>
             </Box>
@@ -94,19 +113,31 @@ const Order = () => {
             <Grid item xs={12} container gap={2}>
               <Typography variant="h3">Order</Typography>
               <Button variant="outlined" endIcon={<CalendarMonthIcon />}>
-                08/12/2023-08/24/2023
+                All Orders
               </Button>
             </Grid>
             <Grid item md={12}>
-              <OrderCards
-                orderData={orderData}
-                avRating={{ view: 60, rate: 34 }}
-              />
+              {loading ? (
+                <Skeleton variant="rounded" height={150} />
+              ) : (
+                <OrderCards
+                  orderData={orderData}
+                  avRating={{ view: orders.length, rate: 0 }}
+                />
+              )}
             </Grid>
           </Grid>
         </Hidden>
         <Grid item xs={12} md={10}>
-          <OrderDetails orderDetailsData={orderDetailsData} />
+          {loading ? (
+            <Stack spacing={2}>
+              {Array.from({ length: 3 }).map((_, index) => (
+                <Skeleton key={index} variant="rounded" height={80} />
+              ))}
+            </Stack>
+          ) : (
+            <OrderDetails orderDetailsData={orders} />
+          )}
         </Grid>
       </Grid>
     </>

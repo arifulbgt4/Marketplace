@@ -1,14 +1,30 @@
-import { FC } from "react";
-import { useTranslations } from "next-intl";
-import { Box, Container, Grid, Typography } from "@mui/material";
+"use client";
+import { FC, useEffect, useState } from "react";
+import { Box, Container, Grid, Typography, Skeleton } from "@mui/material";
 
 import Listing from "src/widgets/Listing";
-import { recentPostData } from "src/global/staticData";
+import { getFeaturedListings } from "src/server/listing";
 
 import { RecentListingsProps } from "./Types";
 
 const RecentListings: FC<RecentListingsProps> = () => {
-  const t = useTranslations();
+  const [listings, setListings] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchListings = async () => {
+      try {
+        const data = await getFeaturedListings();
+        setListings(data.slice(0, 6));
+      } catch (error) {
+        console.error("Failed to fetch listings:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchListings();
+  }, []);
+
   return (
     <Box>
       <Container>
@@ -18,31 +34,26 @@ const RecentListings: FC<RecentListingsProps> = () => {
           </Grid>
 
           <Grid item container xs={12} spacing={4}>
-            {recentPostData.map((data) => {
-              const {
-                id,
-                image,
-                title,
-
-                description,
-                rating,
-                slug,
-                address,
-              } = data;
-              return (
-                <Grid item xs={12} md={4} key={id}>
-                  <Listing
-                    id={id}
-                    slug={slug}
-                    image={image}
-                    title={title}
-                    address={address}
-                    rating={rating}
-                    description={description}
-                  />
-                </Grid>
-              );
-            })}
+            {loading
+              ? Array.from({ length: 6 }).map((_, index) => (
+                  <Grid item xs={12} md={4} key={index}>
+                    <Skeleton variant="rounded" height={300} />
+                  </Grid>
+                ))
+              : listings.map((data) => (
+                  <Grid item xs={12} md={4} key={data.id}>
+                    <Listing
+                      id={data.id}
+                      slug={data.slug}
+                      image={data.images[0] || ""}
+                      title={data.title}
+                      address={data.address}
+                      price={data.price}
+                      rating={data._count.reviews > 0 ? 4.5 : undefined}
+                      description={data.description}
+                    />
+                  </Grid>
+                ))}
           </Grid>
         </Grid>
       </Container>

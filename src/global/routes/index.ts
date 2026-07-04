@@ -25,6 +25,6 @@ export default {
   contact: "/contact",
   faq: "/faq",
   privacy: "/privacy",
-  termas: "/termas",
+  terms: "/terms",
   cookies: "/cookies",
 };

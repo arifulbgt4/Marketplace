@@ -1,125 +1,101 @@
 "use client";
-// React
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useRouter } from "next/navigation";
-// @mui
-import { Typography, Button, Stack } from "@mui/material";
+import { Typography, Button, Stack, Alert, TextField, Checkbox } from "@mui/material";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-// packages
-import { Form as FinalForm } from "react-final-form";
-import { FormApi } from "final-form";
-
-// components
-import {
-  TextField,
-  required,
-  composeValidators,
-  Checkbox,
-} from "src/components/Input";
-
-// Types
-import { UserRegisterOptions } from "src/global/types";
+import { userRegisterSchema, UserRegisterInput } from "src/lib/validations";
 
 import { SignupFormProps } from "./Types";
-
-// actions
 import { signUp } from "./actions";
 
-const INITIAL_VALUES: UserRegisterOptions = {
-  name: "",
-  email: "",
-  password: "",
-};
-
 const SignupForm: FC<SignupFormProps> = () => {
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
-  const onSubmitForm = async (
-    values: UserRegisterOptions,
-    form: FormApi<UserRegisterOptions, UserRegisterOptions>
-  ) => {
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<UserRegisterInput>({
+    resolver: zodResolver(userRegisterSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmitForm = async (data: UserRegisterInput) => {
     try {
-      const res = (await signUp(values)) as unknown as any;
-      if (!res?.ok) return;
+      setError(null);
+      const res = (await signUp(data)) as any;
+      if (!res?.ok) {
+        const body = await res.json();
+        setError(body?.message || "Registration failed");
+        return;
+      }
       router.push("/");
     } catch (error) {
+      setError("An unexpected error occurred");
       console.error(error);
     }
   };
 
   return (
-    <FinalForm
-      onSubmit={onSubmitForm}
-      initialValues={INITIAL_VALUES}
-      render={({ handleSubmit, values, errors, submitting }) => {
-        return (
-          <form onSubmit={handleSubmit}>
-            <Stack gap={2.5}>
-              <Stack gap={2}>
-                <TextField
-                  name="name"
-                  label="Full name"
-                  required
-                  size="small"
-                  fullWidth
-                  fieldProps={{
-                    validate: composeValidators(required("Full name required")),
-                  }}
-                />
-                <TextField
-                  name="username"
-                  label="User name"
-                  required
-                  size="small"
-                  fullWidth
-                  fieldProps={{
-                    validate: composeValidators(required("User name required")),
-                  }}
-                />
-                <TextField
-                  name="email"
-                  label="Email"
-                  required
-                  size="small"
-                  type="email"
-                  fullWidth
-                  fieldProps={{
-                    validate: composeValidators(required("Email required")),
-                  }}
-                />
-                <TextField
-                  name="password"
-                  label="Password"
-                  required
-                  size="small"
-                  fullWidth
-                  type="password"
-                  fieldProps={{
-                    validate: composeValidators(required("Password required")),
-                  }}
-                />
-              </Stack>
-              <Stack flexDirection="row">
-                <Checkbox size="small" name="check" />
-                <Typography color="text.secondary">
-                  By signing up, you agree our Terms Privacy Policy and Coockies
-                  Policy
-                </Typography>
-              </Stack>
-              <Button
-                type="submit"
-                variant="contained"
-                color="info"
-                disabled={submitting}
-              >
-                Sign up
-              </Button>
-            </Stack>
-          </form>
-        );
-      }}
-    />
+    <form onSubmit={handleSubmit(onSubmitForm)}>
+      <Stack gap={2.5}>
+        {error && <Alert severity="error">{error}</Alert>}
+        <Stack gap={2}>
+          <TextField
+            label="Full name"
+            required
+            size="small"
+            fullWidth
+            error={!!errors.name}
+            helperText={errors.name?.message}
+            {...register("name")}
+          />
+          <TextField
+            label="Email"
+            required
+            size="small"
+            type="email"
+            fullWidth
+            error={!!errors.email}
+            helperText={errors.email?.message}
+            {...register("email")}
+          />
+          <TextField
+            label="Password"
+            required
+            size="small"
+            fullWidth
+            type="password"
+            error={!!errors.password}
+            helperText={errors.password?.message}
+            {...register("password")}
+          />
+        </Stack>
+        <Stack flexDirection="row" alignItems="center">
+          <Checkbox size="small" defaultChecked />
+          <Typography color="text.secondary">
+            By signing up, you agree our Terms Privacy Policy and Cookies
+            Policy
+          </Typography>
+        </Stack>
+        <Button
+          type="submit"
+          variant="contained"
+          color="info"
+          disabled={isSubmitting}
+        >
+          Sign up
+        </Button>
+      </Stack>
+    </form>
   );
 };
 
-export * from "./Types";
 export default SignupForm;

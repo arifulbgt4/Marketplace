@@ -1,0 +1,92 @@
+"use server";
+import { cache } from "react";
+import { Prisma } from "@prisma/client";
+import { v4 as uuidv4 } from "uuid";
+
+import { prisma } from "src/lib/prisma";
+import { getServerSession } from "next-auth";
+import { authOptions } from "src/lib/auth";
+
+export const createOrder = async (data: {
+  listingId: string;
+  startDate: Date;
+  endDate: Date;
+  guests?: number;
+}) => {
+  try {
+    const session = (await getServerSession(authOptions)) as any;
+    if (!session?.user?.id) {
+      throw new Error("Unauthorized");
+    }
+
+    const listing = await prisma.listing.findUnique({
+      where: { id: data.listingId },
+    });
+
+    if (!listing) {
+      throw new Error("Listing not found");
+    }
+
+    const nights = Math.ceil(
+      (data.endDate.getTime() - data.startDate.getTime()) / (1000 * 60 * 60 * 24)
+    );
+    const totalPrice = listing.price * nights;
+
+    const order = await prisma.order.create({
+      data: {
+        orderNo: `ORD-${uuidv4().slice(0, 8).toUpperCase()}`,
+        startDate: data.startDate,
+        endDate: data.endDate,
+        totalPrice,
+        guests: data.guests || 1,
+        userId: session.user.id,
+        listingId: data.listingId,
+      },
+      include: {
+        listing: true,
+        user: {
+          select: { id: true, name: true, email: true },
+        },
+      },
+    });
+
+    return order;
+  } catch (error) {
+    console.error("Failed to create order:", error);
+    throw error;
+  }
+};
+
+export const getUserOrders = cache(async () => {
+  try {
+    const session = (await getServerSession(authOptions)) as any;
+    if (!session?.user?.id) return [];
+
+    const orders = await prisma.order.findMany({
+      where: { userId: session.user.id },
+      include: {
+        listing: {
+          select: { id: true, title: true, slug: true, images: true, price: true },
+        },
+      },
+      orderBy: { createdAt: "desc" },
+    });
+    return orders;
+  } catch (error) {
+    console.error("Failed to fetch orders:", error);
+    return [];
+  }
+});
+
+export const updateOrderStatus = async (id: string, status: string) => {
+  try {
+    const order = await prisma.order.update({
+      where: { id },
+      data: { status },
+    });
+    return order;
+  } catch (error) {
+    console.error("Failed to update order:", error);
+    throw error;
+  }
+};

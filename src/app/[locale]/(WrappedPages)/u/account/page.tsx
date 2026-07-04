@@ -34,7 +34,7 @@ export default function Account() {
           <OwnerBasicInfo />
         </Grid>
         <Grid item xs={12}>
-          <OwnerReview />
+          <OwnerReview reviews={[]} />
         </Grid>
       </Grid>
     </Grid>

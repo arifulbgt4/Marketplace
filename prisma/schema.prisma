@@ -16,16 +16,148 @@ model User {
   name      String
   email     String    @unique
   password  String
-  role      String
+  role      String    @default("user")
   image     String?
+  phone     String?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  Account   Account[]
+
+  Account          Account?
+  listings         Listing[]
+  orders           Order[]
+  reviewsWritten   Review[]      @relation("ReviewAuthor")
+  sentMessages     Message[]     @relation("MessageSender")
+  receivedMessages Message[]     @relation("MessageReceiver")
+  bookmarks        Bookmark[]
+  media            UserMedia[]
 }
 
 model Account {
   id     String  @id @default(uuid())
   bio    String?
-  userId String
+  phone  String?
+  userId String  @unique
   user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model UserMedia {
+  id        String   @id @default(uuid())
+  url       String
+  type      String   @default("image") // image, video
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model Category {
+  id        String    @id @default(uuid())
+  name      String    @unique
+  slug      String    @unique
+  icon      String?
+  image     String?
+  parentId  String?
+  parent    Category? @relation("CategoryTree", fields: [parentId], references: [id])
+  children  Category[] @relation("CategoryTree")
+  listings  Listing[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Listing {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique
+  description String
+  price       Float
+  discount    Float?
+  status      String   @default("draft") // draft, published, archived
+  type        String   @default("rent")  // rent, sale
+  images      String[] // array of image URLs
+  address     String
+  latitude    Float?
+  longitude   Float?
+  bedrooms    Int?
+  bathrooms   Int?
+  area        Float?
+  amenities   String[] // array of amenity values
+  maxGuests   Int?
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  categoryId  String?
+  category    Category? @relation(fields: [categoryId], references: [id])
+  orders      Order[]
+  reviews     Review[]
+  bookmarks   Bookmark[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([status])
+  @@index([categoryId])
+  @@index([userId])
+}
+
+model Order {
+  id          String   @id @default(uuid())
+  orderNo     String   @unique
+  status      String   @default("pending") // pending, confirmed, cancelled, completed
+  startDate   DateTime
+  endDate     DateTime
+  totalPrice  Float
+  guests      Int      @default(1)
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listingId   String
+  listing     Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@index([listingId])
+  @@index([status])
+}
+
+model Review {
+  id          String   @id @default(uuid())
+  rating      Float
+  cleanliness Float?
+  communication Float?
+  checkIn     Float?
+  accuracy    Float?
+  location    Float?
+  value       Float?
+  comment     String?
+  userId      String
+  author      User     @relation("ReviewAuthor", fields: [userId], references: [id], onDelete: Cascade)
+  listingId   String
+  listing     Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, listingId])
+  @@index([listingId])
+}
+
+model Message {
+  id         String   @id @default(uuid())
+  content    String
+  read       Boolean  @default(false)
+  senderId   String
+  sender     User     @relation("MessageSender", fields: [senderId], references: [id], onDelete: Cascade)
+  receiverId String
+  receiver   User     @relation("MessageReceiver", fields: [receiverId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@index([senderId])
+  @@index([receiverId])
+}
+
+model Bookmark {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listingId String
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, listingId])
 }
