@@ -68,7 +68,7 @@ export class RoleService {
   updateRole(id: string, updates: Partial<RoleInput>): RoleInput {
     const role = this.roles.get(id);
     if (!role) {
-      throw new Error(`Role with ID ${role.id} not found`);
+      throw new Error(`Role with ID ${id} not found`);
     }
     
     // Prevent modification of system roles
@@ -131,7 +131,7 @@ export class StatusService {
   updateStatus(id: string, updates: Partial<StatusInput>): StatusInput {
     const status = this.statuses.get(id);
     if (!status) {
-      throw new Error(`Status with ID ${status.id} not found`);
+      throw new Error(`Status with ID ${id} not found`);
     }
     
     const updatedStatus = { ...status, ...updates };

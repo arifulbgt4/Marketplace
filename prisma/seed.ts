@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, ListingStatus, UserRole } from "@prisma/client";
 import { hash } from "bcryptjs";
 
 const prisma = new PrismaClient();
@@ -13,7 +13,7 @@ async function main() {
       email: "admin@admin.com",
       name: "Admin",
       password: adminPassword,
-      role: "admin",
+      role: UserRole.admin,
       Account: {
         create: {
           bio: "System administrator",
@@ -31,7 +31,7 @@ async function main() {
       email: "demo@demo.com",
       name: "Demo User",
       password: demoPassword,
-      role: "user",
+      role: UserRole.user,
       Account: {
         create: {
           bio: "Demo account for testing",
@@ -77,7 +77,7 @@ async function main() {
         description:
           "2118 Thornridge Cir. Syracuse, Connecticut 35624. Modern serviced apartment with all amenities.",
         price: 120,
-        status: "published",
+        status: ListingStatus.published,
         images: [
           "https://cf.bstatic.com/xdata/images/hotel/square600/494798449.webp?k=2400cf2f728f7d8f7cf328ef0460b4630984a01e033c72eb7fea76e22dd8586f&o=",
         ],
@@ -96,7 +96,7 @@ async function main() {
         description:
           "Every unit features a private bathroom and bidet. Luxury living at its finest.",
         price: 180,
-        status: "published",
+        status: ListingStatus.published,
         images: [
           "https://cf.bstatic.com/xdata/images/hotel/270x200/447686392.webp?k=1e4619ecc292958d207c5a132daf1acd9b71bdc182f02d4b9e019a2a9905c08e&o=",
         ],
@@ -115,7 +115,7 @@ async function main() {
         description:
           "Fraser Residence Orchard Singapore is set 1.5 km from Orchard Road.",
         price: 150,
-        status: "published",
+        status: ListingStatus.published,
         images: [
           "https://cf.bstatic.com/xdata/images/hotel/270x200/200326697.webp?k=5ce2c22a49917dec5ae4e8d61b0e05cbb745a8ff3452b9a13a6986f89e2c6254&o=",
         ],
@@ -134,7 +134,7 @@ async function main() {
         description:
           "Distance in property description is calculated using. Prime location in the heart of the city.",
         price: 200,
-        status: "published",
+        status: ListingStatus.published,
         images: [
           "https://cf.bstatic.com/xdata/images/hotel/270x200/343485515.webp?k=c9ba04cb027d2f7ba0e9f5a2ea577aaa2a7c30f63773ab44ada5007b406f7e08&o=",
         ],

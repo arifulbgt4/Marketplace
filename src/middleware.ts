@@ -24,6 +24,17 @@ const publicPages = [
   "/twitter-image",
 ];
 
+const adminRoutes = ["/admin", "/dashboard"];
+
+const customerRoutes = [
+  "/account",
+  "/orders",
+  "/bookmarks",
+  "/messages",
+  "/cart",
+  "/checkout",
+];
+
 const intlMiddleware = createIntlMiddleware({
   locales,
   defaultLocale: siteConfig.locale,
@@ -31,9 +42,6 @@ const intlMiddleware = createIntlMiddleware({
 });
 
 const authMiddleware = withAuth(
-  // Note that this callback is only invoked if
-  // the `authorized` callback has returned `true`
-  // and not for pages listed in `pages`.
   function onSuccess(req) {
     return intlMiddleware(req);
   },
@@ -48,50 +56,60 @@ const authMiddleware = withAuth(
 );
 
 export default async function middleware(req: NextRequest) {
-  const publicPathnameRegex = RegExp(
-    `^(/(${locales.join("|")}))?(${publicPages.join("|")})?/?$`,
-    "i"
+  const pathname = req.nextUrl.pathname;
+  const localePattern = locales.join("|");
+  const pathWithoutLocale = pathname.replace(new RegExp(`^/(${localePattern})`), "") || "/";
+
+  const isPublicPage = publicPages.some((page) => {
+    if (page === "/") return pathWithoutLocale === "/";
+    return pathWithoutLocale === page || pathWithoutLocale.startsWith(page + "/");
+  });
+
+  const isAdminRoute = adminRoutes.some((route) =>
+    pathWithoutLocale === route || pathWithoutLocale.startsWith(route + "/")
   );
 
-  const dynamicPublicPathRegex = RegExp(
-    `^(/(${locales.join("|")}))?[${routes.listing}|${
-      routes.merchant
-    }]+[A-Za-z0-9_-]*$`
+  const isCustomerRoute = customerRoutes.some((route) =>
+    pathWithoutLocale === route || pathWithoutLocale.startsWith(route + "/")
   );
-
-  const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
-  const isDynamicPublicPage = dynamicPublicPathRegex.test(req.nextUrl.pathname);
 
   const token = await getToken({ req });
   const isAuth = !!token;
 
   if (
-    (req.nextUrl.pathname === routes.signin ||
-      req.nextUrl.pathname === routes.signup) &&
+    (pathWithoutLocale === routes.signin ||
+      pathWithoutLocale === routes.signup) &&
     isAuth
   ) {
     return NextResponse.redirect(new URL(routes.home, req.url));
   }
 
-  if (isPublicPage || isDynamicPublicPage) {
+  if (isAdminRoute) {
+    if (!isAuth) {
+      return NextResponse.redirect(new URL(routes.signin, req.url));
+    }
+    const role = token?.role;
+    if (role !== "admin") {
+      return NextResponse.redirect(new URL(routes.home, req.url));
+    }
     return intlMiddleware(req);
   }
+
+  if (isCustomerRoute && !isAuth) {
+    return NextResponse.redirect(new URL(routes.signin, req.url));
+  }
+
+  if (isPublicPage) {
+    return intlMiddleware(req);
+  }
+
   return (authMiddleware as any)(req);
 }
 
 export const config = {
-  // Skip all paths that should not be internationalized. This example skips
-  // certain folders and all pathnames with a dot (e.g. favicon.ico)
   matcher: [
-    // Enable a redirect to a matching locale at the root
     "/",
-
-    // Set a cookie to remember the previous locale for
-    // all requests that have a locale prefix
-    `/(en|af|am|ar|hy|as|az|bn)/:path*`,
-
-    // Enable redirects that add missing locales
-    // (e.g. `/pathnames` -> `/en/pathnames`),
+    `/(${locales.join("|")})/:path*`,
     "/((?!api|_next|_vercel|.*\\..*).*)",
   ],
 };

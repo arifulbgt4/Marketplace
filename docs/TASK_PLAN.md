@@ -84,21 +84,21 @@ Remaining risks:
 
 | ID এবং title | Goal ও context | Likely files/modules | Acceptance criteria | Dependencies ও agent note | Testing requirement | Status |
 |---|---|---|---|---|---|---|
-| P2-01 Dependency baseline | Source imports direct dependencies করা এবং tooling reliable করা | `package.json`, lockfile | Runtime imports declared; lint/format commands valid | P1-09; unrelated upgrades নয় | Install, lint, format, type-check | Not started |
-| P2-02 Environment contract | Required/optional env validation এবং setup consistency | `.env.example`, future `src/lib/env`, Docker docs | Fail-fast validation; ports/docs consistent; no real secret defaults | P2-01 | Missing/valid env tests; Prisma validate | Not started |
-| P2-03 Module boundary skeleton | Domain module folder এবং public API convention স্থাপন | Future `src/modules/*` | UI/API/domain/repository/provider responsibilities clear | P1-04 | Import-boundary check | Not started |
-| P2-04 Error/result contract | Validation/auth/conflict/not-found responses standard করা | Future error and API helpers | Stable error code, safe message, request ID | P2-03 | Handler unit tests | Not started |
-| P2-05 Money/currency primitive | `Float` arithmetic-এর বদলে safe representation | Prisma এবং pricing module | Decimal/minor-unit conversion এবং ISO currency defined | P1-05, P2-03 | Rounding, zero, large amount tests | Not started |
-| P2-06 Role/status enums | Free-form role/status constrained করা | Prisma enums, domain types | Invalid role/status persistence rejected | P1-05, P1-06 | Schema এবং validation tests | Not started |
-| P2-07 Session claims | Typed ID, role এবং account status session-এ আনা | `src/lib/auth.ts`, NextAuth types | Disabled user denied; `any` required নয় | P2-06 | Login/session tests | Not started |
-| P2-08 Authorization helpers | Reusable admin/owner/customer policies তৈরি | Future authz module | Every mutation reusable policy call করতে পারে | P2-07, P1-06 | Allow/deny matrix tests | Not started |
-| P2-09 Route protection | Locale-aware public/customer/admin routing correct করা | `src/middleware.ts`, layouts | Regex ambiguity নেই; admin/customer boundary correct | P2-07, P2-08 | Route table tests | Not started |
-| P2-10 Audit log foundation | Sensitive mutation actor/change record করা | Prisma `AuditLog`, audit service | Actor, action, target, timestamp, metadata retained | P2-08 | Admin mutation integration test | Not started |
-| P2-11 Customer profile read | Account pages real current-user data ব্যবহার করবে | User service এবং account pages | Mock profile removed; own data only | P2-07 | Unauthorized/own-profile tests | Not started |
-| P2-12 Customer profile update | Name, phone, locale/preferences safe update | Profile service/form | Caller foreign user ID update করতে পারে না | P2-08, P2-11 | Validation/ownership tests | Not started |
-| P2-13 Address book | Shipping/billing addresses এবং default address | Prisma Address, account API/UI | Multiple address CRUD; one default per type | P2-05, P2-08 | CRUD/default/ownership tests | Not started |
-| P2-14 Account recovery | Password change/reset এবং email verification | Auth module, notification adapter | Expiring one-use tokens এবং session invalidation | P2-02, P2-07 | Expired/reused token tests | Not started |
-| P2-15 Media storage abstraction | Product/branding/customer media provider-independent করা | Future media module, upload components | Type/size validation, stable URL, delete policy | P2-03 | Invalid file এবং adapter tests | Not started |
+| P2-01 Dependency baseline | Source imports direct dependencies করা এবং tooling reliable করা | `package.json`, lockfile | Runtime imports declared; lint/format commands valid | P1-09; unrelated upgrades নয় | Install, lint, format, type-check | Complete |
+| P2-02 Environment contract | Required/optional env validation এবং setup consistency | `.env.example`, `src/lib/env.ts` | Fail-fast validation; ports/docs consistent; no real secret defaults | P2-01 | Missing/valid env tests; Prisma validate | Complete |
+| P2-03 Module boundary skeleton | Domain module folder এবং public API convention স্থাপন | `src/modules/README.md` | UI/API/domain/repository/provider responsibilities clear | P1-04 | Import-boundary check | Complete |
+| P2-04 Error/result contract | Validation/auth/conflict/not-found responses standard করা | `src/lib/errors.ts` | Stable error code, safe message, request ID | P2-03 | Handler unit tests | Complete |
+| P2-05 Money/currency primitive | `Float` arithmetic-এর বদলে safe representation | `src/lib/money.ts` | Decimal/minor-unit conversion এবং ISO currency defined | P1-05, P2-03 | Rounding, zero, large amount tests | Complete |
+| P2-06 Role/status enums | Free-form role/status constrained করা | `prisma/schema.prisma` enums, `src/lib/domain.ts` | Invalid role/status persistence rejected | P1-05, P1-06 | Schema এবং validation tests | Complete |
+| P2-07 Session claims | Typed ID, role এবং account status session-এ আনা | `src/lib/auth.ts`, NextAuth types | Disabled user denied; `any` required নয় | P2-06 | Login/session tests | Complete |
+| P2-08 Authorization helpers | Reusable admin/owner/customer policies তৈরি | `src/lib/authz.ts` | Every mutation reusable policy call করতে পারে | P2-07, P1-06 | Allow/deny matrix tests | Complete |
+| P2-09 Route protection | Locale-aware public/customer/admin routing correct করা | `src/middleware.ts`, layouts | Regex ambiguity নেই; admin/customer boundary correct | P2-07, P2-08 | Route table tests | Complete |
+| P2-10 Audit log foundation | Sensitive mutation actor/change record করা | `prisma/schema.prisma` AuditLog, `src/lib/audit.ts` | Actor, action, target, timestamp, metadata retained | P2-08 | Admin mutation integration test | Complete |
+| P2-11 Customer profile read | Account pages real current-user data ব্যবহার করবে | `src/lib/services/user.ts` | Mock profile removed; own data only | P2-07 | Unauthorized/own-profile tests | Complete |
+| P2-12 Customer profile update | Name, phone, locale/preferences safe update | `src/lib/services/user.ts` | Caller foreign user ID update করতে পারে না | P2-08, P2-11 | Validation/ownership tests | Complete |
+| P2-13 Address book | Shipping/billing addresses এবং default address | `prisma/schema.prisma` Address, `src/lib/services/address.ts` | Multiple address CRUD; one default per type | P2-05, P2-08 | CRUD/default/ownership tests | Complete |
+| P2-14 Account recovery | Password change/reset এবং email verification | `src/lib/services/account.ts` | Expiring one-use tokens এবং session invalidation | P2-02, P2-07 | Expired/reused token tests | Complete |
+| P2-15 Media storage abstraction | Product/branding/customer media provider-independent করা | `src/lib/services/media.ts` | Type/size validation, stable URL, delete policy | P2-03 | Invalid file এবং adapter tests | Complete |
 
 ## Phase 3: Product and catalog system
 

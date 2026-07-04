@@ -1,26 +1,60 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider  = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+enum UserRole {
+  user
+  admin
+  support
+  catalog_manager
+}
+
+enum UserStatus {
+  active
+  suspended
+  pending_verification
+}
+
+enum ListingStatus {
+  draft
+  published
+  archived
+}
+
+enum ListingType {
+  rent
+  sale
+}
+
+enum OrderStatus {
+  pending
+  confirmed
+  cancelled
+  completed
+}
+
+enum AddressType {
+  shipping
+  billing
 }
 
 model User {
-  id        String    @id @default(uuid())
+  id        String     @id @default(uuid())
   name      String
-  email     String    @unique
+  email     String     @unique
   password  String
-  role      String    @default("user")
+  role      UserRole   @default(user)
+  status    UserStatus @default(pending_verification)
   image     String?
   phone     String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 
   Account          Account?
   listings         Listing[]
@@ -30,6 +64,10 @@ model User {
   receivedMessages Message[]     @relation("MessageReceiver")
   bookmarks        Bookmark[]
   media            UserMedia[]
+  addresses        Address[]
+  auditLogs        AuditLog[]
+  resetTokens      ResetToken[]
+  verificationTokens VerificationToken[]
 }
 
 model Account {
@@ -43,7 +81,7 @@ model Account {
 model UserMedia {
   id        String   @id @default(uuid())
   url       String
-  type      String   @default("image") // image, video
+  type      String   @default("image")
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
@@ -64,32 +102,32 @@ model Category {
 }
 
 model Listing {
-  id          String   @id @default(uuid())
+  id          String      @id @default(uuid())
   title       String
-  slug        String   @unique
+  slug        String      @unique
   description String
   price       Float
   discount    Float?
-  status      String   @default("draft") // draft, published, archived
-  type        String   @default("rent")  // rent, sale
-  images      String[] // array of image URLs
+  status      ListingStatus @default(draft)
+  type        ListingType   @default(rent)
+  images      String[]
   address     String
   latitude    Float?
   longitude   Float?
   bedrooms    Int?
   bathrooms   Int?
   area        Float?
-  amenities   String[] // array of amenity values
+  amenities   String[]
   maxGuests   Int?
   userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   categoryId  String?
-  category    Category? @relation(fields: [categoryId], references: [id])
+  category    Category?   @relation(fields: [categoryId], references: [id])
   orders      Order[]
   reviews     Review[]
   bookmarks   Bookmark[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 
   @@index([status])
   @@index([categoryId])
@@ -97,19 +135,19 @@ model Listing {
 }
 
 model Order {
-  id          String   @id @default(uuid())
-  orderNo     String   @unique
-  status      String   @default("pending") // pending, confirmed, cancelled, completed
+  id          String      @id @default(uuid())
+  orderNo     String      @unique
+  status      OrderStatus @default(pending)
   startDate   DateTime
   endDate     DateTime
   totalPrice  Float
-  guests      Int      @default(1)
+  guests      Int         @default(1)
   userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   listingId   String
-  listing     Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  listing     Listing     @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 
   @@index([userId])
   @@index([listingId])
@@ -117,21 +155,21 @@ model Order {
 }
 
 model Review {
-  id          String   @id @default(uuid())
-  rating      Float
-  cleanliness Float?
+  id            String   @id @default(uuid())
+  rating        Float
+  cleanliness   Float?
   communication Float?
-  checkIn     Float?
-  accuracy    Float?
-  location    Float?
-  value       Float?
-  comment     String?
-  userId      String
-  author      User     @relation("ReviewAuthor", fields: [userId], references: [id], onDelete: Cascade)
-  listingId   String
-  listing     Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  checkIn       Float?
+  accuracy      Float?
+  location      Float?
+  value         Float?
+  comment       String?
+  userId        String
+  author        User     @relation("ReviewAuthor", fields: [userId], references: [id], onDelete: Cascade)
+  listingId     String
+  listing       Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@unique([userId, listingId])
   @@index([listingId])
@@ -160,4 +198,63 @@ model Bookmark {
   createdAt DateTime @default(now())
 
   @@unique([userId, listingId])
+}
+
+model Address {
+  id         String      @id @default(uuid())
+  userId     String
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type       AddressType @default(shipping)
+  label      String      @default("")
+  line1      String
+  line2      String?
+  city       String
+  state      String
+  postalCode String
+  country    String
+  phone      String?
+  isDefault  Boolean     @default(false)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  @@index([userId])
+  @@index([userId, type])
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  actorId    String
+  actor      User     @relation(fields: [actorId], references: [id], onDelete: Cascade)
+  action     String
+  targetType String
+  targetId   String
+  metadata   Json     @default("{}")
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+
+  @@index([actorId])
+  @@index([targetType, targetId])
+  @@index([action])
+  @@index([createdAt])
+}
+
+model ResetToken {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model VerificationToken {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
 }

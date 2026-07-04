@@ -72,7 +72,9 @@
     "react-final-form": "^6.5.9",
     "react-photo-album": "^2.3.0",
     "typescript": "^5.4.0-dev.20240209",
-    "yet-another-react-lightbox": "^3.15.4"
+    "uuid": "^14.0.1",
+    "yet-another-react-lightbox": "^3.15.4",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",
@@ -85,7 +87,8 @@
     "jsdom": "^29.1.1",
     "prisma": "5.6.0",
     "ts-node": "^10.9.1",
-    "vitest": "^4.1.9"
+    "vitest": "^4.1.9",
+    "vitest-config": "0.0.1-security"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"

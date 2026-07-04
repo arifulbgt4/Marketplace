@@ -52,12 +52,12 @@ export const envSchema = z.object({
   }).default("2592000"),
   
   // Security headers configuration
-  NEXT_PUBLIC_ENABLE_CSP: z.string().transform(val => val === "true" ? true : val === "false" ? false : false,).default("false"),
-  NEXT_PUBLIC_ENABLE_HSTS: z.string().transform(val => val === "true" ? true : val === "false" ? false : false,).default("true"),
+  NEXT_PUBLIC_ENABLE_CSP: z.string().transform(val => val === "true" ? true : false).default(false),
+  NEXT_PUBLIC_ENABLE_HSTS: z.string().transform(val => val === "true" ? true : false).default(true),
   
   // CORS configuration
   NEXT_PUBLIC_CORS_ORIGIN: z.string().default("http://localhost:3000"),
-  NEXT_PUBLIC_CORS_CREDENTIALS: z.string().transform(val => val === "true" ? true : val === "false" ? false : false,).default("true"),
+  NEXT_PUBLIC_CORS_CREDENTIALS: z.string().transform(val => val === "true" ? true : false).default(true),
   
   // External API configuration
   NEXT_PUBLIC_PAYMENT_API_TIMEOUT: z.string().refine(val => !isNaN(parseInt(val)), {
@@ -104,7 +104,7 @@ export function validateEnv() {
 
     const missingRequiredVars = [];
     const invalidVars = [];
-    const missingOptionalVars = [];
+    const missingOptionalVars: string[] = [];
 
     const requiredVars = ["NEXTAUTH_SECRET", "POSTGRES_PRISMA_URL", "NEXT_PUBLIC_MARKETPLACE_NAME"];
     for (const varName of requiredVars) {
@@ -163,9 +163,10 @@ export function validateEnv() {
     if (error instanceof z.ZodError) {
       console.error("\n❌ Environment Validation Failed:\n")
       console.error("The following environment variables have invalid values:");
-      
-      error.errors.forEach((err, index) => {
-        console.error(`${index + 1}. ${err.path.join(".")} - ${err.message}`);
+
+      const issues = (error as any).issues ?? (error as any).errors ?? [];
+      issues.forEach((err: any, index: number) => {
+        console.error(`${index + 1}. ${(err.path as string[]).join(".")} - ${err.message}`);
       });
       
       console.error("\n🔴 Please check your .env file configuration and fix the above issues.\n");
