@@ -6,15 +6,16 @@
 |---|---|
 | Re-audit date | 2026-07-05 |
 | Branch/source baseline | `dev` / `b5fe836` |
+| Phase 1 evidence commit | `df3a95d` |
 | Scope | P1-01 through P1-09 and P1-FB-01 through P1-FB-10 |
 | Reviewer | Codex acting as project SQA |
 | Implementation boundary | Phase 1 documentation, evidence and governance only; no product source/schema/API/UI behavior changed |
 
 ## Verdict
 
-**Phase 1 rework is complete and ready for evidence-commit sign-off.**
+**Phase 1 is complete and approved.**
 
-P1-FB-01 through P1-FB-09 now have reviewable evidence. P1-FB-10 remains `Pending human sign-off` until the rework is committed and [Phase 1 Exit Approval](./PHASE_1_EXIT_APPROVAL.md) is updated against that evidence commit. Phase 2 remains blocked until then.
+P1-FB-01 through P1-FB-10 have reviewable evidence and `Complete` status. [Phase 1 Exit Approval](./PHASE_1_EXIT_APPROVAL.md) records product, architecture and SQA decisions against evidence commit `df3a95d`. Phase 2 is unblocked but remains `Not started`.
 
 Completing Phase 1 confirms the quality of the analysis/plan. It does not claim that the implementation defects discovered by the analysis—such as route leakage, missing authorization, missing commerce models or database configuration—are fixed.
 
@@ -25,7 +26,7 @@ Completing Phase 1 confirms the quality of the analysis/plan. It does not claim 
 | P1-01 Current architecture baseline | Pass | `CURRENT_PROJECT_ANALYSIS.md` records source shape, boundaries, high risks, runtime/build checks and degraded DB behavior against `b5fe836` |
 | P1-02 Route/API inventory | Pass | Source-normalized page/system/API/function inventory; regex cases reproduce `/l/create` and `/message` leaks while `/l/edit/[slug]` remains protected |
 | P1-03 Feature gap matrix | Pass | One taxonomy, exact source paths and implementation-vs-plan distinction |
-| P1-04 Architecture ADR | Ready for sign-off | ADR-001 contains decision, alternatives, consequences, non-goals, migration posture and unresolved decisions |
+| P1-04 Architecture ADR | Pass | ADR-001 contains decision, alternatives, consequences, non-goals, migration posture, unresolved decisions and approval |
 | P1-05 Domain glossary | Pass | Order, payment, fulfillment and return states are separate and aligned with COD/payment plan |
 | P1-06 Permission matrix | Pass | Current effective gaps and target mutation-level actors, ownership, PII, denial and audit rules are documented |
 | P1-07 Design baseline | Pass | Eight actual screenshots cover mobile/tablet/desktop/wide/RTL and key public routes; limitations are explicit |
@@ -80,6 +81,6 @@ The initial `pnpm` wrapper path was not used because its non-TTY dependency-stor
 4. Prettier is absent and `next lint` is deprecated; P2-01 owns tooling reliability.
 5. Visual baselines show incomplete Arabic copy, property terminology and no reachable dark-mode toggle; later UI/i18n tasks own behavior changes.
 
-## Sign-off action
+## Exit decision
 
-Commit the Phase 1 evidence set, record that commit in ADR-001 and `PHASE_1_EXIT_APPROVAL.md`, rerun the lightweight integrity checks, then mark P1-01 through P1-09 and P1-FB-10 `Complete`.
+Phase 1 gate is closed against evidence commit `df3a95d`. P1-01 through P1-09 and P1-FB-01 through P1-FB-10 are `Complete`; P2-01 is the first eligible implementation task when explicitly assigned.

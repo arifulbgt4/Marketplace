@@ -1,6 +1,6 @@
 # P1-08 Data Migration Strategy
 
-## Status: Rework required
+## Status: Complete
 
 ## Decision summary
 

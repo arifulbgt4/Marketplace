@@ -188,7 +188,7 @@ Payment, storage, email এবং shipping provider-এর জন্য interfac
 
 ### Status
 
-Accepted (2026-07-05). Pending product owner and architecture owner approval sign-off.
+Accepted and approved (2026-07-05). Evidence commit: `df3a95d`.
 
 ### Context
 
@@ -253,6 +253,6 @@ Negative:
 | Title | Single-business modular monolith architecture |
 | Date | 2026-07-05 |
 | Owner | Architecture owner |
-| Status | Proposed for Phase 1 sign-off |
-| Approved by | |
-| Evidence commit | Pending |
+| Status | Accepted and approved |
+| Approved by | Ariful Islam (product directive); Codex architecture review |
+| Evidence commit | `df3a95d` |

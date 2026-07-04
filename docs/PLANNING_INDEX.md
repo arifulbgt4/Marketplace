@@ -64,8 +64,8 @@
 
 | Phase | Status |
 |---|---|
-| Phase 1: Project analysis and documentation | Rework complete — Pending human sign-off; see `PHASE_1_SQA_AUDIT.md` |
-| Phase 2: Core marketplace foundation | Not started — blocked by Phase 1 exit gate |
+| Phase 1: Project analysis and documentation | Complete — approved against evidence commit `df3a95d` |
+| Phase 2: Core marketplace foundation | Not started |
 | Phase 3: Product/catalog system | Not started |
 | Phase 4: Cart and checkout | Not started |
 | Phase 5: COD and online payment | Not started |

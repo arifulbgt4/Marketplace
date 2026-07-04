@@ -1,6 +1,6 @@
 # P1-06 Permission Matrix
 
-## Status: Rework required
+## Status: Complete
 
 ## Role Definitions
 

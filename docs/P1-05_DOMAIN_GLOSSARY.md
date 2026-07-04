@@ -1,6 +1,6 @@
 # P1-05 Domain Glossary
 
-## Status: Rework required
+## Status: Complete
 
 ## Core Commerce Terms
 

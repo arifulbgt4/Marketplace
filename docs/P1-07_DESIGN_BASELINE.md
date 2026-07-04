@@ -1,6 +1,6 @@
 # P1-07 Design Baseline
 
-## Status: Rework required
+## Status: Complete
 
 ## Verification baseline
 

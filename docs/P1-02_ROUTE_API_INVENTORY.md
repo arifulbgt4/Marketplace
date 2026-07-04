@@ -1,6 +1,6 @@
 # P1-02 Route/API Inventory
 
-## Status: Rework required
+## Status: Complete
 
 ## Verification baseline
 
