@@ -1,0 +1,10 @@
+[
+  {"sourceId":"L-RENT-1","disposition":"ARCHIVE_ONLY","target":null},
+  {"sourceId":"L-SALE-1","disposition":"QUARANTINE","reason":"PROPERTY_SPECIFIC_NO_SKU_OR_CURRENCY"},
+  {"sourceId":"L-RETAIL-1","disposition":"CONVERT_TO_DRAFT","target":"Product","publish":false,"media":2},
+  {"sourceId":"B-1","disposition":"ARCHIVE_ONLY","target":"LegacyBooking"},
+  {"sourceId":"R-1","disposition":"ARCHIVE_ONLY","target":"LegacyReview"},
+  {"sourceId":"R-2","disposition":"COPY_UNVERIFIED","target":"ProductReview","verificationState":"LEGACY_UNVERIFIED"},
+  {"sourceId":"BM-1","disposition":"COPY_MAPPED","target":"WishlistItem","productSourceId":"L-RETAIL-1"},
+  {"sourceId":"BM-ORPHAN","disposition":"QUARANTINE","reason":"MISSING_LISTING_REFERENCE"}
+]

@@ -1,181 +1,103 @@
 # P1-07 Design Baseline
 
-## Status: Complete
+## Status: Rework required
 
-## Technology Stack
+## Verification baseline
 
-| Layer | Technology | Version |
-|-------|------------|---------|
-| UI Framework | React | 19.1.1 |
-| Component Library | MUI (Material-UI) | 5.14.19 |
-| CSS-in-JS | Emotion | Latest |
-| Icons | @mui/icons-material | 5.14.19 |
-| Data Grid | @mui/x-data-grid | 6.18.3 |
-| Charts | @mui/x-charts | 6.18.2 |
-| Date Picker | @mui/x-date-pickers | 6.18.3 |
+- Source baseline: `dev` at `b5fe836`
+- Captured: 2026-07-05
+- Evidence: [Visual Baseline Index](./visual-baseline/INDEX.md)
+- Rule: implementation may change data/behavior, but visual redesign requires a separate approval.
 
-## Theme Configuration
+## Technology and theme
 
-### Color Palette
+| Concern | Verified baseline | Source |
+|---|---|---|
+| UI | React 19.1.1, MUI 5.14.19, Emotion | `package.json` |
+| Palette | Explicit light and dark palettes | `src/theme/palette/light.ts`, `dark.ts` |
+| Typography | Roboto, Rubik and DM Sans through `next/font/google` | `src/theme/typography.ts` |
+| Spacing | MUI default 8px base; custom 4px function is commented out | `src/theme/index.tsx` |
+| Breakpoints | xs 0, sm 600, md 900, lg 1200, xl 1536, custom xxl 1920 | `src/theme/breakpoints.ts` |
+| Component overrides | Central MUI overrides plus component-level `sx` | `src/theme/overrides/**`, UI source |
 
-| Token | Usage | Current Value |
-|-------|-------|---------------|
-| primary | Main actions, links | MUI default blue |
-| secondary | Accent elements | MUI default purple |
-| error | Error states | MUI default red |
-| warning | Warning states | MUI default orange |
-| info | Information | MUI default blue |
-| success | Success states | MUI default green |
+Production build currently needs access to Google Fonts because `next/font` fetches Roboto, Rubik and DM Sans at compilation time.
 
-### Typography
+### Palette tokens
 
-| Variant | Usage | Font |
-|---------|-------|------|
-| h1-h6 | Headings | System font stack |
-| body1-body2 | Body text | System font stack |
-| button | Buttons | System font stack |
-| caption | Captions | System font stack |
+| Token | Light main | Dark main |
+|---|---|---|
+| primary | `#1976d2` | `#90caf9` |
+| secondary | `#9c27b0` | `#ce93d8` |
+| error | `#d32f2f` | `#f44336` |
+| warning | `#ed6c02` | `#ffa726` |
+| info | `#0288d1` | `#29b6f6` |
+| success | `#2e7d32` | `#66bb6a` |
 
-### Spacing
+Dark-mode infrastructure exists, but the only discovered `toggleColorMode` consumer is the orphaned `src/widgets/Laboratory` widget and `/lab` has no page file. The reachable UI baseline is light mode; no dark screenshot is claimed.
 
-| Unit | Value | Usage |
-|------|-------|-------|
-| 1 | 4px | Minimum spacing |
-| 2 | 8px | Tight spacing |
-| 3 | 12px | Small spacing |
-| 4 | 16px | Default spacing |
-| 5 | 20px | Medium spacing |
-| 6 | 24px | Large spacing |
-| 8 | 32px | Extra large spacing |
+## Layout families
 
-### Breakpoints
+| Layout | Current structure | Source |
+|---|---|---|
+| Wrapped/public | Header, main content, footer | `src/layouts/AppLayout`, WrappedPages layout |
+| Auth/unwrapped | Centered auth form shell | AuthPages routes/layout |
+| Customer | Header plus responsive side navigation/content | `src/layouts/UserLayout` |
+| Message | Header plus mock messaging panes | message layout/page |
 
-| Name | Min Width | Usage |
-|------|-----------|-------|
-| xs | 0px | Mobile portrait |
-| sm | 600px | Mobile landscape |
-| md | 900px | Tablet |
-| lg | 1200px | Desktop |
-| xl | 1536px | Large desktop |
+## Form/component patterns
 
-## Layout Structure
+- Most legacy forms use `react-final-form`; sign-in/sign-up use `react-hook-form` and Zod-backed schemas.
+- Cards/lists use MUI grid/card/stack patterns with component-level responsive `sx`.
+- Several forms render complete UI but have no-op submit handlers; appearance is not functional evidence.
+- Error/not-found boundaries exist, but loading/empty/forbidden states are inconsistent.
 
-### AppLayout (WrappedPages)
-```
-┌─────────────────────────────────────┐
-│ Header (AppBar)                     │
-├─────────────────────────────────────┤
-│                                     │
-│ Main Content                        │
-│                                     │
-├─────────────────────────────────────┤
-│ Footer                              │
-└─────────────────────────────────────┘
-```
+## Responsive and RTL evidence
 
-### AuthLayout (UnwrappedPages)
-```
-┌─────────────────────────────────────┐
-│                                     │
-│     ┌─────────────────────┐        │
-│     │                     │        │
-│     │    Auth Form        │        │
-│     │                     │        │
-│     └─────────────────────┘        │
-│                                     │
-└─────────────────────────────────────┘
-```
+| Viewport/locale | Verified observation |
+|---|---|
+| 375×812 en | Home becomes single-column; search becomes one `Find Activity` control; bottom navigation appears |
+| 768×1024 en | Tablet layout preserves home hierarchy with wider search/category spacing |
+| 1440×900 en | Desktop shows three-part search, horizontal categories and multi-column content area |
+| 1920×1080 en | Content remains bounded rather than stretching edge-to-edge |
+| 1440×900 ar | Header/search/category order reverses; much body copy remains English |
 
-### UserLayout (Dashboard)
-```
-┌─────────────────────────────────────┐
-│ Header                              │
-├─────────────────────────────────────┤
-│ Sidebar │ Main Content              │
-│ Tabs    │                           │
-│         │                           │
-└─────────────────────────────────────┘
-```
+RTL layout support exists, but localization parity and mixed-content behavior are incomplete. Bidirectional icons and accessibility remain manual verification areas.
 
-## Component Patterns
+## Visual artifacts
 
-### Form Components
-- Multi-step forms use react-final-form
-- Validation via Zod schemas
-- Error display below fields
-- Loading states on submit buttons
+Captured public routes:
 
-### Card Components
-- MUI Card with elevation
-- Image with aspect ratio
-- Content with padding
-- Actions aligned bottom
+- Home at mobile, tablet, desktop and wide viewports.
+- Arabic/RTL home at desktop.
+- Sign-in, listings and contact at desktop.
 
-### List Components
-- MUI List or custom grid
-- Pagination at bottom
-- Filter sidebar on desktop
-- Filter chips on mobile
+Protected account routes were not captured because Phase 1 did not create a test identity. Listing detail was not captured because the development database had no controlled listing fixture. P9-13 must add fixture-backed authenticated/detail visual regression; Phase 1 does not fabricate those states.
 
-### Modal/Dialog Components
-- MUI Dialog
-- Full-screen on mobile
-- Centered on desktop
-- Backdrop click to close
+### Reproduction procedure
 
-## Responsive Behavior
+1. Use the named source baseline and `.env.example` contract with non-production services.
+2. Capture the exact route, viewport, locale, theme and data/identity fixture state.
+3. Save as `{page}-{viewport}-{locale}-{theme}.png` under `docs/visual-baseline/`.
+4. Update `INDEX.md` with final URL and known state.
+5. Exclude the Next.js development indicator from image-diff decisions.
+6. Accept a visual difference only with a task/approval reference.
 
-### Mobile (< 600px)
-- Single column layout
-- Full-width cards
-- Bottom navigation (if applicable)
-- Hamburger menu
-- Filter chips instead of sidebar
+## No-redesign rule
 
-### Tablet (600px - 1200px)
-- Two column grid
-- Side-by-side cards
-- Collapsible sidebar
+Implementation tasks may:
 
-### Desktop (> 1200px)
-- Multi-column grid
-- Fixed sidebar for filters
-- Hover states enabled
-- tooltips
+- wire real data and behavior;
+- add missing loading/error/empty/forbidden states in the existing visual language;
+- make accessibility fixes that preserve the design intent.
 
-## RTL Support
+They may not change layout language, typography system, palette direction or major component composition without an explicit redesign task and approval.
 
-| Feature | Status |
-|---------|--------|
-| Text alignment | Supported via MUI |
-| Bidirectional icons | Manual override needed |
-| RTL layout | Supported via MUI |
-| Mixed content | Not tested |
+## Known baseline issues
 
-## Accessibility
-
-| Feature | Status |
-|---------|--------|
-| Keyboard navigation | Partial |
-| Screen reader support | Partial |
-| Focus management | Partial |
-| Color contrast | Not verified |
-| ARIA labels | Inconsistent |
-
-## Current Issues
-
-1. **No Dark Mode**: Theme only supports light mode
-2. **Inconsistent Spacing**: Some components use custom spacing
-3. **Mixed Form Libraries**: Some forms use react-hook-form, others react-final-form
-4. **No Design Tokens**: Colors/spacing hardcoded in components
-5. **No Component Documentation**: Components lack documentation
-
-## No-Redesign Rule
-
-**IMPORTANT**: This design baseline is preserved as-is. Implementation tasks will:
-- Change data wiring and behavior
-- NOT change visual design unless explicitly authorized
-- Follow existing MUI theme and component patterns
-- Maintain responsive behavior
-
-Any redesign requires a separate, explicit project approval.
+1. Active UI has no reachable dark-mode switch despite palette infrastructure.
+2. Arabic route reverses layout but leaves substantial English copy.
+3. Listings empty state leaves a large blank result surface and property-specific filters.
+4. Spacing values are not consistently tokenized.
+5. Mixed form libraries and no-op handlers produce inconsistent error/loading behavior.
+6. Component documentation and automated visual regression do not yet exist.
+7. Keyboard, focus, semantics and contrast are only partially verified.

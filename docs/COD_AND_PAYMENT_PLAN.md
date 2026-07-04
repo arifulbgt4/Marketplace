@@ -23,11 +23,8 @@ Cash on Delivery (COD) reusable B2C marketplace-এর first-class payment metho
 ```text
 PLACED
 CONFIRMED
-PROCESSING
-SHIPPED
-DELIVERED
 CANCELLED
-RETURNED
+COMPLETED
 ```
 
 ### Payment status
@@ -61,6 +58,8 @@ paymentStatus     = PENDING_COLLECTION
 fulfillmentStatus = UNFULFILLED
 paymentMethod     = CASH_ON_DELIVERY
 ```
+
+Order status fulfillment progress mirror করে না। Delivery-এর পরে collection pending থাকলে order `CONFIRMED`, fulfillment `DELIVERED`, payment `PENDING_COLLECTION` থাকতে পারে। Required payment/waiver এবং return obligations resolved হওয়ার পরে explicit policy order-কে `COMPLETED` করবে।
 
 ## COD configuration
 

@@ -1,6 +1,6 @@
 # P1-05 Domain Glossary
 
-## Status: Complete
+## Status: Rework required
 
 ## Core Commerce Terms
 
@@ -39,9 +39,10 @@
 |------|------------|---------------|--------------|
 | **Order** | Immutable record of a purchase | Single listing booking | Multi-item order snapshots |
 | **Order Item** | Snapshot of a product in an order | Not implemented | Immutable product snapshot |
-| **Order Status** | Current state of order fulfillment | Free-form string | Typed enum (pending, confirmed, etc.) |
-| **Payment Status** | Current state of payment | Combined with order | Separate enum (pending, paid, etc.) |
-| **Fulfillment Status** | Current state of delivery | Not implemented | Separate enum (shipped, delivered, etc.) |
+| **Order Status** | Commercial lifecycle independent of payment and shipment progress | Free-form string | Typed enum (`PLACED`, `CONFIRMED`, `COMPLETED`, `CANCELLED`) |
+| **Payment Status** | Current state of payment | Combined with order | Separate enum (unpaid, pending, pending_collection, paid, collected, failed, refunded, partially_refunded) |
+| **Fulfillment Status** | Current state of delivery | Not implemented | Separate enum (unfulfilled, processing, shipped, delivered, returned) |
+| **Return Status** | Return-request lifecycle independent of original order history | Not implemented | Separate enum (none, requested, approved, rejected, received, completed) |
 | **Order History** | Timeline of status changes | Not implemented | Immutable status history |
 
 ## Fulfillment Terms
@@ -85,30 +86,42 @@
 
 ## Status Enums (Target)
 
+Canonical source: `COD_AND_PAYMENT_PLAN.md`। All status enums below follow that document.
+
 ### Order Status
-- `PENDING` - Order placed, awaiting confirmation
+- `PLACED` - Order placed, awaiting confirmation
 - `CONFIRMED` - Order confirmed by seller
-- `PROCESSING` - Being prepared for shipment
-- `SHIPPED` - Handed to carrier
-- `DELIVERED` - Received by customer
 - `CANCELLED` - Cancelled by customer/seller
-- `RETURNED` - Returned by customer
+- `COMPLETED` - Commercial lifecycle explicitly closed after required fulfillment/payment conditions
 
 ### Payment Status
-- `PENDING` - Awaiting payment
-- `AUTHORIZED` - Payment authorized
-- `CAPTURED` - Payment captured
+- `UNPAID` - Awaiting payment
+- `PENDING` - Payment initiated but not confirmed (pre-paid)
+- `PENDING_COLLECTION` - COD order awaiting cash collection
 - `PAID` - Payment confirmed
+- `COLLECTED` - COD cash collected by delivery/support actor
 - `FAILED` - Payment failed
 - `REFUNDED` - Payment refunded
 - `PARTIALLY_REFUNDED` - Partial refund issued
 
 ### Fulfillment Status
 - `UNFULFILLED` - Not yet processed
-- `PACKING` - Being packed
+- `PROCESSING` - Being packed
 - `SHIPPED` - In transit
 - `DELIVERED` - Delivered
 - `RETURNED` - Returned to seller
+
+### Return Status
+- `NONE` - No return workflow
+- `REQUESTED` - Customer/support opened a request
+- `APPROVED` - Return authorized
+- `REJECTED` - Return rejected with reason
+- `RECEIVED` - Returned items received and inspected
+- `COMPLETED` - Return-side stock/payment actions completed
+
+### Separation invariant
+
+`OrderStatus`, `PaymentStatus`, `FulfillmentStatus` এবং `ReturnStatus` আলাদা axes। উদাহরণ: COD delivery-এর পরে `order=CONFIRMED`, `fulfillment=DELIVERED`, `payment=PENDING_COLLECTION` একটি বৈধ anomaly state; collection record হওয়ার আগে delivery নিজে payment বা order completion ঘটায় না।
 
 ### User Roles
 - `CUSTOMER` - End user (default)

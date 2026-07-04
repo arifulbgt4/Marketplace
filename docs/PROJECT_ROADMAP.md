@@ -153,3 +153,41 @@ Foundation complete হওয়ার পরে সীমিত parallelization �
 - Existing design change release goal নয়।
 - Documentation ছাড়া configurable feature complete নয়।
 - Migration rehearsal ছাড়া production schema release করা যাবে না।
+
+## Phase exit approval template
+
+প্রতিটি phase exit-এর সময় নিম্নলিখিত fields filled form একটি approval record তৈরি করতে হবে:
+
+```text
+# Phase Exit Approval: <Phase Name>
+
+## Sign-off
+| Role | Name | Date | Decision |
+|------|------|------|----------|
+| Product owner | | | Approved / Rejected / Conditional |
+| Architecture owner | | | Approved / Rejected / Conditional |
+| SQA reviewer | | | Approved / Rejected / Conditional |
+
+## Evidence
+- Commit: <commit hash>
+- Branch: <branch name>
+- SQA re-audit report: <link or path>
+- Gate checklist items:
+  1. All feedback tasks complete — Yes/No
+  2. All canonical docs use consistent vocabulary — Yes/No
+  3. Route/access and mutation/permission matrices source-traceable — Yes/No
+  4. Visual and migration evidence artifacts reviewable — Yes/No
+  5. Dependency graph exact and machine-checkable — Yes/No
+
+## Waivers (if any)
+| Waived item | Reason | Risk | Expiry date |
+|-------------|--------|------|-------------|
+
+## Next phase
+- Phase: <next phase name>
+- Blocked until: <date or condition>
+```
+
+প্রতিটি approval record `<docs/phase-<N>-exit-approval.md>` ফাইলে সংরক্ষণ করতে হবে। SQA reviewer phase gate close করার আগে সব gate item পূরণ হয়েছে কিনা তা verify করবে।
+
+Phase 1 record: [PHASE_1_EXIT_APPROVAL.md](./PHASE_1_EXIT_APPROVAL.md)।

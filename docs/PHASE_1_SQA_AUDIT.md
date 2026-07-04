@@ -1,89 +1,85 @@
-# Phase 1 SQA Audit
+# Phase 1 SQA Re-audit
 
 ## Audit record
 
 | Field | Value |
 |---|---|
-| Audit date | 2026-07-05 |
-| Audited branch/commit | `dev` / `71a9147` |
-| Scope | P1-01 through P1-09, planning documents, source traceability and executable quality evidence |
-| Method | Document review, source cross-check, static inspection, task-graph validation and local verification commands |
-| Implementation boundary | Audit and feedback tasks only; no product code changed |
+| Re-audit date | 2026-07-05 |
+| Branch/source baseline | `dev` / `b5fe836` |
+| Scope | P1-01 through P1-09 and P1-FB-01 through P1-FB-10 |
+| Reviewer | Codex acting as project SQA |
+| Implementation boundary | Phase 1 documentation, evidence and governance only; no product source/schema/API/UI behavior changed |
 
 ## Verdict
 
-**Phase 1 is not complete. Status: Rework required.**
+**Phase 1 rework is complete and ready for evidence-commit sign-off.**
 
-The roadmap exit gate requires architecture, scope, permissions, migration and design baseline approval. No dated approval/sign-off record exists. Several deliverables also fail their own acceptance or testing requirements, so approval alone would not close the phase.
+P1-FB-01 through P1-FB-09 now have reviewable evidence. P1-FB-10 remains `Pending human sign-off` until the rework is committed and [Phase 1 Exit Approval](./PHASE_1_EXIT_APPROVAL.md) is updated against that evidence commit. Phase 2 remains blocked until then.
 
-Phase 2 implementation must remain blocked until P1-FB-01 through P1-FB-10 are complete and the Phase 1 exit review is signed off.
+Completing Phase 1 confirms the quality of the analysis/plan. It does not claim that the implementation defects discovered by the analysis—such as route leakage, missing authorization, missing commerce models or database configuration—are fixed.
 
-## Gate assessment
+## Deliverable assessment
 
-| Deliverable | Result | Evidence and gap |
+| Deliverable | Result | Evidence |
 |---|---|---|
-| P1-01 Current architecture baseline | Rework required | Useful current/target separation exists, but the verification record has no commit/date/runner traceability and does not reflect all current source and environment risks. |
-| P1-02 Route/API inventory | Failed | Inventory omits metadata/system routes from the production route table. It marks `/l/create` and `/message` protected, while the current dynamic-public regex matches both; the same regex also matches unrelated paths such as `/eeee`. Access claims are therefore not source-accurate. |
-| P1-03 Feature gap matrix | Rework required | Status vocabulary is inconsistent (`Legacy/Partial`, `Minimal`, `Hardcoded` are used but not defined), several mock/partial classifications lack source references, and findings are not traceable to routes/modules. |
-| P1-04 Target architecture ADR | Failed | `ARCHITECTURE.md` states a target, but there is no formal ADR with alternatives, trade-offs, decision owner/date, approval, or unresolved-decision log. |
-| P1-05 Domain glossary | Failed | Canonical state names conflict with `COD_AND_PAYMENT_PLAN.md`: `PENDING` vs `PLACED`, `PACKING` vs `PROCESSING`, and payment states omit/use different `PENDING_COLLECTION`, `COLLECTED`, `AUTHORIZED`, and `CAPTURED` semantics. |
-| P1-06 Permission matrix | Failed | Role-level capability tables exist, but every current/future mutation is not mapped to actor, resource scope, field restrictions, denial behavior and audit requirement. No product/security approval is recorded. |
-| P1-07 Design baseline | Failed | Required screenshot comparison evidence is absent. The document also says dark mode is unavailable although dark palette/toggle code exists, documents 4px spacing while the configured theme uses the MUI default spacing, and omits the custom `xxl` breakpoint. |
-| P1-08 Data migration strategy | Failed | No representative-data review or rehearsal evidence exists. Drop-vs-archive statements conflict, dual-write/sync has no source-of-truth or conflict policy, and checkpoint/resume, idempotency, cutover, measurable reconciliation and rollback compatibility are unspecified. |
-| P1-09 Backlog and handoff convention | Failed | Exact-ID graph has no cycle or missing ID, but 28 dependencies use non-machine-checkable phase/range/state phrases. Phase 2-9 task rows also lack explicit status fields, so the backlog is not fully assignable or gate-checkable. |
+| P1-01 Current architecture baseline | Pass | `CURRENT_PROJECT_ANALYSIS.md` records source shape, boundaries, high risks, runtime/build checks and degraded DB behavior against `b5fe836` |
+| P1-02 Route/API inventory | Pass | Source-normalized page/system/API/function inventory; regex cases reproduce `/l/create` and `/message` leaks while `/l/edit/[slug]` remains protected |
+| P1-03 Feature gap matrix | Pass | One taxonomy, exact source paths and implementation-vs-plan distinction |
+| P1-04 Architecture ADR | Ready for sign-off | ADR-001 contains decision, alternatives, consequences, non-goals, migration posture and unresolved decisions |
+| P1-05 Domain glossary | Pass | Order, payment, fulfillment and return states are separate and aligned with COD/payment plan |
+| P1-06 Permission matrix | Pass | Current effective gaps and target mutation-level actors, ownership, PII, denial and audit rules are documented |
+| P1-07 Design baseline | Pass | Eight actual screenshots cover mobile/tablet/desktop/wide/RTL and key public routes; limitations are explicit |
+| P1-08 Migration strategy | Pass | Rental/booking history is not reinterpreted as retail; cutover, idempotency, quarantine, rollback and representative planning rehearsal are defined |
+| P1-09 Backlog/handoff | Pass | 135 implementation tasks and 10 feedback tasks have explicit status and exact dependency edges |
 
-## Key findings by severity
+## Closed original findings
 
-### Blocker
-
-1. Phase 1 is marked `Complete` without the approval required by `PROJECT_ROADMAP.md`.
-2. P1-02, P1-05, P1-07 and P1-08 fail explicit acceptance/testing requirements.
-
-### Critical
-
-1. The route inventory's protection claims are incorrect. Static evaluation of `src/middleware.ts` shows the dynamic-public regex matches `/l/create`, `/en/l/create`, `/message` and arbitrary character-class paths such as `/eeee`.
-2. Conflicting state vocabularies make downstream schema, transition, payment and test tasks ambiguous.
-
-### High
-
-1. No reproducible visual baseline assets exist for desktop, mobile or RTL comparison.
-2. Migration coexistence and rollback rules are not executable or safely testable.
-3. Permission decisions are not mapped to individual mutation boundaries.
-4. Twenty-eight backlog dependencies cannot be validated as exact task edges.
-
-### Medium
-
-1. The current-baseline command record is not tied to a date/commit and does not distinguish environment failure from product failure.
-2. The design document contains source-inaccurate theme facts.
-3. The route inventory omits `/manifest.webmanifest`, `/robots.txt`, `/sitemap.xml`, icon routes and the root redirect.
+| Original finding | Closure |
+|---|---|
+| No approval workflow | Exit template and Phase 1 approval record added |
+| Route inventory inaccurate/incomplete | Rebuilt from current App Router/middleware/API/server source |
+| Status vocabulary conflicted | Canonical four-axis state contract established |
+| Permission matrix too broad | Mutation-level baseline/target policy added |
+| Design facts incorrect and no screenshots | Theme facts corrected; eight visual artifacts and index added |
+| Migration plan used unsafe reinterpretation/dual-write | Replaced with disposition-led additive cutover and no unsafe dual-write rule |
+| Backlog dependencies vague | All dependency references normalized; graph has zero missing IDs/cycles/vague edges |
+| Verification metadata stale | Updated to `b5fe836`, Node 24.12.0 and current check results |
 
 ## Verification evidence
 
 | Check | Result |
 |---|---|
-| `vitest run` | Passed: 2 files, 25 tests |
-| `tsc --noEmit` | Passed |
-| `next lint` | Passed; command is deprecated and needs a future tooling task |
-| `prettier --check .` | Not runnable: local Prettier executable is absent |
-| `prisma validate` without env contract | Failed as expected: `POSTGRES_URL_NON_POOLING` missing |
-| `prisma validate` with `.env.example` contract | Passed |
-| `next build` with `.env.example` contract and network access | Passed; 190 static pages generated |
-| Internal Markdown links under `docs/` | Passed: 0 broken links |
-| Backlog exact task IDs | 135 tasks; 0 missing exact dependency IDs; 0 exact-ID cycles |
-| Backlog dependency quality | Failed: 28 vague/range/phase-state dependencies |
-| Visual baseline assets | Failed: no screenshot/image baseline under `docs/` |
+| `vitest run` | Pass — 2 files, 25 tests |
+| `tsc --noEmit` | Pass |
+| `next lint` | Pass — command emits Next.js deprecation warning |
+| `prettier --check .` | Not runnable — executable absent; tracked as P2-01 tooling work, not a Phase 1 documentation gate |
+| `prisma validate` with `.env.example` contract | Pass |
+| `next build` with `.env.example` and font network access | Pass — 190 static pages generated |
+| Browser visual capture | Pass — 8 PNG files at declared dimensions |
+| Browser/server-log data check | Degraded — DB credentials failed; query helpers masked failure as empty results; documented for P2-02/P2-04 |
+| Internal Markdown links | Pass — 19 files checked, 0 broken links |
+| Task inventory | Pass — 145 total rows: 135 implementation + 10 feedback, 0 duplicates |
+| Dependency graph | Pass — 0 missing IDs, 0 cycles, 0 vague dependency phrases |
+| Route-regex cases | Pass — documented outcomes reproduced from source-equivalent regex |
+| `git diff --check` | Pass |
 
-The initial `pnpm` wrapper attempt was excluded from product results because it stopped on a non-TTY module-purge prompt. Checks were rerun through repository-local executables.
+The initial `pnpm` wrapper path was not used because its non-TTY dependency-store prompt is environment behavior, not a project test result. Repository-local executables produced the results above.
 
-## Exit criteria for the re-audit
+## Evidence artifacts
 
-Phase 1 may be marked complete only when:
+- [Visual Baseline Index](./visual-baseline/INDEX.md)
+- [Migration Planning Rehearsal](./evidence/phase-1/MIGRATION_PLANNING_REHEARSAL.md)
+- [Phase 1 Exit Approval](./PHASE_1_EXIT_APPROVAL.md)
+- [Detailed Task Plan](./TASK_PLAN.md)
 
-1. P1-FB-01 through P1-FB-09 have evidence-backed `Complete` status.
-2. All canonical documents use one scope and state vocabulary.
-3. Route/access and mutation/permission matrices are source-traceable.
-4. Visual and migration evidence artifacts are reviewable.
-5. The dependency graph is exact and machine-checkable.
-6. Product owner, architecture owner and SQA reviewer sign off against a named commit.
-7. P1-FB-10 records the final review result and any time-bound waiver.
+## Remaining implementation risks (not Phase 1 blockers)
 
+1. Route regex leaks `/l/create` and `/message`; P2-09 owns the implementation fix/tests.
+2. Unguarded server mutations require P2-08 policy enforcement.
+3. `.env.example` DB credentials did not authenticate locally and query helpers masked the outage; P2-02/P2-04 own correction.
+4. Prettier is absent and `next lint` is deprecated; P2-01 owns tooling reliability.
+5. Visual baselines show incomplete Arabic copy, property terminology and no reachable dark-mode toggle; later UI/i18n tasks own behavior changes.
+
+## Sign-off action
+
+Commit the Phase 1 evidence set, record that commit in ADR-001 and `PHASE_1_EXIT_APPROVAL.md`, rerun the lightweight integrity checks, then mark P1-01 through P1-09 and P1-FB-10 `Complete`.

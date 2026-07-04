@@ -1,5 +1,7 @@
 # Current Project Analysis
 
+## Status: Rework required
+
 ## Executive summary
 
 বর্তমান codebase একটি Next.js property/rental listing marketplace starter। Authentication, PostgreSQL/Prisma, listing/category, booking-style order, review, bookmark, i18n এবং MUI design foundation আছে। এটি এখনো reusable retail B2C marketplace নয়।
@@ -77,16 +79,28 @@ flowchart LR
 
 ## Verified baseline
 
-Analysis-এর সময় নিম্নলিখিত read-only checks চালানো হয়েছে:
+| Field | Value |
+|-------|-------|
+| Analysis date | 2026-07-05 |
+| Branch | `dev` |
+| Commit | `b5fe836` |
+| Runtime | Node 24.12.0 on Darwin 25.4.0 arm64 |
+| Database | `.env.example` credentials did not authenticate to the running local PostgreSQL during visual capture |
+| Verification method | Static source review, repository-local checks, production build and browser capture; no migration or seed run |
 
-| Check | Result |
-|---|---|
-| `pnpm test:run` | 2 suites এবং 25 tests passed |
-| TypeScript check with incremental output disabled | Passed |
-| `pnpm lint` | Passed; `next lint` deprecated warning আছে |
-| `pnpm format:check` | Failed কারণ `prettier` executable direct dependency হিসেবে নেই |
-| `pnpm exec prisma validate` | Environment-এ `POSTGRES_URL_NON_POOLING` না থাকায় failed |
-| Git status before planning edits | Clean |
+### Verification results
+
+| Check | Result | Note |
+|-------|--------|------|
+| repository-local `vitest run` | Passed | 2 suites, 25 tests; all passing |
+| repository-local `tsc --noEmit` | Passed | TypeScript compilation clean |
+| repository-local `next lint` | Passed (with warning) | `next lint` deprecated; needs future tooling update |
+| repository-local `prettier --check .` | Not runnable | `prettier` executable is not a direct dependency |
+| `prisma validate` without env | Failed (expected) | `POSTGRES_URL_NON_POOLING` missing from process environment |
+| `prisma validate` with `.env.example` contract | Passed | Validates schema |
+| `next build` with `.env.example` | Passed | 190 static pages generated |
+| Browser capture | Passed with degraded data state | Public routes rendered; DB auth failed and query helpers returned empty results |
+| Internal Markdown links in `docs/` | Passed | 0 broken links |
 
 ## High-risk findings
 
@@ -106,8 +120,9 @@ Analysis-এর সময় নিম্নলিখিত read-only checks চা
 14. Search filter controls backend query-তে সম্পূর্ণভাবে wired নয়।
 15. Dashboard, account, merchant এবং message experiences mock/hardcoded data ব্যবহার করে।
 16. Prisma migration history নেই; schema push workflow-এর উপর নির্ভরতা আছে।
-17. Docker Compose host port `5433`, কিন্তু Docker documentation-এ একাধিক জায়গায় `5432`।
-18. README কিছু incomplete capability-কে implemented feature হিসেবে দাবি করে।
+17. Query helpers database initialization error catch করে empty arrays ফেরত দেয়; visual runtime-এ invalid DB credentials real outage-কে “no data” হিসেবে দেখিয়েছে।
+18. `.env.example` copy-forward auth secret এবং fixed local credentials production-safe contract নয়।
+19. README/UI কিছু incomplete capability (যেমন social sign-in icons) implemented মনে করাতে পারে, কিন্তু configured provider/workflow নেই।
 
 ## Current file boundaries
 

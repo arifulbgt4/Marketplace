@@ -181,3 +181,78 @@ Payment, storage, email এবং shipping provider-এর জন্য interfac
 - Native mobile client/API separation।
 
 এই extension-গুলোর জন্য current core-এ অপ্রয়োজনীয় tables বা abstractions আগে থেকে যোগ করা হবে না; তবে order snapshots, adapters এবং module boundaries extension বন্ধ করবে না।
+
+---
+
+## ADR-001: Single-business modular monolith
+
+### Status
+
+Accepted (2026-07-05). Pending product owner and architecture owner approval sign-off.
+
+### Context
+
+বর্তমান codebase একটি property/rental listing marketplace starter। লক্ষ্য হলো একে configurable single-business B2C marketplace-এ রূপান্তর করা। নিম্নলিখিত architectural decisions নেওয়া প্রয়োজন:
+
+1. Deployment model: per-business deployable vs multi-tenant SaaS
+2. Seller model: single-business vs multi-vendor marketplace
+3. Service decomposition: monolith vs microservices
+4. Design preservation: rewrite vs incremental change
+5. Messaging/support: keep, remove, or redesign the existing peer-chat model
+
+### Decision
+
+| # | Decision | Rationale |
+|---|----------|-----------|
+| 1 | **Per-business deployable modular monolith** — প্রতিটি deployment একটি business-এর জন্য; reusability configuration/adapter থেকে আসে | Multi-tenant SaaS-এর control plane, tenant isolation এবং billing overhead core scope-এর বাইরে; পরে পৃথক bounded context হিসেবে যোগ করা যাবে |
+| 2 | **Single-business core** — catalog business-owned; `admin` এবং `catalog_manager` roles product manage করে | Multi-vendor-এর seller KYC, commission, payout, disputes scope-এর বাইরে; future bounded context |
+| 3 | **Modular monolith first** — Authentication, catalog, checkout, order, payment আলাদা logical modules; single application + database deployment | Transactional correctness ও operational simplicity microservice decomposition-এর চেয়ে গুরুত্বপূর্ণ; পরে module isolation প্রয়োজনে separable |
+| 4 | **Preserve existing visual design** — MUI theme, layout, component composition baseline হিসেবে; implementation শুধু data wiring এবং behavior বদলায় | Redesign explicit project approval ছাড়া হবে না; baseline screenshot comparison দ্বারা রক্ষিত |
+| 5 | **Replace peer messaging with support/contact flow** — বর্তমান `Message` model দুই customer-এর মধ্যে direct chat অনুমতি দেয়, যা B2C scenario-এ customer expectation নয় | Support ticket/contact form দিয়ে replace করলে customer expectation clearer হয় এবং moderation simpler হয় |
+
+### Alternatives considered
+
+| Alternative | Pros | Cons | Why rejected |
+|-------------|------|------|--------------|
+| Multi-tenant SaaS | Single deployment serves all businesses | Tenant isolation, billing, feature gating complexity | Core scope-এর বাইরে; future extension |
+| Multi-vendor marketplace | Multiple sellers per platform | KYC, commission, payout, disputes, seller dashboard | Core scope-এর বাইরে; future bounded context |
+| Microservices | Independent deployability, team scaling | Transactional complexity, network overhead, operational cost | 1–2 developer team-এর জন্য premature; modular monolith later separable |
+| Full redesign | Clean slate, no legacy | Timeline, existing design system loss, i18n/auth rewrite | Existing MUI design এবং i18n ভালো working state-এ; rewrite justified নয় |
+| Keep peer messaging | Existing code reuse | Customer confusion, moderation complexity, no clear B2C use case | Mock implementation incomplete; replaces with simpler support flow |
+
+### Consequences
+
+Positive:
+- One application to deploy, test, and monitor
+- Transactional integrity across domains (cart → stock → payment → order)
+- Existing design, i18n, auth preserved and reused
+- Clear module boundaries for future extraction
+
+Negative:
+- Single deployment = single point of failure (mitigated by standard HA practices)
+- Module boundary enforcement is manual (lint rules, import conventions)
+- All domains scale together (no independent scaling)
+
+### Migration posture
+
+- New Product model parallel to Listing; Listing remains read-only during transition
+- Feature flags control old vs new code paths
+- Migration tasks: P1-08 (data migration strategy), P3-17 (seed and legacy backfill)
+
+### Unresolved decisions
+
+1. **Notification provider abstraction timing** — Phase 2-তে interface define হবে, implementation Phase 8-তে।
+2. **Tax calculation** — Manual tax class বনাম third-party provider decision Phase 3/4-এ হবে।
+3. **Search engine**: PostgreSQL full-text vs dedicated search provider — Phase 3 performance test-এর পরে সিদ্ধান্ত।
+
+### Decision metadata
+
+| Field | Value |
+|-------|-------|
+| ADR ID | ADR-001 |
+| Title | Single-business modular monolith architecture |
+| Date | 2026-07-05 |
+| Owner | Architecture owner |
+| Status | Proposed for Phase 1 sign-off |
+| Approved by | |
+| Evidence commit | Pending |

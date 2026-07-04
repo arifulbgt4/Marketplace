@@ -10,28 +10,30 @@
 
 ### Phase 1: Analysis and Planning Baseline
 1. [Phase 1 SQA Audit](./PHASE_1_SQA_AUDIT.md) - current gate verdict and feedback evidence
-2. [Current Project Analysis](./CURRENT_PROJECT_ANALYSIS.md) - P1-01
-3. [Architecture](./ARCHITECTURE.md) - P1-04
-4. [Route/API Inventory](./P1-02_ROUTE_API_INVENTORY.md) - P1-02
-5. [Feature Gap Matrix](./P1-03_FEATURE_GAP_MATRIX.md) - P1-03
-6. [Domain Glossary](./P1-05_DOMAIN_GLOSSARY.md) - P1-05
-7. [Permission Matrix](./P1-06_PERMISSION_MATRIX.md) - P1-06
-8. [Design Baseline](./P1-07_DESIGN_BASELINE.md) - P1-07
-9. [Data Migration Strategy](./P1-08_DATA_MIGRATION_STRATEGY.md) - P1-08
+2. [Phase 1 Exit Approval](./PHASE_1_EXIT_APPROVAL.md) - gate closure record
+3. [Current Project Analysis](./CURRENT_PROJECT_ANALYSIS.md) - P1-01
+4. [Architecture](./ARCHITECTURE.md) - P1-04
+5. [Route/API Inventory](./P1-02_ROUTE_API_INVENTORY.md) - P1-02
+6. [Feature Gap Matrix](./P1-03_FEATURE_GAP_MATRIX.md) - P1-03
+7. [Domain Glossary](./P1-05_DOMAIN_GLOSSARY.md) - P1-05
+8. [Permission Matrix](./P1-06_PERMISSION_MATRIX.md) - P1-06
+9. [Design Baseline](./P1-07_DESIGN_BASELINE.md) - P1-07
+10. [Data Migration Strategy](./P1-08_DATA_MIGRATION_STRATEGY.md) - P1-08
 
 ### Implementation Planning
-10. [Project Roadmap](./PROJECT_ROADMAP.md)
-11. [Detailed Task Plan](./TASK_PLAN.md) - P1-09
-12. [COD and Payment Plan](./COD_AND_PAYMENT_PLAN.md)
-13. [Reusability and Customization Plan](./REUSABILITY_AND_CUSTOMIZATION_PLAN.md)
-14. [Testing Plan](./TESTING_PLAN.md)
-15. [Documentation Plan](./DOCUMENTATION_PLAN.md)
+11. [Project Roadmap](./PROJECT_ROADMAP.md)
+12. [Detailed Task Plan](./TASK_PLAN.md) - P1-09
+13. [COD and Payment Plan](./COD_AND_PAYMENT_PLAN.md)
+14. [Reusability and Customization Plan](./REUSABILITY_AND_CUSTOMIZATION_PLAN.md)
+15. [Testing Plan](./TESTING_PLAN.md)
+16. [Documentation Plan](./DOCUMENTATION_PLAN.md)
 
 ## Canonical-document ownership
 
 | Concern | Canonical document |
 |---|---|
 | Phase quality verdict, findings and re-audit gate | `PHASE_1_SQA_AUDIT.md` |
+| Phase 1 exit decision | `PHASE_1_EXIT_APPROVAL.md` |
 | বর্তমান implementation, gaps, risks | `CURRENT_PROJECT_ANALYSIS.md` |
 | Target boundaries ও technical decisions | `ARCHITECTURE.md` |
 | Pages, APIs, server actions inventory | `P1-02_ROUTE_API_INVENTORY.md` |
@@ -62,7 +64,7 @@
 
 | Phase | Status |
 |---|---|
-| Phase 1: Project analysis and documentation | Rework required — SQA gate failed; see `PHASE_1_SQA_AUDIT.md` |
+| Phase 1: Project analysis and documentation | Rework complete — Pending human sign-off; see `PHASE_1_SQA_AUDIT.md` |
 | Phase 2: Core marketplace foundation | Not started — blocked by Phase 1 exit gate |
 | Phase 3: Product/catalog system | Not started |
 | Phase 4: Cart and checkout | Not started |

@@ -1,0 +1,10 @@
+[
+  {"id":"L-RENT-1","entity":"Listing","type":"rent","status":"published","price":"125.50","currencyAssumption":null},
+  {"id":"L-SALE-1","entity":"Listing","type":"sale","status":"published","price":"250000.00","retailCompatible":false},
+  {"id":"L-RETAIL-1","entity":"Listing","type":"sale","status":"draft","price":"39.95","currencyAssumption":"BDT","retailCompatible":true,"images":2},
+  {"id":"B-1","entity":"Order","listingId":"L-RENT-1","startDate":"2026-01-10","endDate":"2026-01-12","guests":2,"totalPrice":"251.00"},
+  {"id":"R-1","entity":"Review","listingId":"L-RENT-1","rating":4},
+  {"id":"R-2","entity":"Review","listingId":"L-RETAIL-1","rating":5,"purchaseProof":false},
+  {"id":"BM-1","entity":"Bookmark","listingId":"L-RETAIL-1"},
+  {"id":"BM-ORPHAN","entity":"Bookmark","listingId":"L-MISSING"}
+]
