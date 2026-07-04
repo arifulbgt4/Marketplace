@@ -10,7 +10,7 @@ Coding agent একটি task নেওয়ার আগে:
 
 1. `PLANNING_INDEX.md`, `CURRENT_PROJECT_ANALYSIS.md` এবং `ARCHITECTURE.md` পড়বে।
 2. Task dependency complete কি না যাচাই করবে।
-3. Existing design baseline বদলাবে না।
+3. `P1-07_DESIGN_BASELINE.md`-এর scoped policy মানবে: homepage/Hero/Search protected; অন্য surfaces business-fit redesign এবং design-system choice-এ flexible।
 4. Scope-এর বাইরে adjacent refactor করবে না।
 5. Acceptance criteria এবং testing requirement পূরণ না হলে task complete বলবে না।
 6. Schema/API behavior বদলালে একই task-এ relevant docs update করবে।
@@ -20,7 +20,7 @@ Coding agent একটি task নেওয়ার আগে:
 একটি task শুরু করার আগে:
 - All dependencies marked `Complete` (not `Blocked` or `Rework required`)
 - Source branch up to date with `dev`
-- Relevant design baseline scope understood
+- Protected homepage baseline এবং flexible UI scope understood
 - Implementation agent has read PLANNING_INDEX.md, ARCHITECTURE.md, CURRENT_PROJECT_ANALYSIS.md
 
 ## Shared Definition of Done
@@ -30,7 +30,7 @@ Coding agent একটি task নেওয়ার আগে:
 - Error, empty, loading এবং forbidden state defined।
 - Relevant unit/integration/E2E test pass।
 - TypeScript, lint এবং formatting checks pass।
-- Existing visual design-এর unintended regression নেই।
+- Homepage/Hero/Search-এর unintended visual regression নেই; অন্য redesigned surfaces approved business requirements, coherence এবং accessibility পূরণ করে।
 - Migration/backfill প্রয়োজন হলে reversible এবং documented।
 - Documentation current implementation-এর সঙ্গে মেলে।
 
@@ -59,7 +59,7 @@ Remaining risks:
 | P1-04 Target architecture ADR | Single-business modular monolith এবং optional seller extension lock করা | `docs/ARCHITECTURE.md`, future ADRs | Scope, alternatives এবং boundaries approved | P1-03; multi-vendor assume করা যাবে না | Architecture review | Complete |
 | P1-05 Domain glossary | Product, cart, checkout, payment, order এবং fulfillment terms lock করা | `docs/P1-05_DOMAIN_GLOSSARY.md` | Ambiguous term/status নেই | P1-04 | Product এবং engineering review | Complete |
 | P1-06 Permission matrix | Customer/admin/support/catalog-manager actions define করা | `docs/P1-06_PERMISSION_MATRIX.md` | প্রতিটি mutation-এর actor এবং policy আছে | P1-02, P1-05 | Deny-by-default matrix review | Complete |
-| P1-07 Design baseline | Existing responsive UI baseline record করা | `docs/P1-07_DESIGN_BASELINE.md` | Desktop/mobile/RTL states এবং no-redesign rule captured | P1-02 | Screenshot comparison | Complete |
+| P1-07 Design baseline | Existing responsive UI baseline এবং scoped design policy record করা | `docs/P1-07_DESIGN_BASELINE.md` | Homepage/Hero/Search protected; other surfaces এবং design-system choice flexible; desktop/mobile/RTL evidence captured | P1-02 | Homepage strict screenshot comparison; other screens reference review | Complete |
 | P1-08 Data migration strategy | Listing/booking data Product/Order model-এ নেওয়ার plan | `docs/P1-08_DATA_MIGRATION_STRATEGY.md` | Coexistence, backfill, rollback, archive rules আছে | P1-04, P1-05 | Representative legacy records review | Complete |
 | P1-09 Backlog and handoff convention | Agent task IDs, dependencies এবং completion reporting standard করা | `TASK_PLAN.md` | Every task assignable এবং dependency-aware | P1-01, P1-02, P1-03, P1-04, P1-05, P1-06, P1-07, P1-08 | Dependency graph cycle review | Complete |
 
@@ -75,7 +75,7 @@ Remaining risks:
 | P1-FB-04 Formal target architecture ADR | P0 | Architecture owner + product owner | P1-FB-03 | Context, decision, alternatives, trade-offs, consequences, non-goals, migration posture এবং unresolved decisions captured; final approval P1-FB-10-এ | Approval-ready ADR; explicit decisions for single-business, seller extension and messaging/support scope | Complete |
 | P1-FB-05 Canonical domain/status contract | P0 | Domain/commerce agent | P1-FB-04 | Order, payment, fulfillment, inventory and refund terms এক document-এ canonical; COD/payment plan একই names ব্যবহার করে; transition ownership এবং terminal states unambiguous | Cross-document status-term check with zero conflict; product/engineering review | Complete |
 | P1-FB-06 Mutation-level permission matrix | P0 | Security/backend agent | P1-FB-02, P1-FB-05 | প্রতিটি current and planned mutation-এর actor, role, resource scope, ownership, field/PII constraint, audit rule এবং denial response আছে; deny-by-default gaps নেই | Endpoint/action-to-policy traceability matrix এবং security review record | Complete |
-| P1-FB-07 Evidence-backed design baseline | P1 | UI/QA agent | P1-FB-02 | Theme facts source-accurate; routes/states/viewports defined; desktop, mobile, tablet/wide and RTL baseline captured; no-redesign comparison process reproducible | Versioned screenshots/index tied to commit, viewport and locale; dark mode/spacing/`xxl` corrections | Complete |
+| P1-FB-07 Evidence-backed design baseline | P1 | UI/QA agent | P1-FB-02 | Theme facts source-accurate; homepage/Hero/Search protected scope এবং other-surface flexibility explicit; desktop, mobile, tablet/wide and RTL evidence captured | Versioned screenshots/index tied to commit, viewport and locale; strict-vs-reference comparison rules reproducible | Complete |
 | P1-FB-08 Executable migration and rollback strategy | P0 | Data/architecture agent | P1-FB-04, P1-FB-05 | Legacy record disposition, ID mapping, source of truth, coexistence/cutover, idempotent checkpoint/resume, conflict policy, retention, measurable reconciliation, deployment compatibility and rollback are consistent; drop/archive contradiction removed | Non-personal representative fixture, counts/checksums, failure-resume and rollback planning rehearsal | Complete |
 | P1-FB-09 Normalize backlog dependencies and statuses | P1 | Agile/project agent | P1-FB-04, P1-FB-05, P1-FB-06, P1-FB-08 | সব 135 implementation task-এর explicit status আছে; 28 vague range/phase/state dependencies exact task/gate IDs দিয়ে replaced; Definition of Ready এবং completion evidence fields defined | Automated graph report: 0 missing IDs, 0 cycles, 0 vague dependencies | Complete |
 | P1-FB-10 Phase 1 exit review and sign-off | P0 | Product owner + architecture owner + SQA | P1-FB-01, P1-FB-02, P1-FB-03, P1-FB-04, P1-FB-05, P1-FB-06, P1-FB-07, P1-FB-08, P1-FB-09 | P1-01 through P1-09 acceptance/tests pass; no open blocker/critical finding; approvals named and dated against one commit; waiver time-bound | Final SQA re-audit report and signed exit record; only then Phase 1 becomes `Complete` | Complete |
@@ -114,7 +114,7 @@ Remaining risks:
 | P3-08 Publish validator | Incomplete product publication block করা | Catalog policy | Category, media, SKU, price, stock policy enforced | P3-03, P3-06 | Missing-field matrix | Not started |
 | P3-09 Public catalog queries | Published product list/detail DTO | Catalog query module | Draft/archived inaccessible; pagination typed | P3-08 | Visibility/pagination tests | Not started |
 | P3-10 Search/filter/sort contract | Query, category, price, availability এবং sort | Catalog query/API | Stable URL params; deterministic sorting | P3-09 | Filter combination tests | Not started |
-| P3-11 Storefront catalog wiring | Existing cards/lists/details-এ product data | Listing widgets/pages/routes | Existing layout preserved; rental labels removed/configured | P3-09, P1-07 | Visual এবং interaction tests | Not started |
+| P3-11 Storefront catalog wiring | Business-fit cards/lists/details-এ product data | Listing widgets/pages/routes | Catalog UI target product-এর উপযোগী; homepage placement protected visual composition preserve করে; rental labels removed/configured | P3-09, P1-07 | Homepage visual regression; catalog interaction/responsive tests | Not started |
 | P3-12 Product admin list | Admin search/filter/status list | Future admin catalog pages | Paginated list এবং state-aware actions | P3-06, P3-07, P3-08 | Admin E2E smoke | Not started |
 | P3-13 Product editor | Product/variant/media editor | Existing ListingForm or new product form | Create/edit/publish errors visible; no silent no-op | P3-06, P3-08, P3-12 | Form integration tests | Not started |
 | P3-14 Inventory schema | Variant-level on-hand/reserved/available stock | Inventory and ledger models | Balances এবং low-stock threshold supported | P3-02 | Constraints/aggregate tests | Not started |
@@ -132,7 +132,7 @@ Remaining risks:
 | P4-04 Update/remove cart item | Quantity update এবং removal | Cart service/API | Zero removes; stock limits respected | P4-03 | Boundary/ownership tests | Not started |
 | P4-05 Guest cart merge | Login-এর সময় deterministic merge | Auth callback/cart service | Duplicate variants merged within stock | P4-03, P2-07 | Merge conflict tests | Not started |
 | P4-06 Pricing calculator | Subtotal, discount, coupon, tax, shipping totals | Pricing module | Server total deterministic; client amount ignored | P2-05, P3-02 | Rounding/rule-order tests | Not started |
-| P4-07 Cart UI | Existing visual language-এ functional cart | Header/cart page/widgets | Add/update/remove/error/empty states work | P4-02, P4-03, P4-04, P4-05, P4-06, P1-07 | Component/visual tests | Not started |
+| P4-07 Cart UI | Business-appropriate functional cart | Header/cart page/widgets | Add/update/remove/error/empty states work; chosen design approach coherent এবং accessible | P4-02, P4-03, P4-04, P4-05, P4-06, P1-07 | Component/responsive/accessibility tests | Not started |
 | P4-08 Checkout session | Expiring checkout draft from cart | Checkout models/service | Cart identity, version এবং expiry retained | P4-06 | Expired/stale session tests | Not started |
 | P4-09 Checkout address | Saved/new shipping address select | Checkout UI, Address module | Ownership এবং required fields validated | P2-13, P4-08 | Address E2E | Not started |
 | P4-10 Delivery zone schema | Location-based zones এবং methods | Delivery models | Priority, active flag, matching rules | P2-05 | Overlap/no-zone tests | Not started |
@@ -180,17 +180,17 @@ Remaining risks:
 
 | ID এবং title | Goal ও context | Likely files/modules | Acceptance criteria | Dependencies ও agent note | Testing requirement | Status |
 |---|---|---|---|---|---|---|
-| P7-01 Admin shell | Protected responsive admin navigation | Future admin routes/layout | Non-admin denied; existing design language used | P2-09, P1-07 | Route/RBAC/visual tests | Not started |
+| P7-01 Admin shell | Protected responsive admin navigation | Future admin routes/layout | Non-admin denied; business-appropriate coherent admin UX; MUI-specific restriction নেই | P2-09, P1-07 | Route/RBAC/responsive/accessibility tests | Not started |
 | P7-02 Dashboard KPIs | Real orders, revenue, customers, stock | Analytics queries/dashboard | Date range/currency respected; no mock data | P6-11 | Aggregate fixture tests | Not started |
 | P7-03 Customer management | Search, status, order summary, disable/enable | Admin customer module | No secret exposure; changes audited | P2-08, P2-10 | RBAC/disabled-login tests | Not started |
 | P7-04 Business settings | Legal/contact/address/locale/currency | BusinessSettings/admin form | Validated settings power storefront | P2-05, P7-01 | Update/cache tests | Not started |
-| P7-05 Branding settings | Logo, favicon, theme tokens, SEO, social links | Branding/media/theme adapter | Safe values applied; fallback works | P2-15, P7-04 | Preview/visual tests | Not started |
+| P7-05 Branding settings | Logo, favicon, visual tokens, SEO, social links | Branding/media/UI adapter | Safe values applied across chosen UI approach; protected homepage composition এবং fallback remain stable | P2-15, P7-04 | Preview, homepage regression এবং contrast tests | Not started |
 | P7-06 Payment settings | Enabled methods এবং public provider config | Admin payment settings | Disabled method unavailable; secrets hidden | P5-03, P7-01 | Settings/RBAC tests | Not started |
 | P7-07 Delivery zone editor | Zones, rates, methods, priorities | Admin delivery pages | Overlap warning এবং rule preview | P4-10, P4-11 | Preview integration tests | Not started |
 | P7-08 COD rule editor | Global/zone/product/category/min/max rules | Admin COD settings | Preview actual eligibility engine ব্যবহার করে | P5-04, P5-05, P7-07 | Edit/eligibility E2E | Not started |
 | P7-09 Coupon management | Coupon create/edit/archive/usage | Admin coupon pages | Invalid values/scope rejected | P4-12, P7-01 | CRUD/rule tests | Not started |
 | P7-10 Homepage content model | Section type, order, visibility, locale content | ContentSection models/API | Draft/published এবং ordering supported | P7-04 | Schema/order tests | Not started |
-| P7-11 Homepage editor | Configure/reorder/preview/publish sections | Admin content pages | Revision-friendly publishing | P7-10, P1-07 | Editor/visual E2E | Not started |
+| P7-11 Homepage editor | Protected template slots configure/preview/publish | Admin content pages | Hero/Search placement ও composition lock থাকে; content/data configurable; lower sections defined slots-এর মধ্যে revision-friendly | P7-10, P1-07 | Editor E2E এবং homepage visual regression | Not started |
 | P7-12 Review moderation | Approve/hide/flag actions | Admin review service/pages | History retained; no silent rewrite | P2-10 | RBAC/visibility tests | Not started |
 | P7-13 Reports and exports | Orders, payments, COD, inventory outputs | Reporting module | Filters/timezone/currency explicit | P7-02, P6-11 | Export fixture tests | Not started |
 | P7-14 Audit log viewer | Restricted admin activity viewer | Admin audit pages | Immutable filtered log | P2-10, P7-01 | RBAC/filter tests | Not started |
@@ -207,10 +207,10 @@ Remaining risks:
 | P8-06 Email templates/preferences | Transactional emails এবং preferences | Email adapter/templates | Mandatory vs optional messaging separated | P2-14, P6-11 | Template/fake-mail tests | Not started |
 | P8-07 Search suggestions | Accessible suggestions/no-result UX | Search components/API | Debounced, keyboard usable, no stale results | P3-10 | Component/API tests | Not started |
 | P8-08 URL-synced facets | Filter, sort, pagination browser state | Search forms/widgets | Reload/share/back preserves state | P3-10, P3-11 | Navigation E2E | Not started |
-| P8-09 Configured homepage | Published content sections render | Homepage/content query | Draft/hidden absent; order/locale respected | P7-10, P7-11 | Visual/locale tests | Not started |
+| P8-09 Configured homepage | Published content protected homepage shell-এ render | Homepage page, `SearchBanner`, `SearchFilterForm`, content query | Draft/hidden absent; locale/content respected; Hero/Search এবং overall homepage identity baseline preserve করে | P7-10, P7-11 | Strict homepage visual/locale/responsive tests | Not started |
 | P8-10 Internationalization | Hardcoded strings message files-এ নেওয়া | `messages/*.json`, UI | Locale key parity; date/money localized | P8-14 | Missing-key/RTL tests | Not started |
 | P8-11 SEO | Product/category metadata and structured data | Metadata/sitemap modules | Draft excluded; settings drive domain/brand | P3-09, P7-05 | Metadata snapshot tests | Not started |
-| P8-12 Accessibility | Forms, focus, keyboard, contrast, errors | Storefront/admin components | Critical WCAG 2.1 AA issues resolved | P8-11, P1-07 | Automated/manual tests | Not started |
+| P8-12 Accessibility | Forms, focus, keyboard, contrast, errors | Storefront/admin components | Critical WCAG 2.1 AA issues resolved; homepage fixes visual intent preserve করে | P8-11, P1-07 | Automated/manual tests plus homepage comparison | Not started |
 | P8-13 Performance | Images, queries, cache, bundle, pagination | Catalog/Next config/widgets | No unbounded query; budgets documented | P8-12, P8-14 | Query/Lighthouse/bundle checks | Not started |
 | P8-14 Messaging/support decision | Mock peer chat replace, remove বা support flow | Message model/UI/docs | Unsupported mock experience publicly exposed নয় | P1-04 | Selected flow smoke test | Not started |
 
@@ -230,7 +230,7 @@ Remaining risks:
 | P9-10 Customer COD E2E | Product to COD order history | Browser E2E | Pending collection and no gateway redirect | P8-14 | Desktop/mobile E2E | Not started |
 | P9-11 Online payment E2E | Success/failure/cancel/webhook | Browser/provider sandbox | Verified state reflected | P8-14 | Sandbox E2E | Not started |
 | P9-12 Admin operations E2E | Catalog/stock/order/COD/settings | Admin E2E | RBAC এবং audit verified | P7-14 | Browser E2E | Not started |
-| P9-13 Visual regression | Existing design preserved | Visual testing/snapshots | Unapproved visual differences absent | P1-07 | Key viewport snapshots | Not started |
+| P9-13 Scoped visual regression | Homepage/Hero/Search protected; redesigned surfaces intentional | Homepage page, `SearchBanner`, `SearchFilterForm`, visual tests/snapshots | Protected homepage differs only within approved tolerance; other surfaces have reviewed responsive/accessibility baselines, not legacy pixel locks | P1-07 | Homepage strict snapshots; redesigned screen reference snapshots | Not started |
 | P9-14 Accessibility regression | Storefront/admin automated scan | E2E/a11y setup | Critical/serious violations zero | P8-12 | axe/keyboard checklist | Not started |
 | P9-15 Security/performance audit | IDOR, validation, PII, rate, query cost | Full system | High severity resolved; budgets pass | P8-14 | Abuse/load/security tests | Not started |
 | P9-16 Migration rehearsal | Empty/legacy upgrade এবং rollback | Prisma migrations/backfill | Production-like repeatable rehearsal | P1-08, P3-17, P4-15, P5-13, P6-11 | Backup/restore dry run | Not started |

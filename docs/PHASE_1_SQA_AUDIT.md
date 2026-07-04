@@ -15,6 +15,8 @@
 
 **Phase 1 is complete and approved.**
 
+Amendment note (2026-07-05): this audit originally approved the captured visual evidence. A later product directive narrowed strict preservation to the homepage, especially Hero and Search, and removed any MUI-only restriction. Historical verification results below remain valid; current design policy is canonical in `P1-07_DESIGN_BASELINE.md` and `ARCHITECTURE.md`.
+
 P1-FB-01 through P1-FB-10 have reviewable evidence and `Complete` status. [Phase 1 Exit Approval](./PHASE_1_EXIT_APPROVAL.md) records product, architecture and SQA decisions against evidence commit `df3a95d`. Phase 2 is unblocked but remains `Not started`.
 
 Completing Phase 1 confirms the quality of the analysis/plan. It does not claim that the implementation defects discovered by the analysis—such as route leakage, missing authorization, missing commerce models or database configuration—are fixed.

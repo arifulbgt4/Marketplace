@@ -139,4 +139,4 @@ flowchart LR
 
 ## Conclusion
 
-Codebase-টি ফেলে দিয়ে নতুন application শুরু করার প্রয়োজন নেই। Design system, route shell, i18n, auth baseline এবং কিছু persisted entities reuse করা যায়। তবে commerce correctness-এর জন্য Product, Inventory, Cart, Checkout, Payment, Order এবং Fulfillment domain নতুন modular boundary-তে তৈরি করতে হবে; existing rental schema-কে সরাসরি retail semantics দিয়ে overload করা উচিত নয়।
+Codebase-টি ফেলে দিয়ে নতুন application শুরু করার প্রয়োজন নেই। Homepage visual identity—বিশেষ করে Hero/Search—route shell, i18n, auth baseline এবং কিছু persisted entities reuse করা যায়। বর্তমান MUI stack future design-system restriction নয়; homepage ছাড়া অন্য screens product/business অনুযায়ী redesign করা যাবে। Commerce correctness-এর জন্য Product, Inventory, Cart, Checkout, Payment, Order এবং Fulfillment domain নতুন modular boundary-তে তৈরি করতে হবে; existing rental schema-কে সরাসরি retail semantics দিয়ে overload করা উচিত নয়।

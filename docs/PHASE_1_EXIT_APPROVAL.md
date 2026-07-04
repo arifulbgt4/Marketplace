@@ -6,6 +6,8 @@
 
 Phase 1 covers analysis and planning only. Approval confirms that architecture, current-state inventory, domain/status semantics, permissions, design baseline, migration strategy and agent backlog are usable inputs for Phase 2. It does not claim that the implementation defects documented by Phase 1 are fixed.
 
+Post-approval product directive (2026-07-05): broad no-redesign wording is superseded. Homepage visual identity, especially Hero and Search, remains protected; other surfaces may be redesigned for the target business, and MUI is not mandatory. `P1-07_DESIGN_BASELINE.md`, `ARCHITECTURE.md` and implementation task criteria carry the amended policy.
+
 ## Sign-off
 
 | Role | Name | Date | Decision/basis |
@@ -23,7 +25,7 @@ Phase 1 covers analysis and planning only. Approval confirms that architecture, 
 | Target architecture decision and non-goals clear | `ARCHITECTURE.md` ADR-001 | Pass |
 | Domain/status semantics consistent | `P1-05_DOMAIN_GLOSSARY.md`, `COD_AND_PAYMENT_PLAN.md` | Pass |
 | Mutation permission policy complete | `P1-06_PERMISSION_MATRIX.md` | Pass |
-| Visual baseline reviewable | `P1-07_DESIGN_BASELINE.md`, `visual-baseline/INDEX.md`, 8 screenshots | Pass |
+| Scoped visual baseline reviewable | `P1-07_DESIGN_BASELINE.md`, `visual-baseline/INDEX.md`, 8 screenshots; homepage strict and non-home reference scopes explicit | Pass |
 | Migration strategy and representative review usable | `P1-08_DATA_MIGRATION_STRATEGY.md`, `evidence/phase-1/MIGRATION_PLANNING_REHEARSAL.md` | Pass |
 | Backlog exact/status-aware | `TASK_PLAN.md`, graph validation in SQA audit | Pass |
 | Verification gates recorded | `PHASE_1_SQA_AUDIT.md` | Pass |

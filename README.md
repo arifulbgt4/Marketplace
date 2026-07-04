@@ -1,6 +1,6 @@
 # 🏪 Marketplace
 
-A Next.js, TypeScript, PostgreSQL, Prisma, and Material-UI marketplace foundation. The current implementation is primarily a property/rental listing starter; the repository now includes a complete technical plan for evolving it into a configurable reusable B2C marketplace without changing the existing visual design.
+A Next.js, TypeScript, PostgreSQL, Prisma, and Material-UI marketplace foundation. The current implementation is primarily a property/rental listing starter; the repository now includes a complete technical plan for evolving it into a configurable reusable B2C marketplace while preserving the current homepage visual design—especially the Hero and Search sections.
 
 ## 📌 Current Status and Planning
 
@@ -17,6 +17,8 @@ Implemented foundations and planned capabilities are intentionally documented se
 - **Documentation plan:** [docs/DOCUMENTATION_PLAN.md](docs/DOCUMENTATION_PLAN.md)
 
 No marketplace implementation phase should be marked complete until its task acceptance criteria and related test requirements are satisfied.
+
+Design policy: MUI is the current implementation stack, not a future restriction. Product, account, checkout and admin surfaces may adopt the design system or custom UI approach that best fits the target business. The homepage visual composition remains protected, with the Hero and Search sections receiving strict visual-regression coverage.
 
 ## ✨ Current Foundations
 

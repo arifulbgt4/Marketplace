@@ -53,9 +53,11 @@ Core catalog business-owned। `admin` বা `catalog_manager` product manage �
 
 Authentication, catalog, checkout, order এবং payment আলাদা logical modules হবে, কিন্তু initial deployment একটি application এবং database। Transactional correctness ও operational simplicity microservice decomposition-এর চেয়ে গুরুত্বপূর্ণ।
 
-### Preserve visual design
+### UI design policy
 
-Existing MUI theme, layout এবং component composition design baseline। Implementation task behavior এবং data wiring বদলাবে; redesign আলাদা explicit project ছাড়া করা হবে না।
+বর্তমান homepage visual composition template-এর protected identity। বিশেষ করে Hero এবং Search section-এর hierarchy, composition, spacing এবং responsive character baseline screenshot-এর সঙ্গে সামঞ্জস্যপূর্ণ রাখতে হবে। তবে copy, product terminology, dynamic data, search fields/behavior, localization এবং accessibility implementation business requirements অনুযায়ী বদলানো যাবে।
+
+Homepage ছাড়া product listing/detail, cart, checkout, customer account, authentication এবং admin surface business ও product needs অনুযায়ী redesign করা যাবে। MUI বর্তমান implementation stack মাত্র; target architecture MUI বা অন্য কোনো design system বাধ্যতামূলক করে না। Team MUI, অন্য design system অথবা custom components ব্যবহার করতে পারবে, যদি experience coherent, accessible এবং maintainable থাকে।
 
 ## Proposed modules
 
@@ -197,7 +199,7 @@ Accepted and approved (2026-07-05). Evidence commit: `df3a95d`.
 1. Deployment model: per-business deployable vs multi-tenant SaaS
 2. Seller model: single-business vs multi-vendor marketplace
 3. Service decomposition: monolith vs microservices
-4. Design preservation: rewrite vs incremental change
+4. Design scope: protected homepage identity vs business-specific surface redesign
 5. Messaging/support: keep, remove, or redesign the existing peer-chat model
 
 ### Decision
@@ -207,7 +209,7 @@ Accepted and approved (2026-07-05). Evidence commit: `df3a95d`.
 | 1 | **Per-business deployable modular monolith** — প্রতিটি deployment একটি business-এর জন্য; reusability configuration/adapter থেকে আসে | Multi-tenant SaaS-এর control plane, tenant isolation এবং billing overhead core scope-এর বাইরে; পরে পৃথক bounded context হিসেবে যোগ করা যাবে |
 | 2 | **Single-business core** — catalog business-owned; `admin` এবং `catalog_manager` roles product manage করে | Multi-vendor-এর seller KYC, commission, payout, disputes scope-এর বাইরে; future bounded context |
 | 3 | **Modular monolith first** — Authentication, catalog, checkout, order, payment আলাদা logical modules; single application + database deployment | Transactional correctness ও operational simplicity microservice decomposition-এর চেয়ে গুরুত্বপূর্ণ; পরে module isolation প্রয়োজনে separable |
-| 4 | **Preserve existing visual design** — MUI theme, layout, component composition baseline হিসেবে; implementation শুধু data wiring এবং behavior বদলায় | Redesign explicit project approval ছাড়া হবে না; baseline screenshot comparison দ্বারা রক্ষিত |
+| 4 | **Protect homepage visual identity, keep other surfaces flexible** — homepage composition এবং বিশেষভাবে Hero/Search visual baseline preserve হবে; অন্য screens business-fit redesign করতে পারবে; কোনো design system বাধ্যতামূলক নয় | Reusable B2C template-এর recognizable homepage থাকবে, কিন্তু catalog, checkout, account এবং admin UX business requirements অনুযায়ী evolve করতে পারবে |
 | 5 | **Replace peer messaging with support/contact flow** — বর্তমান `Message` model দুই customer-এর মধ্যে direct chat অনুমতি দেয়, যা B2C scenario-এ customer expectation নয় | Support ticket/contact form দিয়ে replace করলে customer expectation clearer হয় এবং moderation simpler হয় |
 
 ### Alternatives considered
@@ -217,7 +219,8 @@ Accepted and approved (2026-07-05). Evidence commit: `df3a95d`.
 | Multi-tenant SaaS | Single deployment serves all businesses | Tenant isolation, billing, feature gating complexity | Core scope-এর বাইরে; future extension |
 | Multi-vendor marketplace | Multiple sellers per platform | KYC, commission, payout, disputes, seller dashboard | Core scope-এর বাইরে; future bounded context |
 | Microservices | Independent deployability, team scaling | Transactional complexity, network overhead, operational cost | 1–2 developer team-এর জন্য premature; modular monolith later separable |
-| Full redesign | Clean slate, no legacy | Timeline, existing design system loss, i18n/auth rewrite | Existing MUI design এবং i18n ভালো working state-এ; rewrite justified নয় |
+| Unrestricted homepage redesign | Maximum visual freedom | Template identity এবং approved Hero/Search composition হারায় | Homepage protected; lower/other surfaces already যথেষ্ট design freedom পায় |
+| MUI-only policy | Existing component reuse সহজ | Future business requirements এবং alternative UI architecture সীমিত করে | MUI current stack, architectural mandate নয় |
 | Keep peer messaging | Existing code reuse | Customer confusion, moderation complexity, no clear B2C use case | Mock implementation incomplete; replaces with simpler support flow |
 
 ### Consequences
@@ -225,7 +228,8 @@ Accepted and approved (2026-07-05). Evidence commit: `df3a95d`.
 Positive:
 - One application to deploy, test, and monitor
 - Transactional integrity across domains (cart → stock → payment → order)
-- Existing design, i18n, auth preserved and reused
+- Existing homepage identity, i18n এবং auth selectively preserved and reused
+- Other surfaces এবং design-system choice business needs অনুযায়ী evolve করতে পারে
 - Clear module boundaries for future extraction
 
 Negative:
@@ -256,3 +260,4 @@ Negative:
 | Status | Accepted and approved |
 | Approved by | Ariful Islam (product directive); Codex architecture review |
 | Evidence commit | `df3a95d` |
+| Design-policy amendment | 2026-07-05 product directive: homepage/Hero/Search protected; other surfaces and design-system choice flexible |

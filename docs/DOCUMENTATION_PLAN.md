@@ -47,6 +47,7 @@ Project documentation যেন source code-এর পরে stale appendix ন�
 - Checkout transaction boundary।
 - Payment/shipping/storage/email adapters।
 - Security and authorization model।
+- Homepage/Hero/Search protected visual scope, flexible non-home surfaces এবং design-system-neutral policy।
 - ADR index।
 
 ## Database documentation requirements
@@ -109,6 +110,8 @@ Project documentation যেন source code-এর পরে stale appendix ন�
 - Which changes require no code।
 - Which settings are environment-only।
 - Approved branding token boundaries।
+- Homepage protected slots বনাম redesignable surface boundaries।
+- MUI current stack হলেও alternative design system/custom UI adoption এবং consistency rules।
 - Add payment/storage/email/shipping adapter procedure।
 - Add business-specific product rule safely।
 - Add locale/content।

@@ -26,7 +26,7 @@ Planning analysis-এর সময়:
 | Integration | Database এবং service boundaries | RBAC, inventory transaction, checkout, webhook |
 | Contract | External adapters এবং API DTOs | Payment, storage, email, shipping adapters |
 | E2E | Critical user/admin journeys | COD purchase, online payment, fulfillment, return |
-| Visual | Existing design preservation | Desktop/mobile/RTL snapshots |
+| Visual | Homepage/Hero/Search preservation; intentional redesign evidence elsewhere | Desktop/mobile/RTL snapshots |
 | Accessibility | Keyboard, focus, semantics, contrast | Storefront এবং admin scans |
 | Security | Abuse এবং privilege boundaries | IDOR, webhook forgery, rate abuse |
 | Performance | Query/bundle/page budgets | Catalog pagination, dashboard aggregates |
@@ -122,9 +122,16 @@ Planning analysis-এর সময়:
 7. Admin creates product, adjusts stock এবং publishes।
 8. Customer cancels eligible order; stock/coupon restore হয়।
 9. Customer submits verified-purchase review।
-10. Admin updates branding/content without layout regression।
+10. Admin updates branding/content without protected homepage/Hero/Search regression।
 
 ## Visual regression
+
+Visual testing দুই ধরনের:
+
+- **Strict:** Homepage overall composition, Hero এবং Search section। Material visual difference product approval ছাড়া fail।
+- **Reference:** Product, cart, checkout, account, auth এবং admin screens। এগুলো business-fit redesign করতে পারে; test legacy pixels নয়, intentional responsive/accessibility baseline রক্ষা করবে।
+
+MUI-specific DOM/class snapshot visual acceptance-এর অংশ নয়; rendered behavior এবং visual outcome test হবে।
 
 Baseline viewports অন্তত:
 
@@ -136,7 +143,7 @@ Baseline viewports অন্তত:
 
 Critical screens:
 
-- Homepage।
+- Homepage, Hero এবং Search — strict baseline।
 - Product list/detail।
 - Cart/checkout।
 - Customer account/order detail।

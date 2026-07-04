@@ -7,7 +7,7 @@
 - Source baseline: `dev` at `b5fe836`
 - Captured: 2026-07-05
 - Evidence: [Visual Baseline Index](./visual-baseline/INDEX.md)
-- Rule: implementation may change data/behavior, but visual redesign requires a separate approval.
+- Rule amended by product directive on 2026-07-05: homepage visual composition is protected, especially Hero and Search; other surfaces may be redesigned for the target product/business and are not restricted to MUI.
 
 ## Technology and theme
 
@@ -43,6 +43,16 @@ Dark-mode infrastructure exists, but the only discovered `toggleColorMode` consu
 | Auth/unwrapped | Centered auth form shell | AuthPages routes/layout |
 | Customer | Header plus responsive side navigation/content | `src/layouts/UserLayout` |
 | Message | Header plus mock messaging panes | message layout/page |
+
+## Protected homepage source mapping
+
+বর্তমান codebase-এ Hero আলাদা named component নয়; homepage-এর Hero/Search composition মূলত নিচের source boundary-তে আছে:
+
+- `src/app/[locale]/(WrappedPages)/page.tsx` — homepage composition এবং section placement।
+- `src/widgets/SearchBanner/index.tsx` — current Hero/banner, category shortcuts এবং Search section-এর প্রধান visual implementation।
+- `src/forms/SearchFilterForm/index.tsx` — desktop/mobile search controls এবং interaction shell।
+
+Future refactor component boundary বা design system বদলাতে পারবে, কিন্তু rendered homepage/Hero/Search visual contract preserve করতে হবে।
 
 ## Form/component patterns
 
@@ -80,17 +90,30 @@ Protected account routes were not captured because Phase 1 did not create a test
 3. Save as `{page}-{viewport}-{locale}-{theme}.png` under `docs/visual-baseline/`.
 4. Update `INDEX.md` with final URL and known state.
 5. Exclude the Next.js development indicator from image-diff decisions.
-6. Accept a visual difference only with a task/approval reference.
+6. Homepage/Hero/Search material visual difference শুধু explicit product approval referenceসহ গ্রহণযোগ্য; non-home redesign task-এ নতুন intentional reference baseline record করতে হবে।
 
-## No-redesign rule
+## Design preservation and flexibility policy
 
-Implementation tasks may:
+### Strict protected scope
 
-- wire real data and behavior;
-- add missing loading/error/empty/forbidden states in the existing visual language;
-- make accessibility fixes that preserve the design intent.
+- Homepage-এর overall visual identity এবং high-level composition।
+- Hero section-এর visual hierarchy, composition, spacing এবং responsive character।
+- Search section-এর placement, shape, hierarchy এবং responsive presentation।
+- Home mobile, tablet, desktop, wide এবং RTL screenshots strict regression references।
 
-They may not change layout language, typography system, palette direction or major component composition without an explicit redesign task and approval.
+Protected scope-এর মধ্যে copy, property-specific terminology, product/category data, search fields, search behavior, localization, loading/error state এবং accessibility implementation বদলানো যাবে—যতক্ষণ material visual identity অক্ষত থাকে। Implementation MUI থেকে অন্য technology-তে গেলেও rendered visual contract একই থাকতে হবে।
+
+### Flexible scope
+
+- Product listing/detail, cart, checkout, authentication, customer account, order এবং admin screens target business অনুযায়ী redesign করা যাবে।
+- বর্তমান MUI components reuse করা optional; MUI, অন্য design system অথবা custom UI গ্রহণযোগ্য।
+- Non-home screenshots historical/reference evidence; এগুলো legacy pixel-perfect locks নয়। নতুন design intentional, documented, coherent, responsive এবং accessible হতে হবে।
+
+### Change control
+
+- Hero/Search বা homepage composition-এর material visual change explicit product approval ছাড়া করা যাবে না।
+- Accessibility fix visual contract যতটা সম্ভব preserve করবে; unavoidable material change approval noteসহ হবে।
+- একই product surface-এ accidental design-system fragmentation এড়াতে shared tokens/primitives এবং documented ownership ব্যবহার করতে হবে।
 
 ## Known baseline issues
 

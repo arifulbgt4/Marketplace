@@ -2,7 +2,15 @@
 
 ## Objective
 
-বর্তমান property/rental marketplace starter-কে existing design না বদলে configurable, scalable এবং reusable B2C marketplace template-এ রূপান্তর করা।
+বর্তমান property/rental marketplace starter-কে configurable, scalable এবং reusable B2C marketplace template-এ রূপান্তর করা। Homepage-এর বর্তমান visual identity—বিশেষ করে Hero এবং Search section—preserve হবে; অন্য screens target product/business অনুযায়ী redesign করা যাবে এবং কোনো নির্দিষ্ট design system বাধ্যতামূলক নয়।
+
+## UI design boundary
+
+- Homepage overall composition protected baseline।
+- Hero এবং Search section strict visual-preservation scope।
+- Homepage copy, product terminology, dynamic data, filters এবং search behavior পরিবর্তনযোগ্য।
+- Product listing/detail, cart, checkout, account, auth এবং admin UI business-fit redesign করতে পারবে।
+- MUI বর্তমান stack; MUI, alternative design system বা custom UI—সবই allowed, যদি implementation coherent ও accessible হয়।
 
 ## Required core capabilities
 
@@ -39,7 +47,7 @@
 - Current architecture, routes, APIs এবং feature gaps নথিভুক্ত করা।
 - Single-business core বনাম optional multi-vendor extension স্থির করা।
 - Domain glossary, permissions এবং status semantics স্থির করা।
-- Existing design visual baseline capture করা।
+- Homepage, Hero এবং Search strict baselineসহ reference screenshots capture করা; other screens historical/reference evidence হিসেবে রাখা।
 - Listing/booking থেকে product/order migration strategy করা।
 - Agent-friendly task backlog এবং Definition of Done স্থাপন করা।
 
@@ -57,7 +65,7 @@
 - Product, variants, SKU, options এবং media data model করা।
 - Category lifecycle এবং admin CRUD করা।
 - Draft/publish/archive product workflow করা।
-- Public catalog detail/list query এবং current design wiring করা।
+- Public catalog detail/list query এবং business/product-fit UI wiring করা; homepage placement protected composition ভাঙবে না।
 - Search/filter/sort URL contract করা।
 - Inventory ledger, atomic stock operations এবং inventory admin UI করা।
 - Generic reusable seed এবং legacy backfill করা।
@@ -96,7 +104,7 @@
 - Business identity, branding এবং SEO settings করা।
 - Payment, delivery zone এবং COD rule editors করা।
 - Coupon management করা।
-- Homepage content model/editor করা।
+- Protected Hero/Search composition বজায় রেখে homepage content slots ও editor করা।
 - Review moderation এবং reports/exports করা।
 
 ## Phase 8: Customer experience improvements
@@ -106,7 +114,7 @@
 - Verified-purchase reviews এবং correct aggregates করা।
 - In-app/email notifications এবং preferences করা।
 - Search suggestions, facets এবং URL-synced filters করা।
-- Configured homepage render করা।
+- Configured homepage render করা; Hero/Search visual contract এবং overall homepage identity preserve করা।
 - i18n, SEO, accessibility এবং performance hardening করা।
 - Mock peer-to-peer messaging রাখবে নাকি support flow হবে তা স্থির করা।
 
@@ -115,7 +123,7 @@
 - Deterministic test factories এবং financial/state unit suites করা।
 - Auth, catalog, inventory, cart, checkout, payment এবং order integration suites করা।
 - COD, online payment এবং admin operation E2E করা।
-- Visual, responsive এবং accessibility regression করা।
+- Homepage/Hero/Search strict visual regression এবং অন্য surfaces-এর responsive/accessibility regression করা।
 - Security, concurrency, performance এবং migration rehearsal করা।
 - Mock/dead code এবং duplicate business logic সরানো।
 - Overview, architecture, schema, API, feature, admin, customization, deployment, testing এবং release documentation final করা।
@@ -150,7 +158,8 @@ Foundation complete হওয়ার পরে সীমিত parallelization �
 - Critical payment/order path-এ silent fallback থাকবে না।
 - Admin UI action server-side authorization-এর বিকল্প নয়।
 - COD enabled হলেই সব order-এ available হবে না; eligibility engine authoritative।
-- Existing design change release goal নয়।
+- Homepage visual identity, Hero এবং Search section change release goal নয়; অন্য surfaces business-fit redesign করতে পারে।
+- MUI বা অন্য কোনো নির্দিষ্ট design system release constraint নয়।
 - Documentation ছাড়া configurable feature complete নয়।
 - Migration rehearsal ছাড়া production schema release করা যাবে না।
 

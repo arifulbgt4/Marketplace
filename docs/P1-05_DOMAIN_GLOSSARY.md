@@ -79,7 +79,7 @@
 | Term | Definition | Current State | Target State |
 |------|------------|---------------|--------------|
 | **Business Settings** | Core configuration | env vars | Database-stored settings |
-| **Branding** | Visual identity config | Theme only | Logo, colors, SEO, social |
+| **Branding** | Visual identity config | MUI theme only | Logo, colors, SEO, social এবং design-system-neutral tokens; protected homepage composition |
 | **Content** | Homepage/marketing sections | Hardcoded | Configurable sections |
 | **Coupon** | Discount promotion | Listing discount field | Full coupon system |
 | **Tax** | Government levy on sales | Not implemented | Tax class + calculation |

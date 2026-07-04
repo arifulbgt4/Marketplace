@@ -2,7 +2,7 @@
 
 ## উদ্দেশ্য
 
-এই directory-র Markdown documents reusable B2C marketplace-টির canonical technical plan। বর্তমান repository এখনো property/rental listing-oriented starter; পরিকল্পনার লক্ষ্য হলো existing MUI design অক্ষত রেখে এটিকে configurable single-business B2C marketplace template-এ রূপান্তর করা।
+এই directory-র Markdown documents reusable B2C marketplace-টির canonical technical plan। বর্তমান repository এখনো property/rental listing-oriented starter; পরিকল্পনার লক্ষ্য হলো বর্তমান homepage-এর visual identity—বিশেষ করে Hero এবং Search section—অক্ষত রেখে এটিকে configurable single-business B2C marketplace template-এ রূপান্তর করা। Homepage ছাড়া অন্য product, account, checkout এবং admin surface business requirements অনুযায়ী redesign করা যাবে।
 
 এই planning update কোনো feature, database migration, API, UI behavior বা business logic implement করে না।
 
@@ -55,7 +55,8 @@
 - Multi-tenant SaaS এবং multi-vendor payout/commission core scope নয়।
 - বর্তমান seller/host model legacy behavior; business catalog admin বা catalog manager পরিচালনা করবে।
 - Multi-vendor support ভবিষ্যতে আলাদা bounded context হিসেবে যোগ করা যাবে।
-- Existing MUI layout, theme এবং visual language implementation চলাকালে baseline হিসেবে সংরক্ষিত থাকবে।
+- Homepage-এর বর্তমান visual composition সংরক্ষিত থাকবে; Hero এবং Search section strict protected scope। Copy, product terminology, data এবং search behavior business অনুযায়ী বদলানো যাবে।
+- Homepage ছাড়া অন্য screen business/product fit অনুযায়ী redesign করা যাবে। MUI বর্তমান implementation fact, architectural restriction নয়; MUI, অন্য design system বা custom UI গ্রহণযোগ্য।
 - COD first-class payment option হবে।
 - Order, payment এবং fulfillment status আলাদা থাকবে।
 - Secrets environment-এ এবং editable business rules database settings-এ থাকবে।

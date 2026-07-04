@@ -26,10 +26,13 @@
 
 ## Comparison rules
 
-1. Compare the same route, viewport, locale, theme and fixture state.
-2. Next.js development indicator at bottom-left is not product UI and is excluded.
-3. Stabilize dynamic timestamps, IDs and remote-image load timing before pixel comparison.
-4. A difference without a task/approval reference is a regression candidate.
+1. Home mobile/tablet/desktop/wide/RTL artifacts are strict references for homepage composition, especially Hero and Search.
+2. Compare the same route, viewport, locale, theme and fixture state.
+3. Copy, product terminology, dynamic data and search behavior may change; material Hero/Search composition changes require product approval.
+4. Sign-in, listings and contact artifacts are historical/reference evidence, not legacy pixel-perfect locks; those surfaces may be redesigned for the business.
+5. MUI is not required to reproduce the protected visual output.
+6. Next.js development indicator at bottom-left is not product UI and is excluded.
+7. Stabilize dynamic timestamps, IDs and remote-image load timing before pixel comparison.
 
 ## Observations
 

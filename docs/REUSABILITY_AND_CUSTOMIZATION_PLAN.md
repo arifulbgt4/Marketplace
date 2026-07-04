@@ -38,7 +38,9 @@ Required settings:
 - SEO title template, description এবং social profiles।
 - Support email/phone এবং footer business information।
 
-Existing MUI design structure থাকবে; branding settings approved design tokens বদলাবে, component layout নয়।
+Homepage-এর বর্তমান visual identity এবং বিশেষভাবে Hero/Search composition branding changes-এর মধ্যেও সংরক্ষিত থাকবে। Logo, color, typography, copy এবং data configurable, তবে protected composition materially বদলাতে explicit product approval প্রয়োজন।
+
+MUI বর্তমান implementation stack, customization restriction নয়। অন্য storefront/admin surfaces MUI, alternative design system অথবা custom UI ব্যবহার করতে পারে। Chosen approach-এর shared tokens, accessibility এবং coherent interaction patterns document করতে হবে।
 
 ## Catalog customization
 
@@ -89,7 +91,7 @@ Recommended section types:
 - Review/testimonial section when enabled।
 - Newsletter/contact CTA when enabled।
 
-প্রতিটি section-এর order, visibility, schedule এবং localized content configuration থাকবে। Unknown section type storefront crash করবে না; safe validation error বা unsupported-state handling থাকবে।
+Hero এবং Search fixed protected slots হিসেবে থাকবে; তাদের content/data configurable হলেও placement ও visual composition lock থাকবে। অন্যান্য lower homepage sections defined slots-এর মধ্যে order, visibility, schedule এবং localized content configuration পাবে। Unknown section type storefront crash করবে না; safe validation error বা unsupported-state handling থাকবে।
 
 ## Hardcoding prohibited
 
