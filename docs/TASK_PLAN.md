@@ -188,7 +188,7 @@ Coding agent একটি task নেওয়ার আগে:
 | P9-10 Customer COD E2E | Product to COD order history | Browser E2E | Pending collection and no gateway redirect | P5 through P8 | Desktop/mobile E2E |
 | P9-11 Online payment E2E | Success/failure/cancel/webhook | Browser/provider sandbox | Verified state reflected | P5 through P8 | Sandbox E2E |
 | P9-12 Admin operations E2E | Catalog/stock/order/COD/settings | Admin E2E | RBAC এবং audit verified | P7 | Browser E2E |
-| P9-13 Visual regression | Existing design preserved | Storybook/screenshots | Unapproved visual differences absent | P1-07 | Key viewport snapshots |
+| P9-13 Visual regression | Existing design preserved | Visual testing/snapshots | Unapproved visual differences absent | P1-07 | Key viewport snapshots |
 | P9-14 Accessibility regression | Storefront/admin automated scan | E2E/a11y setup | Critical/serious violations zero | P8-12 | axe/keyboard checklist |
 | P9-15 Security/performance audit | IDOR, validation, PII, rate, query cost | Full system | High severity resolved; budgets pass | Functional phases complete | Abuse/load/security tests |
 | P9-16 Migration rehearsal | Empty/legacy upgrade এবং rollback | Prisma migrations/backfill | Production-like repeatable rehearsal | P1-08, final schema | Backup/restore dry run |

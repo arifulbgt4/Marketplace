@@ -23,7 +23,6 @@ No marketplace implementation phase should be marked complete until its task acc
 - 🌍 **Internationalization (i18n)** - Multi-language support with next-intl
 - 🔐 **Authentication** - Secure authentication with NextAuth.js
 - 🎨 **Design System** - Material-UI components with custom theming
-- 📚 **Storybook** - Component documentation and testing
 - 🗄️ **Database** - PostgreSQL with Prisma ORM
 - 🐳 **Docker** - Containerized database setup
 - 🌙 **Dark/Light Mode** - Theme switching support
@@ -47,7 +46,6 @@ No marketplace implementation phase should be marked complete until its task acc
 - **Vercel** - Deployment platform
 
 ### Development Tools
-- **Storybook** - Component documentation
 - **Docker** - Local database development
 - **ESLint** - Code linting
 - **Prettier** - Code formatting
@@ -104,7 +102,6 @@ pnpm dev
 
 ### 4. Access the Application
 - **Main App**: http://localhost:3000
-- **Storybook**: http://localhost:6006 (run `pnpm storybook`)
 - **Database UI**: http://localhost:5050 (run `pnpm pgadmin:start`)
 
 ## 📜 Available Scripts
@@ -139,13 +136,6 @@ pnpm docker:down      # Stop all Docker services
 pnpm docker:logs      # View Docker logs
 pnpm docker:clean     # Clean up Docker containers and volumes
 pnpm pgadmin:start    # Start pgAdmin web interface
-```
-
-### Storybook
-```bash
-pnpm storybook        # Start Storybook dev server
-pnpm build-storybook  # Build Storybook for production
-pnpm chromatic        # Deploy to Chromatic
 ```
 
 ### Utility
@@ -189,12 +179,6 @@ Language files are located in `/messages/[locale].json`
 
 The project includes a comprehensive design system built with Material-UI:
 
-### Storybook Documentation
-View all components and their variants:
-```bash
-pnpm storybook
-```
-
 ### Theme Customization
 Custom themes are defined in `src/theme/` with support for:
 - Dark/Light mode
@@ -228,7 +212,7 @@ Configure providers in `src/app/api/auth/[...nextauth]/route.ts`
 │   └── lib/                 # Utility libraries
 ├── messages/                # i18n translation files
 ├── prisma/                  # Database schema and migrations
-├── docs/                    # Planning documents and Storybook content
+├── docs/                    # Planning documents
 ├── docker/                  # Docker configuration
 └── public/                  # Static assets
 ```
@@ -300,7 +284,6 @@ rm -rf .next
 - [Material-UI Documentation](https://mui.com/)
 - [Prisma Documentation](https://www.prisma.io/docs)
 - [NextAuth.js Documentation](https://next-auth.js.org/)
-- [Storybook Documentation](https://storybook.js.org/docs)
 
 ---
 

@@ -21,7 +21,6 @@
 | `/terms` | WrappedPages | Terms page | Static content |
 | `/privacy` | WrappedPages | Privacy page | Static content |
 | `/cookies` | WrappedPages | Cookies page | Static content |
-| `/lab` | Lab | Laboratory/Storybook | Storybook |
 
 ### Protected Pages (Auth Required)
 

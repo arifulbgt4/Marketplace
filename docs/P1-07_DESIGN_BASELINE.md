@@ -168,7 +168,7 @@
 2. **Inconsistent Spacing**: Some components use custom spacing
 3. **Mixed Form Libraries**: Some forms use react-hook-form, others react-final-form
 4. **No Design Tokens**: Colors/spacing hardcoded in components
-5. **No Storybook Docs**: Components lack documentation
+5. **No Component Documentation**: Components lack documentation
 
 ## No-Redesign Rule
 

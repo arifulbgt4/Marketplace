@@ -41,7 +41,7 @@ flowchart LR
 | Authentication | NextAuth v4 Credentials Provider, JWT session |
 | Localization | `next-intl`, eight locale files |
 | Testing | Vitest, Testing Library, jsdom |
-| Tooling | pnpm, Docker Compose, Storybook, ESLint |
+| Tooling | pnpm, Docker Compose, ESLint |
 
 ## Module status
 
@@ -73,7 +73,7 @@ flowchart LR
 | Branding | Minimal | Theme এবং env name | Logo, theme tokens, SEO, social links settings |
 | Homepage content | Hardcoded | Existing visual sections | Configurable order, visibility, localized content |
 | Analytics | Mock | Dashboard/chart components | Real aggregate queries ও exports |
-| Documentation | Partial | README, Docker docs, Storybook | Architecture, schema, API, admin, customization guides |
+| Documentation | Partial | README, Docker docs | Architecture, schema, API, admin, customization guides |
 
 ## Verified baseline
 
@@ -120,7 +120,7 @@ Analysis-এর সময় নিম্নলিখিত read-only checks চা
 - `src/theme`: MUI theme এবং overrides।
 - `prisma`: current schema এবং seed; migration directory নেই।
 - `messages`: locale message JSON files।
-- `docs`: বর্তমানে Storybook content এবং নতুন planning documents।
+- `docs`: বর্তমানে planning documents।
 
 ## Conclusion
 
