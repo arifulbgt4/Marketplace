@@ -33,4 +33,8 @@ export default {
   adminCategories: "/admin/categories",
   adminProducts: "/admin/products",
   adminInventory: "/admin/inventory",
+  adminDelivery: "/admin/delivery",
+  adminCoupons: "/admin/coupons",
+  cart: "/cart",
+  checkout: "/checkout",
 };

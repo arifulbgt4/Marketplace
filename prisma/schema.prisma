@@ -39,6 +39,23 @@ enum OrderStatus {
   completed
 }
 
+enum DiscountType {
+  percentage
+  fixed
+}
+
+enum CouponScope {
+  all
+  category
+  product
+}
+
+enum CheckoutSessionStatus {
+  active
+  expired
+  completed
+}
+
 enum AddressType {
   shipping
   billing
@@ -252,20 +269,183 @@ model Order {
   id          String      @id @default(uuid())
   orderNo     String      @unique
   status      OrderStatus @default(pending)
-  startDate   DateTime
-  endDate     DateTime
+  startDate   DateTime?
+  endDate     DateTime?
   totalPrice  Float
+  subtotal    Float?
+  shippingCost Float?
+  discountAmount Float?
   guests      Int         @default(1)
   userId      String
   user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  listingId   String
-  listing     Listing     @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  listingId   String?
+  listing     Listing?    @relation(fields: [listingId], references: [id], onDelete: SetNull)
+  couponId    String?
+  deliveryMethodId String?
+  currency    String      @default("USD")
+  notes       String?
+  paymentMethod String?
+  shippingAddressSnapshot Json?
+  idempotencyKey String?  @unique
+  placedAt    DateTime?
+  items       OrderItem[]
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
 
   @@index([userId])
   @@index([listingId])
   @@index([status])
+  @@index([idempotencyKey])
+}
+
+model OrderItem {
+  id          String  @id @default(uuid())
+  orderId     String
+  order       Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  variantId   String?
+  productId   String?
+  sku         String
+  productName String
+  unitPrice   Decimal
+  quantity    Int
+  totalPrice  Decimal
+
+  @@index([orderId])
+}
+
+model Cart {
+  id         String      @id @default(uuid())
+  userId     String?
+  sessionToken String?
+  currency   String      @default("USD")
+  subtotal   Float       @default(0)
+  expiresAt  DateTime?
+  items      CartItem[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  @@index([userId])
+  @@index([sessionToken])
+}
+
+model CartItem {
+  id        String   @id @default(uuid())
+  cartId    String
+  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  variantId String
+  productId String
+  sku       String
+  productName String
+  imageUrl  String?
+  unitPrice Decimal
+  quantity  Int
+  createdAt DateTime @default(now())
+
+  @@unique([cartId, variantId])
+  @@index([cartId])
+  @@index([variantId])
+}
+
+model CheckoutSession {
+  id             String                @id @default(uuid())
+  cartId         String
+  userId         String?
+  status         CheckoutSessionStatus @default(active)
+  subtotal       Float                 @default(0)
+  discountAmount Float                 @default(0)
+  shippingCost   Float                 @default(0)
+  totalAmount    Float                 @default(0)
+  currency       String                @default("USD")
+  couponId       String?
+  deliveryMethodId String?
+  shippingAddressId String?
+  billingAddressId  String?
+  expiresAt      DateTime?
+  createdAt      DateTime              @default(now())
+  updatedAt      DateTime              @updatedAt
+
+  @@index([cartId])
+  @@index([userId])
+}
+
+model DeliveryZone {
+  id         String            @id @default(uuid())
+  name       String
+  slug       String            @unique
+  countries  String[]
+  regions    String[]
+  postalCodes String[]
+  isActive   Boolean           @default(true)
+  priority   Int               @default(0)
+  methods    DeliveryMethod[]
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+
+  @@index([isActive, priority])
+}
+
+model DeliveryMethod {
+  id               String        @id @default(uuid())
+  zoneId           String
+  zone             DeliveryZone  @relation(fields: [zoneId], references: [id], onDelete: Cascade)
+  name             String
+  code             String
+  carrier          String?
+  price            Decimal
+  freeShippingAbove Decimal?
+  estimatedDaysMin Int?
+  estimatedDaysMax Int?
+  isActive         Boolean       @default(true)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  @@index([zoneId, isActive])
+}
+
+model Coupon {
+  id              String       @id @default(uuid())
+  code            String       @unique
+  description     String?
+  discountType    DiscountType
+  discountValue   Decimal
+  minOrderAmount  Decimal?
+  maxDiscountAmount Decimal?
+  scope           CouponScope  @default(all)
+  scopeIds        Json         @default("[]")
+  usageLimit      Int?
+  usagePerUser    Int?
+  usedCount       Int          @default(0)
+  isActive        Boolean      @default(true)
+  startsAt        DateTime?
+  expiresAt       DateTime?
+  usages          CouponUsage[]
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  @@index([code])
+  @@index([isActive])
+}
+
+model CouponUsage {
+  id       String   @id @default(uuid())
+  couponId String
+  coupon   Coupon   @relation(fields: [couponId], references: [id], onDelete: Cascade)
+  orderId  String?
+  userId   String
+  usedAt   DateTime @default(now())
+
+  @@index([couponId])
+  @@index([orderId])
+  @@index([userId])
+}
+
+model IdempotencyKey {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  response  Json
+  createdAt DateTime @default(now())
+
+  @@index([key])
 }
 
 model Review {

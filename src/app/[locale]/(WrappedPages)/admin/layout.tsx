@@ -5,6 +5,8 @@ const navItems = [
   { href: "/admin/categories", label: "Categories" },
   { href: "/admin/products", label: "Products" },
   { href: "/admin/inventory", label: "Inventory" },
+  { href: "/admin/delivery", label: "Delivery Zones" },
+  { href: "/admin/coupons", label: "Coupons" },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
