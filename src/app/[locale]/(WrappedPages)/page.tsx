@@ -3,6 +3,7 @@ import { Box, Grid, Link } from "@mui/material";
 // import { useTranslations } from "next-intl";
 
 import FeaturedListings from "src/widgets/FeaturedListings";
+import FeaturedProducts from "src/widgets/FeaturedProducts";
 import SearchBanner from "src/widgets/SearchBanner";
 
 export default async function Home({
@@ -24,6 +25,9 @@ export default async function Home({
           <div>
             <FeaturedListings />
           </div>
+        </Grid>
+        <Grid item xs={12}>
+          <FeaturedProducts />
         </Grid>
       </Grid>
     </Box>

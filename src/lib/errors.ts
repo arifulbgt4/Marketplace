@@ -70,6 +70,12 @@ export class ConflictError extends AppError {
   }
 }
 
+export class BusinessRuleError extends AppError {
+  constructor(message: string, requestId?: string) {
+    super(ErrorCode.BUSINESS_RULE, message, 422, { requestId });
+  }
+}
+
 export class RateLimitError extends AppError {
   constructor(message: string = "Too many requests", requestId?: string) {
     super(ErrorCode.RATE_LIMITED, message, 429, { requestId });

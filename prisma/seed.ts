@@ -1,4 +1,4 @@
-import { PrismaClient, ListingStatus, UserRole } from "@prisma/client";
+import { PrismaClient, ListingStatus, UserRole, ProductStatus } from "@prisma/client";
 import { hash } from "bcryptjs";
 
 const prisma = new PrismaClient();
@@ -41,26 +41,162 @@ async function main() {
   });
 
   // Create categories
-  const categories = [
-    { name: "Apartments", slug: "apartments", icon: "Apartment" },
-    { name: "Houses", slug: "houses", icon: "House" },
-    { name: "Cabins", slug: "cabins", icon: "Cabin" },
-    { name: "Villas", slug: "villas", icon: "Villa" },
-    { name: "Beachfront", slug: "beachfront", icon: "BeachAccess" },
-    { name: "Pools", slug: "pools", icon: "Pool" },
-    { name: "Countryside", slug: "countryside", icon: "Landscape" },
-    { name: "City", slug: "city", icon: "LocationCity" },
+  const categoryData = [
+    { name: "Electronics", slug: "electronics", icon: "Devices", displayOrder: 1 },
+    { name: "Clothing", slug: "clothing", icon: "Checkroom", displayOrder: 2 },
+    { name: "Home & Garden", slug: "home-garden", icon: "Home", displayOrder: 3 },
+    { name: "Sports", slug: "sports", icon: "Sports", displayOrder: 4 },
+    { name: "Books", slug: "books", icon: "Book", displayOrder: 5 },
+    { name: "Toys", slug: "toys", icon: "Toys", displayOrder: 6 },
+    { name: "Food & Drinks", slug: "food-drinks", icon: "Restaurant", displayOrder: 7 },
+    { name: "Health & Beauty", slug: "health-beauty", icon: "Spa", displayOrder: 8 },
   ];
 
-  for (const cat of categories) {
-    await prisma.category.upsert({
+  const cats: Record<string, string> = {};
+  for (const cat of categoryData) {
+    const created = await prisma.category.upsert({
       where: { slug: cat.slug },
-      update: {},
+      update: { displayOrder: cat.displayOrder, icon: cat.icon, isActive: true },
       create: cat,
     });
+    cats[cat.slug] = created.id;
   }
 
-  // Create sample listings
+  // Create sample products
+  const productData = [
+    {
+      name: "Wireless Bluetooth Headphones",
+      slug: "wireless-bluetooth-headphones",
+      description: "Premium wireless headphones with noise cancellation, 30-hour battery life, and comfortable over-ear design. Perfect for music lovers and professionals.",
+      brand: "SoundMax",
+      categorySlug: "electronics",
+      variants: [
+        { sku: "HP-BLACK-001", price: 79.99 },
+        { sku: "HP-WHITE-001", price: 79.99 },
+      ],
+      media: ["https://picsum.photos/seed/headphones1/800/800", "https://picsum.photos/seed/headphones2/800/800"],
+    },
+    {
+      name: "Organic Cotton T-Shirt",
+      slug: "organic-cotton-tshirt",
+      description: "Comfortable and eco-friendly 100% organic cotton t-shirt. Available in multiple colors. Pre-shrunk fabric with reinforced stitching for durability.",
+      brand: "EcoWear",
+      categorySlug: "clothing",
+      variants: [
+        { sku: "TS-S-001", price: 24.99 },
+        { sku: "TS-M-001", price: 24.99 },
+        { sku: "TS-L-001", price: 24.99 },
+      ],
+      media: ["https://picsum.photos/seed/tshirt1/800/800", "https://picsum.photos/seed/tshirt2/800/800"],
+    },
+    {
+      name: "Stainless Steel Water Bottle",
+      slug: "stainless-steel-water-bottle",
+      description: "Double-walled vacuum insulated water bottle. Keeps drinks cold for 24 hours or hot for 12 hours. BPA-free, leak-proof design with 750ml capacity.",
+      brand: "HydroLife",
+      categorySlug: "home-garden",
+      variants: [
+        { sku: "BT-SILVER-001", price: 34.99 },
+        { sku: "BT-MATTE-001", price: 36.99 },
+      ],
+      media: ["https://picsum.photos/seed/bottle1/800/800", "https://picsum.photos/seed/bottle2/800/800"],
+    },
+    {
+      name: "Yoga Mat Premium",
+      slug: "yoga-mat-premium",
+      description: "Extra thick 6mm yoga mat with non-slip surface. Includes carrying strap. Eco-friendly TPE material, perfect for yoga, pilates, and stretching.",
+      brand: "FlexFit",
+      categorySlug: "sports",
+      variants: [
+        { sku: "YM-PURPLE-001", price: 49.99 },
+        { sku: "YM-BLUE-001", price: 49.99 },
+        { sku: "YM-GREEN-001", price: 49.99 },
+      ],
+      media: ["https://picsum.photos/seed/yogamat1/800/800", "https://picsum.photos/seed/yogamat2/800/800"],
+    },
+    {
+      name: "JavaScript: The Good Parts",
+      slug: "javascript-the-good-parts",
+      description: "A deep dive into JavaScript best practices, design patterns, and modern development techniques. Essential reading for every web developer.",
+      brand: "TechPress",
+      categorySlug: "books",
+      variants: [
+        { sku: "BK-JS-001", price: 29.99 },
+        { sku: "BK-JS-EBOOK-001", price: 19.99 },
+      ],
+      media: ["https://picsum.photos/seed/book1/800/800"],
+    },
+    {
+      name: "Building Blocks Set (200 pcs)",
+      slug: "building-blocks-set",
+      description: "200 piece building blocks set compatible with major brands. Includes wheels, windows, and special pieces. Encourages creativity and motor skills.",
+      brand: "CreativePlay",
+      categorySlug: "toys",
+      variants: [
+        { sku: "BB-200-001", price: 39.99 },
+      ],
+      media: ["https://picsum.photos/seed/blocks1/800/800", "https://picsum.photos/seed/blocks2/800/800"],
+    },
+    {
+      name: "Artisan Coffee Beans - Ethiopian",
+      slug: "artisan-coffee-beans-ethiopian",
+      description: "Single-origin Ethiopian Yirgacheffe coffee beans. Light roast with floral and citrus notes. 1kg bag, freshly roasted and sealed for maximum freshness.",
+      brand: "BrewMaster",
+      categorySlug: "food-drinks",
+      variants: [
+        { sku: "CF-WHOLE-001", price: 22.99 },
+        { sku: "CF-GROUND-001", price: 22.99 },
+      ],
+      media: ["https://picsum.photos/seed/coffee1/800/800"],
+    },
+    {
+      name: "Natural Face Moisturizer",
+      slug: "natural-face-moisturizer",
+      description: "Lightweight daily face moisturizer with hyaluronic acid and vitamin E. Suitable for all skin types. Cruelty-free and made with natural ingredients.",
+      brand: "PureGlow",
+      categorySlug: "health-beauty",
+      variants: [
+        { sku: "FM-50ML-001", price: 28.99 },
+        { sku: "FM-100ML-001", price: 42.99 },
+      ],
+      media: ["https://picsum.photos/seed/moisturizer1/800/800"],
+    },
+  ];
+
+  for (const pd of productData) {
+    const existing = await prisma.product.findUnique({ where: { slug: pd.slug } });
+    if (!existing) {
+      await prisma.product.create({
+        data: {
+          name: pd.name,
+          slug: pd.slug,
+          description: pd.description,
+          brand: pd.brand,
+          status: ProductStatus.published,
+          categoryId: cats[pd.categorySlug],
+          createdById: admin.id,
+          variants: {
+            create: pd.variants.map((v) => ({
+              sku: v.sku,
+              price: v.price,
+              inventory: {
+                create: { onHand: Math.floor(Math.random() * 100) + 10, reserved: 0 },
+              },
+            })),
+          },
+          media: {
+            create: pd.media.map((url, idx) => ({
+              url,
+              alt: `${pd.name} image ${idx + 1}`,
+              order: idx,
+            })),
+          },
+        },
+      });
+    }
+  }
+
+  // Create sample listings (existing behavior)
   const apartmentsCategory = await prisma.category.findUnique({
     where: { slug: "apartments" },
   });
@@ -158,7 +294,12 @@ async function main() {
     }
   }
 
-  console.log("Seed completed:", { admin: admin.email, demo: demo.email });
+  console.log("Seed completed:", {
+    admin: admin.email,
+    demo: demo.email,
+    products: productData.length,
+    categories: categoryData.length,
+  });
 }
 
 main()

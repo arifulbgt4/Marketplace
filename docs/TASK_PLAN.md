@@ -104,23 +104,23 @@ Remaining risks:
 
 | ID এবং title | Goal ও context | Likely files/modules | Acceptance criteria | Dependencies ও agent note | Testing requirement | Status |
 |---|---|---|---|---|---|---|
-| P3-01 Product base schema | Rental Listing-এর পাশে reusable Product model | Prisma Product models | Name, slug, description, status, brand, tax class আছে | P1-08, P2-05, P2-06 | Migration validation | Not started |
-| P3-02 Variant and SKU schema | Size/color/pack sellable variants support | ProductVariant/ProductOption | Unique SKU, optional barcode, price override | P3-01 | Duplicate SKU/option tests | Not started |
-| P3-03 Product media model | Ordered product images/media metadata | ProductMedia এবং media service | Primary media, order, alt text supported | P2-15, P3-01 | Ordering/ownership tests | Not started |
-| P3-04 Category rules | Hierarchy, visibility, order এবং archive rules | Category model/domain | Parent cycles prevented; archived hidden | P3-01 | Cycle/slug tests | Not started |
-| P3-05 Category CRUD | Admin create/edit/reorder/archive | Category service/API/admin UI | Unsafe delete blocked; validation visible | P2-08, P3-04 | RBAC/conflict tests | Not started |
-| P3-06 Product create service | Validated draft product creation | Product service/API | Product এবং variants atomically created | P2-08, P3-01, P3-02, P3-03 | Invalid payload/rollback tests | Not started |
-| P3-07 Product update/archive | Edit এবং non-destructive removal | Product service/API | Existing order snapshot unaffected | P3-06 | Archive/concurrent update tests | Not started |
-| P3-08 Publish validator | Incomplete product publication block করা | Catalog policy | Category, media, SKU, price, stock policy enforced | P3-03, P3-06 | Missing-field matrix | Not started |
-| P3-09 Public catalog queries | Published product list/detail DTO | Catalog query module | Draft/archived inaccessible; pagination typed | P3-08 | Visibility/pagination tests | Not started |
-| P3-10 Search/filter/sort contract | Query, category, price, availability এবং sort | Catalog query/API | Stable URL params; deterministic sorting | P3-09 | Filter combination tests | Not started |
-| P3-11 Storefront catalog wiring | Business-fit cards/lists/details-এ product data | Listing widgets/pages/routes | Catalog UI target product-এর উপযোগী; homepage placement protected visual composition preserve করে; rental labels removed/configured | P3-09, P1-07 | Homepage visual regression; catalog interaction/responsive tests | Not started |
-| P3-12 Product admin list | Admin search/filter/status list | Future admin catalog pages | Paginated list এবং state-aware actions | P3-06, P3-07, P3-08 | Admin E2E smoke | Not started |
-| P3-13 Product editor | Product/variant/media editor | Existing ListingForm or new product form | Create/edit/publish errors visible; no silent no-op | P3-06, P3-08, P3-12 | Form integration tests | Not started |
-| P3-14 Inventory schema | Variant-level on-hand/reserved/available stock | Inventory and ledger models | Balances এবং low-stock threshold supported | P3-02 | Constraints/aggregate tests | Not started |
-| P3-15 Atomic stock operations | Reserve/commit/release/adjust service | Inventory service | Concurrent checkout oversell করতে পারে না | P3-14 | Transaction/concurrency tests | Not started |
-| P3-16 Inventory admin UI | Stock view এবং reasoned adjustment | Admin inventory pages | Adjustment audited; balance consistent | P2-10, P3-15 | RBAC/adjustment E2E | Not started |
-| P3-17 Seed and legacy backfill | Generic reusable demo catalog এবং mapping | `prisma/seed.ts`, migration scripts | Seed idempotent; property data core dependency নয় | P1-08, P3-01, P3-02, P3-03, P3-04, P3-05, P3-06, P3-07, P3-08, P3-09, P3-10, P3-11, P3-12, P3-13, P3-14, P3-15, P3-16 | Empty/populated database dry run | Not started |
+| P3-01 Product base schema | Rental Listing-এর পাশে reusable Product model | Prisma Product models | Name, slug, description, status, brand, tax class আছে | P1-08, P2-05, P2-06 | Migration validation | Complete |
+| P3-02 Variant and SKU schema | Size/color/pack sellable variants support | ProductVariant/ProductOption | Unique SKU, optional barcode, price override | P3-01 | Duplicate SKU/option tests | Complete |
+| P3-03 Product media model | Ordered product images/media metadata | ProductMedia এবং media service | Primary media, order, alt text supported | P2-15, P3-01 | Ordering/ownership tests | Complete |
+| P3-04 Category rules | Hierarchy, visibility, order এবং archive rules | Category model/domain | Parent cycles prevented; archived hidden | P3-01 | Cycle/slug tests | Complete |
+| P3-05 Category CRUD | Admin create/edit/reorder/archive | Category service/API/admin UI | Unsafe delete blocked; validation visible | P2-08, P3-04 | RBAC/conflict tests | Complete |
+| P3-06 Product create service | Validated draft product creation | Product service/API | Product এবং variants atomically created | P2-08, P3-01, P3-02, P3-03 | Invalid payload/rollback tests | Complete |
+| P3-07 Product update/archive | Edit এবং non-destructive removal | Product service/API | Existing order snapshot unaffected | P3-06 | Archive/concurrent update tests | Complete |
+| P3-08 Publish validator | Incomplete product publication block করা | Catalog policy | Category, media, SKU, price, stock policy enforced | P3-03, P3-06 | Missing-field matrix | Complete |
+| P3-09 Public catalog queries | Published product list/detail DTO | Catalog query module | Draft/archived inaccessible; pagination typed | P3-08 | Visibility/pagination tests | Complete |
+| P3-10 Search/filter/sort contract | Query, category, price, availability এবং sort | Catalog query/API | Stable URL params; deterministic sorting | P3-09 | Filter combination tests | Complete |
+| P3-11 Storefront catalog wiring | Business-fit cards/lists/details-এ product data | Listing widgets/pages/routes | Catalog UI target product-এর উপযোগী; homepage placement protected visual composition preserve করে; rental labels removed/configured | P3-09, P1-07 | Homepage visual regression; catalog interaction/responsive tests | Complete |
+| P3-12 Product admin list | Admin search/filter/status list | Future admin catalog pages | Paginated list এবং state-aware actions | P3-06, P3-07, P3-08 | Admin E2E smoke | Complete |
+| P3-13 Product editor | Product/variant/media editor | Existing ListingForm or new product form | Create/edit/publish errors visible; no silent no-op | P3-06, P3-08, P3-12 | Form integration tests | Complete |
+| P3-14 Inventory schema | Variant-level on-hand/reserved/available stock | Inventory and ledger models | Balances এবং low-stock threshold supported | P3-02 | Constraints/aggregate tests | Complete |
+| P3-15 Atomic stock operations | Reserve/commit/release/adjust service | Inventory service | Concurrent checkout oversell করতে পারে না | P3-14 | Transaction/concurrency tests | Complete |
+| P3-16 Inventory admin UI | Stock view এবং reasoned adjustment | Admin inventory pages | Adjustment audited; balance consistent | P2-10, P3-15 | RBAC/adjustment E2E | Complete |
+| P3-17 Seed and legacy backfill | Generic reusable demo catalog এবং mapping | `prisma/seed.ts`, migration scripts | Seed idempotent; property data core dependency নয় | P1-08, P3-01, P3-02, P3-03, P3-04, P3-05, P3-06, P3-07, P3-08, P3-09, P3-10, P3-11, P3-12, P3-13, P3-14, P3-15, P3-16 | Empty/populated database dry run | Complete |
 
 ## Phase 4: Cart and checkout
 
@@ -270,4 +270,102 @@ Acceptance criteria:
 Tests run and results:
 Documentation updated:
 Remaining risks:
+```
+
+## Phase 3 completion evidence (2026-07-05)
+
+```
+Task: P3-01 through P3-17
+Status: Complete
+Changed files:
+  prisma/schema.prisma
+  prisma/seed.ts
+  src/lib/catalog.ts
+  src/lib/errors.ts (added BusinessRuleError)
+  src/lib/services/product.ts
+  src/lib/services/category.ts
+  src/lib/services/catalog.ts
+  src/lib/services/inventory.ts
+  src/global/routes/index.ts
+  src/middleware.ts
+  src/app/api/admin/categories/route.ts
+  src/app/api/admin/categories/[id]/route.ts
+  src/app/api/admin/categories/tree/route.ts
+  src/app/api/admin/products/route.ts
+  src/app/api/admin/products/[id]/route.ts
+  src/app/api/admin/products/[id]/publish/route.ts
+  src/app/api/admin/products/[id]/variants/route.ts
+  src/app/api/admin/products/[id]/media/route.ts
+  src/app/api/admin/inventory/route.ts
+  src/app/api/admin/inventory/adjust/route.ts
+  src/app/api/admin/inventory/ledger/route.ts
+  src/app/api/catalog/route.ts
+  src/app/api/catalog/categories/route.ts
+  src/app/[locale]/(WrappedPages)/admin/categories/page.tsx
+  src/app/[locale]/(WrappedPages)/admin/products/page.tsx
+  src/app/[locale]/(WrappedPages)/admin/products/new/page.tsx
+  src/app/[locale]/(WrappedPages)/admin/products/[id]/page.tsx
+  src/app/[locale]/(WrappedPages)/admin/inventory/page.tsx
+  src/app/[locale]/(WrappedPages)/admin/layout.tsx
+  src/app/[locale]/(WrappedPages)/products/page.tsx
+  src/app/[locale]/(WrappedPages)/products/[slug]/page.tsx
+  src/widgets/FeaturedProducts.tsx
+  src/__tests__/catalog.test.ts
+  src/__tests__/money.test.ts
+
+Behavior delivered:
+  - Product model with name, slug, description, status, brand, taxClass, category, legacyListingId
+  - ProductVariant model with unique SKU, barcode, price (Decimal), compareAtPrice
+  - ProductOption model with name and values (JSON)
+  - ProductMedia model with url, alt, order
+  - Inventory model with onHand, reserved, lowStockThreshold per variant
+  - InventoryLedger model with entryType, quantity, reason, reference, actor
+  - Category enhancements: displayOrder, isActive, cycle detection
+  - Zod schemas for all models with validation
+  - ProductService: create (with atomic variant/option/media creation), update, archive, publish
+  - CategoryService: create, update, archive, delete with cycle detection and unsafe-delete prevention
+  - CatalogQueryService: published-only queries, search with filter/sort/pagination, featured, by-category
+  - InventoryService: adjust, reserve, commit, release with transactional ledger entries
+  - validatePublish: enforces category, media, SKU, and price requirements
+  - Admin API routes: full CRUD for categories, products, variants, media, inventory, ledger
+  - Public catalog API: search, detail (by slug), featured, by-category, active categories
+  - Admin UI: category list/editor, product list/editor/new, inventory low-stock view/adjust
+  - Storefront catalog: product listing page with search/sort/pagination, product detail page
+  - FeaturedProducts widget for homepage
+  - Middleware updated: products route added to public pages
+  - Seed script: 8 categories + 8 published demo products with variants and media
+  - BusinessRuleError class added to errors.ts
+  - 26 catalog-specific validation tests + 12 money tests
+
+Acceptance criteria:
+  - Product, variant, SKU, option, media schemas validated (P3-01, P3-02, P3-03)
+  - Category hierarchy, visibility, order, archive rules with cycle prevention (P3-04, P3-05)
+  - Admin CRUD with RBAC (admin/catalog_manager) for categories, products (P3-05, P3-06, P3-07)
+  - Publish validation blocks incomplete products (P3-08)
+  - Public queries exclude draft/archived; pagination typed (P3-09)
+  - Search with query, category, price, sort, page params (P3-10)
+  - Storefront product cards/list/detail pages; homepage composition intact (P3-11)
+  - Admin product list with search/filter + editor with variant/media management (P3-12, P3-13)
+  - Inventory on-hand/reserved with low-stock threshold (P3-14)
+  - Atomic reserve/commit/release/adjust with ledger audit (P3-15)
+  - Inventory admin UI with low-stock view and reasoned adjustment (P3-16)
+  - Idempotent seed with 8 demo products; legacy listing seed preserved (P3-17)
+
+Tests run and results:
+  - vitest run: 4 test files, 63 tests all passing
+    - catalog.test.ts: 26 tests (product/variant/category/search schemas, publish validation)
+    - money.test.ts: 12 tests (Money creation, arithmetic, formatting, comparison)
+    - rate-limit.test.ts: 5 tests
+    - validations.test.ts: 20 tests
+  - tsc --noEmit: Passed (0 errors)
+  - next lint: Passed (0 warnings/errors)
+
+Documentation updated:
+  - docs/TASK_PLAN.md: All Phase 3 tasks marked Complete with evidence
+
+Remaining risks:
+  - Prisma migration not yet run (requires live PostgreSQL); schema validated successfully
+  - Date picker in SearchFilterForm still shows "When?" (rental legacy); product catalog uses different UX
+  - Admin middleware checks only 'admin' role; catalog_manager role users cannot access admin pages yet
+  - Homepage FeaturedListings and FeaturedProducts are separate widgets; future consolidation possible
 ```

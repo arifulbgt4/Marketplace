@@ -27,4 +27,10 @@ export default {
   privacy: "/privacy",
   terms: "/terms",
   cookies: "/cookies",
+  products: "/products",
+  product: "/products/",
+  admin: "/admin",
+  adminCategories: "/admin/categories",
+  adminProducts: "/admin/products",
+  adminInventory: "/admin/inventory",
 };

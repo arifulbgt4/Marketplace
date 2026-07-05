@@ -17,6 +17,7 @@ const publicPages = [
   routes.blog,
   routes.contact,
   routes.listings,
+  routes.products,
   routes.terms,
   routes.privacy,
   routes.cookies,
