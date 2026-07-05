@@ -1,9 +1,24 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import {
-  Box, Container, Typography, Paper, Stack, Button, TextField,
-  Select, MenuItem, FormControl, InputLabel, Divider, Alert,
-  Skeleton, Chip, Radio, RadioGroup, FormControlLabel,
+  Box,
+  Container,
+  Typography,
+  Paper,
+  Stack,
+  Button,
+  TextField,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Divider,
+  Alert,
+  Skeleton,
+  Chip,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
 } from "@mui/material";
 import Link from "next/link";
 import { v4 as uuidv4 } from "uuid";
@@ -17,6 +32,7 @@ interface CartItem {
   unitPrice: number;
   quantity: number;
   imageUrl: string | null;
+  weightGrams: number;
 }
 
 interface Address {
@@ -67,7 +83,12 @@ interface CheckoutSession {
 }
 
 export default function CheckoutPage() {
-  const [cart, setCart] = useState<{ id: string; items: CartItem[]; subtotal: number } | null>(null);
+  const [cart, setCart] = useState<{
+    id: string;
+    items: CartItem[];
+    subtotal: number;
+    totalWeightGrams: number;
+  } | null>(null);
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [deliveryMethods, setDeliveryMethods] = useState<DeliveryMethod[]>([]);
   const [session, setSession] = useState<CheckoutSession | null>(null);
@@ -77,9 +98,24 @@ export default function CheckoutPage() {
   const [selectedAddress, setSelectedAddress] = useState("");
   const [selectedMethod, setSelectedMethod] = useState("");
   const [couponCode, setCouponCode] = useState("");
-  const [couponMsg, setCouponMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [couponMsg, setCouponMsg] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
   const [couponApplied, setCouponApplied] = useState(false);
   const [notes, setNotes] = useState("");
+  const [addingAddress, setAddingAddress] = useState(false);
+  const [addressError, setAddressError] = useState("");
+  const [newAddress, setNewAddress] = useState({
+    label: "Home",
+    line1: "",
+    line2: "",
+    city: "",
+    state: "",
+    postalCode: "",
+    country: "",
+    phone: "",
+  });
 
   const fetchCart = useCallback(async () => {
     const res = await fetch("/api/cart");
@@ -97,14 +133,24 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     (async () => {
-      const [cartData, addrData] = await Promise.all([fetchCart(), fetchAddresses()]);
+      const [cartData, addrData] = await Promise.all([
+        fetchCart(),
+        fetchAddresses(),
+      ]);
       setCart(cartData);
-      setAddresses(addrData.addresses || addrData || []);
+      const addressList: Address[] = addrData.addresses || addrData || [];
+      const defaultAddress =
+        addressList.find((address) => address.isDefault) ?? addressList[0];
+      setAddresses(addressList);
+      setSelectedAddress(defaultAddress?.id ?? "");
       if (cartData && cartData.items && cartData.items.length > 0) {
         const res = await fetch("/api/checkout", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ cartId: cartData.id }),
+          body: JSON.stringify({
+            cartId: cartData.id,
+            shippingAddressId: defaultAddress?.id,
+          }),
         });
         if (res.ok) {
           const sess = await res.json();
@@ -125,7 +171,6 @@ export default function CheckoutPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           code: couponCode.trim(),
-          userId: "current",
           subtotal: cart?.subtotal || 0,
           productIds: cart?.items.map((i) => i.productId) || [],
         }),
@@ -170,12 +215,55 @@ export default function CheckoutPage() {
 
   const selectAddress = async (addressId: string) => {
     setSelectedAddress(addressId);
+    setSelectedMethod("");
+    setDeliveryMethods([]);
     if (!session) return;
-    await fetch(`/api/checkout/${session.id}`, {
+    const res = await fetch(`/api/checkout/${session.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ shippingAddressId: addressId }),
+      body: JSON.stringify({
+        shippingAddressId: addressId,
+        deliveryMethodId: null,
+      }),
     });
+    if (res.ok) setSession(await res.json());
+  };
+
+  const createAddress = async () => {
+    setAddressError("");
+    setAddingAddress(true);
+    try {
+      const res = await fetch("/api/address", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...newAddress,
+          type: "shipping",
+          isDefault: addresses.length === 0,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setAddressError(data.message || "Unable to save address");
+        return;
+      }
+      setAddresses((current) => [...current, data]);
+      await selectAddress(data.id);
+      setNewAddress({
+        label: "Home",
+        line1: "",
+        line2: "",
+        city: "",
+        state: "",
+        postalCode: "",
+        country: "",
+        phone: "",
+      });
+    } catch {
+      setAddressError("Unable to save address");
+    } finally {
+      setAddingAddress(false);
+    }
   };
 
   useEffect(() => {
@@ -183,7 +271,9 @@ export default function CheckoutPage() {
     const selectedAddr = addresses.find((a) => a.id === selectedAddress);
     if (!selectedAddr) return;
     (async () => {
-      const res = await fetch(`/api/delivery/zones?country=${selectedAddr.country}&subtotal=${cart?.subtotal || 0}`);
+      const res = await fetch(
+        `/api/delivery/zones?country=${encodeURIComponent(selectedAddr.country)}&region=${encodeURIComponent(selectedAddr.state)}&postalCode=${encodeURIComponent(selectedAddr.postalCode)}&subtotal=${cart?.subtotal || 0}&weightGrams=${cart?.totalWeightGrams || 0}`,
+      );
       if (res.ok) {
         const data = await res.json();
         if (data.eligible) {
@@ -191,7 +281,7 @@ export default function CheckoutPage() {
         }
       }
     })();
-  }, [selectedAddress, addresses, cart?.subtotal]);
+  }, [selectedAddress, addresses, cart?.subtotal, cart?.totalWeightGrams]);
 
   const placeOrder = async () => {
     if (!session) return;
@@ -249,13 +339,22 @@ export default function CheckoutPage() {
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
-      <Typography variant="h4" mb={3}>Checkout</Typography>
+      <Typography variant="h4" mb={3}>
+        Checkout
+      </Typography>
 
       <Stack spacing={3}>
         <Paper sx={{ p: 3 }}>
-          <Typography variant="h6" mb={2}>Order Summary</Typography>
+          <Typography variant="h6" mb={2}>
+            Order Summary
+          </Typography>
           {cart.items.map((item) => (
-            <Stack key={item.id} direction="row" justifyContent="space-between" mb={1}>
+            <Stack
+              key={item.id}
+              direction="row"
+              justifyContent="space-between"
+              mb={1}
+            >
               <Typography variant="body2">
                 {item.productName} x{item.quantity}
               </Typography>
@@ -267,12 +366,16 @@ export default function CheckoutPage() {
           <Divider sx={{ my: 2 }} />
           <Stack direction="row" justifyContent="space-between">
             <Typography>Subtotal</Typography>
-            <Typography fontWeight={600}>${(cart.subtotal || 0).toFixed(2)}</Typography>
+            <Typography fontWeight={600}>
+              ${(cart.subtotal || 0).toFixed(2)}
+            </Typography>
           </Stack>
           {session && session.discountAmount > 0 && (
             <Stack direction="row" justifyContent="space-between">
               <Typography color="success.main">Discount</Typography>
-              <Typography color="success.main">-${session.discountAmount.toFixed(2)}</Typography>
+              <Typography color="success.main">
+                -${session.discountAmount.toFixed(2)}
+              </Typography>
             </Stack>
           )}
           {session && session.shippingCost > 0 && (
@@ -290,11 +393,16 @@ export default function CheckoutPage() {
           </Stack>
         </Paper>
 
-        {addresses.length > 0 && (
-          <Paper sx={{ p: 3 }}>
-            <Typography variant="h6" mb={2}>Shipping Address</Typography>
+        <Paper sx={{ p: 3 }}>
+          <Typography variant="h6" mb={2}>
+            Shipping Address
+          </Typography>
+          {addresses.length > 0 && (
             <FormControl component="fieldset" fullWidth>
-              <RadioGroup value={selectedAddress} onChange={(e) => selectAddress(e.target.value)}>
+              <RadioGroup
+                value={selectedAddress}
+                onChange={(e) => selectAddress(e.target.value)}
+              >
                 {addresses.map((addr) => (
                   <FormControlLabel
                     key={addr.id}
@@ -305,14 +413,110 @@ export default function CheckoutPage() {
                 ))}
               </RadioGroup>
             </FormControl>
-          </Paper>
-        )}
+          )}
+          <Divider sx={{ my: 2 }} />
+          <Typography variant="subtitle1" mb={1}>
+            Add a new address
+          </Typography>
+          <Stack spacing={2}>
+            <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+              <TextField
+                label="Label"
+                value={newAddress.label}
+                onChange={(event) =>
+                  setNewAddress({ ...newAddress, label: event.target.value })
+                }
+                fullWidth
+              />
+              <TextField
+                label="Country code"
+                value={newAddress.country}
+                onChange={(event) =>
+                  setNewAddress({
+                    ...newAddress,
+                    country: event.target.value.toUpperCase(),
+                  })
+                }
+                inputProps={{ maxLength: 2 }}
+                helperText="ISO code, e.g. BD or US"
+                required
+                fullWidth
+              />
+            </Stack>
+            <TextField
+              label="Address line 1"
+              value={newAddress.line1}
+              onChange={(event) =>
+                setNewAddress({ ...newAddress, line1: event.target.value })
+              }
+              required
+              fullWidth
+            />
+            <TextField
+              label="Address line 2"
+              value={newAddress.line2}
+              onChange={(event) =>
+                setNewAddress({ ...newAddress, line2: event.target.value })
+              }
+              fullWidth
+            />
+            <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+              {(["city", "state", "postalCode"] as const).map((field) => (
+                <TextField
+                  key={field}
+                  label={
+                    field === "postalCode"
+                      ? "Postal code"
+                      : field[0].toUpperCase() + field.slice(1)
+                  }
+                  value={newAddress[field]}
+                  onChange={(event) =>
+                    setNewAddress({
+                      ...newAddress,
+                      [field]: event.target.value,
+                    })
+                  }
+                  required
+                  fullWidth
+                />
+              ))}
+            </Stack>
+            <TextField
+              label="Phone"
+              value={newAddress.phone}
+              onChange={(event) =>
+                setNewAddress({ ...newAddress, phone: event.target.value })
+              }
+              fullWidth
+            />
+            {addressError && <Alert severity="error">{addressError}</Alert>}
+            <Button
+              variant="outlined"
+              onClick={createAddress}
+              disabled={
+                addingAddress ||
+                !newAddress.line1.trim() ||
+                !newAddress.city.trim() ||
+                !newAddress.state.trim() ||
+                !newAddress.postalCode.trim() ||
+                newAddress.country.trim().length !== 2
+              }
+            >
+              {addingAddress ? "Saving..." : "Save and use address"}
+            </Button>
+          </Stack>
+        </Paper>
 
         {deliveryMethods.length > 0 && (
           <Paper sx={{ p: 3 }}>
-            <Typography variant="h6" mb={2}>Delivery Method</Typography>
+            <Typography variant="h6" mb={2}>
+              Delivery Method
+            </Typography>
             <FormControl component="fieldset" fullWidth>
-              <RadioGroup value={selectedMethod} onChange={(e) => selectDelivery(e.target.value)}>
+              <RadioGroup
+                value={selectedMethod}
+                onChange={(e) => selectDelivery(e.target.value)}
+              >
                 {deliveryMethods.map((m) => (
                   <FormControlLabel
                     key={m.id}
@@ -320,10 +524,14 @@ export default function CheckoutPage() {
                     control={<Radio />}
                     label={
                       <Stack>
-                        <Typography variant="body2">{m.name} {m.carrier ? `(${m.carrier})` : ""}</Typography>
+                        <Typography variant="body2">
+                          {m.name} {m.carrier ? `(${m.carrier})` : ""}
+                        </Typography>
                         <Typography variant="caption" color="text.secondary">
                           ${m.cost.toFixed(2)}
-                          {m.estimatedDaysMin ? ` - ${m.estimatedDaysMin}–${m.estimatedDaysMax} days` : ""}
+                          {m.estimatedDaysMin
+                            ? ` - ${m.estimatedDaysMin}–${m.estimatedDaysMax} days`
+                            : ""}
                         </Typography>
                       </Stack>
                     }
@@ -335,7 +543,9 @@ export default function CheckoutPage() {
         )}
 
         <Paper sx={{ p: 3 }}>
-          <Typography variant="h6" mb={2}>Coupon</Typography>
+          <Typography variant="h6" mb={2}>
+            Coupon
+          </Typography>
           <Stack direction="row" spacing={2}>
             <TextField
               size="small"
@@ -354,12 +564,16 @@ export default function CheckoutPage() {
             </Button>
           </Stack>
           {couponMsg && (
-            <Alert severity={couponMsg.type} sx={{ mt: 1 }}>{couponMsg.text}</Alert>
+            <Alert severity={couponMsg.type} sx={{ mt: 1 }}>
+              {couponMsg.text}
+            </Alert>
           )}
         </Paper>
 
         <Paper sx={{ p: 3 }}>
-          <Typography variant="h6" mb={2}>Notes (Optional)</Typography>
+          <Typography variant="h6" mb={2}>
+            Notes (Optional)
+          </Typography>
           <TextField
             multiline
             rows={3}
@@ -375,9 +589,11 @@ export default function CheckoutPage() {
           size="large"
           fullWidth
           onClick={placeOrder}
-          disabled={placing || !session}
+          disabled={placing || !session || !selectedAddress || !selectedMethod}
         >
-          {placing ? "Placing Order..." : `Place Order — $${(session?.totalAmount || 0).toFixed(2)}`}
+          {placing
+            ? "Placing Order..."
+            : `Place Order — $${(session?.totalAmount || 0).toFixed(2)}`}
         </Button>
       </Stack>
     </Container>

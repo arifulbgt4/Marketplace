@@ -44,4 +44,4 @@ package-lock.json
 sw.*
 workbox-*.*
 
-**/prisma/migrations*
+/.pnpm-store/

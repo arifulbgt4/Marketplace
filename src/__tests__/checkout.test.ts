@@ -26,8 +26,8 @@ describe("cartAddItemSchema", () => {
     expect(result.success).toBe(true);
   });
 
-  it("rejects zero price", () => {
-    const result = cartAddItemSchema.safeParse({
+  it("does not accept client-authoritative product snapshots", () => {
+    const result = cartAddItemSchema.parse({
       variantId: "123e4567-e89b-12d3-a456-426614174000",
       productId: "123e4567-e89b-12d3-a456-426614174001",
       sku: "TEST-001",
@@ -35,7 +35,10 @@ describe("cartAddItemSchema", () => {
       unitPrice: 0,
       quantity: 2,
     });
-    expect(result.success).toBe(false);
+    expect(result).toEqual({
+      variantId: "123e4567-e89b-12d3-a456-426614174000",
+      quantity: 2,
+    });
   });
 
   it("rejects quantity exceeding 100", () => {
@@ -50,16 +53,12 @@ describe("cartAddItemSchema", () => {
     expect(result.success).toBe(false);
   });
 
-  it("rejects empty SKU", () => {
+  it("requires only a variant identity and quantity", () => {
     const result = cartAddItemSchema.safeParse({
       variantId: "123e4567-e89b-12d3-a456-426614174000",
-      productId: "123e4567-e89b-12d3-a456-426614174001",
-      sku: "",
-      productName: "Test Product",
-      unitPrice: 29.99,
       quantity: 1,
     });
-    expect(result.success).toBe(false);
+    expect(result.success).toBe(true);
   });
 });
 
@@ -171,12 +170,36 @@ describe("deliveryMethodSchema", () => {
     expect(result.success).toBe(true);
   });
 
-  it("rejects zero price", () => {
+  it("allows an explicitly free delivery method", () => {
     const result = deliveryMethodSchema.safeParse({
       zoneId: "123e4567-e89b-12d3-a456-426614174000",
       name: "Free Shipping",
       code: "free",
       price: 0,
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("accepts a valid shipping weight range", () => {
+    const result = deliveryMethodSchema.safeParse({
+      zoneId: "123e4567-e89b-12d3-a456-426614174000",
+      name: "Parcel Shipping",
+      code: "parcel",
+      price: 7.5,
+      minWeightGrams: 500,
+      maxWeightGrams: 5000,
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("rejects an inverted shipping weight range", () => {
+    const result = deliveryMethodSchema.safeParse({
+      zoneId: "123e4567-e89b-12d3-a456-426614174000",
+      name: "Invalid Shipping",
+      code: "invalid-weight",
+      price: 7.5,
+      minWeightGrams: 5000,
+      maxWeightGrams: 500,
     });
     expect(result.success).toBe(false);
   });

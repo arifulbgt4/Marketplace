@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
 
 import { prisma } from "src/lib/prisma";
-import { authOptions } from "src/lib/auth";
+import { getAuthSession } from "src/lib/authz";
 import { reviewSchema } from "src/lib/validations";
 
 export async function GET(req: Request) {
@@ -13,7 +12,7 @@ export async function GET(req: Request) {
     if (!listingId) {
       return NextResponse.json(
         { status: "error", message: "listingId is required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -35,18 +34,18 @@ export async function GET(req: Request) {
     console.error("Failed to fetch reviews:", error);
     return NextResponse.json(
       { status: "error", message: "Failed to fetch reviews" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
 export async function POST(req: Request) {
   try {
-    const session = (await getServerSession(authOptions)) as any;
-    if (!session?.user?.id) {
+    const session = await getAuthSession();
+    if (!session) {
       return NextResponse.json(
         { status: "error", message: "Unauthorized" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -60,17 +59,27 @@ export async function POST(req: Request) {
           message: "Validation failed",
           errors: result.error.flatten().fieldErrors,
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
-    const { listingId, rating, cleanliness, communication, checkIn, accuracy, location, value, comment } = result.data;
+    const {
+      listingId,
+      rating,
+      cleanliness,
+      communication,
+      checkIn,
+      accuracy,
+      location,
+      value,
+      comment,
+    } = result.data;
 
     // Check if user already reviewed this listing
     const existingReview = await prisma.review.findUnique({
       where: {
         userId_listingId: {
-          userId: session.user.id,
+          userId: session.userId,
           listingId,
         },
       },
@@ -79,14 +88,14 @@ export async function POST(req: Request) {
     if (existingReview) {
       return NextResponse.json(
         { status: "error", message: "You have already reviewed this listing" },
-        { status: 409 }
+        { status: 409 },
       );
     }
 
     const review = await prisma.review.create({
       data: {
         listingId,
-        userId: session.user.id,
+        userId: session.userId,
         rating,
         cleanliness,
         communication,
@@ -111,7 +120,7 @@ export async function POST(req: Request) {
     console.error("Failed to create review:", error);
     return NextResponse.json(
       { status: "error", message: "Failed to create review" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

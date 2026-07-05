@@ -7,16 +7,27 @@ export async function GET(request: NextRequest) {
   const subtotal = searchParams.get("subtotal");
 
   if (country) {
-    const result = await deliveryService.getShippingQuote(Number(subtotal) || 0, country);
+    const result = await deliveryService.getShippingQuote(
+      Number(subtotal) || 0,
+      country,
+      searchParams.get("currency") || "USD",
+      searchParams.get("region") || undefined,
+      searchParams.get("postalCode") || undefined,
+      Math.max(0, Number(searchParams.get("weightGrams")) || 0),
+    );
     if (!result.success) {
-      return NextResponse.json(result.error.toSafeJSON(), { status: result.error.statusCode });
+      return NextResponse.json(result.error.toSafeJSON(), {
+        status: result.error.statusCode,
+      });
     }
     return NextResponse.json(result.data);
   }
 
   const result = await deliveryService.getActiveZones();
   if (!result.success) {
-    return NextResponse.json(result.error.toSafeJSON(), { status: result.error.statusCode });
+    return NextResponse.json(result.error.toSafeJSON(), {
+      status: result.error.statusCode,
+    });
   }
   return NextResponse.json(result.data);
 }

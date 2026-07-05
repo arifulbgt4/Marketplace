@@ -1,5 +1,5 @@
 import { unlink, mkdir, writeFile } from "fs/promises";
-import { join, extname } from "path";
+import { join, resolve, sep } from "path";
 import { randomUUID } from "crypto";
 import { ValidationError } from "src/lib/errors";
 
@@ -8,13 +8,18 @@ export const ALLOWED_MIME_TYPES = [
   "image/png",
   "image/gif",
   "image/webp",
-  "image/svg+xml",
-  "application/pdf",
 ] as const;
 
 export type AllowedMimeType = (typeof ALLOWED_MIME_TYPES)[number];
 
 export const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+
+const EXTENSIONS: Record<AllowedMimeType, string> = {
+  "image/jpeg": ".jpg",
+  "image/png": ".png",
+  "image/gif": ".gif",
+  "image/webp": ".webp",
+};
 
 export interface MediaFile {
   buffer: Buffer;
@@ -46,15 +51,19 @@ export class LocalMediaAdapter implements MediaStorageAdapter {
     this.baseUrl = baseUrl ?? "/uploads";
   }
 
-  async save(file: MediaFile, directory: string = "general"): Promise<MediaResult> {
+  async save(
+    file: MediaFile,
+    directory: string = "general",
+  ): Promise<MediaResult> {
     this.validateFile(file);
+    const safeDirectory = this.safeRelativePath(directory);
 
-    const ext = extname(file.originalName) || ".bin";
+    const ext = EXTENSIONS[file.mimeType as AllowedMimeType];
     const filename = `${randomUUID()}${ext}`;
-    const relativePath = join(directory, filename);
-    const fullPath = join(this.basePath, relativePath);
+    const relativePath = join(safeDirectory, filename);
+    const fullPath = this.resolveInsideBase(relativePath);
 
-    await mkdir(join(this.basePath, directory), { recursive: true });
+    await mkdir(this.resolveInsideBase(safeDirectory), { recursive: true });
     await writeFile(fullPath, new Uint8Array(file.buffer));
 
     return {
@@ -67,28 +76,89 @@ export class LocalMediaAdapter implements MediaStorageAdapter {
   }
 
   async delete(path: string): Promise<void> {
-    const fullPath = join(this.basePath, path);
+    const fullPath = this.resolveInsideBase(this.safeRelativePath(path));
     try {
       await unlink(fullPath);
-    } catch {
-      // File not found is acceptable
+    } catch (error: unknown) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
     }
   }
 
   getUrl(path: string): string {
-    return `${this.baseUrl}/${path}`;
+    return `${this.baseUrl}/${this.safeRelativePath(path).replaceAll("\\", "/")}`;
   }
 
   validateFile(file: MediaFile): void {
     if (file.size > MAX_FILE_SIZE) {
       throw new ValidationError(
-        `File size ${file.size} exceeds maximum of ${MAX_FILE_SIZE} bytes`
+        `File size ${file.size} exceeds maximum of ${MAX_FILE_SIZE} bytes`,
+      );
+    }
+    if (file.size !== file.buffer.length) {
+      throw new ValidationError(
+        "Declared file size does not match the uploaded content",
       );
     }
 
     if (!ALLOWED_MIME_TYPES.includes(file.mimeType as AllowedMimeType)) {
       throw new ValidationError(`File type ${file.mimeType} is not allowed`);
     }
+    if (!this.matchesSignature(file.buffer, file.mimeType as AllowedMimeType)) {
+      throw new ValidationError(
+        "File content does not match its declared type",
+      );
+    }
+  }
+
+  private matchesSignature(buffer: Buffer, mimeType: AllowedMimeType): boolean {
+    if (mimeType === "image/jpeg")
+      return (
+        buffer.length >= 3 &&
+        buffer[0] === 0xff &&
+        buffer[1] === 0xd8 &&
+        buffer[2] === 0xff
+      );
+    if (mimeType === "image/png") {
+      const signature = [137, 80, 78, 71, 13, 10, 26, 10];
+      return signature.every((byte, index) => buffer[index] === byte);
+    }
+    if (mimeType === "image/gif")
+      return ["GIF87a", "GIF89a"].includes(
+        buffer.subarray(0, 6).toString("ascii"),
+      );
+    return (
+      buffer.subarray(0, 4).toString("ascii") === "RIFF" &&
+      buffer.subarray(8, 12).toString("ascii") === "WEBP"
+    );
+  }
+
+  private safeRelativePath(path: string): string {
+    if (
+      !path ||
+      path.includes("\0") ||
+      path.startsWith("/") ||
+      path.startsWith("\\")
+    ) {
+      throw new ValidationError("Invalid media path");
+    }
+    const normalized = path.replaceAll("\\", "/");
+    if (
+      normalized
+        .split("/")
+        .some((part) => part === ".." || part === "." || part === "")
+    ) {
+      throw new ValidationError("Invalid media path");
+    }
+    return normalized;
+  }
+
+  private resolveInsideBase(path: string): string {
+    const base = resolve(this.basePath);
+    const target = resolve(base, path);
+    if (target !== base && !target.startsWith(`${base}${sep}`)) {
+      throw new ValidationError("Invalid media path");
+    }
+    return target;
   }
 }
 
@@ -119,11 +189,11 @@ export class MediaService {
     buffer: Buffer,
     originalName: string,
     mimeType: string,
-    directory?: string
+    directory?: string,
   ): Promise<MediaResult> {
     return this.adapter.save(
       { buffer, originalName, mimeType, size: buffer.length },
-      directory
+      directory,
     );
   }
 }

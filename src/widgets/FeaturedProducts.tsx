@@ -1,8 +1,16 @@
 "use client";
 import { FC, useEffect, useState } from "react";
 import {
-  Grid, Container, Typography, Card, CardMedia, CardContent,
-  CardActions, Button, Skeleton, Chip,
+  Grid,
+  Container,
+  Typography,
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Button,
+  Skeleton,
+  Chip,
 } from "@mui/material";
 import Link from "next/link";
 
@@ -11,7 +19,10 @@ interface Product {
   name: string;
   slug: string;
   category: { id: string; name: string } | null;
-  variants: { price: string; inventory: { onHand: number } | null }[];
+  variants: {
+    price: string;
+    inventory: { onHand: number; reserved: number } | null;
+  }[];
   media: { url: string; alt: string | null }[];
 }
 
@@ -39,7 +50,9 @@ const FeaturedProducts: FC = () => {
   if (loading) {
     return (
       <Container>
-        <Typography variant="h4" textAlign="center" mb={4}>Featured Products</Typography>
+        <Typography variant="h4" textAlign="center" mb={4}>
+          Featured Products
+        </Typography>
         <Grid spacing={3} container>
           {Array.from({ length: 4 }).map((_, i) => (
             <Grid item xs={12} sm={6} md={3} key={i}>
@@ -60,20 +73,29 @@ const FeaturedProducts: FC = () => {
 
   return (
     <Container sx={{ py: 4 }}>
-      <Typography variant="h4" textAlign="center" mb={4}>Featured Products</Typography>
+      <Typography variant="h4" textAlign="center" mb={4}>
+        Featured Products
+      </Typography>
       <Grid spacing={3} container>
         {products.map((p) => (
           <Grid item xs={12} sm={6} md={3} key={p.id}>
-            <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+            <Card
+              sx={{ height: "100%", display: "flex", flexDirection: "column" }}
+            >
               <CardMedia
                 component="img"
                 height={180}
-                image={p.media[0]?.url || "https://placehold.co/400x400?text=No+Image"}
+                image={
+                  p.media[0]?.url ||
+                  "https://placehold.co/400x400?text=No+Image"
+                }
                 alt={p.media[0]?.alt || p.name}
                 sx={{ objectFit: "cover" }}
               />
               <CardContent sx={{ flexGrow: 1 }}>
-                {p.category && <Chip label={p.category.name} size="small" sx={{ mb: 1 }} />}
+                {p.category && (
+                  <Chip label={p.category.name} size="small" sx={{ mb: 1 }} />
+                )}
                 <Typography variant="subtitle1" fontWeight={600} noWrap>
                   {p.name}
                 </Typography>
@@ -82,7 +104,11 @@ const FeaturedProducts: FC = () => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" LinkComponent={Link} href={`/products/${p.slug}`}>
+                <Button
+                  size="small"
+                  LinkComponent={Link}
+                  href={`/products/${p.slug}`}
+                >
                   View Details
                 </Button>
               </CardActions>

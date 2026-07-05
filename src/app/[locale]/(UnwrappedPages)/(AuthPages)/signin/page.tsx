@@ -69,7 +69,12 @@ export default function SignIn() {
               </IconButton>
             </Stack>
             {/* <Box alignItems="center" justifyContent="center" display="flex"> */}
-            <Button size="small">Forgot password?</Button>
+            <Button size="small" href={routes.forgotPassword}>
+              Forgot password?
+            </Button>
+            <Button size="small" href={routes.verifyEmail}>
+              Resend email verification
+            </Button>
             {/* </Box> */}
           </Stack>
           <Stack

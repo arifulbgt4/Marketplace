@@ -1,11 +1,17 @@
 import { prisma } from "src/lib/prisma";
-import { NotFoundError, ok, fail, type Result } from "src/lib/errors";
+import {
+  NotFoundError,
+  asAppError,
+  ok,
+  fail,
+  type Result,
+} from "src/lib/errors";
 import { catalogSearchSchema, type CatalogSearchInput } from "src/lib/catalog";
 
 export class CatalogQueryService {
   async getPublishedById(id: string): Promise<Result<unknown>> {
-    const product = await prisma.product.findUnique({
-      where: { id, status: "published" },
+    const product = await prisma.product.findFirst({
+      where: { id, status: "published", category: { isActive: true } },
       include: {
         variants: {
           include: { inventory: true },
@@ -21,8 +27,8 @@ export class CatalogQueryService {
   }
 
   async getPublishedBySlug(slug: string): Promise<Result<unknown>> {
-    const product = await prisma.product.findUnique({
-      where: { slug, status: "published" },
+    const product = await prisma.product.findFirst({
+      where: { slug, status: "published", category: { isActive: true } },
       include: {
         variants: {
           include: { inventory: true },
@@ -38,58 +44,47 @@ export class CatalogQueryService {
   }
 
   async search(params: CatalogSearchInput): Promise<Result<unknown>> {
-    const parsed = catalogSearchSchema.parse(params);
-    const { query, categoryId, minPrice, maxPrice, sort, page, limit } = parsed;
+    try {
+      const parsed = catalogSearchSchema.parse(params);
+      const {
+        query,
+        categoryId,
+        minPrice,
+        maxPrice,
+        availability,
+        sort,
+        page,
+        limit,
+      } = parsed;
 
-    const where: Record<string, unknown> = { status: "published" };
-
-    if (categoryId) {
-      where.categoryId = categoryId;
-    }
-
-    if (query) {
-      where.OR = [
-        { name: { contains: query, mode: "insensitive" } },
-        { description: { contains: query, mode: "insensitive" } },
-      ];
-    }
-
-    if (minPrice !== undefined || maxPrice !== undefined) {
-      where.variants = {
-        some: {
-          price: {
-            ...(minPrice !== undefined ? { gte: minPrice } : {}),
-            ...(maxPrice !== undefined ? { lte: maxPrice } : {}),
-          },
-        },
+      const where: Record<string, unknown> = {
+        status: "published",
+        category: { isActive: true },
       };
-    }
 
-    let orderBy: Record<string, string> = {};
-    switch (sort) {
-      case "price_asc":
-        orderBy = { id: "asc" };
-        break;
-      case "price_desc":
-        orderBy = { id: "desc" };
-        break;
-      case "name_asc":
-        orderBy = { name: "asc" };
-        break;
-      case "name_desc":
-        orderBy = { name: "desc" };
-        break;
-      case "oldest":
-        orderBy = { createdAt: "asc" };
-        break;
-      case "newest":
-      default:
-        orderBy = { createdAt: "desc" };
-        break;
-    }
+      if (categoryId) {
+        where.categoryId = categoryId;
+      }
 
-    const [products, total] = await Promise.all([
-      prisma.product.findMany({
+      if (query) {
+        where.OR = [
+          { name: { contains: query, mode: "insensitive" } },
+          { description: { contains: query, mode: "insensitive" } },
+        ];
+      }
+
+      if (minPrice !== undefined || maxPrice !== undefined) {
+        where.variants = {
+          some: {
+            price: {
+              ...(minPrice !== undefined ? { gte: minPrice } : {}),
+              ...(maxPrice !== undefined ? { lte: maxPrice } : {}),
+            },
+          },
+        };
+      }
+
+      const candidates = await prisma.product.findMany({
         where: where as any,
         include: {
           variants: {
@@ -98,20 +93,54 @@ export class CatalogQueryService {
           media: { orderBy: { order: "asc" }, take: 1 },
           category: true,
         },
-        orderBy,
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.product.count({ where: where as any }),
-    ]);
+      });
 
-    return ok({
-      products,
-      total,
-      page,
-      totalPages: Math.ceil(total / limit),
-      limit,
-    });
+      const availableQuantity = (product: (typeof candidates)[number]) =>
+        product.variants.reduce(
+          (sum, variant) =>
+            sum +
+            Math.max(
+              0,
+              (variant.inventory?.onHand ?? 0) -
+                (variant.inventory?.reserved ?? 0),
+            ),
+          0,
+        );
+      const minVariantPrice = (product: (typeof candidates)[number]) =>
+        Math.min(...product.variants.map((variant) => Number(variant.price)));
+
+      const filtered = candidates.filter((product) => {
+        if (!availability) return true;
+        const inStock = availableQuantity(product) > 0;
+        return availability === "in_stock" ? inStock : !inStock;
+      });
+      filtered.sort((a, b) => {
+        let comparison = 0;
+        if (sort === "price_asc")
+          comparison = minVariantPrice(a) - minVariantPrice(b);
+        else if (sort === "price_desc")
+          comparison = minVariantPrice(b) - minVariantPrice(a);
+        else if (sort === "name_asc") comparison = a.name.localeCompare(b.name);
+        else if (sort === "name_desc")
+          comparison = b.name.localeCompare(a.name);
+        else if (sort === "oldest")
+          comparison = a.createdAt.getTime() - b.createdAt.getTime();
+        else comparison = b.createdAt.getTime() - a.createdAt.getTime();
+        return comparison || a.id.localeCompare(b.id);
+      });
+      const total = filtered.length;
+      const products = filtered.slice((page - 1) * limit, page * limit);
+
+      return ok({
+        products,
+        total,
+        page,
+        totalPages: Math.ceil(total / limit),
+        limit,
+      });
+    } catch (error: unknown) {
+      return fail(asAppError(error));
+    }
   }
 
   async getActiveCategories(): Promise<Result<unknown>> {
@@ -119,7 +148,10 @@ export class CatalogQueryService {
       where: { isActive: true },
       include: {
         _count: { select: { products: true } },
-        children: { where: { isActive: true }, select: { id: true, name: true, slug: true } },
+        children: {
+          where: { isActive: true },
+          select: { id: true, name: true, slug: true },
+        },
       },
       orderBy: [{ displayOrder: "asc" }, { name: "asc" }],
     });
@@ -143,7 +175,7 @@ export class CatalogQueryService {
   async getByCategory(
     categorySlug: string,
     page: number = 1,
-    limit: number = 24
+    limit: number = 24,
   ): Promise<Result<unknown>> {
     const category = await prisma.category.findUnique({
       where: { slug: categorySlug, isActive: true },

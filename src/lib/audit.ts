@@ -15,6 +15,13 @@ export type AuditAction =
   | "listing.delete"
   | "listing.publish"
   | "listing.archive"
+  | "product.create"
+  | "product.update"
+  | "product.publish"
+  | "product.archive"
+  | "category.create"
+  | "category.update"
+  | "category.archive"
   | "order.create"
   | "order.update"
   | "order.cancel"
@@ -25,7 +32,7 @@ export type AuditAction =
   | "admin.action";
 
 export type AuditEntry = {
-  actorId: string;
+  actorId: string | null;
   action: AuditAction;
   targetType: string;
   targetId: string;
@@ -51,7 +58,7 @@ export class AuditService {
 
   async findByActor(
     actorId: string,
-    options?: { limit?: number; offset?: number }
+    options?: { limit?: number; offset?: number },
   ): Promise<AuditEntry[]> {
     const logs = await prisma.auditLog.findMany({
       where: { actorId },
@@ -65,7 +72,7 @@ export class AuditService {
   async findByTarget(
     targetType: string,
     targetId: string,
-    options?: { limit?: number; offset?: number }
+    options?: { limit?: number; offset?: number },
   ): Promise<AuditEntry[]> {
     const logs = await prisma.auditLog.findMany({
       where: { targetType, targetId },
@@ -93,8 +100,10 @@ export class AuditService {
     if (params.targetId) where.targetId = params.targetId;
     if (params.fromDate || params.toDate) {
       where.createdAt = {};
-      if (params.fromDate) (where.createdAt as Record<string, unknown>).gte = params.fromDate;
-      if (params.toDate) (where.createdAt as Record<string, unknown>).lte = params.toDate;
+      if (params.fromDate)
+        (where.createdAt as Record<string, unknown>).gte = params.fromDate;
+      if (params.toDate)
+        (where.createdAt as Record<string, unknown>).lte = params.toDate;
     }
 
     const logs = await prisma.auditLog.findMany({
@@ -108,7 +117,7 @@ export class AuditService {
 
   private mapToEntry(log: Record<string, unknown>): AuditEntry {
     return {
-      actorId: log.actorId as string,
+      actorId: (log.actorId as string | null) ?? null,
       action: log.action as AuditAction,
       targetType: log.targetType as string,
       targetId: log.targetId as string,

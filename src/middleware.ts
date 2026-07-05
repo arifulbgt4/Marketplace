@@ -6,35 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { siteConfig } from "./global/config";
 import { locales } from "./global/staticData";
 import routes from "./global/routes";
-
-const publicPages = [
-  routes.home,
-  routes.signin,
-  routes.signup,
-  routes.lab,
-  routes.faq,
-  routes.about,
-  routes.blog,
-  routes.contact,
-  routes.listings,
-  routes.products,
-  routes.terms,
-  routes.privacy,
-  routes.cookies,
-  "/opengraph-image",
-  "/twitter-image",
-];
-
-const adminRoutes = ["/admin", "/dashboard"];
-
-const customerRoutes = [
-  "/account",
-  "/orders",
-  "/bookmarks",
-  "/messages",
-  "/cart",
-  "/checkout",
-];
+import { classifyRoute } from "./lib/route-access";
 
 const intlMiddleware = createIntlMiddleware({
   locales,
@@ -48,34 +20,27 @@ const authMiddleware = withAuth(
   },
   {
     callbacks: {
-      authorized: ({ token }) => token != null,
+      authorized: ({ token }) =>
+        token != null &&
+        token.status === "active" &&
+        token.invalidated !== true,
     },
     pages: {
       signIn: routes.signin,
     },
-  }
+  },
 );
 
 export default async function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
   const localePattern = locales.join("|");
-  const pathWithoutLocale = pathname.replace(new RegExp(`^/(${localePattern})`), "") || "/";
-
-  const isPublicPage = publicPages.some((page) => {
-    if (page === "/") return pathWithoutLocale === "/";
-    return pathWithoutLocale === page || pathWithoutLocale.startsWith(page + "/");
-  });
-
-  const isAdminRoute = adminRoutes.some((route) =>
-    pathWithoutLocale === route || pathWithoutLocale.startsWith(route + "/")
-  );
-
-  const isCustomerRoute = customerRoutes.some((route) =>
-    pathWithoutLocale === route || pathWithoutLocale.startsWith(route + "/")
-  );
+  const pathWithoutLocale =
+    pathname.replace(new RegExp(`^/(${localePattern})`), "") || "/";
 
   const token = await getToken({ req });
-  const isAuth = !!token;
+  const isAuth =
+    !!token && token.status === "active" && token.invalidated !== true;
+  const access = classifyRoute(pathWithoutLocale);
 
   if (
     (pathWithoutLocale === routes.signin ||
@@ -85,22 +50,24 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL(routes.home, req.url));
   }
 
-  if (isAdminRoute) {
+  if (access === "admin" || access === "catalog") {
     if (!isAuth) {
       return NextResponse.redirect(new URL(routes.signin, req.url));
     }
     const role = token?.role;
-    if (role !== "admin") {
+    const allowed =
+      role === "admin" || (access === "catalog" && role === "catalog_manager");
+    if (!allowed) {
       return NextResponse.redirect(new URL(routes.home, req.url));
     }
     return intlMiddleware(req);
   }
 
-  if (isCustomerRoute && !isAuth) {
+  if (access === "customer" && !isAuth) {
     return NextResponse.redirect(new URL(routes.signin, req.url));
   }
 
-  if (isPublicPage) {
+  if (access === "public") {
     return intlMiddleware(req);
   }
 
@@ -110,7 +77,7 @@ export default async function middleware(req: NextRequest) {
 export const config = {
   matcher: [
     "/",
-    `/(${locales.join("|")})/:path*`,
+    "/(en|af|am|ar|hy|as|az|bn)/:path*",
     "/((?!api|_next|_vercel|.*\\..*).*)",
   ],
 };

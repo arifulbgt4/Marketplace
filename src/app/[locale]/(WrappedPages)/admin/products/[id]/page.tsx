@@ -2,8 +2,17 @@
 import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import {
-  Box, Typography, TextField, Button, Stack, Paper,
-  Grid, IconButton, Alert, Chip, Divider,
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Stack,
+  Paper,
+  Grid,
+  IconButton,
+  Alert,
+  Chip,
+  Divider,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -24,8 +33,11 @@ interface ProductData {
   categoryId: string | null;
   category: { id: string; name: string } | null;
   variants: {
-    id: string; sku: string; price: string;
+    id: string;
+    sku: string;
+    price: string;
     compareAtPrice: string | null;
+    weightGrams: number;
     inventory: { id: string; onHand: number; reserved: number } | null;
   }[];
   media: { id: string; url: string; alt: string | null; order: number }[];
@@ -48,6 +60,7 @@ export default function EditProductPage({ params }: PageProps) {
   const [newMediaAlt, setNewMediaAlt] = useState("");
   const [newSku, setNewSku] = useState("");
   const [newPrice, setNewPrice] = useState("");
+  const [newWeightGrams, setNewWeightGrams] = useState("");
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -76,7 +89,13 @@ export default function EditProductPage({ params }: PageProps) {
       const res = await fetch(`/api/admin/products/${resolved.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, slug, description, brand: brand || null, categoryId: categoryId || null }),
+        body: JSON.stringify({
+          name,
+          slug,
+          description,
+          brand: brand || null,
+          categoryId: categoryId || null,
+        }),
       });
 
       if (res.ok) {
@@ -94,7 +113,9 @@ export default function EditProductPage({ params }: PageProps) {
   };
 
   const handlePublish = async () => {
-    const res = await fetch(`/api/admin/products/${resolved.id}/publish`, { method: "POST" });
+    const res = await fetch(`/api/admin/products/${resolved.id}/publish`, {
+      method: "POST",
+    });
     if (res.ok) {
       const updated = await res.json();
       setProduct(updated);
@@ -118,7 +139,7 @@ export default function EditProductPage({ params }: PageProps) {
     if (res.ok) {
       const updated = await res.json();
       setProduct((prev) =>
-        prev ? { ...prev, media: [...prev.media, updated] } : prev
+        prev ? { ...prev, media: [...prev.media, updated] } : prev,
       );
       setNewMediaUrl("");
       setNewMediaAlt("");
@@ -133,7 +154,11 @@ export default function EditProductPage({ params }: PageProps) {
     const res = await fetch(`/api/admin/products/${resolved.id}/variants`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ sku: newSku, price: Number(newPrice) }),
+      body: JSON.stringify({
+        sku: newSku,
+        price: Number(newPrice),
+        weightGrams: newWeightGrams ? Number(newWeightGrams) : 0,
+      }),
     });
     if (res.ok) {
       const updated = await res.json();
@@ -149,47 +174,109 @@ export default function EditProductPage({ params }: PageProps) {
 
   return (
     <Box maxWidth={800}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={3}>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        mb={3}
+      >
         <Typography variant="h4">Edit: {product.name}</Typography>
         <Stack direction="row" spacing={1}>
-          <Chip label={product.status} color={product.status === "published" ? "success" : product.status === "archived" ? "warning" : "default"} />
+          <Chip
+            label={product.status}
+            color={
+              product.status === "published"
+                ? "success"
+                : product.status === "archived"
+                  ? "warning"
+                  : "default"
+            }
+          />
           {product.status === "draft" && (
-            <Button variant="contained" startIcon={<PublishIcon />} onClick={handlePublish}>
+            <Button
+              variant="contained"
+              startIcon={<PublishIcon />}
+              onClick={handlePublish}
+            >
               Publish
             </Button>
           )}
         </Stack>
       </Stack>
 
-      {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+      {error && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          {error}
+        </Alert>
+      )}
 
       <Paper sx={{ p: 3, mb: 3 }}>
-        <Typography variant="h6" mb={2}>Basic Information</Typography>
+        <Typography variant="h6" mb={2}>
+          Basic Information
+        </Typography>
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
-            <TextField label="Name" value={name} onChange={(e) => setName(e.target.value)} fullWidth />
+            <TextField
+              label="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              fullWidth
+            />
           </Grid>
           <Grid item xs={12} md={6}>
-            <TextField label="Slug" value={slug} onChange={(e) => setSlug(e.target.value)} fullWidth />
+            <TextField
+              label="Slug"
+              value={slug}
+              onChange={(e) => setSlug(e.target.value)}
+              fullWidth
+            />
           </Grid>
           <Grid item xs={12}>
-            <TextField label="Description" value={description} onChange={(e) => setDescription(e.target.value)} fullWidth multiline rows={4} />
+            <TextField
+              label="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              fullWidth
+              multiline
+              rows={4}
+            />
           </Grid>
           <Grid item xs={12} md={6}>
-            <TextField label="Brand" value={brand} onChange={(e) => setBrand(e.target.value)} fullWidth />
+            <TextField
+              label="Brand"
+              value={brand}
+              onChange={(e) => setBrand(e.target.value)}
+              fullWidth
+            />
           </Grid>
           <Grid item xs={12} md={6}>
-            <TextField label="Category ID" value={categoryId} onChange={(e) => setCategoryId(e.target.value)} fullWidth />
+            <TextField
+              label="Category ID"
+              value={categoryId}
+              onChange={(e) => setCategoryId(e.target.value)}
+              fullWidth
+            />
           </Grid>
         </Grid>
-        <Button variant="contained" onClick={handleSave} disabled={saving} sx={{ mt: 2 }}>
+        <Button
+          variant="contained"
+          onClick={handleSave}
+          disabled={saving}
+          sx={{ mt: 2 }}
+        >
           {saving ? "Saving..." : "Save Changes"}
         </Button>
       </Paper>
 
       <Paper sx={{ p: 3, mb: 3 }}>
-        <Typography variant="h6" mb={2}>Media</Typography>
-        {product.media.length === 0 && <Typography color="text.secondary" mb={1}>No media</Typography>}
+        <Typography variant="h6" mb={2}>
+          Media
+        </Typography>
+        {product.media.length === 0 && (
+          <Typography color="text.secondary" mb={1}>
+            No media
+          </Typography>
+        )}
         <Grid container spacing={1} mb={2}>
           {product.media.map((m) => (
             <Grid item key={m.id}>
@@ -197,38 +284,93 @@ export default function EditProductPage({ params }: PageProps) {
                 component="img"
                 src={m.url}
                 alt={m.alt || ""}
-                sx={{ width: 100, height: 100, objectFit: "cover", borderRadius: 1 }}
+                sx={{
+                  width: 100,
+                  height: 100,
+                  objectFit: "cover",
+                  borderRadius: 1,
+                }}
               />
             </Grid>
           ))}
         </Grid>
         <Stack direction="row" spacing={1} alignItems="center">
-          <TextField size="small" label="Image URL" value={newMediaUrl} onChange={(e) => setNewMediaUrl(e.target.value)} sx={{ flex: 2 }} />
-          <TextField size="small" label="Alt Text" value={newMediaAlt} onChange={(e) => setNewMediaAlt(e.target.value)} sx={{ flex: 1 }} />
-          <Button variant="outlined" onClick={handleAddMedia}>Add</Button>
+          <TextField
+            size="small"
+            label="Image URL"
+            value={newMediaUrl}
+            onChange={(e) => setNewMediaUrl(e.target.value)}
+            sx={{ flex: 2 }}
+          />
+          <TextField
+            size="small"
+            label="Alt Text"
+            value={newMediaAlt}
+            onChange={(e) => setNewMediaAlt(e.target.value)}
+            sx={{ flex: 1 }}
+          />
+          <Button variant="outlined" onClick={handleAddMedia}>
+            Add
+          </Button>
         </Stack>
       </Paper>
 
       <Paper sx={{ p: 3, mb: 3 }}>
-        <Typography variant="h6" mb={2}>Variants</Typography>
+        <Typography variant="h6" mb={2}>
+          Variants
+        </Typography>
         {product.variants.map((v) => (
-          <Stack key={v.id} direction="row" spacing={2} mb={1} alignItems="center">
+          <Stack
+            key={v.id}
+            direction="row"
+            spacing={2}
+            mb={1}
+            alignItems="center"
+          >
             <Typography sx={{ flex: 1, fontWeight: 500 }}>{v.sku}</Typography>
-            <Typography sx={{ flex: 1 }}>${Number(v.price).toFixed(2)}</Typography>
-            <Typography sx={{ flex: 1 }}>Stock: {v.inventory?.onHand ?? 0} (Reserved: {v.inventory?.reserved ?? 0})</Typography>
+            <Typography sx={{ flex: 1 }}>
+              ${Number(v.price).toFixed(2)}
+            </Typography>
+            <Typography sx={{ flex: 1 }}>{v.weightGrams} g</Typography>
+            <Typography sx={{ flex: 1 }}>
+              Stock: {v.inventory?.onHand ?? 0} (Reserved:{" "}
+              {v.inventory?.reserved ?? 0})
+            </Typography>
           </Stack>
         ))}
         <Divider sx={{ my: 2 }} />
         <Stack direction="row" spacing={1} alignItems="center">
-          <TextField size="small" label="SKU" value={newSku} onChange={(e) => setNewSku(e.target.value)} />
-          <TextField size="small" label="Price" type="number" value={newPrice} onChange={(e) => setNewPrice(e.target.value)} />
-          <Button variant="outlined" onClick={handleAddVariant}>Add Variant</Button>
+          <TextField
+            size="small"
+            label="SKU"
+            value={newSku}
+            onChange={(e) => setNewSku(e.target.value)}
+          />
+          <TextField
+            size="small"
+            label="Price"
+            type="number"
+            value={newPrice}
+            onChange={(e) => setNewPrice(e.target.value)}
+          />
+          <TextField
+            size="small"
+            label="Weight (g)"
+            type="number"
+            value={newWeightGrams}
+            onChange={(e) => setNewWeightGrams(e.target.value)}
+          />
+          <Button variant="outlined" onClick={handleAddVariant}>
+            Add Variant
+          </Button>
         </Stack>
       </Paper>
 
       {product.options.length > 0 && (
         <Paper sx={{ p: 3, mb: 3 }}>
-          <Typography variant="h6" mb={2}>Options</Typography>
+          <Typography variant="h6" mb={2}>
+            Options
+          </Typography>
           {product.options.map((o) => (
             <Typography key={o.id}>
               <strong>{o.name}:</strong> {o.values.join(", ")}

@@ -1,7 +1,13 @@
 "use client";
 import { FC, useState } from "react";
-import { useRouter } from "next/navigation";
-import { Typography, Button, Stack, Alert, TextField, Checkbox } from "@mui/material";
+import {
+  Typography,
+  Button,
+  Stack,
+  Alert,
+  TextField,
+  Checkbox,
+} from "@mui/material";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -12,7 +18,8 @@ import { signUp } from "./actions";
 
 const SignupForm: FC<SignupFormProps> = () => {
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
+  const [success, setSuccess] = useState<string | null>(null);
+  const [verificationPreviewUrl, setVerificationPreviewUrl] = useState("");
 
   const {
     register,
@@ -36,7 +43,13 @@ const SignupForm: FC<SignupFormProps> = () => {
         setError(body?.message || "Registration failed");
         return;
       }
-      router.push("/");
+      const body = await res.json();
+      setVerificationPreviewUrl(body.verificationPreviewUrl || "");
+      setSuccess(
+        body.emailDelivery === "unavailable"
+          ? "Account created, but email delivery is temporarily unavailable. Use the resend verification page shortly."
+          : "Account created. Check your email and verify it before signing in.",
+      );
     } catch (error) {
       setError("An unexpected error occurred");
       console.error(error);
@@ -47,6 +60,16 @@ const SignupForm: FC<SignupFormProps> = () => {
     <form onSubmit={handleSubmit(onSubmitForm)}>
       <Stack gap={2.5}>
         {error && <Alert severity="error">{error}</Alert>}
+        {success && <Alert severity="success">{success}</Alert>}
+        {verificationPreviewUrl && (
+          <Button
+            component="a"
+            href={verificationPreviewUrl}
+            variant="outlined"
+          >
+            Open development verification link
+          </Button>
+        )}
         <Stack gap={2}>
           <TextField
             label="Full name"
@@ -81,8 +104,7 @@ const SignupForm: FC<SignupFormProps> = () => {
         <Stack flexDirection="row" alignItems="center">
           <Checkbox size="small" defaultChecked />
           <Typography color="text.secondary">
-            By signing up, you agree our Terms Privacy Policy and Cookies
-            Policy
+            By signing up, you agree our Terms Privacy Policy and Cookies Policy
           </Typography>
         </Stack>
         <Button

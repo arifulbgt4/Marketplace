@@ -19,13 +19,13 @@ export class AppError extends Error {
     code: ErrorCode,
     message: string,
     statusCode: number = 500,
-    options?: { requestId?: string; details?: Record<string, unknown> }
+    options?: { requestId?: string; details?: Record<string, unknown> },
   ) {
     super(message);
     this.name = "AppError";
     this.code = code;
     this.statusCode = statusCode;
-    this.requestId = options?.requestId;
+    this.requestId = options?.requestId ?? randomUUID();
     this.details = options?.details;
   }
 
@@ -40,7 +40,11 @@ export class AppError extends Error {
 }
 
 export class ValidationError extends AppError {
-  constructor(message: string, details?: Record<string, unknown>, requestId?: string) {
+  constructor(
+    message: string,
+    details?: Record<string, unknown>,
+    requestId?: string,
+  ) {
     super(ErrorCode.VALIDATION_ERROR, message, 400, { requestId, details });
   }
 }
@@ -52,14 +56,19 @@ export class AuthenticationError extends AppError {
 }
 
 export class AuthorizationError extends AppError {
-  constructor(message: string = "Insufficient permissions", requestId?: string) {
+  constructor(
+    message: string = "Insufficient permissions",
+    requestId?: string,
+  ) {
     super(ErrorCode.AUTHORIZATION_ERROR, message, 403, { requestId });
   }
 }
 
 export class NotFoundError extends AppError {
   constructor(resource: string, id?: string, requestId?: string) {
-    const message = id ? `${resource} with ID ${id} not found` : `${resource} not found`;
+    const message = id
+      ? `${resource} with ID ${id} not found`
+      : `${resource} not found`;
     super(ErrorCode.NOT_FOUND, message, 404, { requestId });
   }
 }
@@ -83,8 +92,7 @@ export class RateLimitError extends AppError {
 }
 
 export type Result<T> =
-  | { success: true; data: T }
-  | { success: false; error: AppError };
+  { success: true; data: T } | { success: false; error: AppError };
 
 export function ok<T>(data: T): Result<T> {
   return { success: true, data };
@@ -97,3 +105,22 @@ export function fail<T>(error: AppError): Result<T> {
 export function isAppError(error: unknown): error is AppError {
   return error instanceof AppError;
 }
+
+export function asAppError(error: unknown): AppError {
+  if (error instanceof AppError) return error;
+  if (error instanceof ZodError) {
+    return new ValidationError("Request validation failed", {
+      issues: error.issues.map((issue) => ({
+        path: issue.path.join("."),
+        message: issue.message,
+      })),
+    });
+  }
+  return new AppError(
+    ErrorCode.INTERNAL_ERROR,
+    "An unexpected error occurred",
+    500,
+  );
+}
+import { randomUUID } from "crypto";
+import { ZodError } from "zod";

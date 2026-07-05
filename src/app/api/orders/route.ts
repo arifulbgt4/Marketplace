@@ -1,23 +1,23 @@
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
 import { v4 as uuidv4 } from "uuid";
 
 import { prisma } from "src/lib/prisma";
-import { authOptions } from "src/lib/auth";
+import { getAuthSession } from "src/lib/authz";
 import { orderSchema } from "src/lib/validations";
+import { Money } from "src/lib/money";
 
 export async function GET() {
   try {
-    const session = (await getServerSession(authOptions)) as any;
-    if (!session?.user?.id) {
+    const session = await getAuthSession();
+    if (!session) {
       return NextResponse.json(
         { status: "error", message: "Unauthorized" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
     const orders = await prisma.order.findMany({
-      where: { userId: session.user.id },
+      where: { userId: session.userId },
       include: {
         listing: {
           select: {
@@ -40,18 +40,18 @@ export async function GET() {
     console.error("Failed to fetch orders:", error);
     return NextResponse.json(
       { status: "error", message: "Failed to fetch orders" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
 export async function POST(req: Request) {
   try {
-    const session = (await getServerSession(authOptions)) as any;
-    if (!session?.user?.id) {
+    const session = await getAuthSession();
+    if (!session) {
       return NextResponse.json(
         { status: "error", message: "Unauthorized" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -65,7 +65,7 @@ export async function POST(req: Request) {
           message: "Validation failed",
           errors: result.error.flatten().fieldErrors,
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -78,14 +78,16 @@ export async function POST(req: Request) {
     if (!listing) {
       return NextResponse.json(
         { status: "error", message: "Listing not found" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
     const nights = Math.ceil(
-      (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
+      (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24),
     );
-    const totalPrice = listing.price * nights;
+    const totalPrice = Money.fromDecimal(listing.price.toString()).multiply(
+      nights,
+    ).amount;
 
     const order = await prisma.order.create({
       data: {
@@ -94,7 +96,7 @@ export async function POST(req: Request) {
         endDate,
         totalPrice,
         guests: guests || 1,
-        userId: session.user.id,
+        userId: session.userId,
         listingId,
       },
       include: {
@@ -111,7 +113,7 @@ export async function POST(req: Request) {
     console.error("Failed to create order:", error);
     return NextResponse.json(
       { status: "error", message: "Failed to create order" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

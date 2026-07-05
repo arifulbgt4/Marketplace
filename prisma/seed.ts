@@ -1,4 +1,10 @@
-import { PrismaClient, ListingStatus, UserRole, ProductStatus } from "@prisma/client";
+import {
+  PrismaClient,
+  ListingStatus,
+  UserRole,
+  UserStatus,
+  ProductStatus,
+} from "@prisma/client";
 import { hash } from "bcryptjs";
 
 const prisma = new PrismaClient();
@@ -8,12 +14,13 @@ async function main() {
   const adminPassword = await hash("password123", 12);
   const admin = await prisma.user.upsert({
     where: { email: "admin@admin.com" },
-    update: {},
+    update: { role: UserRole.admin, status: UserStatus.active },
     create: {
       email: "admin@admin.com",
       name: "Admin",
       password: adminPassword,
       role: UserRole.admin,
+      status: UserStatus.active,
       Account: {
         create: {
           bio: "System administrator",
@@ -26,12 +33,13 @@ async function main() {
   const demoPassword = await hash("password123", 12);
   const demo = await prisma.user.upsert({
     where: { email: "demo@demo.com" },
-    update: {},
+    update: { status: UserStatus.active },
     create: {
       email: "demo@demo.com",
       name: "Demo User",
       password: demoPassword,
       role: UserRole.user,
+      status: UserStatus.active,
       Account: {
         create: {
           bio: "Demo account for testing",
@@ -42,21 +50,45 @@ async function main() {
 
   // Create categories
   const categoryData = [
-    { name: "Electronics", slug: "electronics", icon: "Devices", displayOrder: 1 },
+    {
+      name: "Electronics",
+      slug: "electronics",
+      icon: "Devices",
+      displayOrder: 1,
+    },
     { name: "Clothing", slug: "clothing", icon: "Checkroom", displayOrder: 2 },
-    { name: "Home & Garden", slug: "home-garden", icon: "Home", displayOrder: 3 },
+    {
+      name: "Home & Garden",
+      slug: "home-garden",
+      icon: "Home",
+      displayOrder: 3,
+    },
     { name: "Sports", slug: "sports", icon: "Sports", displayOrder: 4 },
     { name: "Books", slug: "books", icon: "Book", displayOrder: 5 },
     { name: "Toys", slug: "toys", icon: "Toys", displayOrder: 6 },
-    { name: "Food & Drinks", slug: "food-drinks", icon: "Restaurant", displayOrder: 7 },
-    { name: "Health & Beauty", slug: "health-beauty", icon: "Spa", displayOrder: 8 },
+    {
+      name: "Food & Drinks",
+      slug: "food-drinks",
+      icon: "Restaurant",
+      displayOrder: 7,
+    },
+    {
+      name: "Health & Beauty",
+      slug: "health-beauty",
+      icon: "Spa",
+      displayOrder: 8,
+    },
   ];
 
   const cats: Record<string, string> = {};
   for (const cat of categoryData) {
     const created = await prisma.category.upsert({
       where: { slug: cat.slug },
-      update: { displayOrder: cat.displayOrder, icon: cat.icon, isActive: true },
+      update: {
+        displayOrder: cat.displayOrder,
+        icon: cat.icon,
+        isActive: true,
+      },
       create: cat,
     });
     cats[cat.slug] = created.id;
@@ -67,19 +99,24 @@ async function main() {
     {
       name: "Wireless Bluetooth Headphones",
       slug: "wireless-bluetooth-headphones",
-      description: "Premium wireless headphones with noise cancellation, 30-hour battery life, and comfortable over-ear design. Perfect for music lovers and professionals.",
+      description:
+        "Premium wireless headphones with noise cancellation, 30-hour battery life, and comfortable over-ear design. Perfect for music lovers and professionals.",
       brand: "SoundMax",
       categorySlug: "electronics",
       variants: [
         { sku: "HP-BLACK-001", price: 79.99 },
         { sku: "HP-WHITE-001", price: 79.99 },
       ],
-      media: ["https://picsum.photos/seed/headphones1/800/800", "https://picsum.photos/seed/headphones2/800/800"],
+      media: [
+        "https://picsum.photos/seed/headphones1/800/800",
+        "https://picsum.photos/seed/headphones2/800/800",
+      ],
     },
     {
       name: "Organic Cotton T-Shirt",
       slug: "organic-cotton-tshirt",
-      description: "Comfortable and eco-friendly 100% organic cotton t-shirt. Available in multiple colors. Pre-shrunk fabric with reinforced stitching for durability.",
+      description:
+        "Comfortable and eco-friendly 100% organic cotton t-shirt. Available in multiple colors. Pre-shrunk fabric with reinforced stitching for durability.",
       brand: "EcoWear",
       categorySlug: "clothing",
       variants: [
@@ -87,24 +124,32 @@ async function main() {
         { sku: "TS-M-001", price: 24.99 },
         { sku: "TS-L-001", price: 24.99 },
       ],
-      media: ["https://picsum.photos/seed/tshirt1/800/800", "https://picsum.photos/seed/tshirt2/800/800"],
+      media: [
+        "https://picsum.photos/seed/tshirt1/800/800",
+        "https://picsum.photos/seed/tshirt2/800/800",
+      ],
     },
     {
       name: "Stainless Steel Water Bottle",
       slug: "stainless-steel-water-bottle",
-      description: "Double-walled vacuum insulated water bottle. Keeps drinks cold for 24 hours or hot for 12 hours. BPA-free, leak-proof design with 750ml capacity.",
+      description:
+        "Double-walled vacuum insulated water bottle. Keeps drinks cold for 24 hours or hot for 12 hours. BPA-free, leak-proof design with 750ml capacity.",
       brand: "HydroLife",
       categorySlug: "home-garden",
       variants: [
         { sku: "BT-SILVER-001", price: 34.99 },
         { sku: "BT-MATTE-001", price: 36.99 },
       ],
-      media: ["https://picsum.photos/seed/bottle1/800/800", "https://picsum.photos/seed/bottle2/800/800"],
+      media: [
+        "https://picsum.photos/seed/bottle1/800/800",
+        "https://picsum.photos/seed/bottle2/800/800",
+      ],
     },
     {
       name: "Yoga Mat Premium",
       slug: "yoga-mat-premium",
-      description: "Extra thick 6mm yoga mat with non-slip surface. Includes carrying strap. Eco-friendly TPE material, perfect for yoga, pilates, and stretching.",
+      description:
+        "Extra thick 6mm yoga mat with non-slip surface. Includes carrying strap. Eco-friendly TPE material, perfect for yoga, pilates, and stretching.",
       brand: "FlexFit",
       categorySlug: "sports",
       variants: [
@@ -112,12 +157,16 @@ async function main() {
         { sku: "YM-BLUE-001", price: 49.99 },
         { sku: "YM-GREEN-001", price: 49.99 },
       ],
-      media: ["https://picsum.photos/seed/yogamat1/800/800", "https://picsum.photos/seed/yogamat2/800/800"],
+      media: [
+        "https://picsum.photos/seed/yogamat1/800/800",
+        "https://picsum.photos/seed/yogamat2/800/800",
+      ],
     },
     {
       name: "JavaScript: The Good Parts",
       slug: "javascript-the-good-parts",
-      description: "A deep dive into JavaScript best practices, design patterns, and modern development techniques. Essential reading for every web developer.",
+      description:
+        "A deep dive into JavaScript best practices, design patterns, and modern development techniques. Essential reading for every web developer.",
       brand: "TechPress",
       categorySlug: "books",
       variants: [
@@ -129,18 +178,21 @@ async function main() {
     {
       name: "Building Blocks Set (200 pcs)",
       slug: "building-blocks-set",
-      description: "200 piece building blocks set compatible with major brands. Includes wheels, windows, and special pieces. Encourages creativity and motor skills.",
+      description:
+        "200 piece building blocks set compatible with major brands. Includes wheels, windows, and special pieces. Encourages creativity and motor skills.",
       brand: "CreativePlay",
       categorySlug: "toys",
-      variants: [
-        { sku: "BB-200-001", price: 39.99 },
+      variants: [{ sku: "BB-200-001", price: 39.99 }],
+      media: [
+        "https://picsum.photos/seed/blocks1/800/800",
+        "https://picsum.photos/seed/blocks2/800/800",
       ],
-      media: ["https://picsum.photos/seed/blocks1/800/800", "https://picsum.photos/seed/blocks2/800/800"],
     },
     {
       name: "Artisan Coffee Beans - Ethiopian",
       slug: "artisan-coffee-beans-ethiopian",
-      description: "Single-origin Ethiopian Yirgacheffe coffee beans. Light roast with floral and citrus notes. 1kg bag, freshly roasted and sealed for maximum freshness.",
+      description:
+        "Single-origin Ethiopian Yirgacheffe coffee beans. Light roast with floral and citrus notes. 1kg bag, freshly roasted and sealed for maximum freshness.",
       brand: "BrewMaster",
       categorySlug: "food-drinks",
       variants: [
@@ -152,7 +204,8 @@ async function main() {
     {
       name: "Natural Face Moisturizer",
       slug: "natural-face-moisturizer",
-      description: "Lightweight daily face moisturizer with hyaluronic acid and vitamin E. Suitable for all skin types. Cruelty-free and made with natural ingredients.",
+      description:
+        "Lightweight daily face moisturizer with hyaluronic acid and vitamin E. Suitable for all skin types. Cruelty-free and made with natural ingredients.",
       brand: "PureGlow",
       categorySlug: "health-beauty",
       variants: [
@@ -163,8 +216,10 @@ async function main() {
     },
   ];
 
-  for (const pd of productData) {
-    const existing = await prisma.product.findUnique({ where: { slug: pd.slug } });
+  for (const [productIndex, pd] of productData.entries()) {
+    const existing = await prisma.product.findUnique({
+      where: { slug: pd.slug },
+    });
     if (!existing) {
       await prisma.product.create({
         data: {
@@ -176,11 +231,15 @@ async function main() {
           categoryId: cats[pd.categorySlug],
           createdById: admin.id,
           variants: {
-            create: pd.variants.map((v) => ({
+            create: pd.variants.map((v, variantIndex) => ({
               sku: v.sku,
               price: v.price,
+              weightGrams: 250 + productIndex * 125,
               inventory: {
-                create: { onHand: Math.floor(Math.random() * 100) + 10, reserved: 0 },
+                create: {
+                  onHand: 20 + productIndex * 5 + variantIndex,
+                  reserved: 0,
+                },
               },
             })),
           },
@@ -189,11 +248,95 @@ async function main() {
               url,
               alt: `${pd.name} image ${idx + 1}`,
               order: idx,
+              isPrimary: idx === 0,
             })),
           },
         },
       });
+    } else {
+      await prisma.productVariant.updateMany({
+        where: { productId: existing.id },
+        data: { weightGrams: 250 + productIndex * 125 },
+      });
     }
+  }
+
+  const deliveryZone = await prisma.deliveryZone.upsert({
+    where: { slug: "demo-standard-zone" },
+    update: {
+      countries: ["BD", "US"],
+      regions: [],
+      postalCodes: [],
+      isActive: true,
+      priority: 1,
+    },
+    create: {
+      name: "Demo Standard Zone",
+      slug: "demo-standard-zone",
+      countries: ["BD", "US"],
+      regions: [],
+      postalCodes: [],
+      isActive: true,
+      priority: 1,
+    },
+  });
+  await prisma.deliveryMethod.upsert({
+    where: {
+      zoneId_code: { zoneId: deliveryZone.id, code: "standard" },
+    },
+    update: {
+      price: 5.99,
+      freeShippingAbove: 100,
+      minWeightGrams: 0,
+      maxWeightGrams: 20000,
+      isActive: true,
+    },
+    create: {
+      zoneId: deliveryZone.id,
+      name: "Standard Delivery",
+      code: "standard",
+      carrier: "Demo Carrier",
+      price: 5.99,
+      freeShippingAbove: 100,
+      minWeightGrams: 0,
+      maxWeightGrams: 20000,
+      estimatedDaysMin: 2,
+      estimatedDaysMax: 5,
+      isActive: true,
+    },
+  });
+  await prisma.coupon.upsert({
+    where: { code: "WELCOME10" },
+    update: { isActive: true },
+    create: {
+      code: "WELCOME10",
+      description: "Ten percent off the demo catalog",
+      discountType: "percentage",
+      discountValue: 10,
+      scope: "all",
+      scopeIds: [],
+      usagePerUser: 1,
+      isActive: true,
+    },
+  });
+  const demoAddress = await prisma.address.findFirst({
+    where: { userId: demo.id, label: "Demo address", type: "shipping" },
+  });
+  if (!demoAddress) {
+    await prisma.address.create({
+      data: {
+        userId: demo.id,
+        type: "shipping",
+        label: "Demo address",
+        line1: "123 Demo Street",
+        city: "Dhaka",
+        state: "Dhaka",
+        postalCode: "1205",
+        country: "BD",
+        phone: "+8801000000000",
+        isDefault: true,
+      },
+    });
   }
 
   // Create sample listings (existing behavior)

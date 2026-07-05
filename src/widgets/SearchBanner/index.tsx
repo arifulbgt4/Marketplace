@@ -30,7 +30,7 @@ const SearchBanner: FC<SearchBannerProps> = () => {
 
       return params.toString();
     },
-    [searchParams]
+    [searchParams],
   );
 
   return (
@@ -88,7 +88,7 @@ const SearchBanner: FC<SearchBannerProps> = () => {
             component="p"
             align="center"
           >
-            Contact: arifulbgt4@gmail.com
+            Quality products, delivered with confidence
           </Typography>
         </Stack>
         <Hidden mdDown implementation="css">

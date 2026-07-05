@@ -1,42 +1,48 @@
-"use client";
-import { Grid } from "@mui/material";
+import {
+  Avatar,
+  Card,
+  CardContent,
+  Chip,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { redirect } from "next/navigation";
+import { getAuthSession } from "src/lib/authz";
+import { userService } from "src/lib/services/user";
 
-import OwnerAbout from "src/widgets/OwnerAbout";
-import OwnerBasicInfo from "src/widgets/OwnerBasicInfo";
-import OwnerProfile from "src/widgets/OwnerProfile";
-import OwnerReview from "src/widgets/OwnerReview";
+export default async function Account() {
+  const session = await getAuthSession();
+  if (!session) redirect("/signin");
+  const profile = await userService.getProfile(session.userId);
 
-const profileData = {
-  name: "Ramita MR",
-  src: "https://scontent.fdac151-1.fna.fbcdn.net/v/t1.6435-9/57183841_350708698896126_7610830156164235264_n.jpg?stp=c0.83.500.500a_dst-jpg_s851x315&_nc_cat=103&ccb=1-7&_nc_sid=c21ed2&_nc_eui2=AeFaElRGqUVej9W3pHRzUJYzekZmaJR7xdZ6RmZolHvF1s_RFSaCIhmJ_z_gS4uUbj4a_8ibG42oZlFVJ_U8AMvQ&_nc_ohc=0syEpE5SNx0AX9PoTQp&_nc_ht=scontent.fdac151-1.fna&oh=00_AfDtqza5S0hu-bERP7JZgHE38_hoTQVmmvTq7qJ_gepnpg&oe=657190FC",
-  rating: 4.5,
-  totalListing: 8,
-  totalReview: 20,
-  cleanliness: 80,
-  communication: 60,
-  checkIn: 10,
-  accuracy: 100,
-  location: 30,
-  value: 50,
-};
-
-export default function Account() {
   return (
-    <Grid container columnSpacing={10} rowSpacing={3}>
-      <Grid item md={4} xs={12}>
-        <OwnerProfile profileData={profileData} />
-      </Grid>
-      <Grid item container xs={12} md={8} rowSpacing={4}>
-        <Grid item xs={12}>
-          <OwnerAbout />
-        </Grid>
-        <Grid item xs={12}>
-          <OwnerBasicInfo />
-        </Grid>
-        <Grid item xs={12}>
-          <OwnerReview reviews={[]} />
-        </Grid>
-      </Grid>
-    </Grid>
+    <Card>
+      <CardContent>
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          spacing={3}
+          alignItems={{ xs: "flex-start", sm: "center" }}
+        >
+          <Avatar
+            src={profile.image ?? undefined}
+            alt={profile.name}
+            sx={{ width: 96, height: 96 }}
+          />
+          <Stack spacing={1}>
+            <Typography variant="h4">{profile.name}</Typography>
+            <Typography color="text.secondary">{profile.email}</Typography>
+            {profile.phone && <Typography>{profile.phone}</Typography>}
+            <Stack direction="row" spacing={1}>
+              <Chip label={profile.role} size="small" />
+              <Chip
+                label={profile.status}
+                size="small"
+                color={profile.status === "active" ? "success" : "warning"}
+              />
+            </Stack>
+          </Stack>
+        </Stack>
+      </CardContent>
+    </Card>
   );
 }

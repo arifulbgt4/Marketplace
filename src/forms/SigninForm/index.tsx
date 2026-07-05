@@ -18,6 +18,8 @@ const SigninForm: FC<SiginFormProps> = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
+  const verified = searchParams.get("verified") === "1";
+  const invalidVerification = searchParams.get("verification") === "invalid";
 
   const {
     register,
@@ -52,6 +54,14 @@ const SigninForm: FC<SiginFormProps> = () => {
     <form onSubmit={handleSubmit(onSubmitForm)}>
       <Stack gap={2.5}>
         {error && <Alert severity="error">{error}</Alert>}
+        {verified && (
+          <Alert severity="success">Email verified. You can now sign in.</Alert>
+        )}
+        {invalidVerification && (
+          <Alert severity="error">
+            The verification link is invalid, expired, or already used.
+          </Alert>
+        )}
         <Stack gap={2}>
           <TextField
             label="Email"

@@ -28,15 +28,55 @@ const SUPPORT_ACCESS: AuthPolicy[] = [
 ];
 
 const CATALOG_MANAGER_ACCESS: AuthPolicy[] = [
-  { role: "catalog_manager", resource: "product", action: "create", allowed: true },
-  { role: "catalog_manager", resource: "product", action: "read", allowed: true },
-  { role: "catalog_manager", resource: "product", action: "update", allowed: true },
-  { role: "catalog_manager", resource: "category", action: "create", allowed: true },
-  { role: "catalog_manager", resource: "category", action: "read", allowed: true },
-  { role: "catalog_manager", resource: "category", action: "update", allowed: true },
-  { role: "catalog_manager", resource: "media", action: "create", allowed: true },
+  {
+    role: "catalog_manager",
+    resource: "product",
+    action: "create",
+    allowed: true,
+  },
+  {
+    role: "catalog_manager",
+    resource: "product",
+    action: "read",
+    allowed: true,
+  },
+  {
+    role: "catalog_manager",
+    resource: "product",
+    action: "update",
+    allowed: true,
+  },
+  {
+    role: "catalog_manager",
+    resource: "category",
+    action: "create",
+    allowed: true,
+  },
+  {
+    role: "catalog_manager",
+    resource: "category",
+    action: "read",
+    allowed: true,
+  },
+  {
+    role: "catalog_manager",
+    resource: "category",
+    action: "update",
+    allowed: true,
+  },
+  {
+    role: "catalog_manager",
+    resource: "media",
+    action: "create",
+    allowed: true,
+  },
   { role: "catalog_manager", resource: "media", action: "read", allowed: true },
-  { role: "catalog_manager", resource: "media", action: "delete", allowed: true },
+  {
+    role: "catalog_manager",
+    resource: "media",
+    action: "delete",
+    allowed: true,
+  },
 ];
 
 const ROLE_POLICIES: Record<Role, AuthPolicy[]> = {
@@ -49,11 +89,11 @@ const ROLE_POLICIES: Record<Role, AuthPolicy[]> = {
 export function can(
   role: Role,
   resource: string,
-  action: ResourceAction
+  action: ResourceAction,
 ): boolean {
   const policies = ROLE_POLICIES[role] ?? [];
   const adminOverride = ROLE_POLICIES.admin.find(
-    (p) => p.resource === resource && p.action === action
+    (p) => p.resource === resource && p.action === action,
   );
   if (adminOverride && role === "admin") return true;
 
@@ -61,52 +101,56 @@ export function can(
     (p) =>
       (p.resource === resource || p.resource === "*") &&
       p.action === action &&
-      p.allowed
+      p.allowed,
   );
 }
 
 export function isOwner(
   resourceUserId: string,
-  currentUserId: string
+  currentUserId: string,
 ): boolean {
   return resourceUserId === currentUserId;
 }
 
 export function requireRole(
   session: UserSession | null,
-  allowedRoles: Role[]
+  allowedRoles: Role[],
 ): void {
   if (!session) {
     throw new AuthenticationError();
   }
   if (!allowedRoles.includes(session.role)) {
-    throw new AuthorizationError(
-      `Requires one of: ${allowedRoles.join(", ")}`
-    );
+    throw new AuthorizationError(`Requires one of: ${allowedRoles.join(", ")}`);
   }
 }
 
 export function requireOwnerOrRole(
   session: UserSession | null,
   resourceUserId: string,
-  allowedRoles: Role[] = ["admin"]
+  allowedRoles: Role[] = ["admin"],
 ): void {
   if (!session) {
     throw new AuthenticationError();
   }
   if (isOwner(resourceUserId, session.userId)) return;
   if (allowedRoles.includes(session.role)) return;
-  throw new AuthorizationError("You do not have permission to perform this action");
+  throw new AuthorizationError(
+    "You do not have permission to perform this action",
+  );
 }
 
 export async function getAuthSession(): Promise<UserSession | null> {
   const nextAuthSession = await getServerSession(authOptions);
   if (!nextAuthSession?.user?.id) return null;
+  const status = nextAuthSession.user.status as UserSession["accountStatus"];
+  if (status !== "active") return null;
   return {
     userId: nextAuthSession.user.id as string,
     sessionId: "",
-    role: (nextAuthSession.user as Record<string, unknown>).role as Role || "user",
-    accountStatus: "active",
+    role:
+      ((nextAuthSession.user as Record<string, unknown>).role as Role) ||
+      "user",
+    accountStatus: status,
     permissions: [],
     isSystem: false,
     createdAt: new Date(),

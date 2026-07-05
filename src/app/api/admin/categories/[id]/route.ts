@@ -1,37 +1,40 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const getCategoryId = (pathname: string): string => {
-  const segments = pathname.split("/");
-  return segments[segments.length - 2];
-};
+type Context = { params: Promise<{ id: string }> };
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest, context: Context) {
   const { categoryService } = await import("src/lib/services/category");
-  const id = getCategoryId(request.nextUrl.pathname);
+  const { id } = await context.params;
   const result = await categoryService.getById(id);
   if (!result.success) {
-    return NextResponse.json(result.error.toSafeJSON(), { status: result.error.statusCode });
+    return NextResponse.json(result.error.toSafeJSON(), {
+      status: result.error.statusCode,
+    });
   }
   return NextResponse.json(result.data);
 }
 
-export async function PATCH(request: NextRequest) {
+export async function PATCH(request: NextRequest, context: Context) {
   const { categoryService } = await import("src/lib/services/category");
-  const id = getCategoryId(request.nextUrl.pathname);
+  const { id } = await context.params;
   const body = await request.json();
   const result = await categoryService.update(id, body);
   if (!result.success) {
-    return NextResponse.json(result.error.toSafeJSON(), { status: result.error.statusCode });
+    return NextResponse.json(result.error.toSafeJSON(), {
+      status: result.error.statusCode,
+    });
   }
   return NextResponse.json(result.data);
 }
 
-export async function DELETE(request: NextRequest) {
+export async function DELETE(_request: NextRequest, context: Context) {
   const { categoryService } = await import("src/lib/services/category");
-  const id = getCategoryId(request.nextUrl.pathname);
+  const { id } = await context.params;
   const result = await categoryService.delete(id);
   if (!result.success) {
-    return NextResponse.json(result.error.toSafeJSON(), { status: result.error.statusCode });
+    return NextResponse.json(result.error.toSafeJSON(), {
+      status: result.error.statusCode,
+    });
   }
   return NextResponse.json(result.data);
 }

@@ -1,231 +1,68 @@
 "use client";
-import { FC } from "react";
-import {
-  Grid,
-  Typography,
-  FormControl,
-  Button,
-  FormControlLabel,
-  Radio,
-} from "@mui/material";
-
+import { useState } from "react";
+import { Alert, Button, Grid, Typography } from "@mui/material";
 import { Form as FinalForm } from "react-final-form";
-
-import { RadioGroup, TextField } from "src/components/Input";
-
+import { TextField } from "src/components/Input";
 import { UserSettingFormProps } from "./Types";
 
-const INITIAL_VALUES = {
-  firstName: "",
-  lastName: "",
-  emailAdress: "",
-  number: "",
-  adress: "",
-  profileText: "",
-};
-const UserSettingForm: FC<UserSettingFormProps> = () => {
-  const onSubmitForm = async () => {};
+const UserSettingForm = ({ initialValues }: UserSettingFormProps) => {
+  const [message, setMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
+  const onSubmitForm = async (
+    values: UserSettingFormProps["initialValues"],
+  ) => {
+    setMessage(null);
+    const response = await fetch("/api/profile", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: values.name,
+        phone: values.phone || null,
+        image: values.image || null,
+      }),
+    });
+    const data = await response.json();
+    setMessage(
+      response.ok
+        ? { type: "success", text: "Profile updated." }
+        : { type: "error", text: data.message ?? "Profile update failed." },
+    );
+  };
 
   return (
     <FinalForm
       onSubmit={onSubmitForm}
-      initialValues={INITIAL_VALUES}
-      render={({ handleSubmit, values, errors, submitting }) => {
-        return (
-          <form onSubmit={handleSubmit}>
-            <Grid container spacing={2}>
-              <Grid
-                item
-                container
-                xs={12}
-                justifyContent={{ xs: "space-between", md: "flex-start" }}
-              >
-                <Grid item xs={5} md={3} display="flex" alignItems="center">
-                  <Typography variant="h6">First Name</Typography>
-                </Grid>
-                <Grid item xs={7}>
-                  <TextField
-                    size="small"
-                    name="firstName"
-                    fullWidth
-                    id="full-width"
-                    label="First Name"
-                    variant="outlined"
-                    required
-                  />
-                </Grid>
+      initialValues={initialValues}
+      render={({ handleSubmit, submitting }) => (
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={2} maxWidth={720}>
+            {message && (
+              <Grid item xs={12}>
+                <Alert severity={message.type}>{message.text}</Alert>
               </Grid>
-              <Grid
-                item
-                container
-                xs={12}
-                justifyContent={{ xs: "space-between", md: "flex-start" }}
-              >
-                <Grid item xs={5} md={3} display="flex" alignItems="center">
-                  <Typography variant="h6">Last Name</Typography>
-                </Grid>
-                <Grid item xs={7}>
-                  <TextField
-                    size="small"
-                    name="lastName"
-                    fullWidth
-                    id="full-width"
-                    label="Last Name"
-                    variant="outlined"
-                    required
-                  />
-                </Grid>
-              </Grid>
-              <Grid
-                item
-                container
-                xs={12}
-                justifyContent={{ xs: "space-between", md: "flex-start" }}
-              >
-                <Grid item xs={5} md={3} display="flex" alignItems="center">
-                  <Typography variant="h6">Email Adress</Typography>
-                </Grid>
-                <Grid item xs={7}>
-                  <TextField
-                    type="email"
-                    size="small"
-                    name="emailAdress"
-                    fullWidth
-                    id="full-width"
-                    label="Email"
-                    variant="outlined"
-                    required
-                  />
-                </Grid>
-              </Grid>
-              <Grid
-                item
-                container
-                xs={12}
-                justifyContent={{ xs: "space-between", md: "flex-start" }}
-              >
-                <Grid item xs={5} md={3} display="flex" alignItems="center">
-                  <Typography variant="h6">Your Numbers</Typography>
-                </Grid>
-                <Grid item xs={7}>
-                  <TextField
-                    name="number"
-                    fullWidth
-                    size="small"
-                    id="full-width"
-                    label="Your Numbers"
-                    variant="outlined"
-                    required
-                  />
-                </Grid>
-              </Grid>
-              <Grid
-                item
-                container
-                xs={12}
-                justifyContent={{ xs: "space-between", md: "flex-start" }}
-              >
-                <Grid item xs={5} md={3} display="flex" alignItems="center">
-                  <Typography variant="h6">Adress</Typography>
-                </Grid>
-                <Grid item xs={7}>
-                  <TextField
-                    name="adress"
-                    size="small"
-                    fullWidth
-                    id="full-width"
-                    label="Adress"
-                    variant="outlined"
-                    required
-                  />
-                </Grid>
-              </Grid>
-              <Grid
-                item
-                container
-                xs={12}
-                justifyContent={{ xs: "space-between", md: "flex-start" }}
-              >
-                <Grid item xs={5} md={3} display="flex" alignItems="center">
-                  <Typography variant="h6">Country</Typography>
-                </Grid>
-                <Grid item xs={7}>
-                  <TextField
-                    name="country"
-                    size="small"
-                    fullWidth
-                    id="full-width"
-                    label="Country"
-                    variant="outlined"
-                    required
-                  />
-                </Grid>
-              </Grid>
-              <Grid
-                item
-                container
-                xs={12}
-                justifyContent={{ xs: "space-between", md: "flex-start" }}
-              >
-                <Grid item xs={5} md={3} pt={2}>
-                  <Typography variant="h6">Profile Text</Typography>
-                </Grid>
-                <Grid item xs={7}>
-                  <TextField
-                    name="profileText"
-                    fullWidth
-                    multiline
-                    rows={4}
-                    size="small"
-                    id="full-width"
-                    label="Profile Text"
-                    variant="outlined"
-                    required
-                  />
-                </Grid>
-              </Grid>
-              <Grid
-                item
-                container
-                xs={12}
-                justifyContent={{ xs: "space-between", md: "flex-start" }}
-              >
-                <Grid item xs={5} md={3} pt={1.1}>
-                  <Typography variant="h6">Gender</Typography>
-                </Grid>
-                <Grid item xs={7} container rowSpacing={2}>
-                  <Grid item xs={12} pl={1}>
-                    <FormControl>
-                      <RadioGroup
-                        aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue="female"
-                        name="radio-buttons-group"
-                      >
-                        <FormControlLabel
-                          value="female"
-                          control={<Radio />}
-                          label="Female"
-                        />
-                        <FormControlLabel
-                          value="male"
-                          control={<Radio />}
-                          label="Male"
-                          checked
-                        />
-                      </RadioGroup>
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Button variant="outlined" type="submit">
-                      Update
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Grid>
+            )}
+            <Grid item xs={12}>
+              <Typography variant="h5">Profile settings</Typography>
             </Grid>
-          </form>
-        );
-      }}
+            <Grid item xs={12}>
+              <TextField name="name" label="Name" fullWidth required />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField name="phone" label="Phone" fullWidth />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField name="image" label="Profile image URL" fullWidth />
+            </Grid>
+            <Grid item xs={12}>
+              <Button variant="contained" type="submit" disabled={submitting}>
+                Save profile
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      )}
     />
   );
 };

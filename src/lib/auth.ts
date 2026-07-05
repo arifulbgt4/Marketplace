@@ -12,11 +12,13 @@ declare module "next-auth" {
       name: string;
       role: Role;
       status: string;
+      sessionVersion: number;
     };
   }
   interface User {
     role: Role;
     status: string;
+    sessionVersion: number;
   }
 }
 
@@ -25,10 +27,10 @@ declare module "next-auth/jwt" {
     id: string;
     role: Role;
     status: string;
+    sessionVersion: number;
+    invalidated?: boolean;
   }
 }
-
-const ACTIVE_STATUSES = ["active"];
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -57,7 +59,7 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        if (!ACTIVE_STATUSES.includes(user.role === "admin" ? "active" : "active")) {
+        if (user.status !== "active") {
           return null;
         }
 
@@ -66,7 +68,8 @@ export const authOptions: NextAuthOptions = {
           email: user.email,
           name: user.name,
           role: (user.role as Role) || "user",
-          status: "active",
+          status: user.status,
+          sessionVersion: user.sessionVersion,
         };
       },
     }),
@@ -80,19 +83,44 @@ export const authOptions: NextAuthOptions = {
           id: token.id,
           role: token.role,
           status: token.status,
+          sessionVersion: token.sessionVersion,
         },
       };
     },
-    jwt: ({ token, user }) => {
+    jwt: async ({ token, user }) => {
       if (user) {
         return {
           ...token,
           id: user.id,
           role: user.role,
           status: user.status,
+          sessionVersion: user.sessionVersion,
+          invalidated: false,
         };
       }
-      return token;
+
+      if (!token.id) return token;
+      const currentUser = await prisma.user.findUnique({
+        where: { id: token.id },
+        select: { role: true, status: true, sessionVersion: true },
+      });
+      if (
+        !currentUser ||
+        currentUser.status !== "active" ||
+        currentUser.sessionVersion !== token.sessionVersion
+      ) {
+        return {
+          ...token,
+          invalidated: true,
+          status: currentUser?.status ?? "suspended",
+        };
+      }
+      return {
+        ...token,
+        role: currentUser.role as Role,
+        status: currentUser.status,
+        invalidated: false,
+      };
     },
   },
 };

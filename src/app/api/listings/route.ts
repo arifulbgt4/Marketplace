@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
 
 import { prisma } from "src/lib/prisma";
-import { authOptions } from "src/lib/auth";
+import { getAuthSession } from "src/lib/authz";
 import { listingSchema, searchSchema } from "src/lib/validations";
 
 export async function GET(req: Request) {
@@ -24,11 +23,12 @@ export async function GET(req: Request) {
     if (!result.success) {
       return NextResponse.json(
         { status: "error", errors: result.error.flatten().fieldErrors },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
-    const { query, categoryId, minPrice, maxPrice, bedrooms, page, limit } = result.data;
+    const { query, categoryId, minPrice, maxPrice, bedrooms, page, limit } =
+      result.data;
 
     const where: any = { status: "published" };
 
@@ -74,18 +74,18 @@ export async function GET(req: Request) {
     console.error("Failed to fetch listings:", error);
     return NextResponse.json(
       { status: "error", message: "Failed to fetch listings" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
 export async function POST(req: Request) {
   try {
-    const session = (await getServerSession(authOptions)) as any;
-    if (!session?.user?.id) {
+    const session = await getAuthSession();
+    if (!session) {
       return NextResponse.json(
         { status: "error", message: "Unauthorized" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -99,11 +99,28 @@ export async function POST(req: Request) {
           message: "Validation failed",
           errors: result.error.flatten().fieldErrors,
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
-    const { title, description, price, discount, status, type, images, address, latitude, longitude, bedrooms, bathrooms, area, amenities, maxGuests, categoryId } = result.data;
+    const {
+      title,
+      description,
+      price,
+      discount,
+      status,
+      type,
+      images,
+      address,
+      latitude,
+      longitude,
+      bedrooms,
+      bathrooms,
+      area,
+      amenities,
+      maxGuests,
+      categoryId,
+    } = result.data;
 
     // Generate slug from title
     const slug = title
@@ -133,7 +150,7 @@ export async function POST(req: Request) {
         area,
         amenities: amenities || [],
         maxGuests,
-        userId: session.user.id,
+        userId: session.userId,
         categoryId,
       },
       include: {
@@ -150,7 +167,7 @@ export async function POST(req: Request) {
     console.error("Failed to create listing:", error);
     return NextResponse.json(
       { status: "error", message: "Failed to create listing" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

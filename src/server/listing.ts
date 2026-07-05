@@ -3,6 +3,8 @@ import { cache } from "react";
 import { Prisma } from "@prisma/client";
 
 import { prisma } from "src/lib/prisma";
+import { getAuthSession, requireOwnerOrRole } from "src/lib/authz";
+import { AuthorizationError } from "src/lib/errors";
 
 export const getFeaturedListings = cache(async () => {
   try {
@@ -52,72 +54,82 @@ export const getListingBySlug = cache(async (slug: string) => {
   }
 });
 
-export const getSearchListings = cache(async (params: {
-  query?: string;
-  categoryId?: string;
-  minPrice?: number;
-  maxPrice?: number;
-  bedrooms?: number;
-  page?: number;
-  limit?: number;
-}) => {
-  const { query, categoryId, minPrice, maxPrice, bedrooms, page = 1, limit = 12 } = params;
+export const getSearchListings = cache(
+  async (params: {
+    query?: string;
+    categoryId?: string;
+    minPrice?: number;
+    maxPrice?: number;
+    bedrooms?: number;
+    page?: number;
+    limit?: number;
+  }) => {
+    const {
+      query,
+      categoryId,
+      minPrice,
+      maxPrice,
+      bedrooms,
+      page = 1,
+      limit = 12,
+    } = params;
 
-  try {
-    const where: Prisma.ListingWhereInput = {
-      status: "published",
-    };
+    try {
+      const where: Prisma.ListingWhereInput = {
+        status: "published",
+      };
 
-    if (query) {
-      where.OR = [
-        { title: { contains: query, mode: "insensitive" } },
-        { description: { contains: query, mode: "insensitive" } },
-        { address: { contains: query, mode: "insensitive" } },
-      ];
-    }
+      if (query) {
+        where.OR = [
+          { title: { contains: query, mode: "insensitive" } },
+          { description: { contains: query, mode: "insensitive" } },
+          { address: { contains: query, mode: "insensitive" } },
+        ];
+      }
 
-    if (categoryId) {
-      where.categoryId = categoryId;
-    }
+      if (categoryId) {
+        where.categoryId = categoryId;
+      }
 
-    if (minPrice !== undefined || maxPrice !== undefined) {
-      where.price = {};
-      if (minPrice !== undefined) where.price.gte = minPrice;
-      if (maxPrice !== undefined) where.price.lte = maxPrice;
-    }
+      if (minPrice !== undefined || maxPrice !== undefined) {
+        where.price = {};
+        if (minPrice !== undefined) where.price.gte = minPrice;
+        if (maxPrice !== undefined) where.price.lte = maxPrice;
+      }
 
-    if (bedrooms !== undefined) {
-      where.bedrooms = bedrooms;
-    }
+      if (bedrooms !== undefined) {
+        where.bedrooms = bedrooms;
+      }
 
-    const [listings, total] = await Promise.all([
-      prisma.listing.findMany({
-        where,
-        include: {
-          category: true,
-          user: {
-            select: { id: true, name: true, image: true },
+      const [listings, total] = await Promise.all([
+        prisma.listing.findMany({
+          where,
+          include: {
+            category: true,
+            user: {
+              select: { id: true, name: true, image: true },
+            },
+            _count: { select: { reviews: true } },
           },
-          _count: { select: { reviews: true } },
-        },
-        orderBy: { createdAt: "desc" },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-      prisma.listing.count({ where }),
-    ]);
+          orderBy: { createdAt: "desc" },
+          skip: (page - 1) * limit,
+          take: limit,
+        }),
+        prisma.listing.count({ where }),
+      ]);
 
-    return {
-      listings,
-      total,
-      page,
-      totalPages: Math.ceil(total / limit),
-    };
-  } catch (error) {
-    console.error("Failed to search listings:", error);
-    return { listings: [], total: 0, page: 1, totalPages: 0 };
-  }
-});
+      return {
+        listings,
+        total,
+        page,
+        totalPages: Math.ceil(total / limit),
+      };
+    } catch (error) {
+      console.error("Failed to search listings:", error);
+      return { listings: [], total: 0, page: 1, totalPages: 0 };
+    }
+  },
+);
 
 export const getListingCategories = cache(async () => {
   try {
@@ -136,8 +148,10 @@ export const getListingCategories = cache(async () => {
 
 export const createListing = async (data: Prisma.ListingCreateInput) => {
   try {
+    const session = await getAuthSession();
+    if (!session) throw new AuthorizationError();
     const listing = await prisma.listing.create({
-      data,
+      data: { ...data, user: { connect: { id: session.userId } } },
       include: { category: true },
     });
     return listing;
@@ -149,12 +163,22 @@ export const createListing = async (data: Prisma.ListingCreateInput) => {
 
 export const updateListing = async (
   id: string,
-  data: Prisma.ListingUpdateInput
+  data: Prisma.ListingUpdateInput,
 ) => {
   try {
+    const session = await getAuthSession();
+    const existing = await prisma.listing.findUnique({
+      where: { id },
+      select: { userId: true },
+    });
+    if (!existing) throw new Error("Listing not found");
+    requireOwnerOrRole(session, existing.userId);
+    const { user, userId, ...safeData } = data as Prisma.ListingUpdateInput & {
+      userId?: unknown;
+    };
     const listing = await prisma.listing.update({
       where: { id },
-      data,
+      data: safeData,
       include: { category: true },
     });
     return listing;
@@ -166,6 +190,13 @@ export const updateListing = async (
 
 export const deleteListing = async (id: string) => {
   try {
+    const session = await getAuthSession();
+    const existing = await prisma.listing.findUnique({
+      where: { id },
+      select: { userId: true },
+    });
+    if (!existing) throw new Error("Listing not found");
+    requireOwnerOrRole(session, existing.userId);
     await prisma.listing.delete({ where: { id } });
     return { success: true };
   } catch (error) {

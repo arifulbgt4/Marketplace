@@ -1,9 +1,24 @@
 "use client";
 import { useState, useEffect, use } from "react";
 import {
-  Box, Container, Grid, Typography, CardMedia, Chip, Stack,
-  Table, TableBody, TableCell, TableContainer, TableRow,
-  Paper, Skeleton, Breadcrumbs, Link as MuiLink,
+  Box,
+  Container,
+  Grid,
+  Typography,
+  CardMedia,
+  Chip,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Paper,
+  Skeleton,
+  Breadcrumbs,
+  Link as MuiLink,
+  Button,
+  Alert,
 } from "@mui/material";
 import Link from "next/link";
 
@@ -20,9 +35,11 @@ interface ProductData {
   status: string;
   category: { id: string; name: string; slug: string } | null;
   variants: {
-    id: string; sku: string; price: string;
+    id: string;
+    sku: string;
+    price: string;
     compareAtPrice: string | null;
-    inventory: { onHand: number } | null;
+    inventory: { onHand: number; reserved: number } | null;
   }[];
   media: { id: string; url: string; alt: string | null; order: number }[];
   options: { id: string; name: string; values: string[] }[];
@@ -33,6 +50,36 @@ export default function ProductDetailPage({ params }: PageProps) {
   const resolved = use(params);
   const [product, setProduct] = useState<ProductData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [adding, setAdding] = useState<string | null>(null);
+  const [cartMessage, setCartMessage] = useState<{
+    severity: "success" | "error";
+    text: string;
+  } | null>(null);
+
+  const addToCart = async (variantId: string) => {
+    setAdding(variantId);
+    setCartMessage(null);
+    try {
+      const response = await fetch("/api/cart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ variantId, quantity: 1 }),
+      });
+      const data = await response.json();
+      setCartMessage(
+        response.ok
+          ? { severity: "success", text: "Item added to your cart." }
+          : {
+              severity: "error",
+              text: data.message ?? "Unable to add this item.",
+            },
+      );
+    } catch {
+      setCartMessage({ severity: "error", text: "Unable to add this item." });
+    } finally {
+      setAdding(null);
+    }
+  };
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -59,8 +106,12 @@ export default function ProductDetailPage({ params }: PageProps) {
   if (!product) {
     return (
       <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Typography variant="h4" color="error">Product not found</Typography>
-        <MuiLink component={Link} href="/products">Back to products</MuiLink>
+        <Typography variant="h4" color="error">
+          Product not found
+        </Typography>
+        <MuiLink component={Link} href="/products">
+          Back to products
+        </MuiLink>
       </Container>
     );
   }
@@ -68,10 +119,24 @@ export default function ProductDetailPage({ params }: PageProps) {
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
       <Breadcrumbs sx={{ mb: 2 }}>
-        <MuiLink component={Link} href="/" underline="hover" color="inherit">Home</MuiLink>
-        <MuiLink component={Link} href="/products" underline="hover" color="inherit">Products</MuiLink>
+        <MuiLink component={Link} href="/" underline="hover" color="inherit">
+          Home
+        </MuiLink>
+        <MuiLink
+          component={Link}
+          href="/products"
+          underline="hover"
+          color="inherit"
+        >
+          Products
+        </MuiLink>
         {product.category && (
-          <MuiLink component={Link} href={`/products?categoryId=${product.category.id}`} underline="hover" color="inherit">
+          <MuiLink
+            component={Link}
+            href={`/products?categoryId=${product.category.id}`}
+            underline="hover"
+            color="inherit"
+          >
             {product.category.name}
           </MuiLink>
         )}
@@ -85,13 +150,22 @@ export default function ProductDetailPage({ params }: PageProps) {
               component="img"
               image={product.media[0].url}
               alt={product.media[0].alt || product.name}
-              sx={{ width: "100%", maxHeight: 500, objectFit: "cover", borderRadius: 2 }}
+              sx={{
+                width: "100%",
+                maxHeight: 500,
+                objectFit: "cover",
+                borderRadius: 2,
+              }}
             />
           ) : (
             <Box
               sx={{
-                width: "100%", height: 400, bgcolor: "grey.100",
-                display: "flex", alignItems: "center", justifyContent: "center",
+                width: "100%",
+                height: 400,
+                bgcolor: "grey.100",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
                 borderRadius: 2,
               }}
             >
@@ -107,7 +181,13 @@ export default function ProductDetailPage({ params }: PageProps) {
                   component="img"
                   src={m.url}
                   alt={m.alt || ""}
-                  sx={{ width: 80, height: 80, objectFit: "cover", borderRadius: 1, cursor: "pointer" }}
+                  sx={{
+                    width: 80,
+                    height: 80,
+                    objectFit: "cover",
+                    borderRadius: 1,
+                    cursor: "pointer",
+                  }}
                 />
               ))}
             </Stack>
@@ -120,27 +200,59 @@ export default function ProductDetailPage({ params }: PageProps) {
               {product.brand}
             </Typography>
           )}
-          <Typography variant="h3" gutterBottom>{product.name}</Typography>
+          <Typography variant="h3" gutterBottom>
+            {product.name}
+          </Typography>
           {product.category && (
             <Chip label={product.category.name} size="small" sx={{ mb: 2 }} />
           )}
 
-          <Typography variant="body1" color="text.secondary" sx={{ mb: 3, whiteSpace: "pre-wrap" }}>
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            sx={{ mb: 3, whiteSpace: "pre-wrap" }}
+          >
             {product.description}
           </Typography>
 
-          <Typography variant="h5" fontWeight={600} gutterBottom>Variants</Typography>
+          <Typography variant="h5" fontWeight={600} gutterBottom>
+            Variants
+          </Typography>
+          {cartMessage && (
+            <Alert severity={cartMessage.severity} sx={{ mb: 2 }}>
+              {cartMessage.text}
+            </Alert>
+          )}
           <TableContainer component={Paper} variant="outlined" sx={{ mb: 3 }}>
             <Table size="small">
               <TableBody>
                 {product.variants.map((v) => (
                   <TableRow key={v.id}>
-                    <TableCell><strong>{v.sku}</strong></TableCell>
                     <TableCell>
-                      <Typography fontWeight={600}>${Number(v.price).toFixed(2)}</Typography>
+                      <strong>{v.sku}</strong>
                     </TableCell>
                     <TableCell>
-                      {v.inventory && v.inventory.onHand > 0 ? (
+                      <Typography fontWeight={600}>
+                        ${Number(v.price).toFixed(2)}
+                      </Typography>
+                    </TableCell>
+                    <TableCell align="right">
+                      <Button
+                        size="small"
+                        variant="contained"
+                        disabled={
+                          !v.inventory ||
+                          v.inventory.onHand - v.inventory.reserved <= 0 ||
+                          adding === v.id
+                        }
+                        onClick={() => addToCart(v.id)}
+                      >
+                        {adding === v.id ? "Adding…" : "Add to cart"}
+                      </Button>
+                    </TableCell>
+                    <TableCell>
+                      {v.inventory &&
+                      v.inventory.onHand - v.inventory.reserved > 0 ? (
                         <Chip label="In Stock" color="success" size="small" />
                       ) : (
                         <Chip label="Out of Stock" color="error" size="small" />
@@ -154,7 +266,9 @@ export default function ProductDetailPage({ params }: PageProps) {
 
           {product.options.length > 0 && (
             <Box sx={{ mb: 2 }}>
-              <Typography variant="h6" gutterBottom>Options</Typography>
+              <Typography variant="h6" gutterBottom>
+                Options
+              </Typography>
               {product.options.map((o) => (
                 <Typography key={o.id} variant="body2" color="text.secondary">
                   <strong>{o.name}:</strong> {o.values.join(", ")}

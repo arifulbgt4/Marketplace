@@ -1,16 +1,22 @@
 // React
-import { FC, useState } from "react";
+import { FC, useState, type ComponentType } from "react";
 // @mui
 import { Box, Popover } from "@mui/material";
 // packages
 import { Field } from "react-final-form";
 import { DateRange } from "react-date-range";
+import type { DateRangeProps } from "react-date-range";
 import "react-date-range/dist/theme/default.css";
 
 // Util
 import { formatDate } from "./util";
 // Types
 import { DateRangePickerProps, DateRangePickerWrapperProps } from "./Types";
+
+// react-date-range's published class-component types still target an older
+// React definition. The runtime component is compatible with React 18.
+const CompatibleDateRange =
+  DateRange as unknown as ComponentType<DateRangeProps>;
 
 const DateRangePicker: FC<DateRangePickerProps> = ({ name, renderPreview }) => {
   return (
@@ -55,7 +61,7 @@ const DateRangePickerWrapper: FC<DateRangePickerWrapperProps> = ({
       <Box onClick={handleClick} sx={{ cursor: "pointer" }}>
         {renderPreview(
           formatDate(value?.startDate),
-          formatDate(value?.endDate)
+          formatDate(value?.endDate),
         )}
       </Box>
       <Popover
@@ -72,7 +78,7 @@ const DateRangePickerWrapper: FC<DateRangePickerWrapperProps> = ({
           horizontal: "center",
         }}
       >
-        <DateRange
+        <CompatibleDateRange
           onChange={(item) => onChange(item.selection)}
           moveRangeOnFirstSelection={false}
           months={2}

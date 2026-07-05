@@ -1,6 +1,6 @@
 "use client";
-import { FC } from "react";
-import { Button, Grid, Typography } from "@mui/material";
+import { FC, useState } from "react";
+import { Alert, Button, Grid, Typography } from "@mui/material";
 
 import { Form as FinalForm } from "react-final-form";
 
@@ -14,7 +14,28 @@ const INITIAL_VALUES = {
 };
 
 const ChangePasswordForm: FC<ChangePasswordFormProps> = () => {
-  const onSubmitForm = async () => {};
+  const [message, setMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
+  const onSubmitForm = async (values: typeof INITIAL_VALUES) => {
+    setMessage(null);
+    const response = await fetch("/api/account/password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        currentPassword: values.currentPassword,
+        newPassword: values.newPassword,
+        confirmPassword: values.reTypePassword,
+      }),
+    });
+    const data = await response.json();
+    setMessage(
+      response.ok
+        ? { type: "success", text: "Password changed. Please sign in again." }
+        : { type: "error", text: data.message ?? "Password change failed." },
+    );
+  };
 
   return (
     <FinalForm
@@ -23,6 +44,11 @@ const ChangePasswordForm: FC<ChangePasswordFormProps> = () => {
       render={({ handleSubmit, values, errors, submitting }) => {
         return (
           <form onSubmit={handleSubmit}>
+            {message && (
+              <Alert severity={message.type} sx={{ mb: 2 }}>
+                {message.text}
+              </Alert>
+            )}
             <Grid
               container
               rowSpacing={2}
@@ -47,7 +73,7 @@ const ChangePasswordForm: FC<ChangePasswordFormProps> = () => {
               </Grid>
               <Grid item xs={7}>
                 <TextField
-                  name="changePassword"
+                  name="newPassword"
                   size="small"
                   fullWidth
                   id="full-width"

@@ -9,6 +9,8 @@ export default {
   listingEdit: "/l/edit/",
   signin: "/signin",
   signup: "/signup",
+  forgotPassword: "/forgot-password",
+  verifyEmail: "/verify-email",
   merchant: "/merchant/",
   userBookmark: "/u/bookmark",
   userDashboard: "/u/dashboard",

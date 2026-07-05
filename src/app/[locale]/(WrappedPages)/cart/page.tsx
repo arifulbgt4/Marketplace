@@ -1,8 +1,18 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import {
-  Box, Container, Typography, Card, CardContent, CardMedia,
-  Stack, Button, IconButton, TextField, Skeleton, Divider,
+  Box,
+  Container,
+  Typography,
+  Card,
+  CardContent,
+  CardMedia,
+  Stack,
+  Button,
+  IconButton,
+  TextField,
+  Skeleton,
+  Divider,
   Paper,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -46,7 +56,9 @@ export default function CartPage() {
     }
   }, []);
 
-  useEffect(() => { fetchCart(); }, [fetchCart]);
+  useEffect(() => {
+    fetchCart();
+  }, [fetchCart]);
 
   const updateQuantity = async (variantId: string, quantity: number) => {
     setUpdating(variantId);
@@ -72,7 +84,7 @@ export default function CartPage() {
   const clearCart = async () => {
     if (!cart) return;
     try {
-      await fetch(`/api/cart?cartId=${cart.id}`, { method: "DELETE" });
+      await fetch("/api/cart", { method: "DELETE" });
       setCart({ ...cart, items: [], subtotal: 0 });
     } catch {}
   };
@@ -114,9 +126,18 @@ export default function CartPage() {
               <Stack direction="row" spacing={2} p={2}>
                 <CardMedia
                   component="img"
-                  image={item.imageUrl || "https://placehold.co/100x100?text=No+Image"}
+                  image={
+                    item.imageUrl ||
+                    "https://placehold.co/100x100?text=No+Image"
+                  }
                   alt={item.productName}
-                  sx={{ width: 100, height: 100, borderRadius: 1, objectFit: "cover", flexShrink: 0 }}
+                  sx={{
+                    width: 100,
+                    height: 100,
+                    borderRadius: 1,
+                    objectFit: "cover",
+                    flexShrink: 0,
+                  }}
                 />
                 <Box sx={{ flex: 1 }}>
                   <Typography variant="subtitle1" fontWeight={600}>
@@ -125,14 +146,21 @@ export default function CartPage() {
                   <Typography variant="body2" color="text.secondary">
                     SKU: {item.sku}
                   </Typography>
-                  <Typography variant="body1" fontWeight={600} color="primary" mt={1}>
+                  <Typography
+                    variant="body1"
+                    fontWeight={600}
+                    color="primary"
+                    mt={1}
+                  >
                     ${Number(item.unitPrice).toFixed(2)}
                   </Typography>
                 </Box>
                 <Stack direction="row" alignItems="center" spacing={1}>
                   <IconButton
                     size="small"
-                    onClick={() => updateQuantity(item.variantId, item.quantity - 1)}
+                    onClick={() =>
+                      updateQuantity(item.variantId, item.quantity - 1)
+                    }
                     disabled={updating === item.variantId}
                   >
                     <RemoveIcon />
@@ -141,21 +169,32 @@ export default function CartPage() {
                     value={item.quantity}
                     size="small"
                     sx={{ width: 60 }}
-                    inputProps={{ min: 0, max: 100, style: { textAlign: "center" } }}
+                    inputProps={{
+                      min: 0,
+                      max: 100,
+                      style: { textAlign: "center" },
+                    }}
                     onChange={(e) => {
                       const val = parseInt(e.target.value);
-                      if (!isNaN(val) && val >= 0) updateQuantity(item.variantId, val);
+                      if (!isNaN(val) && val >= 0)
+                        updateQuantity(item.variantId, val);
                     }}
                     disabled={updating === item.variantId}
                   />
                   <IconButton
                     size="small"
-                    onClick={() => updateQuantity(item.variantId, item.quantity + 1)}
+                    onClick={() =>
+                      updateQuantity(item.variantId, item.quantity + 1)
+                    }
                     disabled={updating === item.variantId}
                   >
                     <AddIcon />
                   </IconButton>
-                  <IconButton color="error" onClick={() => removeItem(item.variantId)} disabled={updating === item.variantId}>
+                  <IconButton
+                    color="error"
+                    onClick={() => removeItem(item.variantId)}
+                    disabled={updating === item.variantId}
+                  >
                     <DeleteIcon />
                   </IconButton>
                 </Stack>
@@ -165,7 +204,11 @@ export default function CartPage() {
 
           <Divider sx={{ my: 3 }} />
 
-          <Stack direction="row" justifyContent="space-between" alignItems="center">
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
             <Button color="error" variant="outlined" onClick={clearCart}>
               Clear Cart
             </Button>

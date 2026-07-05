@@ -1,5 +1,5 @@
 import { prisma } from "src/lib/prisma";
-import { NotFoundError } from "src/lib/errors";
+import { AuthorizationError, NotFoundError } from "src/lib/errors";
 import type { UserUpdateInput } from "src/lib/validations";
 import type { UserRole } from "@prisma/client";
 
@@ -25,7 +25,7 @@ export class UserService {
       name: user.name,
       email: user.email,
       role: user.role,
-      status: "active",
+      status: user.status,
       image: user.image ?? null,
       phone: user.phone ?? null,
       createdAt: user.createdAt,
@@ -42,7 +42,7 @@ export class UserService {
       name: user.name,
       email: user.email,
       role: user.role,
-      status: "active",
+      status: user.status,
       image: user.image ?? null,
       phone: user.phone ?? null,
       createdAt: user.createdAt,
@@ -53,11 +53,11 @@ export class UserService {
   async updateProfile(
     userId: string,
     data: UserUpdateInput,
-    options?: { updaterId?: string }
+    options?: { updaterId?: string },
   ): Promise<UserProfile> {
     const actorId = options?.updaterId ?? userId;
     if (userId !== actorId) {
-      throw new Error("A user can only update their own profile");
+      throw new AuthorizationError("A user can only update their own profile");
     }
 
     const user = await prisma.user.findUnique({ where: { id: userId } });
@@ -65,7 +65,7 @@ export class UserService {
 
     const updateData: Record<string, unknown> = {};
     if (data.name !== undefined) updateData.name = data.name;
-    if (data.email !== undefined) updateData.email = data.email;
+    // Email changes require the dedicated verification flow.
     if (data.phone !== undefined) updateData.phone = data.phone;
     if (data.image !== undefined) updateData.image = data.image;
 
@@ -79,7 +79,7 @@ export class UserService {
       name: updated.name,
       email: updated.email,
       role: updated.role,
-      status: "active",
+      status: updated.status,
       image: updated.image ?? null,
       phone: updated.phone ?? null,
       createdAt: updated.createdAt,
@@ -98,7 +98,7 @@ export class UserService {
       name: u.name,
       email: u.email,
       role: u.role,
-      status: "active",
+      status: u.status,
       image: u.image ?? null,
       phone: u.phone ?? null,
       createdAt: u.createdAt,

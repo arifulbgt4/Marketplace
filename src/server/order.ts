@@ -5,8 +5,9 @@ import { v4 } from "uuid";
 const uuidv4 = v4;
 
 import { prisma } from "src/lib/prisma";
-import { getServerSession } from "next-auth";
-import { authOptions } from "src/lib/auth";
+import { getAuthSession, requireRole } from "src/lib/authz";
+import { AuthorizationError } from "src/lib/errors";
+import { Money } from "src/lib/money";
 
 export const createOrder = async (data: {
   listingId: string;
@@ -15,8 +16,8 @@ export const createOrder = async (data: {
   guests?: number;
 }) => {
   try {
-    const session = (await getServerSession(authOptions)) as any;
-    if (!session?.user?.id) {
+    const session = await getAuthSession();
+    if (!session) {
       throw new Error("Unauthorized");
     }
 
@@ -29,9 +30,12 @@ export const createOrder = async (data: {
     }
 
     const nights = Math.ceil(
-      (data.endDate.getTime() - data.startDate.getTime()) / (1000 * 60 * 60 * 24)
+      (data.endDate.getTime() - data.startDate.getTime()) /
+        (1000 * 60 * 60 * 24),
     );
-    const totalPrice = listing.price * nights;
+    const totalPrice = Money.fromDecimal(listing.price.toString()).multiply(
+      nights,
+    ).amount;
 
     const order = await prisma.order.create({
       data: {
@@ -40,7 +44,7 @@ export const createOrder = async (data: {
         endDate: data.endDate,
         totalPrice,
         guests: data.guests || 1,
-        userId: session.user.id,
+        userId: session.userId,
         listingId: data.listingId,
       },
       include: {
@@ -60,14 +64,20 @@ export const createOrder = async (data: {
 
 export const getUserOrders = cache(async () => {
   try {
-    const session = (await getServerSession(authOptions)) as any;
-    if (!session?.user?.id) return [];
+    const session = await getAuthSession();
+    if (!session) return [];
 
     const orders = await prisma.order.findMany({
-      where: { userId: session.user.id },
+      where: { userId: session.userId },
       include: {
         listing: {
-          select: { id: true, title: true, slug: true, images: true, price: true },
+          select: {
+            id: true,
+            title: true,
+            slug: true,
+            images: true,
+            price: true,
+          },
         },
       },
       orderBy: { createdAt: "desc" },
@@ -81,6 +91,8 @@ export const getUserOrders = cache(async () => {
 
 export const updateOrderStatus = async (id: string, status: string) => {
   try {
+    const session = await getAuthSession();
+    requireRole(session, ["admin", "support"]);
     const order = await prisma.order.update({
       where: { id },
       data: { status: status as OrderStatus },

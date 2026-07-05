@@ -216,7 +216,9 @@ describe("validatePublish", () => {
       categoryId: "some-category-id",
     });
     expect(result.valid).toBe(false);
-    expect(result.errors).toContain("Product must have at least one media item");
+    expect(result.errors).toContain(
+      "Product must have at least one media item",
+    );
   });
 
   it("rejects variants without SKU", () => {
@@ -244,7 +246,13 @@ describe("validatePublish", () => {
   it("passes when all conditions met", () => {
     const result = validatePublish({
       status: "draft",
-      variants: [{ sku: "TEST-001", price: 29.99 }],
+      variants: [
+        {
+          sku: "TEST-001",
+          price: 29.99,
+          inventory: { onHand: 5, reserved: 0 },
+        },
+      ],
       media: [{ url: "https://example.com/img.jpg" }],
       categoryId: "some-category-id",
     });

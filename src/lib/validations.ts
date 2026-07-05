@@ -16,7 +16,7 @@ export const userRegisterSchema = z.object({
     .min(8, "Password must be at least 8 characters")
     .regex(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-      "Password must contain at least one uppercase letter, one lowercase letter, and one number"
+      "Password must contain at least one uppercase letter, one lowercase letter, and one number",
     ),
 });
 
@@ -33,8 +33,12 @@ export const userUpdateSchema = z.object({
     .max(100, "Name must be at most 100 characters")
     .optional(),
   email: z.string().email("Invalid email address").optional(),
-  phone: z.string().regex(/^\+?[0-9\s-()]+$/).optional(),
-  image: z.string().url().optional(),
+  phone: z
+    .string()
+    .regex(/^\+?[0-9\s-()]+$/)
+    .nullable()
+    .optional(),
+  image: z.string().url().nullable().optional(),
   bio: z.string().max(500, "Bio must be at most 500 characters").optional(),
 });
 
@@ -48,7 +52,10 @@ export const listingSchema = z.object({
     .string()
     .min(20, "Description must be at least 20 characters")
     .max(5000, "Description must be at most 5000 characters"),
-  price: z.number().positive("Price must be positive").max(100000, "Price is too high"),
+  price: z
+    .number()
+    .positive("Price must be positive")
+    .max(100000, "Price is too high"),
   discount: z.number().positive().max(100000).optional(),
   status: z.enum(["draft", "published", "archived"]).default("draft"),
   type: z.enum(["rent", "sale"]).default("rent"),
@@ -75,7 +82,11 @@ export const listingUpdateSchema = z.object({
     .min(20, "Description must be at least 20 characters")
     .max(5000, "Description must be at most 5000 characters")
     .optional(),
-  price: z.number().positive("Price must be positive").max(100000, "Price is too high").optional(),
+  price: z
+    .number()
+    .positive("Price must be positive")
+    .max(100000, "Price is too high")
+    .optional(),
   discount: z.number().positive().max(100000).optional(),
   status: z.enum(["draft", "published", "archived"]).optional(),
   type: z.enum(["rent", "sale"]).optional(),
@@ -92,42 +103,60 @@ export const listingUpdateSchema = z.object({
 });
 
 // Order validation schemas
-export const orderSchema = z.object({
-  listingId: z.string().uuid("Invalid listing ID"),
-  startDate: z.date().min(new Date(), "Start date must be in the future"),
-  endDate: z.date(),
-  guests: z.number().int().min(1).max(100).default(1),
-}).refine((data) => data.endDate > data.startDate, {
-  message: "End date must be after start date",
-  path: ["endDate"],
-});
+export const orderSchema = z
+  .object({
+    listingId: z.string().uuid("Invalid listing ID"),
+    startDate: z.date().min(new Date(), "Start date must be in the future"),
+    endDate: z.date(),
+    guests: z.number().int().min(1).max(100).default(1),
+  })
+  .refine((data) => data.endDate > data.startDate, {
+    message: "End date must be after start date",
+    path: ["endDate"],
+  });
 
-export const orderUpdateSchema = z.object({
-  status: z.enum(["pending", "confirmed", "cancelled", "completed"]).optional(),
-  startDate: z.date().min(new Date(), "Start date must be in the future").optional(),
-  endDate: z.date().optional(),
-  guests: z.number().int().min(1).max(100).optional(),
-}).refine((data) => {
-  if (data.startDate && data.endDate && data.endDate <= data.startDate) {
-    return false;
-  }
-  return true;
-}, {
-  message: "End date must be after start date",
-  path: ["endDate"],
-});
+export const orderUpdateSchema = z
+  .object({
+    status: z
+      .enum(["pending", "confirmed", "cancelled", "completed"])
+      .optional(),
+    startDate: z
+      .date()
+      .min(new Date(), "Start date must be in the future")
+      .optional(),
+    endDate: z.date().optional(),
+    guests: z.number().int().min(1).max(100).optional(),
+  })
+  .refine(
+    (data) => {
+      if (data.startDate && data.endDate && data.endDate <= data.startDate) {
+        return false;
+      }
+      return true;
+    },
+    {
+      message: "End date must be after start date",
+      path: ["endDate"],
+    },
+  );
 
 // Review validation schemas
 export const reviewSchema = z.object({
   listingId: z.string().uuid("Invalid listing ID"),
-  rating: z.number().min(1, "Rating must be at least 1").max(5, "Rating must be at most 5"),
+  rating: z
+    .number()
+    .min(1, "Rating must be at least 1")
+    .max(5, "Rating must be at most 5"),
   cleanliness: z.number().min(1).max(5).optional(),
   communication: z.number().min(1).max(5).optional(),
   checkIn: z.number().min(1).max(5).optional(),
   accuracy: z.number().min(1).max(5).optional(),
   location: z.number().min(1).max(5).optional(),
   value: z.number().min(1).max(5).optional(),
-  comment: z.string().max(1000, "Comment must be at most 1000 characters").optional(),
+  comment: z
+    .string()
+    .max(1000, "Comment must be at most 1000 characters")
+    .optional(),
 });
 
 export const reviewUpdateSchema = z.object({
@@ -144,7 +173,14 @@ export const reviewUpdateSchema = z.object({
 // Category validation schemas
 export const categorySchema = z.object({
   name: z.string().min(2).max(100),
-  slug: z.string().min(2).max(100).regex(/^[a-z0-9-]+$/, "Slug must contain only lowercase letters, numbers, and hyphens"),
+  slug: z
+    .string()
+    .min(2)
+    .max(100)
+    .regex(
+      /^[a-z0-9-]+$/,
+      "Slug must contain only lowercase letters, numbers, and hyphens",
+    ),
   icon: z.string().optional(),
   image: z.string().url().optional(),
   parentId: z.string().uuid().optional(),
@@ -152,7 +188,12 @@ export const categorySchema = z.object({
 
 export const categoryUpdateSchema = z.object({
   name: z.string().min(2).max(100).optional(),
-  slug: z.string().min(2).max(100).regex(/^[a-z0-9-]+$/).optional(),
+  slug: z
+    .string()
+    .min(2)
+    .max(100)
+    .regex(/^[a-z0-9-]+$/)
+    .optional(),
   icon: z.string().optional(),
   image: z.string().url().optional(),
   parentId: z.string().uuid().optional(),
@@ -198,7 +239,11 @@ export type SearchUpdateInput = z.infer<typeof searchUpdateSchema>;
 export const currencySchema = z.object({
   code: z.string().length(3, "Currency code must be 3 characters (ISO 4217)"),
   symbol: z.string().min(1, "Currency symbol must be set"),
-  decimalPlaces: z.number().int().min(0).max(6, "Decimal places must be between 0 and 6"),
+  decimalPlaces: z
+    .number()
+    .int()
+    .min(0)
+    .max(6, "Decimal places must be between 0 and 6"),
   name: z.string().min(1, "Currency name must be set"),
   exchangeRate: z.number().positive("Exchange rate must be positive"),
 });
@@ -226,16 +271,18 @@ export const userProfileSchema = z.object({
   status: z.enum(["active", "suspended", "pending_verification"]),
   avatar: z.string().optional(),
   phone: z.string().optional(),
-  preferences: z.object({
-    language: z.string().min(2).max(5),
-    timezone: z.string().min(3).max(50),
-    currency: z.string().length(3),
-    notifications: z.object({
-      email: z.boolean(),
-      push: z.boolean(),
-      marketing: z.boolean(),
-    }),
-  }).optional(),
+  preferences: z
+    .object({
+      language: z.string().min(2).max(5),
+      timezone: z.string().min(3).max(50),
+      currency: z.string().length(3),
+      notifications: z.object({
+        email: z.boolean(),
+        push: z.boolean(),
+        marketing: z.boolean(),
+      }),
+    })
+    .optional(),
 });
 
 export type UserProfileInput = z.infer<typeof userProfileSchema>;

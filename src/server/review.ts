@@ -2,8 +2,7 @@
 import { cache } from "react";
 
 import { prisma } from "src/lib/prisma";
-import { getServerSession } from "next-auth";
-import { authOptions } from "src/lib/auth";
+import { getAuthSession } from "src/lib/authz";
 
 export const getListingReviews = cache(async (listingId: string) => {
   try {
@@ -80,15 +79,15 @@ export const createReview = async (data: {
   comment?: string;
 }) => {
   try {
-    const session = (await getServerSession(authOptions)) as any;
-    if (!session?.user?.id) {
+    const session = await getAuthSession();
+    if (!session) {
       throw new Error("Unauthorized");
     }
 
     const existingReview = await prisma.review.findUnique({
       where: {
         userId_listingId: {
-          userId: session.user.id,
+          userId: session.userId,
           listingId: data.listingId,
         },
       },
@@ -101,7 +100,7 @@ export const createReview = async (data: {
     const review = await prisma.review.create({
       data: {
         ...data,
-        userId: session.user.id,
+        userId: session.userId,
       },
       include: {
         author: {

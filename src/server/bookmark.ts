@@ -2,20 +2,19 @@
 import { cache } from "react";
 
 import { prisma } from "src/lib/prisma";
-import { getServerSession } from "next-auth";
-import { authOptions } from "src/lib/auth";
+import { getAuthSession } from "src/lib/authz";
 
 export const toggleBookmark = async (listingId: string) => {
   try {
-    const session = (await getServerSession(authOptions)) as any;
-    if (!session?.user?.id) {
+    const session = await getAuthSession();
+    if (!session) {
       throw new Error("Unauthorized");
     }
 
     const existing = await prisma.bookmark.findUnique({
       where: {
         userId_listingId: {
-          userId: session.user.id,
+          userId: session.userId,
           listingId,
         },
       },
@@ -29,7 +28,7 @@ export const toggleBookmark = async (listingId: string) => {
     } else {
       await prisma.bookmark.create({
         data: {
-          userId: session.user.id,
+          userId: session.userId,
           listingId,
         },
       });
@@ -43,11 +42,11 @@ export const toggleBookmark = async (listingId: string) => {
 
 export const getUserBookmarks = cache(async () => {
   try {
-    const session = (await getServerSession(authOptions)) as any;
-    if (!session?.user?.id) return [];
+    const session = await getAuthSession();
+    if (!session) return [];
 
     const bookmarks = await prisma.bookmark.findMany({
-      where: { userId: session.user.id },
+      where: { userId: session.userId },
       include: {
         listing: {
           include: {
@@ -71,13 +70,13 @@ export const getUserBookmarks = cache(async () => {
 
 export const isBookmarked = async (listingId: string) => {
   try {
-    const session = (await getServerSession(authOptions)) as any;
-    if (!session?.user?.id) return false;
+    const session = await getAuthSession();
+    if (!session) return false;
 
     const bookmark = await prisma.bookmark.findUnique({
       where: {
         userId_listingId: {
-          userId: session.user.id,
+          userId: session.userId,
           listingId,
         },
       },

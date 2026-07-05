@@ -35,6 +35,7 @@ Design policy: MUI is the current implementation stack, not a future restriction
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - **Next.js 15** - React framework with App Router
 - **TypeScript** - Type-safe development
 - **Material-UI (MUI)** - Component library and theming
@@ -42,12 +43,14 @@ Design policy: MUI is the current implementation stack, not a future restriction
 - **next-intl** - Internationalization
 
 ### Backend
+
 - **PostgreSQL** - Primary database
 - **Prisma** - Database ORM and migrations
 - **NextAuth.js** - Authentication
 - **Vercel** - Deployment platform
 
 ### Development Tools
+
 - **Docker** - Local database development
 - **ESLint** - Code linting
 - **Prettier** - Code formatting
@@ -56,11 +59,13 @@ Design policy: MUI is the current implementation stack, not a future restriction
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Node.js 18+
 - pnpm
 - Docker (for local database)
 
 ### 1. Clone and Install
+
 ```bash
 git clone https://github.com/arifulbgt4/Marketplace
 cd marketplace
@@ -68,6 +73,7 @@ pnpm install
 ```
 
 ### 2. Environment Setup
+
 ```bash
 # Copy environment template
 cp .env.example .env
@@ -79,23 +85,27 @@ cp .env.example .env
 ### 3. Start Local Development
 
 #### Option A: Complete Setup (Recommended)
+
 ```bash
 pnpm setup:local
 ```
+
 This will:
+
 - Install dependencies
 - Start Docker database
-- Push database schema
+- Deploy database migrations
 - Seed database
 - You can then run `pnpm dev`
 
 #### Option B: Manual Setup
+
 ```bash
 # Start database
 pnpm db:start
 
 # Wait for database to be ready, then:
-pnpm db:push
+pnpm db:migrate:prod
 pnpm db:seed  # If you have seed data
 
 # Start development server
@@ -103,12 +113,14 @@ pnpm dev
 ```
 
 ### 4. Access the Application
+
 - **Main App**: http://localhost:3000
 - **Database UI**: http://localhost:5050 (run `pnpm pgadmin:start`)
 
 ## 📜 Available Scripts
 
 ### Development
+
 ```bash
 pnpm dev              # Start development server
 pnpm build            # Build for production
@@ -120,6 +132,7 @@ pnpm format           # Format code with Prettier
 ```
 
 ### Database Management
+
 ```bash
 pnpm db:start         # Start PostgreSQL container
 pnpm db:stop          # Stop database
@@ -128,10 +141,12 @@ pnpm db:studio        # Open Prisma Studio
 pnpm db:push          # Push schema to database
 pnpm db:seed          # Seed database
 pnpm db:migrate       # Create and run migration
+pnpm db:migrate:prod  # Deploy committed migrations
 pnpm db:generate      # Generate Prisma client
 ```
 
 ### Docker Services
+
 ```bash
 pnpm docker:up        # Start all Docker services
 pnpm docker:down      # Stop all Docker services
@@ -141,6 +156,7 @@ pnpm pgadmin:start    # Start pgAdmin web interface
 ```
 
 ### Utility
+
 ```bash
 pnpm setup:local      # Complete local setup
 pnpm clean            # Clean build files and dependencies
@@ -152,13 +168,16 @@ pnpm clean:install    # Clean and reinstall dependencies
 The project uses PostgreSQL with Docker for local development:
 
 ### Local Development Database
+
 - **Host**: localhost
 - **Port**: 5433
+- Portটি ব্যস্ত থাকলে `MARKETPLACE_DB_PORT=5435 pnpm db:start` চালিয়ে database URLs-এ একই port ব্যবহার করুন।
 - **Database**: marketplace
 - **Username**: marketplace_user
 - **Password**: marketplace_password
 
 ### Database Management
+
 - **pgAdmin**: http://localhost:5050
   - Login: admin@marketplace.com / admin123
 - **Prisma Studio**: `pnpm db:studio`
@@ -166,6 +185,7 @@ The project uses PostgreSQL with Docker for local development:
 ## 🌍 Internationalization
 
 The app supports multiple languages:
+
 - English (en) - Default
 - Arabic (ar) - RTL support
 - Bengali (bn)
@@ -182,7 +202,9 @@ Language files are located in `/messages/[locale].json`
 The project includes a comprehensive design system built with Material-UI:
 
 ### Theme Customization
+
 Custom themes are defined in `src/theme/` with support for:
+
 - Dark/Light mode
 - Custom color palettes
 - Typography scales
@@ -192,6 +214,7 @@ Custom themes are defined in `src/theme/` with support for:
 ## 🔐 Authentication
 
 Authentication is handled by NextAuth.js with support for:
+
 - Email/Password authentication
 - Session management
 - Protected routes
@@ -222,6 +245,7 @@ Configure providers in `src/app/api/auth/[...nextauth]/route.ts`
 ## 🚢 Deployment
 
 ### Vercel (Recommended)
+
 The project is optimized for Vercel deployment:
 
 1. Push to GitHub
@@ -230,12 +254,21 @@ The project is optimized for Vercel deployment:
 4. Deploy
 
 ### Environment Variables for Production
+
 ```env
 NEXTAUTH_SECRET=your-production-secret
 NEXTAUTH_URL=https://your-domain.com
 POSTGRES_PRISMA_URL=your-production-db-url
 POSTGRES_URL_NON_POOLING=your-production-db-direct-url
+SMTP_HOST=smtp.example.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=your-smtp-user
+SMTP_PASSWORD=your-smtp-password
+SMTP_FROM=Marketplace <no-reply@example.com>
 ```
+
+Production signup, email verification এবং password recovery-এর জন্য সব `SMTP_*` value configure করতে হবে। Partial SMTP configuration environment validation-এ rejected হবে। Development/test environment-এ email delivery-এর বদলে safe preview URL response পাওয়া যায়।
 
 ## 🤝 Contributing
 
@@ -254,7 +287,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🆘 Troubleshooting
 
 ### Port Already in Use
+
 If you get port conflicts:
+
 ```bash
 # Check what's using the port
 lsof -i :5433
@@ -263,6 +298,7 @@ lsof -i :5433
 ```
 
 ### Database Connection Issues
+
 ```bash
 # Reset the database
 pnpm db:reset
@@ -272,6 +308,7 @@ docker ps
 ```
 
 ### Build Issues
+
 ```bash
 # Clean and reinstall
 pnpm clean:install

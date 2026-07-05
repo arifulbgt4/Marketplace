@@ -49,7 +49,13 @@ const ListingDetailsPage = async ({ params }: Props) => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Album photos={photos.length > 0 ? photos : [{ src: "", width: 1080, height: 800 }]} />
+            <Album
+              photos={
+                photos.length > 0
+                  ? photos
+                  : [{ src: "", width: 1080, height: 800 }]
+              }
+            />
           </Grid>
           <Hidden mdUp>
             <Grid item xs={12}>
@@ -92,7 +98,7 @@ const ListingDetailsPage = async ({ params }: Props) => {
                 <Grid item xs={12}>
                   <BookingForm
                     listingId={listing.id}
-                    price={listing.price}
+                    price={Number(listing.price)}
                     maxGuests={listing.maxGuests}
                   />
                 </Grid>
@@ -120,23 +126,35 @@ const ListingDetailsPage = async ({ params }: Props) => {
                 review={listing._count.reviews}
                 rating={{
                   cleanliness:
-                    listing.reviews.reduce((acc, r) => acc + (r.cleanliness || 0), 0) /
-                    listing.reviews.length,
+                    listing.reviews.reduce(
+                      (acc, r) => acc + (r.cleanliness || 0),
+                      0,
+                    ) / listing.reviews.length,
                   communication:
-                    listing.reviews.reduce((acc, r) => acc + (r.communication || 0), 0) /
-                    listing.reviews.length,
+                    listing.reviews.reduce(
+                      (acc, r) => acc + (r.communication || 0),
+                      0,
+                    ) / listing.reviews.length,
                   checkIn:
-                    listing.reviews.reduce((acc, r) => acc + (r.checkIn || 0), 0) /
-                    listing.reviews.length,
+                    listing.reviews.reduce(
+                      (acc, r) => acc + (r.checkIn || 0),
+                      0,
+                    ) / listing.reviews.length,
                   accuracy:
-                    listing.reviews.reduce((acc, r) => acc + (r.accuracy || 0), 0) /
-                    listing.reviews.length,
+                    listing.reviews.reduce(
+                      (acc, r) => acc + (r.accuracy || 0),
+                      0,
+                    ) / listing.reviews.length,
                   location:
-                    listing.reviews.reduce((acc, r) => acc + (r.location || 0), 0) /
-                    listing.reviews.length,
+                    listing.reviews.reduce(
+                      (acc, r) => acc + (r.location || 0),
+                      0,
+                    ) / listing.reviews.length,
                   value:
-                    listing.reviews.reduce((acc, r) => acc + (r.value || 0), 0) /
-                    listing.reviews.length,
+                    listing.reviews.reduce(
+                      (acc, r) => acc + (r.value || 0),
+                      0,
+                    ) / listing.reviews.length,
                 }}
               />
             </Grid>

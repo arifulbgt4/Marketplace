@@ -1,16 +1,15 @@
 "use server";
 import { cache } from "react";
-import { getServerSession } from "next-auth";
-
-import { authOptions } from "src/lib/auth";
 import { prisma } from "src/lib/prisma";
+import { getAuthSession } from "src/lib/authz";
+import { AuthorizationError } from "src/lib/errors";
 
 export const getUser = cache(async () => {
-  const session = (await getServerSession(authOptions)) as unknown as any;
+  const session = await getAuthSession();
 
   if (session) {
     const user = await prisma.user.findFirst({
-      where: { id: session.user.id },
+      where: { id: session.userId },
       include: {
         Account: true,
         _count: {
@@ -39,21 +38,23 @@ export const updateUser = async ({
   phone?: string;
   image?: string;
 }) => {
+  const session = await getAuthSession();
+  if (!session || session.userId !== id) throw new AuthorizationError();
   const res = await prisma.user.update({
     where: { id },
-    data: { ...payload },
+    data: { name: payload.name, phone: payload.phone, image: payload.image },
   });
 
   return res;
 };
 
 export const getUserListings = cache(async () => {
-  const session = (await getServerSession(authOptions)) as unknown as any;
+  const session = await getAuthSession();
 
-  if (!session?.user?.id) return [];
+  if (!session) return [];
 
   const listings = await prisma.listing.findMany({
-    where: { userId: session.user.id },
+    where: { userId: session.userId },
     include: {
       category: true,
       _count: { select: { reviews: true } },
