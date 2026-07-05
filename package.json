@@ -119,7 +119,7 @@
     "mui-material"
   ],
   "engines": {
-    "node": ">=18.18.0"
+    "node": "22.x"
   },
   "readme": "ERROR: No README data found!",
   "_id": "Marketplace@1.0.0"

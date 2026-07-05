@@ -60,7 +60,7 @@ Design policy: MUI is the current implementation stack, not a future restriction
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 22.x
 - pnpm
 - Docker (for local database)
 
