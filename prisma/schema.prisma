@@ -61,6 +61,25 @@ enum AddressType {
   billing
 }
 
+enum PaymentStatus {
+  UNPAID
+  PENDING
+  PENDING_COLLECTION
+  PAID
+  COLLECTED
+  FAILED
+  PARTIALLY_REFUNDED
+  REFUNDED
+}
+
+enum FulfillmentStatus {
+  UNFULFILLED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  RETURNED
+}
+
 enum ProductStatus {
   draft
   published
@@ -300,6 +319,9 @@ model Order {
   idempotencyKey          String?         @unique
   placedAt                DateTime?
   items                   OrderItem[]
+  paymentStatus           PaymentStatus   @default(UNPAID)
+  fulfillmentStatus       FulfillmentStatus @default(UNFULFILLED)
+  payments                Payment[]
   createdAt               DateTime        @default(now())
   updatedAt               DateTime        @updatedAt
 
@@ -587,4 +609,46 @@ model VerificationToken {
   expiresAt DateTime
   used      Boolean  @default(false)
   createdAt DateTime @default(now())
+}
+
+model Payment {
+  id            String         @id @default(uuid())
+  orderId       String
+  order         Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  amount        Decimal
+  currency      String
+  status        PaymentStatus  @default(PENDING)
+  provider      String
+  providerRef   String?        @unique
+  attempts      Int            @default(1)
+  events        PaymentEvent[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([orderId])
+  @@index([status])
+  @@index([providerRef])
+}
+
+model PaymentEvent {
+  id          String        @id @default(uuid())
+  paymentId   String
+  payment     Payment       @relation(fields: [paymentId], references: [id], onDelete: Cascade)
+  type        String
+  statusFrom  PaymentStatus
+  statusTo    PaymentStatus
+  metadata    Json          @default("{}")
+  createdAt   DateTime      @default(now())
+
+  @@index([paymentId])
+}
+
+model BusinessSettings {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     Json     @default("{}")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([key])
 }

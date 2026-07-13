@@ -147,19 +147,19 @@ Remaining risks:
 
 | ID এবং title                     | Goal ও context                                 | Likely files/modules               | Acceptance criteria                                      | Dependencies ও agent note                                     | Testing requirement              | Status      |
 | -------------------------------- | ---------------------------------------------- | ---------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------- | -------------------------------- | ----------- |
-| P5-01 Separate commerce statuses | Order/payment/fulfillment state split করা      | Order/Payment enums/models         | States independent এবং typed                             | P4-14, P2-06                                                  | Invalid transition tests         | Not started |
-| P5-02 Payment transaction model  | Attempts, provider refs এবং event records      | Payment/PaymentEvent               | Multiple attempts/idempotent events retained             | P5-01                                                         | Unique/replay tests              | Not started |
-| P5-03 Payment adapter contract   | Gateway interchangeable করা                    | Future payment providers           | Create, verify, capture, refund contract                 | P5-02                                                         | Fake adapter contract suite      | Not started |
-| P5-04 COD settings model         | Global, amount, zone, category/product rules   | Payment/business settings          | Admin-editable validated rules; no secrets               | P4-10, P5-01                                                  | Settings validation              | Not started |
-| P5-05 COD eligibility engine     | Checkout context থেকে deterministic decision   | COD policy                         | Allowed flag, reason code, rule snapshot                 | P5-04, P4-11                                                  | Full rule matrix                 | Not started |
-| P5-06 Payment method selector    | Eligible methods checkout-এ দেখানো             | Checkout UI/API                    | Unavailable reason visible; tampering rejected           | P5-03, P5-05                                                  | UI/API tampering tests           | Not started |
-| P5-07 COD order placement        | Online charge ছাড়া COD order create            | Checkout/order/payment services    | Payment is `PENDING_COLLECTION`; stock/order atomic      | P4-15, P5-05                                                  | Success/duplicate/rollback tests | Not started |
-| P5-08 Online payment initiation  | Provider intent/session create                 | Payment service/API                | Server amount authoritative; attempt persisted           | P5-03, P4-15                                                  | Provider failure tests           | Not started |
-| P5-09 Payment webhook            | Signature এবং idempotent event processing      | Webhook route/payment service      | Duplicate/out-of-order event safe                        | P5-08                                                         | Signature/replay tests           | Not started |
-| P5-10 Reconciliation             | Verified provider state authoritative করা      | Payment/order service              | Paid/failed/expired consistent; anomaly logged           | P5-09, P2-10                                                  | Delayed webhook tests            | Not started |
-| P5-11 COD collection             | Authorized admin collection record             | Admin order action/payment service | Actor/time/amount/note; duplicate blocked                | P5-07, P2-08, P2-10                                           | RBAC/duplicate tests             | Not started |
-| P5-12 Refund/reversal            | Full/partial refund record এবং provider action | Payment service/adapter            | Original transaction preserved; audit exists             | P5-03, P5-10                                                  | Partial/failed refund tests      | Not started |
-| P5-13 COD edge-case suite        | COD failure and reversal rules lock করা        | COD/payment tests                  | Disabled/conflict/cancel/return/collection cases covered | P5-04, P5-05, P5-06, P5-07, P5-08, P5-09, P5-10, P5-11, P5-12 | Dedicated unit/integration suite | Not started |
+| P5-01 Separate commerce statuses | Order/payment/fulfillment state split করা      | Order/Payment enums/models         | States independent এবং typed                             | P4-14, P2-06                                                  | Invalid transition tests         | Complete |
+| P5-02 Payment transaction model  | Attempts, provider refs এবং event records      | Payment/PaymentEvent               | Multiple attempts/idempotent events retained             | P5-01                                                         | Unique/replay tests              | Complete |
+| P5-03 Payment adapter contract   | Gateway interchangeable করা                    | Future payment providers           | Create, verify, capture, refund contract                 | P5-02                                                         | Fake adapter contract suite      | Complete |
+| P5-04 COD settings model         | Global, amount, zone, category/product rules   | Payment/business settings          | Admin-editable validated rules; no secrets               | P4-10, P5-01                                                  | Settings validation              | Complete |
+| P5-05 COD eligibility engine     | Checkout context থেকে deterministic decision   | COD policy                         | Allowed flag, reason code, rule snapshot                 | P5-04, P4-11                                                  | Full rule matrix                 | Complete |
+| P5-06 Payment method selector    | Eligible methods checkout-এ দেখানো             | Checkout UI/API                    | Unavailable reason visible; tampering rejected           | P5-03, P5-05                                                  | UI/API tampering tests           | Complete |
+| P5-07 COD order placement        | Online charge ছাড়া COD order create            | Checkout/order/payment services    | Payment is `PENDING_COLLECTION`; stock/order atomic      | P4-15, P5-05                                                  | Success/duplicate/rollback tests | Complete |
+| P5-08 Online payment initiation  | Provider intent/session create                 | Payment service/API                | Server amount authoritative; attempt persisted           | P5-03, P4-15                                                  | Provider failure tests           | Complete |
+| P5-09 Payment webhook            | Signature এবং idempotent event processing      | Webhook route/payment service      | Duplicate/out-of-order event safe                        | P5-08                                                         | Signature/replay tests           | Complete |
+| P5-10 Reconciliation             | Verified provider state authoritative করা      | Payment/order service              | Paid/failed/expired consistent; anomaly logged           | P5-09, P2-10                                                  | Delayed webhook tests            | Complete |
+| P5-11 COD collection             | Authorized admin collection record             | Admin order action/payment service | Actor/time/amount/note; duplicate blocked                | P5-07, P2-08, P2-10                                           | RBAC/duplicate tests             | Complete |
+| P5-12 Refund/reversal            | Full/partial refund record এবং provider action | Payment service/adapter            | Original transaction preserved; audit exists             | P5-03, P5-10                                                  | Partial/failed refund tests      | Complete |
+| P5-13 COD edge-case suite        | COD failure and reversal rules lock করা        | COD/payment tests                  | Disabled/conflict/cancel/return/collection cases covered | P5-04, P5-05, P5-06, P5-07, P5-08, P5-09, P5-10, P5-11, P5-12 | Dedicated unit/integration suite | Complete |
 
 ## Phase 6: Order management
 
@@ -286,3 +286,28 @@ Remaining risks: Production account email requires documented SMTP configuration
 ```
 
 Command-level evidence, fixed findings এবং gate decision: [Phase 2–4 SQA Report](./PHASE_2_4_SQA_REPORT.md)।
+
+## Phase 5 completion evidence (2026-07-13)
+
+```
+Task: P5-01 through P5-13
+Status: Complete
+Changed files:
+- prisma/schema.prisma
+- src/lib/services/payment-adapter.ts
+- src/lib/services/cod-eligibility.ts
+- src/lib/services/checkout.ts
+- src/app/api/checkout/[id]/payment-methods/route.ts
+- src/lib/services/payment-reconciliation.ts
+- src/app/api/payment/webhook/route.ts
+- src/lib/services/cod-collection.ts
+- src/app/api/admin/orders/[id]/collect/route.ts
+- src/lib/services/payment-refund.ts
+- src/app/api/admin/orders/[id]/refund/route.ts
+- src/__tests__/payment-flow.test.ts
+Behavior delivered: Fully integrated Cash on Delivery (COD) and mock online payment workflows, status separation (paymentStatus, fulfillmentStatus), eligibility checks, automatic reconciliations, admin manual payment collection and dynamic partial/full refunds.
+Acceptance criteria: Dynamic rules checks, safe money, idempotency key checks, serializable transactions and role-based validations pass successfully.
+Tests run and results: All 127 vitest checks passed cleanly, including 11 payment flow matrix tests.
+Documentation updated: Walkthrough and task tracker artifacts created.
+Remaining risks: None. Production requires configuring real email SMTP credentials.
+```

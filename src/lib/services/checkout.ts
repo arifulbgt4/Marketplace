@@ -24,6 +24,8 @@ import {
   type CheckoutUpdateInput,
   type PlaceOrderInput,
 } from "src/lib/checkout";
+import { codEligibilityEngine } from "src/lib/services/cod-eligibility";
+import { paymentRegistry } from "src/lib/services/payment-adapter";
 
 const CHECKOUT_TTL_MS = 30 * 60 * 1000;
 
@@ -232,6 +234,67 @@ export class CheckoutCoordinator {
     }
   }
 
+  async getPaymentMethods(id: string): Promise<Result<any>> {
+    try {
+      const session = await getAuthSession();
+      if (!session) return fail(new AuthorizationError());
+
+      const checkout = await prisma.checkoutSession.findUnique({
+        where: { id },
+      });
+      if (!checkout) return fail(new NotFoundError("CheckoutSession", id));
+      if (checkout.userId !== session.userId) return fail(new AuthorizationError());
+
+      const address = checkout.shippingAddressId
+        ? await prisma.address.findUnique({ where: { id: checkout.shippingAddressId } })
+        : null;
+
+      const cart = await prisma.cart.findUnique({
+        where: { id: checkout.cartId },
+        include: {
+          items: {
+            include: {
+              variant: { include: { product: true } }
+            }
+          }
+        }
+      });
+
+      if (!cart) return fail(new NotFoundError("Cart", checkout.cartId));
+
+      const codContext = {
+        userId: session.userId,
+        subtotal: Number(checkout.totalAmount),
+        currency: checkout.currency as CurrencyCode,
+        country: address?.country ?? "",
+        region: address?.state ?? undefined,
+        postalCode: address?.postalCode ?? undefined,
+        items: cart.items.map(item => ({
+          productId: item.productId,
+          categoryId: item.variant.product.categoryId,
+          quantity: item.quantity
+        }))
+      };
+
+      const codResult = await codEligibilityEngine.evaluate(codContext);
+
+      return ok([
+        {
+          code: "cod",
+          eligible: codResult.eligible,
+          reasonCode: codResult.reasonCode
+        },
+        {
+          code: "online",
+          eligible: true,
+          reasonCode: null
+        }
+      ]);
+    } catch (error) {
+      return fail(asAppError(error));
+    }
+  }
+
   async placeOrder(data: PlaceOrderInput): Promise<Result<unknown>> {
     const session = await getAuthSession();
     if (!session) return fail(new AuthorizationError());
@@ -373,11 +436,41 @@ export class CheckoutCoordinator {
                 "Checkout total changed; refresh checkout",
               );
 
+            if (parsed.paymentMethod === "cod") {
+              const codContext = {
+                userId: session.userId,
+                subtotal: Number(checkout.totalAmount),
+                currency,
+                country: address.country,
+                region: address.state ?? undefined,
+                postalCode: address.postalCode ?? undefined,
+                items: cart.items.map((item) => ({
+                  productId: item.productId,
+                  categoryId: item.variant.product.categoryId,
+                  quantity: item.quantity,
+                })),
+              };
+              const codEval = await codEligibilityEngine.evaluate(codContext);
+              if (!codEval.eligible) {
+                throw new BusinessRuleError(
+                  `COD is not eligible: ${codEval.reasonCode}`,
+                );
+              }
+            }
+
+            const paymentStatus =
+              parsed.paymentMethod === "cod"
+                ? "PENDING_COLLECTION"
+                : "PENDING";
+            const fulfillmentStatus = "UNFULFILLED";
+
             const orderNo = `ORD-${uuidv4().slice(0, 8).toUpperCase()}`;
             const order = await tx.order.create({
               data: {
                 orderNo,
                 status: "pending",
+                paymentStatus,
+                fulfillmentStatus,
                 totalPrice: checkout.totalAmount,
                 subtotal: checkout.subtotal,
                 shippingCost: checkout.shippingCost,
@@ -414,6 +507,54 @@ export class CheckoutCoordinator {
                         .amount.toFixed(2),
                     ),
                   })),
+                },
+              },
+            });
+
+            const paymentProvider =
+              parsed.paymentMethod === "cod"
+                ? "CASH_ON_DELIVERY"
+                : "ONLINE_MOCK";
+
+            let providerRef: string | null = null;
+            let clientSecret: string | null = null;
+
+            if (parsed.paymentMethod === "online") {
+              const adapter = paymentRegistry.getAdapter("MOCK");
+              const intentResult = await adapter.createIntent({
+                orderId: orderNo,
+                amount: Number(checkout.totalAmount),
+                currency,
+              });
+              if (!intentResult.success) {
+                throw new BusinessRuleError("Failed to initiate online payment");
+              }
+              providerRef = intentResult.data.providerRef;
+              clientSecret = intentResult.data.clientSecret ?? null;
+            }
+
+            const payment = await tx.payment.create({
+              data: {
+                orderId: order.id,
+                amount: checkout.totalAmount,
+                currency,
+                status: paymentStatus,
+                provider: paymentProvider,
+                providerRef,
+                attempts: 1,
+              },
+            });
+
+            await tx.paymentEvent.create({
+              data: {
+                paymentId: payment.id,
+                type: "INITIATION",
+                statusFrom: "UNPAID",
+                statusTo: paymentStatus,
+                metadata: {
+                  providerRef,
+                  clientSecret,
+                  notes: parsed.notes,
                 },
               },
             });
@@ -470,7 +611,14 @@ export class CheckoutCoordinator {
                 metadata: { orderNo, total: totals.total },
               },
             });
-            const result = { success: true, orderId: order.id, orderNo };
+            const result = {
+              success: true,
+              orderId: order.id,
+              orderNo,
+              paymentMethod: parsed.paymentMethod,
+              paymentStatus,
+              clientSecret,
+            };
             await tx.idempotencyKey.create({
               data: {
                 key: parsed.idempotencyKey,
