@@ -20,6 +20,7 @@ import {
 } from "src/lib/checkout";
 
 const CART_TTL_MS = 30 * 24 * 60 * 60 * 1000;
+export const MAX_CART_ITEMS = 100;
 
 const cartInclude = {
   items: {
@@ -42,6 +43,7 @@ const cartInclude = {
       },
     },
     orderBy: { createdAt: "asc" as const },
+    take: MAX_CART_ITEMS + 1,
   },
 } satisfies Prisma.CartInclude;
 
@@ -153,6 +155,17 @@ export class CartService {
           throw new BusinessRuleError(
             `Only ${Math.max(0, available)} available`,
           );
+
+        if (!existing) {
+          const itemCount = await tx.cartItem.count({
+            where: { cartId: cart.id },
+          });
+          if (itemCount >= MAX_CART_ITEMS) {
+            throw new BusinessRuleError(
+              "Cart item limit reached; remove an item before adding another",
+            );
+          }
+        }
 
         const itemData = {
           productId: variant.productId,
@@ -335,6 +348,11 @@ export class CartService {
       include: cartInclude,
     });
     if (!cart) throw new NotFoundError("Cart", cartId);
+    if (cart.items.length > MAX_CART_ITEMS) {
+      throw new BusinessRuleError(
+        "Cart exceeds the supported item limit; remove items before continuing",
+      );
+    }
     const stale = cart.items.filter(
       (item) => !item.unitPrice.equals(item.variant.price),
     );
@@ -356,6 +374,11 @@ export class CartService {
         include: cartInclude,
       });
       if (!cart) throw new NotFoundError("Cart", cartId);
+      if (cart.items.length > MAX_CART_ITEMS) {
+        throw new BusinessRuleError(
+          "Cart exceeds the supported item limit; remove items before continuing",
+        );
+      }
     }
 
     const currency = cart.currency as CurrencyCode;
@@ -425,6 +448,11 @@ export class CartService {
       include: cartInclude,
     });
     if (!guest) return false;
+    if (guest.items.length > MAX_CART_ITEMS) {
+      throw new BusinessRuleError(
+        "Guest cart exceeds the supported item limit",
+      );
+    }
     let userCart = await prisma.cart.findUnique({ where: { userId } });
     if (!userCart)
       userCart = await prisma.cart.create({
@@ -432,6 +460,9 @@ export class CartService {
       });
 
     await prisma.$transaction(async (tx) => {
+      let itemCount = await tx.cartItem.count({
+        where: { cartId: userCart!.id },
+      });
       for (const item of guest.items) {
         const available = item.variant.inventory
           ? Math.max(
@@ -464,10 +495,17 @@ export class CartService {
         };
         if (current)
           await tx.cartItem.update({ where: { id: current.id }, data });
-        else
+        else {
+          if (itemCount >= MAX_CART_ITEMS) {
+            throw new BusinessRuleError(
+              "Combined cart exceeds the supported item limit",
+            );
+          }
           await tx.cartItem.create({
             data: { cartId: userCart!.id, variantId: item.variantId, ...data },
           });
+          itemCount += 1;
+        }
       }
       await tx.cart.delete({ where: { id: guest.id } });
       await tx.cart.update({

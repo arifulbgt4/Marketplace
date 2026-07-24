@@ -40,7 +40,7 @@ const Question: FC<QuestionProps> = () => {
 
         <Box
           component={Link}
-          href={routes.listings}
+          href={routes.products}
           px={{ md: 15 }}
           py={{ md: 12, xs: 2 }}
           bgcolor="secondary.main"
@@ -61,7 +61,7 @@ const Question: FC<QuestionProps> = () => {
             sx={{ typography: { md: "h2", xs: "h3" } }}
             color="common.white"
           >
-            FIND AN AGENT
+            BROWSE PRODUCTS
           </Typography>
         </Box>
       </Stack>

@@ -9,6 +9,10 @@ import { siteConfig } from "src/global/config";
 import NextAuthProvider from "src/layouts/NextAuthProvider";
 import ThemeContextProvider from "src/theme";
 import { locales } from "src/global/staticData";
+import { getStorefrontSettings } from "src/lib/storefront-settings";
+import { StorefrontSettingsProvider } from "src/contexts/StorefrontSettings";
+import { getLocaleMessages } from "src/lib/i18n-messages";
+import { isRtlLocale } from "src/lib/i18n";
 
 interface Props {
   children: ReactNode;
@@ -28,20 +32,27 @@ export const viewport: Viewport = {
 export async function generateMetadata({ params }: Omit<Props, "children">) {
   const { locale } = await params;
   const t = await getTranslations({ locale });
+  const settings = await getStorefrontSettings();
+  const title =
+    settings.branding.seoTitle ||
+    settings.business.displayName ||
+    t("Metatags.Landing.title");
+  const description =
+    settings.branding.seoDescription || t("Metatags.Landing.description");
 
   return {
     title: {
-      default: t("Metatags.Landing.title"),
-      template: `${t("Metatags.Landing.title")} - %s`,
+      default: title,
+      template: `${title} - %s`,
     },
-    description: t("Metatags.Landing.description"),
+    description,
     keywords: siteConfig.keywords,
     authors: [{ name: siteConfig.author, url: siteConfig.url }],
     creator: siteConfig.creator,
     manifest: `${siteConfig.url}manifest.json`,
     metadataBase: new URL(siteConfig.url),
     icons: {
-      icon: "/icon/favicon.ico",
+      icon: settings.branding.faviconUrl || "/icon/favicon.ico",
       shortcut: "/icon/favicon-16x16.png",
       apple: "/apple-icon/apple-touch-icon.png",
     },
@@ -49,47 +60,53 @@ export async function generateMetadata({ params }: Omit<Props, "children">) {
       type: "website",
       locale: siteConfig.localeUpperSpace,
       url: siteConfig.url,
-      title: t("Metatags.Landing.title"),
-      description: t("Metatags.Landing.description"),
-      siteName: t("Metatags.Landing.title"),
+      title,
+      description,
+      siteName: settings.business.displayName,
       images: [
         {
           url: siteConfig.ogImage,
           width: 1200,
           height: 630,
-          alt: t("Metatags.Landing.title"),
+          alt: title,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: t("Metatags.Landing.title"),
-      description: t("Metatags.Landing.description"),
+      title,
+      description,
       images: [siteConfig.ogImage],
-      creator: "@ArifulI60735491",
     },
   };
 }
 
 export default async function RootLayout({ children, params }: Props) {
   const { locale } = await params;
+  const settings = await getStorefrontSettings();
   // Enable static rendering
   setRequestLocale(locale);
 
   // Fetch messages for the locale
-  const messages = (
-    await (locale === "en"
-      ? import("../../../messages/en.json")
-      : import(`../../../messages/${locale}.json`))
-  ).default;
+  const messages = getLocaleMessages(locale);
 
   return (
-    <html lang={locale} dir={locale === "ar" ? "rtl" : ""}>
+    <html lang={locale} dir={isRtlLocale(locale) ? "rtl" : "ltr"}>
       <link rel="preconnect" href="https://fonts.gstatic.com" />
-      <ThemeContextProvider>
+      <ThemeContextProvider
+        primaryColor={settings.branding.primaryColor}
+        secondaryColor={settings.branding.secondaryColor}
+      >
         <body suppressHydrationWarning={true}>
           <NextIntlClientProvider locale={locale} messages={messages}>
-            <NextAuthProvider>{children}</NextAuthProvider>
+            <StorefrontSettingsProvider
+              value={{
+                business: settings.business,
+                branding: settings.branding,
+              }}
+            >
+              <NextAuthProvider>{children}</NextAuthProvider>
+            </StorefrontSettingsProvider>
           </NextIntlClientProvider>
           <Analytics />
           <SpeedInsights />

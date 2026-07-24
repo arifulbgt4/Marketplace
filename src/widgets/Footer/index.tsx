@@ -4,17 +4,19 @@ import { Container, Grid, Stack, Typography, Link } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/LocalPhone";
 import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
-import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import YouTubeIcon from "@mui/icons-material/YouTube";
 
 import routes from "src/global/routes";
-import { siteConfig } from "src/global/config";
 import Logo from "src/components/Logo";
+import { useStorefrontSettings } from "src/contexts/StorefrontSettings";
 
 import { FooterProps } from "./Types";
 
 const Footer: FC<FooterProps> = () => {
+  const settings = useStorefrontSettings();
+  const socialLinks = settings?.branding.socialLinks ?? {};
   return (
     <Container
       sx={(theme) => ({
@@ -94,42 +96,70 @@ const Footer: FC<FooterProps> = () => {
               justifyContent={{ xs: "center", md: "end" }}
               gap={2}
             >
-              <Link href="#" target="_blank">
-                <TwitterIcon
+              {socialLinks.youtube ? (
+                <Link
+                  href={socialLinks.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="YouTube"
+                >
+                  <YouTubeIcon
                   sx={(theme) => ({
                     width: 22,
                     height: 22,
                     color: theme.palette.text.primary,
                   })}
-                />
-              </Link>
-              <Link href="#" target="_blank">
+                  />
+                </Link>
+              ) : null}
+              {socialLinks.facebook ? (
+                <Link
+                  href={socialLinks.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                >
                 <FacebookRoundedIcon
                   sx={(theme) => ({
                     width: 22,
                     height: 22,
                     color: theme.palette.text.primary,
                   })}
-                />
-              </Link>
-              <Link href="#" target="_blank">
+                  />
+                </Link>
+              ) : null}
+              {socialLinks.instagram ? (
+                <Link
+                  href={socialLinks.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                >
                 <InstagramIcon
                   sx={(theme) => ({
                     width: 22,
                     height: 22,
                     color: theme.palette.text.primary,
                   })}
-                />
-              </Link>
-              <Link href="#" target="_blank">
+                  />
+                </Link>
+              ) : null}
+              {socialLinks.linkedin ? (
+                <Link
+                  href={socialLinks.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                >
                 <LinkedInIcon
                   sx={(theme) => ({
                     width: 22,
                     height: 22,
                     color: theme.palette.text.primary,
                   })}
-                />
-              </Link>
+                  />
+                </Link>
+              ) : null}
             </Stack>
           </Grid>
         </Grid>
@@ -142,7 +172,8 @@ const Footer: FC<FooterProps> = () => {
               alignItems={{ xs: "center", md: "start" }}
             >
               <Typography variant="caption" color="text.secondary">
-                © {new Date().getFullYear()} {siteConfig.name}
+                © {new Date().getFullYear()}{" "}
+                {settings?.business.displayName ?? "Marketplace"}
               </Typography>
               <Stack flexDirection="row" ml={2} gap={2}>
                 <Typography
@@ -184,7 +215,8 @@ const Footer: FC<FooterProps> = () => {
             flexWrap="wrap"
             component={Stack}
           >
-            <Stack
+            {settings?.business.supportPhone ? (
+              <Stack
               alignItems="center"
               justifyContent="center"
               flexDirection="row"
@@ -200,14 +232,16 @@ const Footer: FC<FooterProps> = () => {
               <Typography
                 sx={{ textDecoration: "none", ml: 0.5 }}
                 component={Link}
-                href={"#"}
+                href={`tel:${settings.business.supportPhone}`}
                 variant="caption"
                 color="text.secondary"
               >
-                + (123) 456789
+                {settings.business.supportPhone}
               </Typography>
-            </Stack>
-            <Stack
+              </Stack>
+            ) : null}
+            {settings?.business.supportEmail ? (
+              <Stack
               alignItems="center"
               justifyContent="center"
               flexDirection="row"
@@ -222,13 +256,14 @@ const Footer: FC<FooterProps> = () => {
               <Typography
                 sx={{ textDecoration: "none", ml: 0.5 }}
                 component={Link}
-                href={"#"}
+                href={`mailto:${settings.business.supportEmail}`}
                 variant="caption"
                 color="text.secondary"
               >
-                email@example.info
+                {settings.business.supportEmail}
               </Typography>
-            </Stack>
+              </Stack>
+            ) : null}
           </Grid>
         </Grid>
       </Grid>

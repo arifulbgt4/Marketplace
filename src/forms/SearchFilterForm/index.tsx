@@ -1,44 +1,37 @@
 "use client";
-import { FC, useState } from "react";
-import { Form as FinalForm } from "react-final-form";
+import { FC } from "react";
+import { Field, Form as FinalForm } from "react-final-form";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
-  Typography,
   Grid,
   Stack,
   IconButton,
   Box,
   Hidden,
+  MenuItem,
+  TextField,
 } from "@mui/material";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 
 import { useQueryString } from "src/global/hooks";
-import routes from "src/global/routes";
-
-import SearchLocation from "./SearchLocation";
-import SearchKeyword from "../SearchKeyword";
 
 import { FIELDS, SearchFilterFormProps } from "./Types";
+import {
+  buildProductSearchUrl,
+  normalizeProductSort,
+  type ProductSearchFormValues,
+} from "./product-search";
 
 const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
-  const [dateSelect, setDateSelect] = useState("");
   const router = useRouter();
-  const { createQuery, getQuery } = useQueryString();
+  const text = useTranslations("Catalog");
+  const { getQuery } = useQueryString();
+  const initialQuery = getQuery([FIELDS.query, FIELDS.minPrice, FIELDS.sort]);
 
-  const onSubmitForm = async (value: any) => {
-    const query = createQuery([
-      {
-        name: FIELDS.keyword,
-        value: value[FIELDS.keyword],
-      },
-      {
-        name: FIELDS.location,
-        value: value[FIELDS.location],
-      },
-    ]);
-
-    router.push(`${routes.listings}?${query}`, { scroll: false });
-    onClose && onClose();
+  const onSubmitForm = (values: ProductSearchFormValues) => {
+    router.push(buildProductSearchUrl(values), { scroll: false });
+    onClose?.();
   };
 
   return (
@@ -48,10 +41,15 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
       borderRadius={{ md: 25 }}
       justifyContent="center"
     >
-      <FinalForm
-        initialValues={getQuery([FIELDS.keyword, FIELDS.location])}
+      <FinalForm<ProductSearchFormValues>
+        initialValues={{
+          query: "",
+          minPrice: "",
+          ...initialQuery,
+          sort: normalizeProductSort(initialQuery[FIELDS.sort]),
+        }}
         onSubmit={onSubmitForm}
-        render={({ handleSubmit, values, errors, submitting }) => {
+        render={({ handleSubmit }) => {
           return (
             <form onSubmit={handleSubmit}>
               <Grid
@@ -73,7 +71,25 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
                       boxShadow: { xs: 10, md: 0 },
                     })}
                   >
-                    <SearchLocation size={size} />
+                    <Field<string> name={FIELDS.query}>
+                      {({ input }) => (
+                        <TextField
+                          {...input}
+                          label={text("searchProducts")}
+                          fullWidth
+                          size={size ?? "small"}
+                          variant="filled"
+                          inputProps={{ maxLength: 100 }}
+                          sx={{
+                            pl: { xs: 1, md: 2 },
+                            "& label": {
+                              pt: { md: 1.4 },
+                              fontWeight: 500,
+                            },
+                          }}
+                        />
+                      )}
+                    </Field>
                   </Stack>
                 </Grid>
                 <Grid item xs={12} md={4}>
@@ -87,7 +103,31 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
                       boxShadow: { xs: 10, md: 0 },
                     })}
                   >
-                    <SearchKeyword size={size} />
+                    <Field<string> name={FIELDS.minPrice}>
+                      {({ input }) => (
+                        <TextField
+                          {...input}
+                          label={text("minimumPrice")}
+                          type="number"
+                          fullWidth
+                          size={size ?? "small"}
+                          variant="filled"
+                          inputProps={{
+                            min: 0,
+                            max: 999999.99,
+                            step: "0.01",
+                            inputMode: "decimal",
+                          }}
+                          sx={{
+                            pl: { xs: 1, md: 2 },
+                            "& label": {
+                              pt: { md: 1.4 },
+                              fontWeight: 500,
+                            },
+                          }}
+                        />
+                      )}
+                    </Field>
                   </Stack>
                 </Grid>
                 <Grid item xs={12} md={4}>
@@ -111,25 +151,41 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
                       },
                     })}
                   >
-                    <Typography
-                      fontWeight={500}
-                      fontSize={dateSelect !== "" ? 13.408 : 18}
-                      color="text.secondary"
-                      variant={dateSelect === "" ? "body1" : "caption"}
-                      pl={2}
-                    >
-                      When?
-                    </Typography>
-                    {dateSelect !== "" && (
-                      <Typography
-                        fontWeight={300}
-                        color="text.secondary"
-                        pl={2}
-                        sx={{ opacity: 0.6 }}
-                      >
-                        {dateSelect}
-                      </Typography>
-                    )}
+                    <Field<string> name={FIELDS.sort}>
+                      {({ input }) => (
+                        <TextField
+                          {...input}
+                          select
+                          label={text("sort")}
+                          fullWidth
+                          size={size ?? "small"}
+                          variant="filled"
+                          sx={{
+                            px: { xs: 1, md: 2 },
+                            "& label": {
+                              pt: { md: 1.4 },
+                              pl: { xs: 1, md: 2 },
+                              fontWeight: 500,
+                            },
+                          }}
+                        >
+                          <MenuItem value="newest">{text("newest")}</MenuItem>
+                          <MenuItem value="oldest">{text("oldest")}</MenuItem>
+                          <MenuItem value="name_asc">
+                            {text("nameAscending")}
+                          </MenuItem>
+                          <MenuItem value="name_desc">
+                            {text("nameDescending")}
+                          </MenuItem>
+                          <MenuItem value="price_asc">
+                            {text("priceAscending")}
+                          </MenuItem>
+                          <MenuItem value="price_desc">
+                            {text("priceDescending")}
+                          </MenuItem>
+                        </TextField>
+                      )}
+                    </Field>
                   </Box>
                 </Grid>
                 <Hidden mdDown implementation="css">
@@ -137,9 +193,7 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
                     <IconButton
                       type="submit"
                       size="large"
-                      aria-label="search-button"
-                      role="button"
-                      aria-labelledby="search-button"
+                      aria-label={text("searchProducts")}
                       sx={(theme) => ({
                         position: "absolute",
                         right: 0,
@@ -178,9 +232,7 @@ const SearchFilterForm: FC<SearchFilterFormProps> = ({ size, onClose }) => {
                     <IconButton
                       type="submit"
                       size="large"
-                      aria-label="search-button"
-                      role="button"
-                      aria-labelledby="search-button"
+                      aria-label={text("searchProducts")}
                     >
                       <SearchSharpIcon
                         sx={(theme) => ({

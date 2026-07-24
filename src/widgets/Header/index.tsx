@@ -1,6 +1,7 @@
 "use client";
 import { FC, Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   AppBar,
   Container,
@@ -25,6 +26,7 @@ import { HeaderProps } from "./Types";
 
 const Header: FC<HeaderProps> = ({ user }) => {
   const searchParams = useSearchParams();
+  const catalogText = useTranslations("Catalog");
 
   const [openModal, setOpenModal] = useState(false);
   // const { sticky, stickyRef } = useSticky(10);\
@@ -46,8 +48,12 @@ const Header: FC<HeaderProps> = ({ user }) => {
           <Logo />
           <Hidden mdUp implementation="css">
             <IconButton
-              type="submit"
+              type="button"
               size="small"
+              aria-label={catalogText("searchProducts")}
+              aria-haspopup="dialog"
+              aria-expanded={openModal}
+              aria-controls="header-search-dialog"
               onClick={() => {
                 setOpenModal(true);
               }}
@@ -60,12 +66,12 @@ const Header: FC<HeaderProps> = ({ user }) => {
               />
             </IconButton>
             <Modal
+              id="header-search-dialog"
               open={openModal}
               onClose={() => {
                 setOpenModal(false);
               }}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
+              aria-labelledby="header-search-dialog-title"
               sx={{ bgcolor: "transparent", top: 48 }}
             >
               <Stack
@@ -81,7 +87,9 @@ const Header: FC<HeaderProps> = ({ user }) => {
                   borderBottomLeftRadius: 18,
                 }}
               >
-                <Typography variant="h5">Where to ?</Typography>
+                <Typography id="header-search-dialog-title" variant="h5">
+                  {catalogText("searchProducts")}
+                </Typography>
                 <Suspense>
                   <SearchFilterForm
                     size="small"

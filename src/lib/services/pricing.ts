@@ -28,6 +28,12 @@ export class PricingCalculator {
       context.shippingCost ?? Money.fromDecimal(0, subtotal.currencyCode);
     const taxAmount =
       context.taxAmount ?? Money.fromDecimal(0, subtotal.currencyCode);
+    this.assertNonNegative([
+      ["subtotal", subtotal],
+      ["discount", requestedDiscount],
+      ["shipping", shippingCost],
+      ["tax", taxAmount],
+    ]);
     const total = subtotal
       .subtract(discountAmount)
       .add(taxAmount)
@@ -67,6 +73,12 @@ export class PricingCalculator {
 
     const taxAmount =
       context.taxAmount ?? Money.fromDecimal(0, subtotal.currencyCode);
+    this.assertNonNegative([
+      ["subtotal", subtotal],
+      ["discount", requestedDiscount],
+      ["shipping", shippingCost],
+      ["tax", taxAmount],
+    ]);
     if (taxAmount.isPositive())
       lines.push({ label: "Tax", amount: taxAmount.amount });
     const total = subtotal
@@ -88,6 +100,18 @@ export class PricingCalculator {
     try {
       const sub = Money.fromDecimal(subtotal, currency);
       let discountAmount: Money;
+
+      if (subtotal < 0) {
+        return fail(new ValidationError("Subtotal cannot be negative"));
+      }
+      if (discountValue < 0) {
+        return fail(new ValidationError("Discount value cannot be negative"));
+      }
+      if (maxDiscountAmount !== null && maxDiscountAmount < 0) {
+        return fail(
+          new ValidationError("Maximum discount amount cannot be negative"),
+        );
+      }
 
       if (discountType === "percentage") {
         if (discountValue < 0 || discountValue > 100) {
@@ -126,6 +150,16 @@ export class PricingCalculator {
     } catch (error: unknown) {
       if (error instanceof ValidationError) return fail(error);
       throw error;
+    }
+  }
+
+  private assertNonNegative(
+    values: ReadonlyArray<readonly [label: string, value: Money]>,
+  ) {
+    for (const [label, value] of values) {
+      if (value.toMinorUnits() < 0) {
+        throw new ValidationError(`${label} cannot be negative`);
+      }
     }
   }
 }

@@ -1,9 +1,10 @@
-import { Box, Container } from "@mui/material";
+import { permanentRedirect } from "next/navigation";
 
-import ListingForm from "src/forms/ListingForm";
-
-const ListingCreatePage = () => {
-  return <ListingForm />;
-};
-
-export default ListingCreatePage;
+export default async function RetiredListingCreatePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  permanentRedirect(`/${locale}/products`);
+}

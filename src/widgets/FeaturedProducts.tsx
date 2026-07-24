@@ -13,6 +13,10 @@ import {
   Chip,
 } from "@mui/material";
 import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
+import WishlistButton from "src/components/WishlistButton";
+import { useStorefrontSettings } from "src/contexts/StorefrontSettings";
+import { formatMoney } from "src/lib/i18n";
 
 interface Product {
   id: string;
@@ -27,6 +31,10 @@ interface Product {
 }
 
 const FeaturedProducts: FC = () => {
+  const locale = useLocale();
+  const text = useTranslations("Catalog");
+  const settings = useStorefrontSettings();
+  const currency = settings?.business.defaultCurrency ?? "USD";
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -39,7 +47,7 @@ const FeaturedProducts: FC = () => {
           setProducts(data || []);
         }
       } catch {
-        console.error("Failed to fetch featured products");
+        setProducts([]);
       } finally {
         setLoading(false);
       }
@@ -51,7 +59,7 @@ const FeaturedProducts: FC = () => {
     return (
       <Container>
         <Typography variant="h4" textAlign="center" mb={4}>
-          Featured Products
+          {text("featuredProducts")}
         </Typography>
         <Grid spacing={3} container>
           {Array.from({ length: 4 }).map((_, i) => (
@@ -74,7 +82,7 @@ const FeaturedProducts: FC = () => {
   return (
     <Container sx={{ py: 4 }}>
       <Typography variant="h4" textAlign="center" mb={4}>
-        Featured Products
+        {text("featuredProducts")}
       </Typography>
       <Grid spacing={3} container>
         {products.map((p) => (
@@ -90,6 +98,8 @@ const FeaturedProducts: FC = () => {
                   "https://placehold.co/400x400?text=No+Image"
                 }
                 alt={p.media[0]?.alt || p.name}
+                loading="lazy"
+                decoding="async"
                 sx={{ objectFit: "cover" }}
               />
               <CardContent sx={{ flexGrow: 1 }}>
@@ -100,17 +110,20 @@ const FeaturedProducts: FC = () => {
                   {p.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  From ${minPrice(p.variants).toFixed(2)}
+                  {text("fromPrice", {
+                    price: formatMoney(minPrice(p.variants), currency, locale),
+                  })}
                 </Typography>
               </CardContent>
-              <CardActions>
+              <CardActions sx={{ justifyContent: "space-between" }}>
                 <Button
                   size="small"
                   LinkComponent={Link}
                   href={`/products/${p.slug}`}
                 >
-                  View Details
+                  {text("viewDetails")}
                 </Button>
+                <WishlistButton productId={p.id} />
               </CardActions>
             </Card>
           </Grid>

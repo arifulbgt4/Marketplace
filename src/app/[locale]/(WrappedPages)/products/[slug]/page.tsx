@@ -1,289 +1,126 @@
-"use client";
-import { useState, useEffect, use } from "react";
+import type { Metadata } from "next";
+import { cache } from "react";
+
+import { siteConfig } from "src/global/config";
+import { prisma } from "src/lib/prisma";
 import {
-  Box,
-  Container,
-  Grid,
-  Typography,
-  CardMedia,
-  Chip,
-  Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
-  Paper,
-  Skeleton,
-  Breadcrumbs,
-  Link as MuiLink,
-  Button,
-  Alert,
-} from "@mui/material";
-import Link from "next/link";
+  buildProductJsonLd,
+  buildProductMetadata,
+  type ProductSeoData,
+} from "src/lib/seo";
+import { getStorefrontSettings } from "src/lib/storefront-settings";
 
-interface PageProps {
-  params: Promise<{ slug: string }>;
-}
+import ProductDetailClient from "./ProductDetailClient";
 
-interface ProductData {
-  id: string;
-  name: string;
-  slug: string;
-  description: string;
-  brand: string | null;
-  status: string;
-  category: { id: string; name: string; slug: string } | null;
-  variants: {
-    id: string;
-    sku: string;
-    price: string;
-    compareAtPrice: string | null;
-    inventory: { onHand: number; reserved: number } | null;
-  }[];
-  media: { id: string; url: string; alt: string | null; order: number }[];
-  options: { id: string; name: string; values: string[] }[];
-  createdBy: { id: string; name: string } | null;
-}
+type PageProps = {
+  params: Promise<{ locale: string; slug: string }>;
+};
 
-export default function ProductDetailPage({ params }: PageProps) {
-  const resolved = use(params);
-  const [product, setProduct] = useState<ProductData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [adding, setAdding] = useState<string | null>(null);
-  const [cartMessage, setCartMessage] = useState<{
-    severity: "success" | "error";
-    text: string;
-  } | null>(null);
+const getProductSeoData = cache(
+  async (slug: string): Promise<ProductSeoData | null> => {
+    const product = await prisma.product.findFirst({
+      where: {
+        slug,
+        status: "published",
+        category: { isActive: true },
+      },
+      select: {
+        name: true,
+        slug: true,
+        description: true,
+        brand: true,
+        category: { select: { name: true } },
+        media: {
+          select: { url: true },
+          orderBy: { order: "asc" },
+        },
+        variants: {
+          select: {
+            sku: true,
+            price: true,
+            inventory: { select: { onHand: true, reserved: true } },
+          },
+        },
+        reviews: {
+          where: { status: "APPROVED" },
+          select: { rating: true },
+        },
+      },
+    });
+    if (!product) return null;
+    const ratingTotal = product.reviews.reduce(
+      (sum, review) => sum + review.rating,
+      0,
+    );
 
-  const addToCart = async (variantId: string) => {
-    setAdding(variantId);
-    setCartMessage(null);
-    try {
-      const response = await fetch("/api/cart", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ variantId, quantity: 1 }),
-      });
-      const data = await response.json();
-      setCartMessage(
-        response.ok
-          ? { severity: "success", text: "Item added to your cart." }
-          : {
-              severity: "error",
-              text: data.message ?? "Unable to add this item.",
-            },
-      );
-    } catch {
-      setCartMessage({ severity: "error", text: "Unable to add this item." });
-    } finally {
-      setAdding(null);
-    }
-  };
-
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const res = await fetch(`/api/catalog?slug=${resolved.slug}`);
-        if (res.ok) setProduct(await res.json());
-      } finally {
-        setLoading(false);
-      }
+    return {
+      name: product.name,
+      slug: product.slug,
+      description: product.description,
+      brand: product.brand,
+      categoryName: product.category?.name ?? null,
+      images: product.media.map((media) => media.url),
+      variants: product.variants.map((variant) => ({
+        sku: variant.sku,
+        price: Number(variant.price),
+        availableQuantity: Math.max(
+          0,
+          (variant.inventory?.onHand ?? 0) - (variant.inventory?.reserved ?? 0),
+        ),
+      })),
+      reviewSummary: {
+        average: product.reviews.length
+          ? ratingTotal / product.reviews.length
+          : 0,
+        count: product.reviews.length,
+      },
     };
-    fetchProduct();
-  }, [resolved.slug]);
+  },
+);
 
-  if (loading) {
-    return (
-      <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Skeleton variant="rounded" height={400} sx={{ mb: 2 }} />
-        <Skeleton variant="text" width="60%" height={40} />
-        <Skeleton variant="text" width="40%" />
-      </Container>
-    );
-  }
-
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const product = await getProductSeoData(slug);
   if (!product) {
-    return (
-      <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Typography variant="h4" color="error">
-          Product not found
-        </Typography>
-        <MuiLink component={Link} href="/products">
-          Back to products
-        </MuiLink>
-      </Container>
-    );
+    return {
+      title: "Product not found",
+      robots: { index: false, follow: false },
+    };
   }
+  return buildProductMetadata(product, {
+    baseUrl: siteConfig.url,
+    locale,
+  });
+}
+
+export default async function ProductDetailPage({ params }: PageProps) {
+  const { locale, slug } = await params;
+  const [product, settings] = await Promise.all([
+    getProductSeoData(slug),
+    getStorefrontSettings(),
+  ]);
+  const jsonLd = product
+    ? buildProductJsonLd(product, {
+        baseUrl: siteConfig.url,
+        locale,
+        currency: settings.business.defaultCurrency,
+        businessName: settings.business.displayName,
+      })
+    : null;
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Breadcrumbs sx={{ mb: 2 }}>
-        <MuiLink component={Link} href="/" underline="hover" color="inherit">
-          Home
-        </MuiLink>
-        <MuiLink
-          component={Link}
-          href="/products"
-          underline="hover"
-          color="inherit"
-        >
-          Products
-        </MuiLink>
-        {product.category && (
-          <MuiLink
-            component={Link}
-            href={`/products?categoryId=${product.category.id}`}
-            underline="hover"
-            color="inherit"
-          >
-            {product.category.name}
-          </MuiLink>
-        )}
-        <Typography color="text.primary">{product.name}</Typography>
-      </Breadcrumbs>
-
-      <Grid container spacing={4}>
-        <Grid item xs={12} md={6}>
-          {product.media.length > 0 ? (
-            <CardMedia
-              component="img"
-              image={product.media[0].url}
-              alt={product.media[0].alt || product.name}
-              sx={{
-                width: "100%",
-                maxHeight: 500,
-                objectFit: "cover",
-                borderRadius: 2,
-              }}
-            />
-          ) : (
-            <Box
-              sx={{
-                width: "100%",
-                height: 400,
-                bgcolor: "grey.100",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: 2,
-              }}
-            >
-              <Typography color="text.secondary">No image available</Typography>
-            </Box>
-          )}
-
-          {product.media.length > 1 && (
-            <Stack direction="row" spacing={1} mt={1} flexWrap="wrap">
-              {product.media.map((m) => (
-                <Box
-                  key={m.id}
-                  component="img"
-                  src={m.url}
-                  alt={m.alt || ""}
-                  sx={{
-                    width: 80,
-                    height: 80,
-                    objectFit: "cover",
-                    borderRadius: 1,
-                    cursor: "pointer",
-                  }}
-                />
-              ))}
-            </Stack>
-          )}
-        </Grid>
-
-        <Grid item xs={12} md={6}>
-          {product.brand && (
-            <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-              {product.brand}
-            </Typography>
-          )}
-          <Typography variant="h3" gutterBottom>
-            {product.name}
-          </Typography>
-          {product.category && (
-            <Chip label={product.category.name} size="small" sx={{ mb: 2 }} />
-          )}
-
-          <Typography
-            variant="body1"
-            color="text.secondary"
-            sx={{ mb: 3, whiteSpace: "pre-wrap" }}
-          >
-            {product.description}
-          </Typography>
-
-          <Typography variant="h5" fontWeight={600} gutterBottom>
-            Variants
-          </Typography>
-          {cartMessage && (
-            <Alert severity={cartMessage.severity} sx={{ mb: 2 }}>
-              {cartMessage.text}
-            </Alert>
-          )}
-          <TableContainer component={Paper} variant="outlined" sx={{ mb: 3 }}>
-            <Table size="small">
-              <TableBody>
-                {product.variants.map((v) => (
-                  <TableRow key={v.id}>
-                    <TableCell>
-                      <strong>{v.sku}</strong>
-                    </TableCell>
-                    <TableCell>
-                      <Typography fontWeight={600}>
-                        ${Number(v.price).toFixed(2)}
-                      </Typography>
-                    </TableCell>
-                    <TableCell align="right">
-                      <Button
-                        size="small"
-                        variant="contained"
-                        disabled={
-                          !v.inventory ||
-                          v.inventory.onHand - v.inventory.reserved <= 0 ||
-                          adding === v.id
-                        }
-                        onClick={() => addToCart(v.id)}
-                      >
-                        {adding === v.id ? "Adding…" : "Add to cart"}
-                      </Button>
-                    </TableCell>
-                    <TableCell>
-                      {v.inventory &&
-                      v.inventory.onHand - v.inventory.reserved > 0 ? (
-                        <Chip label="In Stock" color="success" size="small" />
-                      ) : (
-                        <Chip label="Out of Stock" color="error" size="small" />
-                      )}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-
-          {product.options.length > 0 && (
-            <Box sx={{ mb: 2 }}>
-              <Typography variant="h6" gutterBottom>
-                Options
-              </Typography>
-              {product.options.map((o) => (
-                <Typography key={o.id} variant="body2" color="text.secondary">
-                  <strong>{o.name}:</strong> {o.values.join(", ")}
-                </Typography>
-              ))}
-            </Box>
-          )}
-
-          {product.createdBy && (
-            <Typography variant="caption" color="text.secondary">
-              Listed by {product.createdBy.name}
-            </Typography>
-          )}
-        </Grid>
-      </Grid>
-    </Container>
+    <>
+      {jsonLd ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
+      ) : null}
+      <ProductDetailClient slug={slug} />
+    </>
   );
 }

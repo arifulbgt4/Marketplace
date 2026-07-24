@@ -1,5 +1,6 @@
 import { prisma } from "src/lib/prisma";
 import {
+  BusinessRuleError,
   NotFoundError,
   ValidationError,
   AuthorizationError,
@@ -47,6 +48,7 @@ export class AddressService {
     const addresses = await prisma.address.findMany({
       where: { userId },
       orderBy: [{ isDefault: "desc" }, { createdAt: "desc" }],
+      take: 100,
     });
     return addresses.map(this.mapToData);
   }
@@ -80,6 +82,13 @@ export class AddressService {
     if (!parsed.success)
       throw new ValidationError("Address fields are invalid");
     const input = parsed.data;
+
+    const addressCount = await prisma.address.count({ where: { userId } });
+    if (addressCount >= 100) {
+      throw new BusinessRuleError(
+        "Address limit reached; remove an address before adding another",
+      );
+    }
 
     const makeDefault = input.isDefault ?? false;
     const address = await prisma.$transaction(async (tx) => {

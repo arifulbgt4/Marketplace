@@ -6,7 +6,7 @@ import { Box, Button, Modal, Paper, Stack, Typography } from "@mui/material";
 import { ListingReportProps } from "./Types";
 import ReportForm from "src/forms/ReportForm";
 
-const ListingReport: FC<ListingReportProps> = () => {
+const ListingReport: FC<ListingReportProps> = ({ listingId }) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -46,7 +46,7 @@ const ListingReport: FC<ListingReportProps> = () => {
             p: 4,
           }}
         >
-          <ReportForm handleClose={handleClose} />
+          <ReportForm handleClose={handleClose} listingId={listingId} />
         </Paper>
       </Modal>
     </Stack>

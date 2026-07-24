@@ -20,6 +20,8 @@ import {
   type CategoryUpdateInput,
 } from "src/lib/catalog";
 
+const MAX_CATEGORY_RECORDS = 1_000;
+
 export class CategoryService {
   async create(data: CategoryInput): Promise<Result<unknown>> {
     const session = await getAuthSession();
@@ -27,6 +29,14 @@ export class CategoryService {
       requireRole(session, ["admin", "catalog_manager"]);
 
       const parsed = categorySchema.parse(data);
+      const categoryCount = await prisma.category.count();
+      if (categoryCount >= MAX_CATEGORY_RECORDS) {
+        return fail(
+          new BusinessRuleError(
+            "Category limit reached; archive and consolidate categories before adding more",
+          ),
+        );
+      }
 
       if (parsed.parentId) {
         const parent = await prisma.category.findUnique({
@@ -130,11 +140,14 @@ export class CategoryService {
 
       const existing = await prisma.category.findUnique({
         where: { id },
-        include: { children: true },
+        select: {
+          id: true,
+          _count: { select: { children: true } },
+        },
       });
       if (!existing) return fail(new NotFoundError("Category", id));
 
-      if (existing.children.length > 0) {
+      if (existing._count.children > 0) {
         return fail(
           new ValidationError(
             "Cannot archive category with subcategories. Reassign or remove them first.",
@@ -167,16 +180,21 @@ export class CategoryService {
 
       const existing = await prisma.category.findUnique({
         where: { id },
-        include: { children: true, products: true, listings: true },
+        select: {
+          id: true,
+          _count: {
+            select: { children: true, products: true, listings: true },
+          },
+        },
       });
       if (!existing) return fail(new NotFoundError("Category", id));
 
-      if (existing.children.length > 0) {
+      if (existing._count.children > 0) {
         return fail(
           new ValidationError("Cannot delete category with subcategories"),
         );
       }
-      if (existing.products.length > 0 || existing.listings.length > 0) {
+      if (existing._count.products > 0 || existing._count.listings > 0) {
         return fail(
           new ValidationError(
             "Cannot delete category that still has products or listings. Archive it instead.",
@@ -199,7 +217,7 @@ export class CategoryService {
         where: { id },
         include: {
           parent: true,
-          children: { orderBy: { displayOrder: "asc" } },
+          children: { orderBy: { displayOrder: "asc" }, take: 100 },
           _count: { select: { products: true, listings: true } },
         },
       });
@@ -218,7 +236,7 @@ export class CategoryService {
         where: { slug },
         include: {
           parent: true,
-          children: { orderBy: { displayOrder: "asc" } },
+          children: { orderBy: { displayOrder: "asc" }, take: 100 },
           _count: { select: { products: true, listings: true } },
         },
       });
@@ -242,6 +260,7 @@ export class CategoryService {
           _count: { select: { products: true, listings: true } },
         },
         orderBy: [{ displayOrder: "asc" }, { name: "asc" }],
+        take: MAX_CATEGORY_RECORDS,
       });
       return ok(categories);
     } catch (error: unknown) {
@@ -256,6 +275,7 @@ export class CategoryService {
       const all = await prisma.category.findMany({
         where: { isActive: true },
         orderBy: [{ displayOrder: "asc" }, { name: "asc" }],
+        take: MAX_CATEGORY_RECORDS,
       });
 
       const buildTree = (parentId: string | null): unknown[] =>
@@ -287,7 +307,13 @@ async function checkCategoryCycle(
 ): Promise<boolean> {
   const allCategories = await db.category.findMany({
     select: { id: true, parentId: true },
+    take: MAX_CATEGORY_RECORDS + 1,
   });
+  if (allCategories.length > MAX_CATEGORY_RECORDS) {
+    throw new BusinessRuleError(
+      "Category hierarchy exceeds the supported validation limit",
+    );
+  }
   const parentMap = new Map<string, string | null>();
   for (const c of allCategories) {
     parentMap.set(c.id, c.parentId);

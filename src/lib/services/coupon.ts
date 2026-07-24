@@ -14,13 +14,18 @@ import {
 } from "src/lib/errors";
 import { couponSchema, type CouponInput } from "src/lib/checkout";
 
+export const MAX_COUPON_RECORDS = 500;
+
 export class CouponService {
   async list(): Promise<Result<unknown>> {
     const session = await getAuthSession();
     try {
       requireRole(session, ["admin"]);
       return ok(
-        await prisma.coupon.findMany({ orderBy: { createdAt: "desc" } }),
+        await prisma.coupon.findMany({
+          orderBy: [{ isActive: "desc" }, { createdAt: "desc" }],
+          take: 500,
+        }),
       );
     } catch (error: unknown) {
       return fail(asAppError(error));
@@ -45,6 +50,16 @@ export class CouponService {
       requireRole(session, ["admin"]);
 
       const parsed = couponSchema.parse(data);
+      const couponCount = await prisma.coupon.count({
+        where: { isActive: true },
+      });
+      if (couponCount >= MAX_COUPON_RECORDS) {
+        return fail(
+          new BusinessRuleError(
+            "Coupon limit reached; archive and consolidate coupons before adding more",
+          ),
+        );
+      }
       const existing = await prisma.coupon.findUnique({
         where: { code: parsed.code },
       });
@@ -148,7 +163,11 @@ export class CouponService {
 
     if (coupon.usagePerUser) {
       const userUsageCount = await prisma.couponUsage.count({
-        where: { couponId: coupon.id, userId: session.userId },
+        where: {
+          couponId: coupon.id,
+          userId: session.userId,
+          releasedAt: null,
+        },
       });
       if (userUsageCount >= coupon.usagePerUser) {
         return fail(

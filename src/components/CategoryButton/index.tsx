@@ -22,6 +22,7 @@ const CategoryButton: FC<CategoryButtonProps> = ({ href, text, svg }) => {
       flexDirection="column"
       component={Link}
       href={href}
+      aria-label={text}
       justifyContent="center"
       alignItems="center"
     >

@@ -1,21 +1,14 @@
 "use client";
 import { Suspense } from "react";
-import {
-  Container,
-  Stack,
-  Divider,
-  Typography,
-  Button,
-  Grid,
-  IconButton,
-} from "@mui/material";
-import { FacebookRounded, Google } from "@mui/icons-material";
+import { Container, Stack, Divider, Typography, Button } from "@mui/material";
 
 import Logo from "src/components/Logo";
 import routes from "src/global/routes";
 import SigninForm from "src/forms/SigninForm";
+import { useTranslations } from "next-intl";
 
 export default function SignIn() {
+  const t = useTranslations("Auth");
   return (
     <Container maxWidth="xs">
       <Stack alignItems="center" justifyContent="center" height="100vh">
@@ -26,56 +19,17 @@ export default function SignIn() {
             </Stack>
             <Divider />
             <Typography textAlign="center" variant="h3">
-              Sign In
+              {t("signIn")}
             </Typography>
             <Suspense>
               <SigninForm />
             </Suspense>
-            <Grid
-              container
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Grid item xs={5.5}>
-                <Divider />
-              </Grid>
-              <Grid
-                item
-                xs={1}
-                justifyContent="center"
-                alignItems="center"
-                display="flex"
-              >
-                <Typography variant="subtitle2" color="text.secondary">
-                  or
-                </Typography>
-              </Grid>
-              <Grid item xs={5.5}>
-                <Divider />
-              </Grid>
-            </Grid>
-            <Stack
-              flexDirection="row"
-              gap={5}
-              justifyContent="center"
-              alignItems="center"
-            >
-              <IconButton>
-                <Google fontSize="large" />
-              </IconButton>
-              <IconButton>
-                <FacebookRounded fontSize="large" color="primary" />
-              </IconButton>
-            </Stack>
-            {/* <Box alignItems="center" justifyContent="center" display="flex"> */}
             <Button size="small" href={routes.forgotPassword}>
-              Forgot password?
+              {t("forgotPassword")}
             </Button>
             <Button size="small" href={routes.verifyEmail}>
-              Resend email verification
+              {t("resendVerification")}
             </Button>
-            {/* </Box> */}
           </Stack>
           <Stack
             flexDirection="row"
@@ -85,8 +39,8 @@ export default function SignIn() {
             border={1}
             borderColor="divider"
           >
-            <Typography variant="subtitle1">Have an account?</Typography>
-            <Button href={routes.signup}>Sign up</Button>
+            <Typography variant="subtitle1">{t("needAccount")}</Typography>
+            <Button href={routes.signup}>{t("signUp")}</Button>
           </Stack>
         </Stack>
       </Stack>

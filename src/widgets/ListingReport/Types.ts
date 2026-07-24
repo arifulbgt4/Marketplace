@@ -1,1 +1,3 @@
-export interface ListingReportProps {}
+export interface ListingReportProps {
+  listingId: string;
+}

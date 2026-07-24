@@ -22,6 +22,8 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { v4 as uuidv4 } from "uuid";
+import { useLocale, useTranslations } from "next-intl";
+import { formatMoney } from "src/lib/i18n";
 
 interface CartItem {
   id: string;
@@ -82,7 +84,18 @@ interface CheckoutSession {
   status: string;
 }
 
+interface PaymentMethodOption {
+  code: "cod" | "online";
+  label: string;
+  description: string | null;
+  eligible: boolean;
+  reasonCode: string | null;
+}
+
 export default function CheckoutPage() {
+  const locale = useLocale();
+  const t = useTranslations("Checkout");
+  const common = useTranslations("Common");
   const [cart, setCart] = useState<{
     id: string;
     items: CartItem[];
@@ -94,6 +107,14 @@ export default function CheckoutPage() {
   const [session, setSession] = useState<CheckoutSession | null>(null);
   const [loading, setLoading] = useState(true);
   const [placing, setPlacing] = useState(false);
+  const [paymentMethods, setPaymentMethods] = useState<PaymentMethodOption[]>(
+    [],
+  );
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<
+    "cod" | "online" | ""
+  >("");
+  const [paymentMethodsError, setPaymentMethodsError] = useState("");
+  const [placementError, setPlacementError] = useState("");
 
   const [selectedAddress, setSelectedAddress] = useState("");
   const [selectedMethod, setSelectedMethod] = useState("");
@@ -107,7 +128,7 @@ export default function CheckoutPage() {
   const [addingAddress, setAddingAddress] = useState(false);
   const [addressError, setAddressError] = useState("");
   const [newAddress, setNewAddress] = useState({
-    label: "Home",
+    label: t("home"),
     line1: "",
     line2: "",
     city: "",
@@ -116,6 +137,12 @@ export default function CheckoutPage() {
     country: "",
     phone: "",
   });
+  const currency = session?.currency ?? "USD";
+  const paymentUnavailableMessage = (reasonCode: string | null) => {
+    if (!reasonCode) return t("paymentUnavailable");
+    const key = `reasons.${reasonCode}`;
+    return t.has(key) ? t(key) : t("paymentUnavailable");
+  };
 
   const fetchCart = useCallback(async () => {
     const res = await fetch("/api/cart");
@@ -130,6 +157,40 @@ export default function CheckoutPage() {
     } catch {}
     return [];
   }, []);
+
+  const refreshPaymentMethods = useCallback(
+    async (checkoutSessionId: string) => {
+      setPaymentMethodsError("");
+      try {
+        const response = await fetch(
+          `/api/checkout/${checkoutSessionId}/payment-methods`,
+        );
+        const data = await response.json();
+        if (!response.ok) {
+          setPaymentMethods([]);
+          setSelectedPaymentMethod("");
+          setPaymentMethodsError(data.message ?? t("loadPaymentError"));
+          return;
+        }
+        const methods = data as PaymentMethodOption[];
+        setPaymentMethods(methods);
+        setSelectedPaymentMethod((current) => {
+          if (
+            current &&
+            methods.some((method) => method.code === current && method.eligible)
+          ) {
+            return current;
+          }
+          return methods.find((method) => method.eligible)?.code ?? "";
+        });
+      } catch {
+        setPaymentMethods([]);
+        setSelectedPaymentMethod("");
+        setPaymentMethodsError(t("loadPaymentError"));
+      }
+    },
+    [t],
+  );
 
   useEffect(() => {
     (async () => {
@@ -156,11 +217,12 @@ export default function CheckoutPage() {
           const sess = await res.json();
           setSession(sess);
           setSelectedMethod(sess.deliveryMethodId || "");
+          await refreshPaymentMethods(sess.id);
         }
       }
       setLoading(false);
     })();
-  }, [fetchCart, fetchAddresses]);
+  }, [fetchAddresses, fetchCart, refreshPaymentMethods]);
 
   const applyCoupon = async () => {
     if (!couponCode.trim()) return;
@@ -186,16 +248,20 @@ export default function CheckoutPage() {
           if (sessRes.ok) {
             const updated = await sessRes.json();
             setSession(updated);
+            await refreshPaymentMethods(updated.id);
             setCouponApplied(true);
-            setCouponMsg({ type: "success", text: "Coupon applied!" });
+            setCouponMsg({ type: "success", text: t("couponApplied") });
           }
         }
       } else {
         const err = await res.json();
-        setCouponMsg({ type: "error", text: err.message || "Invalid coupon" });
+        setCouponMsg({
+          type: "error",
+          text: err.message || t("invalidCoupon"),
+        });
       }
     } catch {
-      setCouponMsg({ type: "error", text: "Failed to validate coupon" });
+      setCouponMsg({ type: "error", text: t("couponValidationError") });
     }
   };
 
@@ -210,6 +276,7 @@ export default function CheckoutPage() {
     if (res.ok) {
       const updated = await res.json();
       setSession(updated);
+      await refreshPaymentMethods(updated.id);
     }
   };
 
@@ -217,6 +284,8 @@ export default function CheckoutPage() {
     setSelectedAddress(addressId);
     setSelectedMethod("");
     setDeliveryMethods([]);
+    setPaymentMethods([]);
+    setSelectedPaymentMethod("");
     if (!session) return;
     const res = await fetch(`/api/checkout/${session.id}`, {
       method: "PATCH",
@@ -226,7 +295,11 @@ export default function CheckoutPage() {
         deliveryMethodId: null,
       }),
     });
-    if (res.ok) setSession(await res.json());
+    if (res.ok) {
+      const updated = await res.json();
+      setSession(updated);
+      await refreshPaymentMethods(updated.id);
+    }
   };
 
   const createAddress = async () => {
@@ -244,13 +317,13 @@ export default function CheckoutPage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setAddressError(data.message || "Unable to save address");
+        setAddressError(data.message || t("saveAddressError"));
         return;
       }
       setAddresses((current) => [...current, data]);
       await selectAddress(data.id);
       setNewAddress({
-        label: "Home",
+        label: t("home"),
         line1: "",
         line2: "",
         city: "",
@@ -260,7 +333,7 @@ export default function CheckoutPage() {
         phone: "",
       });
     } catch {
-      setAddressError("Unable to save address");
+      setAddressError(t("saveAddressError"));
     } finally {
       setAddingAddress(false);
     }
@@ -286,6 +359,7 @@ export default function CheckoutPage() {
   const placeOrder = async () => {
     if (!session) return;
     setPlacing(true);
+    setPlacementError("");
     try {
       const res = await fetch("/api/checkout/place", {
         method: "POST",
@@ -293,19 +367,21 @@ export default function CheckoutPage() {
         body: JSON.stringify({
           checkoutSessionId: session.id,
           idempotencyKey: uuidv4(),
-          paymentMethod: "cod",
+          paymentMethod: selectedPaymentMethod,
           notes: notes || undefined,
         }),
       });
       if (res.ok) {
         const data = await res.json();
-        window.location.href = `/orders/${data.orderId}`;
+        window.location.href = `/u/order/${data.orderId}${
+          data.paymentMethod === "online" ? "?payment=pending" : ""
+        }`;
       } else {
         const err = await res.json();
-        alert(err.message || "Failed to place order");
+        setPlacementError(err.message || t("placeOrderError"));
       }
     } catch {
-      alert("Failed to place order");
+      setPlacementError(t("placeOrderError"));
     } finally {
       setPlacing(false);
     }
@@ -327,10 +403,10 @@ export default function CheckoutPage() {
       <Container maxWidth="md" sx={{ py: 4 }}>
         <Paper sx={{ p: 6, textAlign: "center" }}>
           <Typography variant="h6" color="text.secondary" gutterBottom>
-            Your cart is empty
+            {t("emptyCart")}
           </Typography>
           <Button variant="contained" LinkComponent={Link} href="/products">
-            Browse Products
+            {common("browseProducts")}
           </Button>
         </Paper>
       </Container>
@@ -340,13 +416,13 @@ export default function CheckoutPage() {
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
       <Typography variant="h4" mb={3}>
-        Checkout
+        {t("title")}
       </Typography>
 
       <Stack spacing={3}>
         <Paper sx={{ p: 3 }}>
           <Typography variant="h6" mb={2}>
-            Order Summary
+            {t("orderSummary")}
           </Typography>
           {cart.items.map((item) => (
             <Stack
@@ -359,43 +435,53 @@ export default function CheckoutPage() {
                 {item.productName} x{item.quantity}
               </Typography>
               <Typography variant="body2" fontWeight={600}>
-                ${(Number(item.unitPrice) * item.quantity).toFixed(2)}
+                {formatMoney(
+                  Number(item.unitPrice) * item.quantity,
+                  currency,
+                  locale,
+                )}
               </Typography>
             </Stack>
           ))}
           <Divider sx={{ my: 2 }} />
           <Stack direction="row" justifyContent="space-between">
-            <Typography>Subtotal</Typography>
+            <Typography>{t("subtotal")}</Typography>
             <Typography fontWeight={600}>
-              ${(cart.subtotal || 0).toFixed(2)}
+              {formatMoney(cart.subtotal || 0, currency, locale)}
             </Typography>
           </Stack>
           {session && session.discountAmount > 0 && (
             <Stack direction="row" justifyContent="space-between">
-              <Typography color="success.main">Discount</Typography>
+              <Typography color="success.main">{t("discount")}</Typography>
               <Typography color="success.main">
-                -${session.discountAmount.toFixed(2)}
+                -{formatMoney(session.discountAmount, currency, locale)}
               </Typography>
             </Stack>
           )}
           {session && session.shippingCost > 0 && (
             <Stack direction="row" justifyContent="space-between">
-              <Typography>Shipping</Typography>
-              <Typography>${session.shippingCost.toFixed(2)}</Typography>
+              <Typography>{t("shipping")}</Typography>
+              <Typography>
+                {formatMoney(session.shippingCost, currency, locale)}
+              </Typography>
             </Stack>
           )}
           <Divider sx={{ my: 1 }} />
           <Stack direction="row" justifyContent="space-between">
-            <Typography variant="h6">Total</Typography>
+            <Typography variant="h6">{t("total")}</Typography>
             <Typography variant="h6" color="primary">
-              ${(session?.totalAmount || cart.subtotal || 0).toFixed(2)}
+              {formatMoney(
+                session?.totalAmount || cart.subtotal || 0,
+                currency,
+                locale,
+              )}
             </Typography>
           </Stack>
         </Paper>
 
         <Paper sx={{ p: 3 }}>
           <Typography variant="h6" mb={2}>
-            Shipping Address
+            {t("shippingAddress")}
           </Typography>
           {addresses.length > 0 && (
             <FormControl component="fieldset" fullWidth>
@@ -416,12 +502,12 @@ export default function CheckoutPage() {
           )}
           <Divider sx={{ my: 2 }} />
           <Typography variant="subtitle1" mb={1}>
-            Add a new address
+            {t("addAddress")}
           </Typography>
           <Stack spacing={2}>
             <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
               <TextField
-                label="Label"
+                label={t("label")}
                 value={newAddress.label}
                 onChange={(event) =>
                   setNewAddress({ ...newAddress, label: event.target.value })
@@ -429,7 +515,7 @@ export default function CheckoutPage() {
                 fullWidth
               />
               <TextField
-                label="Country code"
+                label={t("countryCode")}
                 value={newAddress.country}
                 onChange={(event) =>
                   setNewAddress({
@@ -438,13 +524,13 @@ export default function CheckoutPage() {
                   })
                 }
                 inputProps={{ maxLength: 2 }}
-                helperText="ISO code, e.g. BD or US"
+                helperText={t("countryHint")}
                 required
                 fullWidth
               />
             </Stack>
             <TextField
-              label="Address line 1"
+              label={t("addressLine1")}
               value={newAddress.line1}
               onChange={(event) =>
                 setNewAddress({ ...newAddress, line1: event.target.value })
@@ -453,7 +539,7 @@ export default function CheckoutPage() {
               fullWidth
             />
             <TextField
-              label="Address line 2"
+              label={t("addressLine2")}
               value={newAddress.line2}
               onChange={(event) =>
                 setNewAddress({ ...newAddress, line2: event.target.value })
@@ -466,8 +552,10 @@ export default function CheckoutPage() {
                   key={field}
                   label={
                     field === "postalCode"
-                      ? "Postal code"
-                      : field[0].toUpperCase() + field.slice(1)
+                      ? t("postalCode")
+                      : field === "city"
+                        ? t("city")
+                        : t("state")
                   }
                   value={newAddress[field]}
                   onChange={(event) =>
@@ -482,7 +570,7 @@ export default function CheckoutPage() {
               ))}
             </Stack>
             <TextField
-              label="Phone"
+              label={t("phone")}
               value={newAddress.phone}
               onChange={(event) =>
                 setNewAddress({ ...newAddress, phone: event.target.value })
@@ -502,7 +590,7 @@ export default function CheckoutPage() {
                 newAddress.country.trim().length !== 2
               }
             >
-              {addingAddress ? "Saving..." : "Save and use address"}
+              {addingAddress ? common("saving") : t("saveAddress")}
             </Button>
           </Stack>
         </Paper>
@@ -510,7 +598,7 @@ export default function CheckoutPage() {
         {deliveryMethods.length > 0 && (
           <Paper sx={{ p: 3 }}>
             <Typography variant="h6" mb={2}>
-              Delivery Method
+              {t("deliveryMethod")}
             </Typography>
             <FormControl component="fieldset" fullWidth>
               <RadioGroup
@@ -528,7 +616,7 @@ export default function CheckoutPage() {
                           {m.name} {m.carrier ? `(${m.carrier})` : ""}
                         </Typography>
                         <Typography variant="caption" color="text.secondary">
-                          ${m.cost.toFixed(2)}
+                          {formatMoney(m.cost, currency, locale)}
                           {m.estimatedDaysMin
                             ? ` - ${m.estimatedDaysMin}–${m.estimatedDaysMax} days`
                             : ""}
@@ -542,14 +630,67 @@ export default function CheckoutPage() {
           </Paper>
         )}
 
+        {session ? (
+          <Paper sx={{ p: 3 }}>
+            <Typography variant="h6" mb={2}>
+              {t("paymentMethod")}
+            </Typography>
+            {paymentMethodsError ? (
+              <Alert severity="error">{paymentMethodsError}</Alert>
+            ) : paymentMethods.length === 0 ? (
+              <Alert severity="info">{t("loadingPaymentMethods")}</Alert>
+            ) : (
+              <FormControl component="fieldset" fullWidth>
+                <RadioGroup
+                  value={selectedPaymentMethod}
+                  onChange={(event) =>
+                    setSelectedPaymentMethod(
+                      event.target.value as "cod" | "online",
+                    )
+                  }
+                >
+                  {paymentMethods.map((method) => (
+                    <FormControlLabel
+                      key={method.code}
+                      value={method.code}
+                      disabled={!method.eligible}
+                      control={<Radio />}
+                      label={
+                        <Stack>
+                          <Typography variant="body2">
+                            {method.label}
+                          </Typography>
+                          {method.description ? (
+                            <Typography
+                              variant="caption"
+                              color="text.secondary"
+                            >
+                              {method.description}
+                            </Typography>
+                          ) : null}
+                          {!method.eligible ? (
+                            <Typography variant="caption" color="error">
+                              {paymentUnavailableMessage(method.reasonCode)}
+                            </Typography>
+                          ) : null}
+                        </Stack>
+                      }
+                    />
+                  ))}
+                </RadioGroup>
+              </FormControl>
+            )}
+          </Paper>
+        ) : null}
+
         <Paper sx={{ p: 3 }}>
           <Typography variant="h6" mb={2}>
-            Coupon
+            {t("coupon")}
           </Typography>
           <Stack direction="row" spacing={2}>
             <TextField
               size="small"
-              label="Coupon Code"
+              label={t("couponCode")}
               value={couponCode}
               onChange={(e) => setCouponCode(e.target.value)}
               disabled={couponApplied}
@@ -560,7 +701,7 @@ export default function CheckoutPage() {
               onClick={applyCoupon}
               disabled={couponApplied || !couponCode.trim()}
             >
-              Apply
+              {t("apply")}
             </Button>
           </Stack>
           {couponMsg && (
@@ -572,28 +713,44 @@ export default function CheckoutPage() {
 
         <Paper sx={{ p: 3 }}>
           <Typography variant="h6" mb={2}>
-            Notes (Optional)
+            {t("notes")}
           </Typography>
           <TextField
             multiline
             rows={3}
             fullWidth
-            placeholder="Add notes to your order..."
+            placeholder={t("notesPlaceholder")}
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
           />
         </Paper>
+
+        {placementError ? (
+          <Alert severity="error" aria-live="assertive">
+            {placementError}
+          </Alert>
+        ) : null}
 
         <Button
           variant="contained"
           size="large"
           fullWidth
           onClick={placeOrder}
-          disabled={placing || !session || !selectedAddress || !selectedMethod}
+          disabled={
+            placing ||
+            !session ||
+            !selectedAddress ||
+            !selectedMethod ||
+            !selectedPaymentMethod
+          }
         >
           {placing
-            ? "Placing Order..."
-            : `Place Order — $${(session?.totalAmount || 0).toFixed(2)}`}
+            ? t("placingOrder")
+            : `${t("placeOrder")} — ${formatMoney(
+                session?.totalAmount || 0,
+                currency,
+                locale,
+              )}`}
         </Button>
       </Stack>
     </Container>

@@ -1,7 +1,10 @@
+import { z } from "zod";
+
 import { prisma } from "src/lib/prisma";
 import { auditService } from "src/lib/audit";
 import { requireRole, getAuthSession } from "src/lib/authz";
 import {
+  BusinessRuleError,
   ValidationError,
   NotFoundError,
   ConflictError,
@@ -30,6 +33,39 @@ import {
 } from "src/lib/catalog";
 import type { ProductStatus } from "@prisma/client";
 
+export const MAX_PRODUCT_VARIANTS = 100;
+export const MAX_PRODUCT_OPTIONS = 20;
+export const MAX_PRODUCT_MEDIA = 50;
+
+const productCreatePayloadSchema = productSchema.extend({
+  variants: z.array(variantSchema).max(MAX_PRODUCT_VARIANTS).optional(),
+  options: z.array(optionSchema).max(MAX_PRODUCT_OPTIONS).optional(),
+  media: z.array(productMediaSchema).max(MAX_PRODUCT_MEDIA).optional(),
+});
+
+const productListFilterSchema = z.object({
+  status: z.enum(["draft", "published", "archived"]).optional(),
+  categoryId: z.string().uuid().optional(),
+  search: z.string().trim().max(120).optional(),
+});
+
+const boundedProductRelations = {
+  variants: {
+    include: { inventory: true },
+    orderBy: { id: "asc" as const },
+    take: MAX_PRODUCT_VARIANTS,
+  },
+  options: {
+    orderBy: { id: "asc" as const },
+    take: MAX_PRODUCT_OPTIONS,
+  },
+  media: {
+    orderBy: [{ order: "asc" as const }, { id: "asc" as const }],
+    take: MAX_PRODUCT_MEDIA,
+  },
+  category: true,
+};
+
 export class ProductService {
   async create(
     data: ProductInput & {
@@ -42,7 +78,13 @@ export class ProductService {
     try {
       requireRole(session, ["admin", "catalog_manager"]);
 
-      const parsed = productSchema.parse(data);
+      const payload = productCreatePayloadSchema.parse(data);
+      const {
+        variants,
+        options,
+        media: mediaInput,
+        ...parsed
+      } = payload;
       const slugExists = await prisma.product.findUnique({
         where: { slug: parsed.slug },
       });
@@ -53,8 +95,7 @@ export class ProductService {
           ),
         );
       }
-      const media =
-        data.media?.map((item) => productMediaSchema.parse(item)) ?? [];
+      const media = mediaInput ?? [];
       if (media.filter((item) => item.isPrimary).length > 1) {
         return fail(
           new ValidationError("Only one product media item can be primary"),
@@ -68,32 +109,26 @@ export class ProductService {
           ...parsed,
           status: "draft",
           createdById: session!.userId,
-          variants: data.variants?.length
+          variants: variants?.length
             ? {
-                create: data.variants.map((v) => {
-                  const pv = variantSchema.parse(v);
+                create: variants.map((variant) => {
                   return {
-                    sku: pv.sku,
-                    barcode: pv.barcode ?? null,
-                    price: pv.price,
-                    compareAtPrice: pv.compareAtPrice ?? null,
-                    weightGrams: pv.weightGrams,
+                    sku: variant.sku,
+                    barcode: variant.barcode ?? null,
+                    price: variant.price,
+                    compareAtPrice: variant.compareAtPrice ?? null,
+                    weightGrams: variant.weightGrams,
                     inventory: { create: { onHand: 0, reserved: 0 } },
                   };
                 }),
               }
             : undefined,
-          options: data.options?.length
-            ? { create: data.options.map((o) => optionSchema.parse(o)) }
+          options: options?.length
+            ? { create: options }
             : undefined,
           media: media.length ? { create: media } : undefined,
         },
-        include: {
-          variants: { include: { inventory: true } },
-          options: true,
-          media: { orderBy: { order: "asc" } },
-          category: true,
-        },
+        include: boundedProductRelations,
       });
 
       await auditService.log({
@@ -135,12 +170,7 @@ export class ProductService {
       const product = await prisma.product.update({
         where: { id },
         data: parsed,
-        include: {
-          variants: { include: { inventory: true } },
-          options: true,
-          media: { orderBy: { order: "asc" } },
-          category: true,
-        },
+        include: boundedProductRelations,
       });
 
       await auditService.log({
@@ -192,12 +222,29 @@ export class ProductService {
       const product = await prisma.product.findUnique({
         where: { id },
         include: {
-          variants: { include: { inventory: true } },
-          media: true,
+          variants: {
+            include: { inventory: true },
+            orderBy: { id: "asc" },
+            take: MAX_PRODUCT_VARIANTS + 1,
+          },
+          media: {
+            orderBy: [{ order: "asc" }, { id: "asc" }],
+            take: MAX_PRODUCT_MEDIA + 1,
+          },
           category: { select: { isActive: true } },
         },
       });
       if (!product) return fail(new NotFoundError("Product", id));
+      if (
+        product.variants.length > MAX_PRODUCT_VARIANTS ||
+        product.media.length > MAX_PRODUCT_MEDIA
+      ) {
+        return fail(
+          new BusinessRuleError(
+            "Product configuration exceeds the supported variant or media limit",
+          ),
+        );
+      }
 
       const validation = validatePublish(product);
       if (!validation.valid) {
@@ -211,12 +258,7 @@ export class ProductService {
       const updated = await prisma.product.update({
         where: { id },
         data: { status: "published" },
-        include: {
-          variants: { include: { inventory: true } },
-          options: true,
-          media: { orderBy: { order: "asc" } },
-          category: true,
-        },
+        include: boundedProductRelations,
       });
 
       await auditService.log({
@@ -238,12 +280,7 @@ export class ProductService {
       requireRole(session, ["admin", "catalog_manager", "support"]);
       const product = await prisma.product.findUnique({
         where: { id },
-        include: {
-          variants: { include: { inventory: true } },
-          options: true,
-          media: { orderBy: { order: "asc" } },
-          category: true,
-        },
+        include: boundedProductRelations,
       });
       if (!product) return fail(new NotFoundError("Product", id));
       return ok(product);
@@ -258,12 +295,7 @@ export class ProductService {
       requireRole(session, ["admin", "catalog_manager", "support"]);
       const product = await prisma.product.findUnique({
         where: { slug },
-        include: {
-          variants: { include: { inventory: true } },
-          options: true,
-          media: { orderBy: { order: "asc" } },
-          category: true,
-        },
+        include: boundedProductRelations,
       });
       if (!product) return fail(new NotFoundError("Product", slug));
       return ok(product);
@@ -283,7 +315,24 @@ export class ProductService {
     try {
       requireRole(session, ["admin", "catalog_manager", "support"]);
 
-      const { status, categoryId, search, page = 1, limit = 20 } = params;
+      const {
+        status: rawStatus,
+        categoryId: rawCategoryId,
+        search: rawSearch,
+        page: requestedPage = 1,
+        limit: requestedLimit = 20,
+      } = params;
+      const { status, categoryId, search } = productListFilterSchema.parse({
+        status: rawStatus,
+        categoryId: rawCategoryId,
+        search: rawSearch,
+      });
+      const page = Number.isFinite(requestedPage)
+        ? Math.min(10_000, Math.max(1, Math.trunc(requestedPage)))
+        : 1;
+      const limit = Number.isFinite(requestedLimit)
+        ? Math.min(100, Math.max(1, Math.trunc(requestedLimit)))
+        : 20;
       const where: Record<string, unknown> = {};
       if (status) where.status = status;
       if (categoryId) where.categoryId = categoryId;
@@ -298,7 +347,11 @@ export class ProductService {
         prisma.product.findMany({
           where: where as any,
           include: {
-            variants: { include: { inventory: true } },
+            variants: {
+              include: { inventory: true },
+              orderBy: { id: "asc" },
+              take: MAX_PRODUCT_VARIANTS,
+            },
             media: { orderBy: { order: "asc" }, take: 1 },
             category: true,
             createdBy: { select: { id: true, name: true } },
@@ -331,8 +384,19 @@ export class ProductService {
 
       const product = await prisma.product.findUnique({
         where: { id: productId },
+        select: {
+          id: true,
+          _count: { select: { variants: true } },
+        },
       });
       if (!product) return fail(new NotFoundError("Product", productId));
+      if (product._count.variants >= MAX_PRODUCT_VARIANTS) {
+        return fail(
+          new BusinessRuleError(
+            "Product variant limit reached; remove a variant before adding another",
+          ),
+        );
+      }
 
       const parsed = variantSchema.parse(data);
       const skuExists = await prisma.productVariant.findUnique({
@@ -428,8 +492,19 @@ export class ProductService {
 
       const product = await prisma.product.findUnique({
         where: { id: productId },
+        select: {
+          id: true,
+          _count: { select: { media: true } },
+        },
       });
       if (!product) return fail(new NotFoundError("Product", productId));
+      if (product._count.media >= MAX_PRODUCT_MEDIA) {
+        return fail(
+          new BusinessRuleError(
+            "Product media limit reached; remove media before adding another",
+          ),
+        );
+      }
 
       const parsed = productMediaSchema.parse(data);
       const media = await prisma.$transaction(async (tx) => {

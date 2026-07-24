@@ -50,13 +50,19 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL(routes.home, req.url));
   }
 
-  if (access === "admin" || access === "catalog") {
+  if (
+    access === "admin" ||
+    access === "catalog" ||
+    access === "operations"
+  ) {
     if (!isAuth) {
       return NextResponse.redirect(new URL(routes.signin, req.url));
     }
     const role = token?.role;
     const allowed =
-      role === "admin" || (access === "catalog" && role === "catalog_manager");
+      role === "admin" ||
+      (access === "catalog" && role === "catalog_manager") ||
+      (access === "operations" && role === "support");
     if (!allowed) {
       return NextResponse.redirect(new URL(routes.home, req.url));
     }

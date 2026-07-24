@@ -15,8 +15,10 @@ import { userRegisterSchema, UserRegisterInput } from "src/lib/validations";
 
 import { SignupFormProps } from "./Types";
 import { signUp } from "./actions";
+import { useTranslations } from "next-intl";
 
 const SignupForm: FC<SignupFormProps> = () => {
+  const t = useTranslations("Auth");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [verificationPreviewUrl, setVerificationPreviewUrl] = useState("");
@@ -47,12 +49,11 @@ const SignupForm: FC<SignupFormProps> = () => {
       setVerificationPreviewUrl(body.verificationPreviewUrl || "");
       setSuccess(
         body.emailDelivery === "unavailable"
-          ? "Account created, but email delivery is temporarily unavailable. Use the resend verification page shortly."
-          : "Account created. Check your email and verify it before signing in.",
+          ? t("accountCreatedNoEmail")
+          : t("accountCreated"),
       );
-    } catch (error) {
-      setError("An unexpected error occurred");
-      console.error(error);
+    } catch {
+      setError(t("unexpectedError"));
     }
   };
 
@@ -72,7 +73,7 @@ const SignupForm: FC<SignupFormProps> = () => {
         )}
         <Stack gap={2}>
           <TextField
-            label="Full name"
+            label={t("fullName")}
             required
             size="small"
             fullWidth
@@ -81,7 +82,7 @@ const SignupForm: FC<SignupFormProps> = () => {
             {...register("name")}
           />
           <TextField
-            label="Email"
+            label={t("email")}
             required
             size="small"
             type="email"
@@ -91,7 +92,7 @@ const SignupForm: FC<SignupFormProps> = () => {
             {...register("email")}
           />
           <TextField
-            label="Password"
+            label={t("password")}
             required
             size="small"
             fullWidth
@@ -103,9 +104,7 @@ const SignupForm: FC<SignupFormProps> = () => {
         </Stack>
         <Stack flexDirection="row" alignItems="center">
           <Checkbox size="small" defaultChecked />
-          <Typography color="text.secondary">
-            By signing up, you agree our Terms Privacy Policy and Cookies Policy
-          </Typography>
+          <Typography color="text.secondary">{t("terms")}</Typography>
         </Stack>
         <Button
           type="submit"
@@ -113,7 +112,7 @@ const SignupForm: FC<SignupFormProps> = () => {
           color="info"
           disabled={isSubmitting}
         >
-          Sign up
+          {t("signUp")}
         </Button>
       </Stack>
     </form>

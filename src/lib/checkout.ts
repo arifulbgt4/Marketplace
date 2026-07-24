@@ -58,9 +58,9 @@ export const deliveryZoneSchema = z.object({
     .min(2)
     .max(100)
     .regex(/^[a-z0-9-]+$/),
-  countries: z.array(z.string().min(2).max(100)).min(1),
-  regions: z.array(z.string()).default([]),
-  postalCodes: z.array(z.string()).default([]),
+  countries: z.array(z.string().min(2).max(100)).min(1).max(100),
+  regions: z.array(z.string().min(1).max(100)).max(500).default([]),
+  postalCodes: z.array(z.string().min(1).max(30)).max(1_000).default([]),
   isActive: z.boolean().default(true),
   priority: z.number().int().min(0).default(0),
 });
@@ -117,7 +117,7 @@ export const couponSchema = z
       .optional()
       .nullable(),
     scope: z.enum(COUPON_SCOPE_VALUES).default("all"),
-    scopeIds: z.array(z.string()).default([]),
+    scopeIds: z.array(z.string().min(1).max(100)).max(500).default([]),
     usageLimit: z.number().int().positive().optional().nullable(),
     usagePerUser: z.number().int().positive().optional().nullable(),
     isActive: z.boolean().default(true),

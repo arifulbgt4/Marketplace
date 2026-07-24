@@ -1,6 +1,8 @@
 "use client";
-import { FC, useCallback } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { FC } from "react";
+import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { darken } from "@mui/material/styles";
 import {
   Typography,
   Box,
@@ -13,25 +15,36 @@ import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 
 import SearchFilterForm from "src/forms/SearchFilterForm";
 import CategoryButton from "src/components/CategoryButton";
+import routes from "src/global/routes";
+import { resolveProductShortcuts } from "src/forms/SearchFilterForm/product-search";
 
 import { SearchBannerProps } from "./Types";
 
-const SearchBanner: FC<SearchBannerProps> = () => {
+const SearchBanner: FC<SearchBannerProps> = ({ activeCategories = [] }) => {
   const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  // Get a new searchParams string by merging the current
-  // searchParams with a provided key/value pair
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
-
-      return params.toString();
+  const catalogText = useTranslations("Catalog");
+  const shortcuts = resolveProductShortcuts(activeCategories, [
+    {
+      query: "essentials",
+      label: catalogText("shortcutEssentials"),
     },
-    [searchParams],
-  );
+    {
+      query: "electronics",
+      label: catalogText("shortcutElectronics"),
+    },
+    {
+      query: "home",
+      label: catalogText("shortcutHome"),
+    },
+    {
+      query: "fashion",
+      label: catalogText("shortcutFashion"),
+    },
+    {
+      query: "wellness",
+      label: catalogText("shortcutWellness"),
+    },
+  ]);
 
   return (
     <Stack
@@ -74,21 +87,20 @@ const SearchBanner: FC<SearchBannerProps> = () => {
               WebkitTextFillColor: "transparent",
             })}
           >
-            Discover, Shop & Thrive
+            {catalogText("heroTitle")}
           </Typography>
           <Typography variant="h3" component="p" align="center">
-            Explore Endless Possibilities: Over 25,000+ Listings Await You in
-            Our Global Marketplace
+            {catalogText("heroDescription")}
           </Typography>
           <Typography
             variant="h3"
             sx={(theme) => ({
-              color: theme.palette.primary.main,
+              color: darken(theme.palette.primary.main, 0.025),
             })}
             component="p"
             align="center"
           >
-            Quality products, delivered with confidence
+            {catalogText("heroTagline")}
           </Typography>
         </Stack>
         <Hidden mdDown implementation="css">
@@ -111,14 +123,15 @@ const SearchBanner: FC<SearchBannerProps> = () => {
                 boxShadow: 10,
               })}
               onClick={() => {
-                router.push(pathname + "?" + createQueryString("sort", "asc"));
+                router.push(routes.products);
               }}
             >
               <Typography pl={3} color="text.secondary" variant="subtitle2">
-                Find Activity
+                {catalogText("browseCatalog")}
               </Typography>
               <IconButton
                 size="small"
+                aria-label={catalogText("searchProducts")}
                 sx={(theme) => ({
                   border: 10,
                   borderColor: "background.paper",
@@ -145,8 +158,8 @@ const SearchBanner: FC<SearchBannerProps> = () => {
           justifyContent="center"
         >
           <CategoryButton
-            href="#"
-            text="services"
+            href={shortcuts[0].href}
+            text={shortcuts[0].label}
             svg={
               <svg
                 viewBox="-102.4 -102.4 1228.80 1228.80"
@@ -208,8 +221,8 @@ const SearchBanner: FC<SearchBannerProps> = () => {
             }
           />
           <CategoryButton
-            href="#"
-            text="Real Estate"
+            href={shortcuts[1].href}
+            text={shortcuts[1].label}
             svg={
               <svg
                 version="1.1"
@@ -272,8 +285,8 @@ const SearchBanner: FC<SearchBannerProps> = () => {
             }
           />
           <CategoryButton
-            href="#"
-            text="guides"
+            href={shortcuts[2].href}
+            text={shortcuts[2].label}
             svg={
               <svg
                 viewBox="-12.16 -12.16 88.32 88.32"
@@ -334,8 +347,8 @@ const SearchBanner: FC<SearchBannerProps> = () => {
             }
           />
           <CategoryButton
-            href="#"
-            text="For Sale"
+            href={shortcuts[3].href}
+            text={shortcuts[3].label}
             svg={
               <svg
                 version="1.1"
@@ -445,8 +458,8 @@ const SearchBanner: FC<SearchBannerProps> = () => {
           />
 
           <CategoryButton
-            href="#"
-            text="booking"
+            href={shortcuts[4].href}
+            text={shortcuts[4].label}
             svg={
               <svg
                 version="1.1"

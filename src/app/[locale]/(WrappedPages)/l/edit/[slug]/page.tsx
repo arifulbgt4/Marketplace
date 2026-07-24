@@ -1,7 +1,10 @@
-import React from "react";
+import { permanentRedirect } from "next/navigation";
 
-const ListingEditPage = () => {
-  return <div>ListingEditPage</div>;
-};
-
-export default ListingEditPage;
+export default async function RetiredListingEditPage({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) {
+  const { locale } = await params;
+  permanentRedirect(`/${locale}/products`);
+}

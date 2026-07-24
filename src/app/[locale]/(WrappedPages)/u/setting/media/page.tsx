@@ -1,12 +1,10 @@
-import { Paper } from "@mui/material";
-import UserMediaForm from "src/forms/UserMediaForm";
+import { permanentRedirect } from "next/navigation";
 
-const Media = () => {
-  return (
-    <Paper>
-      <UserMediaForm />
-    </Paper>
-  );
-};
-
-export default Media;
+export default async function RetiredMediaSettingsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  permanentRedirect(`/${locale}/u/setting`);
+}

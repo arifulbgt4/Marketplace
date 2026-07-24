@@ -11,8 +11,10 @@ import { userSigninSchema, UserSigninInput } from "src/lib/validations";
 import { signIn } from "./actions";
 
 import { SiginFormProps } from "./Types";
+import { useTranslations } from "next-intl";
 
 const SigninForm: FC<SiginFormProps> = () => {
+  const t = useTranslations("Auth");
   const [isShow, setIsShow] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -38,13 +40,12 @@ const SigninForm: FC<SiginFormProps> = () => {
       setError(null);
       const res = (await signIn({ ...data, callbackUrl })) as unknown as any;
       if (res?.error) {
-        setError("Invalid email or password");
+        setError(t("invalidCredentials"));
         return;
       }
       router.push(callbackUrl);
-    } catch (error) {
-      setError("An unexpected error occurred");
-      console.error(error);
+    } catch {
+      setError(t("unexpectedError"));
     }
   };
 
@@ -54,17 +55,13 @@ const SigninForm: FC<SiginFormProps> = () => {
     <form onSubmit={handleSubmit(onSubmitForm)}>
       <Stack gap={2.5}>
         {error && <Alert severity="error">{error}</Alert>}
-        {verified && (
-          <Alert severity="success">Email verified. You can now sign in.</Alert>
-        )}
+        {verified && <Alert severity="success">{t("emailVerified")}</Alert>}
         {invalidVerification && (
-          <Alert severity="error">
-            The verification link is invalid, expired, or already used.
-          </Alert>
+          <Alert severity="error">{t("invalidVerification")}</Alert>
         )}
         <Stack gap={2}>
           <TextField
-            label="Email"
+            label={t("email")}
             required
             size="small"
             type="email"
@@ -74,7 +71,7 @@ const SigninForm: FC<SiginFormProps> = () => {
             {...register("email")}
           />
           <TextField
-            label="Password"
+            label={t("password")}
             required
             size="small"
             fullWidth
@@ -83,7 +80,11 @@ const SigninForm: FC<SiginFormProps> = () => {
             helperText={errors.password?.message}
             InputProps={{
               endAdornment: (
-                <IconButton onClick={handleVisibility} type="button">
+                <IconButton
+                  onClick={handleVisibility}
+                  type="button"
+                  aria-label={isShow ? t("hidePassword") : t("showPassword")}
+                >
                   {isShow ? <VisibilityOffIcon /> : <VisibilityIcon />}
                 </IconButton>
               ),
@@ -98,7 +99,7 @@ const SigninForm: FC<SiginFormProps> = () => {
           disabled={isSubmitting}
           size="large"
         >
-          sign in
+          {t("signIn")}
         </Button>
       </Stack>
     </form>

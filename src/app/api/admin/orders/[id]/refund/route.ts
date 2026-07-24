@@ -1,45 +1,50 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAuthSession } from "src/lib/authz";
+import { z } from "zod";
+
+import { getAuthSession, requireRole } from "src/lib/authz";
+import { ValidationError, asAppError } from "src/lib/errors";
 import { paymentRefundService } from "src/lib/services/payment-refund";
 
 type Context = { params: Promise<{ id: string }> };
 
+const refundSchema = z.object({
+  amount: z.number().finite().positive(),
+  reason: z.string().trim().min(3).max(500),
+});
+
 export async function POST(request: NextRequest, context: Context) {
   try {
     const session = await getAuthSession();
-    if (!session) {
-      return NextResponse.json(
-        { code: "AUTHENTICATION_ERROR", message: "Authentication required" },
-        { status: 401 }
-      );
+    requireRole(session, ["admin", "support"]);
+    const idempotencyKey = request.headers.get("idempotency-key")?.trim();
+    if (!idempotencyKey || idempotencyKey.length > 200) {
+      throw new ValidationError("A valid Idempotency-Key header is required");
     }
-
-    if (!["admin", "support"].includes(session.role)) {
-      return NextResponse.json(
-        { code: "FORBIDDEN", message: "Access denied" },
-        { status: 403 }
-      );
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      throw new ValidationError("Invalid JSON request body");
     }
-
+    const input = refundSchema.parse(body);
     const { id } = await context.params;
-    const body = await request.json();
-
     const result = await paymentRefundService.refundPayment(
-      session.userId,
+      session!.userId,
       id,
-      Number(body.amount),
-      body.reason || "Manual admin refund"
+      input.amount,
+      input.reason,
+      `refund:${id}:${idempotencyKey}`,
     );
-
     if (!result.success) {
       return NextResponse.json(result.error.toSafeJSON(), {
         status: result.error.statusCode,
       });
     }
-
-    return NextResponse.json(result.data, { status: 200 });
-  } catch (error: any) {
-    console.error("Admin order refund route failure:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json(result.data);
+  } catch (error: unknown) {
+    const appError = asAppError(error);
+    return NextResponse.json(appError.toSafeJSON(), {
+      status: appError.statusCode,
+    });
   }
 }

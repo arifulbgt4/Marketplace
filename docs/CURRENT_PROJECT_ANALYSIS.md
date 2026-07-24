@@ -1,142 +1,254 @@
 # Current Project Analysis
 
-## Status: Complete
+## Status
+
+**Implementation snapshot current; Phase 9 verification in progress.**
+
+এই analysis 2026-07-25-এর shared `dev` worktree-এর source, route handlers,
+Prisma schema, migrations এবং current documentation audit করে তৈরি। Worktree
+এখনও release commit নয়; exact commit SHA, clean-worktree review, browser suite
+এবং final release decision Phase 9-এ record হবে।
 
 ## Executive summary
 
-বর্তমান codebase একটি Next.js property/rental listing marketplace starter। Authentication, PostgreSQL/Prisma, listing/category, booking-style order, review, bookmark, i18n এবং MUI design foundation আছে। এটি এখনো reusable retail B2C marketplace নয়।
+Marketplace এখন আর property/rental starter নয়। এটি configurable,
+single-business reusable B2C **modular monolith**:
 
-প্রধান ব্যবধান:
+- Next.js storefront, customer account এবং admin/operations surface;
+- PostgreSQL/Prisma authoritative commerce persistence;
+- role ও ownership-aware APIs;
+- Product/Variant/Inventory, Cart, Checkout, COD, payment adapter, Order,
+  Shipment, Return, Coupon, Review, Notification, Support এবং Settings modules;
+- transactional outbox, in-app notification এবং SMTP boundary;
+- business/branding/payment/COD/delivery/homepage configuration;
+- explicit legacy route retirement।
 
-- `Listing` domain property/rental-specific।
-- Cart, inventory, checkout, shipping, COD, online payment, coupon, admin panel ও business settings নেই।
-- বর্তমান `Order` একটি listing/date booking; multi-item commerce order নয়।
-- Admin role seed করা হলেও RBAC ও admin UI নেই।
-- অনেক form/page visual shell; submit handler empty বা data hardcoded।
-- Money `Float` এবং role/status free-form `String`।
-- কিছু mutation ownership বা role authorization ছাড়াই callable।
+Current source inventory:
+
+| Inventory                               | Current count |
+| --------------------------------------- | ------------: |
+| `src/app/api/**/route.ts` files         |            82 |
+| HTTP method/path contracts              |           117 |
+| Prisma models                           |            43 |
+| Prisma enums                            |            23 |
+| Committed migration directories         |             8 |
+| Vitest test files under `src/__tests__` |            35 |
+| Playwright spec files under `e2e`       |             3 |
+
+এই count implementation presence প্রমাণ করে; deployed reachability, live
+provider callback বা final Phase 9 acceptance-এর বিকল্প নয়।
 
 ## Current architecture
 
 ```mermaid
 flowchart LR
-    UI["Next.js App Router pages"] --> Components["MUI forms, widgets and layouts"]
-    Components --> Actions["Server Actions"]
-    Components --> API["Route Handlers"]
-    Actions --> Prisma["Prisma Client"]
-    API --> Prisma
-    Auth["NextAuth Credentials and JWT"] --> UI
-    Auth --> Actions
-    Auth --> API
-    Prisma --> DB["PostgreSQL"]
-    I18N["next-intl messages"] --> UI
+    Browser["Storefront, customer account and admin"]
+    App["Next.js App Router"]
+    API["82 API route files"]
+    Auth["NextAuth, active-account session, RBAC and ownership"]
+    Domain["Modular domain/application services"]
+    Prisma["Prisma transactions"]
+    DB["PostgreSQL"]
+    Adapter["Payment and media adapters"]
+    Outbox["Transactional outbox"]
+    Worker["Authenticated external worker trigger"]
+    Notify["In-app and SMTP publishers"]
+
+    Browser --> App
+    App --> API
+    API --> Auth
+    API --> Domain
+    Domain --> Prisma
+    Prisma --> DB
+    Domain --> Adapter
+    Domain --> Outbox
+    Outbox --> Worker
+    Worker --> Notify
 ```
+
+Canonical implementation details:
+
+- [Architecture](./ARCHITECTURE.md)
+- [Database schema](./DATABASE_SCHEMA.md)
+- [API documentation](./API_DOCUMENTATION.md)
+- [Operations runbook](./OPERATIONS_RUNBOOK.md)
 
 ## Technology inventory
 
-| Layer | Current choice |
-|---|---|
-| Frontend | Next.js 15, React 19, TypeScript, MUI 5, Emotion |
-| Routing | Next.js App Router এবং locale route segment |
-| Backend | Route Handlers এবং `use server` functions |
-| Database | PostgreSQL 15 এবং Prisma 5 |
-| Authentication | NextAuth v4 Credentials Provider, JWT session |
-| Localization | `next-intl`, eight locale files |
-| Testing | Vitest, Testing Library, jsdom |
-| Tooling | pnpm, Docker Compose, ESLint |
+| Layer          | Current implementation                                                                  |
+| -------------- | --------------------------------------------------------------------------------------- |
+| Frontend       | Next.js 15.5, React 18.3, TypeScript 5.9, MUI 5/Emotion                                 |
+| Routing        | Next.js App Router with locale segment and Route Handlers                               |
+| Backend        | Validated API handlers plus modular services under `src/lib/services` and `src/modules` |
+| Database       | PostgreSQL datasource, Prisma 5.6, eight ordered SQL migrations                         |
+| Authentication | NextAuth 4 Credentials Provider, JWT, active status and session-version invalidation    |
+| Localization   | `next-intl`, English/Bengali/Arabic customer-facing messages                            |
+| Email/events   | Nodemailer SMTP adapters, database outbox and in-app notification projection            |
+| Testing        | Vitest 4, Testing Library, PostgreSQL integration suite, Playwright 1.61                |
+| Tooling        | pnpm 10, Node.js 22 release contract, Docker Compose, ESLint, Prettier                  |
+
+The local documentation audit ran under Node.js 24.12.0, while
+`package.json`, `.nvmrc` and CI define Node.js 22.x as release-authoritative.
 
 ## Module status
 
-| Area | Status | Existing capability | Missing or incomplete |
-|---|---|---|---|
-| Frontend | Partial | Responsive MUI layouts, listing/search/account pages | No-op forms, mock data, incomplete workflows |
-| Backend | Partial | Route Handlers ও server actions | Duplicate business logic, no domain service boundary |
-| Database | Partial | User, Account, Listing, Category, Order, Review, Message, Bookmark | Product, variant, inventory, cart, payment, shipment, coupon, settings |
-| Authentication | Partial | Registration, credentials login, JWT session | Verification, reset, account status, role-aware session |
-| Authorization | Missing | Logged-in route protection | RBAC, ownership policy, admin policy |
-| Customer account | Partial | Account model ও account routes | Real profile wiring, address book, functional settings |
-| Seller/merchant | Legacy/partial | Listing owner relation | Merchant page mock; no clear B2C ownership boundary |
-| Admin | Missing | Seeded `admin` role | Admin routes, UI, policies, audit trail |
-| Product/catalog | Wrong domain | Property-oriented `Listing` | Product, SKU, variant, attributes, tax class |
-| Category | Partial | Hierarchical model ও read query | CRUD, ordering, visibility, safe archive |
-| Inventory | Missing | None | Balance, reservation, adjustment, threshold |
-| Search | Partial | Text, price, category, bedroom backend filters | UI wiring, facets, sort, URL state |
-| Wishlist | Partial | Bookmark persistence | Product card only toggles local state |
-| Cart | Missing | None | Guest/auth cart, quantities, merge, repricing |
-| Checkout | Missing | Booking form shell | Address, delivery, coupon, payment, finalization |
-| COD | Missing | None | Settings, eligibility, pending collection, collection action |
-| Online payment | Missing | None | Provider adapter, intent, webhook, refund |
-| Orders | Legacy/partial | Single-listing booking order | Multi-item snapshots, payment and fulfillment state |
-| Shipping | Missing | Listing location only | Zones, methods, rates, shipment, tracking |
-| Coupons | Missing | Listing discount field only | Coupon lifecycle, scope, limits, evaluator |
-| Reviews | Partial | Listing review persistence | Verified purchase, moderation, correct aggregates |
-| Notifications | Missing | `nodemailer` installed | Templates, outbox, preferences, in-app notice |
-| Business settings | Minimal | Marketplace name/domain env | Currency, tax, contact, operational rules |
-| Branding | Minimal | Theme এবং env name | Logo, theme tokens, SEO, social links settings |
-| Homepage content | Hardcoded | Existing visual sections | Configurable order, visibility, localized content |
-| Analytics | Mock | Dashboard/chart components | Real aggregate queries ও exports |
-| Documentation | Partial | README, Docker docs | Architecture, schema, API, admin, customization guides |
+| Capability         | Current status                      | Implemented behavior                                                                                           | Deployment-dependent or residual                                              |
+| ------------------ | ----------------------------------- | -------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| Authentication     | Implemented                         | Registration, credentials, verification, recovery, password change, active-account/session-version enforcement | Live SMTP delivery must be certified                                          |
+| Authorization      | Implemented                         | `user`, `admin`, `support`, `catalog_manager`; API-side role and ownership policy                              | Final browser/IDOR gate remains Phase 9                                       |
+| Customer account   | Implemented                         | Profile, address book, cart merge, orders, wishlist, notification/preferences                                  | Production operator smoke pending                                             |
+| Product/catalog    | Implemented                         | Product, variants, SKU, media metadata, category, publish/archive, public catalog                              | Binary object-storage provider is not implemented                             |
+| Inventory          | Implemented                         | On-hand/reserved balances, atomic reserve/commit/release/adjust and ledger                                     | Production load/monitoring remains environment-specific                       |
+| Search/filter/sort | Implemented                         | Bounded catalog search, category, price, availability, sorting, suggestions and pagination                     | Dedicated search engine is not part of core                                   |
+| Cart               | Implemented                         | Signed guest identity, authenticated cart, quantity rules, merge, repricing and expiry                         | Multi-instance session behavior still depends on shared DB/secret consistency |
+| Checkout           | Implemented                         | Snapshot, address, delivery, coupon, authoritative totals, expiry and idempotent placement                     | Final E2E/browser gate pending                                                |
+| Cash on Delivery   | Implemented                         | Admin-configurable eligibility by enablement, amount, zone, product/category, quantity and phone rule          | Business collection procedure requires operator approval                      |
+| Online payment     | Adapter-ready limitation            | Intent/webhook/reconciliation/refund contract and signed `MOCK` adapter                                        | No production provider implemented or certified                               |
+| Order              | Implemented                         | Multi-item snapshots, independent status/version/history, customer/admin queries and cancellation              | Financial retention policy remains operational                                |
+| Shipping/returns   | Implemented                         | Zones, methods, quote, shipment allocation/tracking/status and return workflow                                 | No live carrier adapter/certification                                         |
+| Coupon             | Implemented                         | Type, scope, window, amount and usage limits with checkout revalidation                                        | Admin list currently hard-capped rather than paginated                        |
+| Reviews            | Implemented                         | Delivered-purchase eligibility, moderation and approved aggregates                                             | Final browser moderation journey pending                                      |
+| Notifications      | Implemented                         | Outbox, idempotent in-app projection, preferences and SMTP templates                                           | No repository scheduler; live SMTP acceptance unverified                      |
+| Support            | Implemented                         | Rate-limited contact/listing-report intake, opaque reference, staff PII queue and versioned workflow           | External helpdesk integration is not included                                 |
+| Business settings  | Implemented                         | Business, branding, payment presentation, COD rules, delivery, coupon and content settings                     | Some configuration collections use fixed caps without pagination              |
+| Homepage content   | Implemented with protected boundary | Revisioned lower-homepage sections; protected keys prevent Hero/Search replacement                             | Hero/Search final visual regression gate pending                              |
+| Admin/reporting    | Implemented                         | Dashboard KPIs, customer/order/catalog/inventory/settings/support/review operations, audit and capped exports  | Large-dataset pagination/export policy needs further hardening                |
+| Documentation      | Implemented; final audit active     | Architecture, schema, API, feature, admin, customization, deployment, testing, operations and release docs     | Final Phase 9 source/link/browser sign-off pending                            |
 
-## Verified baseline
+## Commerce consistency and security
 
-| Field | Value |
-|-------|-------|
-| Analysis date | 2026-07-05 |
-| Branch | `dev` |
-| Commit | `b5fe836` |
-| Runtime | Node 24.12.0 on Darwin 25.4.0 arm64 |
-| Database | `.env.example` credentials did not authenticate to the running local PostgreSQL during visual capture |
-| Verification method | Static source review, repository-local checks, production build and browser capture; no migration or seed run |
+Implemented invariants include:
 
-### Verification results
+- Currency-safe Prisma `Decimal` persistence and server-authoritative totals.
+- Order, payment and fulfillment use separate statuses.
+- COD order payment starts `PENDING_COLLECTION`; staff collection changes it to
+  `COLLECTED` without implicitly completing order/fulfillment.
+- Placement, webhook, collection, refund, resource release, notification and
+  support mutations use idempotency or optimistic versioning where required.
+- Inventory prevents negative/over-reserved balances and records a ledger.
+- Order item, price and address snapshots preserve purchase history.
+- Payment webhook verifies a raw-body HMAC signature, caps body size and
+  reconciles replay/out-of-order events.
+- Worker bearer authentication is separate from customer/admin session auth.
+- Settings reject secret-like input; public settings expose an allow-list.
+- Support public responses omit submitted PII; staff reads are role-gated.
 
-| Check | Result | Note |
-|-------|--------|------|
-| repository-local `vitest run` | Passed | 2 suites, 25 tests; all passing |
-| repository-local `tsc --noEmit` | Passed | TypeScript compilation clean |
-| repository-local `next lint` | Passed (with warning) | `next lint` deprecated; needs future tooling update |
-| repository-local `prettier --check .` | Not runnable | `prettier` executable is not a direct dependency |
-| `prisma validate` without env | Failed (expected) | `POSTGRES_URL_NON_POOLING` missing from process environment |
-| `prisma validate` with `.env.example` contract | Passed | Validates schema |
-| `next build` with `.env.example` | Passed | 190 static pages generated |
-| Browser capture | Passed with degraded data state | Public routes rendered; DB auth failed and query helpers returned empty results |
-| Internal Markdown links in `docs/` | Passed | 0 broken links |
+## Admin, customer and support surfaces
 
-## High-risk findings
+The current UI/API scope includes:
 
-1. `updateUser` caller-provided user ID update করে; self/admin policy নেই।
-2. Listing create/update/delete server functions authentication বা ownership enforce করে না।
-3. `updateOrderStatus` arbitrary string গ্রহণ করে এবং authorization enforce করে না।
-4. NextAuth session-এ role বা account status নেই।
-5. Middleware dynamic-public-route regular expression ambiguous।
-6. Listing detail query published status enforce করে না।
-7. যেকোনো authenticated user purchase ছাড়াই review দিতে পারে।
-8. Money `Float` হওয়ায় rounding/accounting risk আছে।
-9. User বা listing cascade deletion order history মুছে দিতে পারে।
-10. JSON order API-র `z.date()` ISO string coercion করে না।
-11. In-memory rate limiter distributed deployment-এ shared নয় এবং cleanup policy নেই।
-12. `zod`, `react-hook-form`, `uuid` direct source import হলেও direct dependency হিসেবে declared নয়।
-13. Booking, listing creation, account settings, password, media, contact, report এবং messaging forms-এর কিছু submit handler empty।
-14. Search filter controls backend query-তে সম্পূর্ণভাবে wired নয়।
-15. Dashboard, account, merchant এবং message experiences mock/hardcoded data ব্যবহার করে।
-16. Prisma migration history নেই; schema push workflow-এর উপর নির্ভরতা আছে।
-17. Query helpers database initialization error catch করে empty arrays ফেরত দেয়; visual runtime-এ invalid DB credentials real outage-কে “no data” হিসেবে দেখিয়েছে।
-18. `.env.example` copy-forward auth secret এবং fixed local credentials production-safe contract নয়।
-19. README/UI কিছু incomplete capability (যেমন social sign-in icons) implemented মনে করাতে পারে, কিন্তু configured provider/workflow নেই।
+- customer catalog, product detail, cart, checkout, order history/detail,
+  cancellation, return, wishlist, review, notification and support flows;
+- admin catalog/category/inventory, order/fulfillment/COD/refund, customer,
+  coupon, content, settings, review moderation, support, audit and reporting;
+- operational roles for `admin`, `support` and `catalog_manager`;
+- customer/staff APIs documented method-by-method in
+  [API documentation](./API_DOCUMENTATION.md).
 
-## Current file boundaries
+Presence of a route or page does not by itself close Phase 9; browser,
+accessibility, visual and clean-release gates must still pass.
 
-- `src/app`: routes, layouts এবং Route Handlers।
-- `src/forms`: customer/listing/search form presentation।
-- `src/widgets`: page-level UI sections; mock এবং live data mixed।
-- `src/server`: Prisma-backed server functions।
-- `src/lib`: auth, Prisma, validation, rate limiting।
-- `src/global`: routes, types, static data, site config।
-- `src/theme`: MUI theme এবং overrides।
-- `prisma`: current schema এবং seed; migration directory নেই।
-- `messages`: locale message JSON files।
-- `docs`: বর্তমানে planning documents।
+## Legacy retirement boundary
 
-## Conclusion
+Legacy property/rental tables remain for migration/archive compatibility, but
+they are not the current B2C source of truth. Explicit retired HTTP contracts:
 
-Codebase-টি ফেলে দিয়ে নতুন application শুরু করার প্রয়োজন নেই। Homepage visual identity—বিশেষ করে Hero/Search—route shell, i18n, auth baseline এবং কিছু persisted entities reuse করা যায়। বর্তমান MUI stack future design-system restriction নয়; homepage ছাড়া অন্য screens product/business অনুযায়ী redesign করা যাবে। Commerce correctness-এর জন্য Product, Inventory, Cart, Checkout, Payment, Order এবং Fulfillment domain নতুন modular boundary-তে তৈরি করতে হবে; existing rental schema-কে সরাসরি retail semantics দিয়ে overload করা উচিত নয়।
+| Retired contract           | Successor                 |
+| -------------------------- | ------------------------- |
+| `GET                       | POST /api/listings`→`410` | `/api/catalog`                      |
+| `GET                       | POST /api/reviews`→`410`  | `/api/products/{productId}/reviews` |
+| `POST /api/orders` → `410` | `/api/checkout/place`     |
+
+Retired responses use `Cache-Control: no-store`, `Deprecation: true` and a
+successor `Link`. Peer-to-peer `Message` storage is legacy; current B2C customer
+contact uses `SupportRequest`.
+
+## Design and customization boundary
+
+- Homepage overall composition এবং বিশেষ করে Hero/Search strict protected
+  visual contract।
+- Copy, locale, product terminology, dynamic data এবং search behavior
+  configurable/evolvable।
+- Lower homepage content revisioned settings দিয়ে পরিচালিত।
+- Product, account, checkout এবং admin surface business-fit অনুযায়ী redesign
+  করা যায়।
+- MUI current implementation choice, template-wide restriction নয়।
+- Per-business deployment, business-owned catalog এবং configuration-first
+  customization core scope; runtime multi-tenant SaaS ও multi-vendor settlement
+  core নয়।
+
+## Current residual risks and non-claims
+
+1. **Production online payment:** only `MOCK` is registered. A real adapter,
+   provider sandbox, webhook certification and finance reconciliation are
+   required before enabling online payment.
+2. **Production media storage:** `MediaStorageAdapter` exists, but default
+   `LocalMediaAdapter` writes local files and product media APIs primarily store
+   URL metadata. Durable object storage/CDN upload lifecycle is not implemented
+   or certified.
+3. **Distributed rate limiting and proxy trust:** limiter storage is
+   process-local. Several public flows derive identity from
+   `x-forwarded-for`/`x-real-ip` without a configured trusted-proxy boundary.
+   Production needs trusted edge normalization and shared/WAF enforcement.
+4. **CSP nonce:** security headers exist, but current CSP allows
+   `script-src 'unsafe-inline'` and has no per-request nonce/hash policy.
+5. **Admin configuration scale:** products/orders/customers/audit/support use
+   pagination, but category, coupon, content, inventory and delivery reads use
+   fixed caps such as 100/500/1,000; reports truncate at 5,000. Larger
+   businesses need explicit pagination/cursor and operator feedback.
+6. **SMTP and scheduler certification:** outbox worker and SMTP adapters are
+   implemented, but no scheduler deployment exists in the repository and no
+   provider-side SMTP delivery/bounce evidence is verified.
+7. **Backup/retention:** a local migration/restore rehearsal passed, but
+   production backup automation, RPO/RTO, retention/pruning jobs and live
+   restore evidence are deployment responsibilities.
+8. **Financial deletion policy:** current cascades can remove order/payment
+   history if a root user/order is hard-deleted. Operations must suspend/archive
+   until an approved anonymization/retention migration changes this boundary.
+9. **Phase 9 authority:** current source/docs inspection does not replace the
+   pending full browser, accessibility, visual, exact-worktree and final
+   release gates.
+
+## Verification status
+
+This documentation refresh verified:
+
+- source/API inventory: 82 route files and 117 unique method/path contracts;
+- schema inventory: 43 models and 23 enums;
+- migration inventory: eight committed migration directories;
+- `pnpm exec prisma validate`;
+- documentation Prettier, internal-link and fenced-block integrity for the
+  refreshed files।
+
+Phase 9 still requires the complete sequence in
+[Testing Guide](./TESTING_GUIDE.md) and a signed
+[Release Checklist](./RELEASE_CHECKLIST.md). The local
+[Phase 9 Migration and Recovery Rehearsal](./evidence/phase-9/MIGRATION_REHEARSAL.md)
+is passing evidence, but it ran under Node.js 24 and does not certify production
+hosting, provider or browser behavior.
+
+## Historical Phase 1 baseline
+
+The 2026-07-05 Phase 1 evidence correctly described the repository **at that
+time** as a property/rental starter with missing commerce capabilities. It is
+preserved in:
+
+- [Phase 1 SQA Audit](./PHASE_1_SQA_AUDIT.md)
+- [Phase 1 Exit Approval](./PHASE_1_EXIT_APPROVAL.md)
+- [Historical Route/API Inventory](./P1-02_ROUTE_API_INVENTORY.md)
+- [Phase 1 Migration Planning Rehearsal](./evidence/phase-1/MIGRATION_PLANNING_REHEARSAL.md)
+
+Those records prove the planning baseline and governance history; their
+property-starter/missing-feature statements are not current implementation
+facts.
+
+## Phase position
+
+| Phase      | Current status                                                   |
+| ---------- | ---------------------------------------------------------------- |
+| Phases 1–8 | **Complete — implementation present**                            |
+| Phase 9    | **In Progress — final verification/release gate not yet closed** |
+
+The application is now a reusable B2C marketplace implementation candidate,
+not yet a certified production release. Final readiness depends on exact-source
+gates, browser evidence and environment/provider certification.

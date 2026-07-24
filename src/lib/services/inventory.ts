@@ -40,6 +40,8 @@ export class InventoryService {
         include: {
           variant: { select: { id: true, sku: true, price: true } },
         },
+        orderBy: { variantId: "asc" },
+        take: 500,
       });
       return ok(items);
     } catch (error: unknown) {
@@ -60,9 +62,15 @@ export class InventoryService {
       });
       if (!existing) return fail(new NotFoundError("Inventory", variantId));
 
-      if (threshold < 0)
+      if (
+        !Number.isSafeInteger(threshold) ||
+        threshold < 0 ||
+        threshold > 999_999_999
+      )
         return fail(
-          new ValidationError("Low stock threshold must be 0 or greater"),
+          new ValidationError(
+            "Low stock threshold must be a valid non-negative integer",
+          ),
         );
 
       const inventory = await prisma.inventory.update({
@@ -84,8 +92,25 @@ export class InventoryService {
     try {
       requireRole(session, ["admin", "catalog_manager"]);
 
-      if (!reason)
-        return fail(new ValidationError("Reason is required for adjustment"));
+      if (
+        !Number.isSafeInteger(quantity) ||
+        quantity === 0 ||
+        Math.abs(quantity) > 1_000_000
+      ) {
+        return fail(
+          new ValidationError(
+            "Adjustment quantity must be a non-zero safe integer",
+          ),
+        );
+      }
+      const normalizedReason = reason.trim();
+      if (normalizedReason.length < 3 || normalizedReason.length > 500) {
+        return fail(
+          new ValidationError(
+            "Adjustment reason must be between 3 and 500 characters",
+          ),
+        );
+      }
 
       const result = await prisma.$transaction(async (tx) => {
         const changed = await tx.$executeRaw`
@@ -107,7 +132,7 @@ export class InventoryService {
             variantId,
             entryType: "adjustment",
             quantity,
-            reason,
+            reason: normalizedReason,
             actorId: session!.userId,
           },
         });
@@ -267,18 +292,27 @@ export class InventoryService {
     const session = await getAuthSession();
     try {
       requireRole(session, ["admin", "catalog_manager", "support"]);
+      const boundedPage =
+        Number.isSafeInteger(page) && page > 0 ? Math.min(page, 10_000) : 1;
+      const boundedLimit =
+        Number.isSafeInteger(limit) && limit > 0 ? Math.min(limit, 100) : 50;
       const [entries, total] = await Promise.all([
         prisma.inventoryLedger.findMany({
           where: { variantId },
           orderBy: { createdAt: "desc" },
-          skip: (page - 1) * limit,
-          take: limit,
+          skip: (boundedPage - 1) * boundedLimit,
+          take: boundedLimit,
           include: { actor: { select: { id: true, name: true } } },
         }),
         prisma.inventoryLedger.count({ where: { variantId } }),
       ]);
 
-      return ok({ entries, total, page, totalPages: Math.ceil(total / limit) });
+      return ok({
+        entries,
+        total,
+        page: boundedPage,
+        totalPages: Math.ceil(total / boundedLimit),
+      });
     } catch (error: unknown) {
       return fail(asAppError(error));
     }
@@ -302,7 +336,8 @@ export class InventoryService {
             },
           },
         },
-        orderBy: { onHand: "asc" },
+        orderBy: [{ onHand: "asc" }, { variantId: "asc" }],
+        take: 1_000,
       });
 
       return ok(

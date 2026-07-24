@@ -1,202 +1,269 @@
-# Project Roadmap
+# Marketplace Project Roadmap
 
-## Objective
+## Current objective and status
 
-বর্তমান property/rental marketplace starter-কে configurable, scalable এবং reusable B2C marketplace template-এ রূপান্তর করা। Homepage-এর বর্তমান visual identity—বিশেষ করে Hero এবং Search section—preserve হবে; অন্য screens target product/business অনুযায়ী redesign করা যাবে এবং কোনো নির্দিষ্ট design system বাধ্যতামূলক নয়।
+Property/rental starter থেকে reusable, configurable, single-business B2C
+marketplace modular monolith-এ রূপান্তরের implementation roadmap Phases 1–8
+পর্যন্ত complete। Phase 9-এর final static/database/build/browser/accessibility/
+visual/release gates এখনও **In Progress**।
 
-## UI design boundary
+এই status implementation presence ও current source audit বোঝায়; production
+provider, deployment বা final release certification বোঝায় না।
 
-- Homepage overall composition protected baseline।
-- Hero এবং Search section strict visual-preservation scope।
-- Homepage copy, product terminology, dynamic data, filters এবং search behavior পরিবর্তনযোগ্য।
-- Product listing/detail, cart, checkout, account, auth এবং admin UI business-fit redesign করতে পারবে।
-- MUI বর্তমান stack; MUI, alternative design system বা custom UI—সবই allowed, যদি implementation coherent ও accessible হয়।
+## Durable product boundary
 
-## Required core capabilities
-
-- Authentication এবং customer account।
-- Role-based admin panel।
-- Product, variant, category এবং media management।
-- Inventory এবং stock reservation।
-- Cart, wishlist এবং checkout।
-- Cash on Delivery এবং online payments।
-- Multi-item orders এবং separate payment/fulfillment states।
-- Delivery zones, shipping rates এবং tracking।
-- Coupons, reviews এবং notifications।
-- Search, filters, sort এবং pagination।
-- Business, branding এবং homepage settings।
-- Analytics, reports এবং audit trail।
-- Complete operational এবং customization documentation।
+- Homepage overall composition, Hero এবং Search strict protected visual scope।
+- Copy, locale, dynamic product data এবং search behavior business অনুযায়ী
+  পরিবর্তনযোগ্য।
+- Other storefront, account, checkout এবং admin surfaces business-fit
+  redesignable।
+- MUI current stack; alternative design system বা custom UI allowed।
+- Per-business configuration core; runtime multi-tenant SaaS ও multi-vendor
+  settlement excluded।
+- COD first-class; order/payment/fulfillment states independent।
+- Online payment production-এ disabled থাকবে যতক্ষণ real provider certified না
+  হয়।
 
 ## Phase overview
 
-| Phase | Goal | Exit gate |
-|---|---|---|
-| Phase 1 | Analysis এবং planning baseline | Architecture, scope, permissions, migration এবং design baseline approved |
-| Phase 2 | Secure foundation | Typed auth/RBAC, env, money, customer/address foundation verified |
-| Phase 3 | Sellable catalog | Product/variant/category/inventory admin এবং storefront functional |
-| Phase 4 | Purchasable journey | Cart থেকে reviewed checkout deterministic এবং idempotent |
-| Phase 5 | Payment readiness | COD এবং online provider contract end-to-end verified |
-| Phase 6 | Order operations | Customer/admin order, fulfillment, cancel/return lifecycle complete |
-| Phase 7 | Business configurability | Branding, content, delivery, payment, COD, coupon settings usable |
-| Phase 8 | Customer polish | Wishlist, reviews, notifications, search, i18n, SEO, accessibility ready |
-| Phase 9 | Release candidate | Tests, docs, migration rehearsal, security/performance gates pass |
+| Phase                                 | Status          | Implemented outcome                                                                                          | Current evidence                                   |
+| ------------------------------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------------- |
+| 1. Analysis/documentation baseline    | **Complete**    | Architecture, domain, permission, design and migration governance                                            | Historical Phase 1 audit/approval                  |
+| 2. Core foundation                    | **Complete**    | Environment, money, errors, auth/RBAC, account/address, media abstraction, audit                             | Current source/schema; Phase 2–4 report            |
+| 3. Product/catalog                    | **Complete**    | Product/variant/category/media, public catalog/search and inventory ledger                                   | Catalog/inventory services/APIs                    |
+| 4. Cart/checkout                      | **Complete**    | Signed guest/auth cart, merge, pricing, delivery/coupon, snapshots and idempotent placement                  | Cart/checkout services/APIs                        |
+| 5. COD/payment baseline               | **Complete**    | COD rules/placement/collection plus adapter, signed `MOCK` webhook, reconciliation/refund                    | Payment/COD services/APIs/tests                    |
+| 6. Order management                   | **Complete**    | Status history, customer/admin orders, cancellation, shipment, return, compensation and outbox               | Order/fulfillment services/APIs                    |
+| 7. Admin/business settings            | **Complete**    | Admin catalog/orders/customers/settings/content/coupon/reviews/support/KPI/report/audit                      | Admin routes/services                              |
+| 8. Customer experience                | **Complete**    | Search/suggestions, wishlist, verified reviews, notifications/preferences, support, i18n/SEO/a11y foundation | Customer APIs/UI/tests                             |
+| 9. Verification/documentation/release | **In Progress** | Docs and migration rehearsal exist; exact-source browser/final gates pending                                 | Testing guide, release checklist, Phase 9 evidence |
 
-## Phase 1: Project analysis and documentation
+## Phase 1: Analysis and documentation — Complete
 
-- Current architecture, routes, APIs এবং feature gaps নথিভুক্ত করা।
-- Single-business core বনাম optional multi-vendor extension স্থির করা।
-- Domain glossary, permissions এবং status semantics স্থির করা।
-- Homepage, Hero এবং Search strict baselineসহ reference screenshots capture করা; other screens historical/reference evidence হিসেবে রাখা।
-- Listing/booking থেকে product/order migration strategy করা।
-- Agent-friendly task backlog এবং Definition of Done স্থাপন করা।
+Delivered:
 
-## Phase 2: Core marketplace foundation
+- source inventory, gap analysis and single-business modular-monolith ADR;
+- COD/order/payment/fulfillment terminology;
+- permission and migration/disposition policy;
+- protected homepage/Hero/Search baseline;
+- atomic task and governance structure।
 
-- Dependency, lint, format এবং environment setup reliable করা।
-- Domain module এবং error/result conventions স্থাপন করা।
-- Currency-safe money এবং constrained enums যোগ করা।
-- Session claims, account status, RBAC এবং ownership policies implement করা।
-- Audit log foundation করা।
-- Real customer profile, address book, recovery এবং media abstraction করা।
+Historical evidence:
 
-## Phase 3: Product/catalog system
+- [Phase 1 SQA Audit](./PHASE_1_SQA_AUDIT.md)
+- [Phase 1 Exit Approval](./PHASE_1_EXIT_APPROVAL.md)
+- [Design Baseline](./P1-07_DESIGN_BASELINE.md)
+- [Migration Planning Rehearsal](./evidence/phase-1/MIGRATION_PLANNING_REHEARSAL.md)
 
-- Product, variants, SKU, options এবং media data model করা।
-- Category lifecycle এবং admin CRUD করা।
-- Draft/publish/archive product workflow করা।
-- Public catalog detail/list query এবং business/product-fit UI wiring করা; homepage placement protected composition ভাঙবে না।
-- Search/filter/sort URL contract করা।
-- Inventory ledger, atomic stock operations এবং inventory admin UI করা।
-- Generic reusable seed এবং legacy backfill করা।
+The original property-starter findings are historical facts, not current
+implementation claims.
 
-## Phase 4: Cart and checkout
+## Phase 2: Core marketplace foundation — Complete
 
-- Guest এবং authenticated cart lifecycle করা।
-- Add/update/remove এবং login merge করা।
-- Server-authoritative pricing, coupon, tax এবং shipping totals করা।
-- Checkout session, address এবং delivery quote করা।
-- Immutable multi-item order snapshot foundation করা।
-- Final placement idempotency এবং transaction boundary করা।
+Implemented:
 
-## Phase 5: Cash on Delivery and payment flow
+- reproducible dependency/environment/format/lint/type contracts;
+- normalized application errors and currency-safe money;
+- constrained roles/statuses;
+- account verification, recovery, active status and session-version invalidation;
+- server-side RBAC/ownership and route classification;
+- customer profile/address book;
+- audit foundation and validated media adapter boundary;
+- committed database migrations and constraints।
 
-- Order, payment এবং fulfillment status আলাদা করা।
-- Payment attempt/event model এবং provider adapter contract করা।
-- Configurable COD settings এবং deterministic eligibility engine করা।
-- Checkout payment selector এবং COD placement করা।
-- Online payment initiation, webhook, reconciliation এবং refund flow করা।
-- Admin COD collection এবং dedicated edge-case suite করা।
+Remaining production concerns such as CSP nonce, distributed rate limiting and
+trusted proxy identity are Phase 9/security deployment gates, not missing core
+module boundaries.
 
-## Phase 6: Order management
+## Phase 3: Product and catalog — Complete
 
-- Order/fulfillment state machines এবং timeline করা।
-- Admin order list/detail/action surfaces করা।
-- Shipment, carrier, tracking এবং delivery state করা।
-- Customer order history/detail করা।
-- Cancellation, return, refund এবং resource rollback করা।
-- Reliable order event/outbox করা।
+Implemented:
 
-## Phase 7: Admin and business settings
+- Product, ProductVariant, SKU, options and media metadata;
+- hierarchical category lifecycle and cycle prevention;
+- publish/archive readiness rules;
+- public catalog detail/list/search/suggestions/filter/sort/pagination;
+- Inventory balances, ledger, reservation/commit/release/adjustment;
+- reusable seed/catalog data;
+- protected homepage composition with commerce product data।
 
-- Protected admin shell এবং real dashboard KPIs করা।
-- Customer management এবং audit log viewer করা।
-- Business identity, branding এবং SEO settings করা।
-- Payment, delivery zone এবং COD rule editors করা।
-- Coupon management করা।
-- Protected Hero/Search composition বজায় রেখে homepage content slots ও editor করা।
-- Review moderation এবং reports/exports করা।
+Current scale limit: some admin configuration reads use explicit fixed caps
+rather than pagination. Durable object storage/CDN is an adapter extension,
+not implemented production infrastructure.
 
-## Phase 8: Customer experience improvements
+## Phase 4: Cart and checkout — Complete
 
-- Wishlist persistence সম্পূর্ণ করা।
-- Customer dashboard real data-তে wire করা।
-- Verified-purchase reviews এবং correct aggregates করা।
-- In-app/email notifications এবং preferences করা।
-- Search suggestions, facets এবং URL-synced filters করা।
-- Configured homepage render করা; Hero/Search visual contract এবং overall homepage identity preserve করা।
-- i18n, SEO, accessibility এবং performance hardening করা।
-- Mock peer-to-peer messaging রাখবে নাকি support flow হবে তা স্থির করা।
+Implemented:
 
-## Phase 9: Testing, documentation and cleanup
+- signed HttpOnly guest cart and authenticated cart;
+- add/update/remove, merge, expiry and optimistic version;
+- authoritative price/coupon/delivery totals;
+- saved address and delivery quote;
+- checkout snapshot/expiry/revalidation;
+- immutable order item/address/price snapshots;
+- transaction-safe, UUID-idempotent placement and replay।
 
-- Deterministic test factories এবং financial/state unit suites করা।
-- Auth, catalog, inventory, cart, checkout, payment এবং order integration suites করা।
-- COD, online payment এবং admin operation E2E করা।
-- Homepage/Hero/Search strict visual regression এবং অন্য surfaces-এর responsive/accessibility regression করা।
-- Security, concurrency, performance এবং migration rehearsal করা।
-- Mock/dead code এবং duplicate business logic সরানো।
-- Overview, architecture, schema, API, feature, admin, customization, deployment, testing এবং release documentation final করা।
+Phase 9 still owns final customer browser journey and exact-source concurrency
+evidence.
 
-## Critical path
+## Phase 5: Cash on Delivery and payment — Complete baseline
+
+Implemented:
+
+- independent order, payment and fulfillment statuses;
+- Payment/PaymentEvent persistence and lifecycle policy;
+- configurable COD enablement, amount, location/zone, product/category,
+  quantity and verified-phone eligibility;
+- checkout payment-method eligibility and COD placement;
+- COD starts `PENDING_COLLECTION` without an online charge;
+- staff-only idempotent collection changes payment to `COLLECTED`;
+- adapter contract for intent, verify, webhook and refund;
+- signed 64 KiB-capped `MOCK` webhook, replay/out-of-order reconciliation and
+  cumulative refund protection।
+
+Boundary: `MOCK` is deterministic test infrastructure, not a production
+provider. Phase 5 implementation completeness does not waive live-provider
+certification before online payment launch.
+
+## Phase 6: Order management — Complete
+
+Implemented:
+
+- versioned order and fulfillment state machines/history;
+- customer/admin order list/detail;
+- policy-aware cancellation and idempotent inventory/coupon compensation;
+- shipment allocation, tracking and transitions;
+- customer return and staff resolution/restock workflow;
+- full/partial refund orchestration;
+- transactional outbox and audit events।
+
+Financial records remain operationally non-deletable until a separate approved
+anonymization/retention migration changes current cascades.
+
+## Phase 7: Admin and business settings — Complete
+
+Implemented:
+
+- protected admin/navigation/API boundaries;
+- real dashboard KPIs and reports;
+- product/category/inventory/order/customer/support/review operations;
+- business identity, branding, SEO and payment presentation settings;
+- COD preview/configuration, delivery zones/methods and coupons;
+- revisioned lower-homepage content;
+- protected Hero/Search keys;
+- audit log viewer and capped JSON/CSV exports।
+
+Current hardening item: replace fixed configuration caps and report truncation
+with explicit pagination/cursor/operator feedback for larger deployments.
+
+## Phase 8: Customer experience — Complete
+
+Implemented:
+
+- persistent wishlist;
+- account/dashboard data and owned order journeys;
+- delivered-purchase reviews and moderation;
+- in-app notifications, preferences and SMTP commerce templates;
+- catalog suggestions, bounded filters/sort/pagination;
+- support/contact/listing-report workflow replacing supported peer messaging;
+- localized content foundation, metadata/sitemap, accessibility and visual
+  automation।
+
+Deployment-dependent: provider-side SMTP acceptance/bounce handling and the
+external outbox schedule are not certified by repository source.
+
+## Phase 9: Verification, documentation and release — In Progress
+
+### Completed evidence within Phase 9
+
+- implementation-accurate architecture, database and API documentation;
+- feature, admin, customization, environment, deployment, testing, operations
+  and release guides;
+- mechanical 82-route/117-method API coverage cross-check;
+- mechanical 43-model/23-enum schema documentation cross-check;
+- local fresh migration of all eight migrations;
+- local PostgreSQL integration pass and backup/restore checksum rehearsal।
+
+Links:
+
+- [Testing Guide](./TESTING_GUIDE.md)
+- [Release Checklist](./RELEASE_CHECKLIST.md)
+- [Architecture](./ARCHITECTURE.md)
+- [Database Schema](./DATABASE_SCHEMA.md)
+- [API Documentation](./API_DOCUMENTATION.md)
+- [Operations Runbook](./OPERATIONS_RUNBOOK.md)
+- [Phase 9 Migration and Recovery Rehearsal](./evidence/phase-9/MIGRATION_REHEARSAL.md)
+
+### Open Phase 9 exit gates
+
+Phase 9 must remain `In Progress` until the exact release source passes:
+
+1. Node.js 22 frozen install and environment validation;
+2. Prisma validation/migration status;
+3. repository format, lint and type checks;
+4. coverage and isolated PostgreSQL integration suites;
+5. production build;
+6. complete Playwright desktop/mobile customer, COD, admin and mock-payment
+   journeys;
+7. accessibility, RTL and strict homepage Hero/Search visual gates;
+8. security review for CSP nonce, trusted proxy/shared rate limit and unresolved
+   high findings;
+9. documentation/source/link consistency;
+10. clean reviewed release scope and signed go/no-go checklist।
+
+Parent/browser/final gates are still active; no document may mark Phase 9
+`Complete` before their terminal evidence.
+
+## Production onboarding work after template verification
+
+These do not change Phases 1–8 implementation status, but block relevant
+production claims:
+
+| Production concern | Required business/platform work                                                |
+| ------------------ | ------------------------------------------------------------------------------ |
+| Online payment     | Real adapter, secrets, sandbox/webhook/refund certification and reconciliation |
+| Media              | Durable object storage/CDN adapter, upload/delete/lifecycle policy             |
+| Rate limit         | Shared store or edge/WAF control plus trusted-proxy contract                   |
+| CSP                | Nonce/hash-compatible CSP and browser validation                               |
+| SMTP               | Sender-domain authentication, controlled delivery, bounce/alert verification   |
+| Outbox             | External authenticated scheduler, backlog/retry/failure monitoring             |
+| Database           | Automated backup/PITR, RPO/RTO, retention and production restore rehearsal     |
+| Scale              | Admin configuration pagination/cursor and report/export governance             |
+
+## Current critical path
 
 ```text
-Architecture and scope
-  -> secure foundation
-  -> product and inventory
-  -> cart and checkout
-  -> COD and payment
-  -> order operations
-  -> admin configuration
-  -> customer experience
-  -> release verification
+Freeze exact release source
+  -> static and environment gates
+  -> migration and DB integration
+  -> production build
+  -> browser + COD/admin/mock-payment journeys
+  -> accessibility + Hero/Search visual gates
+  -> source/doc/security review
+  -> signed release decision
 ```
 
-## Parallel work opportunities
-
-Foundation complete হওয়ার পরে সীমিত parallelization করা যায়:
-
-- Catalog UI এবং inventory service আলাদা agent নিতে পারে, তবে shared schema task complete হতে হবে।
-- Payment adapter contract এবং admin settings UI parallel হতে পারে, তবে payment settings model স্থির থাকতে হবে।
-- Documentation প্রতিটি phase-এর সঙ্গে চলতে পারে; Phase 9 পর্যন্ত ফেলে রাখা যাবে না।
-- Visual regression baseline এবং test fixtures early parallel task হতে পারে।
-
-একই schema বা state machine নিয়ে parallel agents uncoordinated edit করবে না।
+Parallel verification is allowed when agents do not mutate the same
+schema/state-machine/document. Final evidence must be rerun against the exact
+release source after all changes converge.
 
 ## Release principles
 
-- Critical payment/order path-এ silent fallback থাকবে না।
-- Admin UI action server-side authorization-এর বিকল্প নয়।
-- COD enabled হলেই সব order-এ available হবে না; eligibility engine authoritative।
-- Homepage visual identity, Hero এবং Search section change release goal নয়; অন্য surfaces business-fit redesign করতে পারে।
-- MUI বা অন্য কোনো নির্দিষ্ট design system release constraint নয়।
-- Documentation ছাড়া configurable feature complete নয়।
-- Migration rehearsal ছাড়া production schema release করা যাবে না।
+- Failed or unverified gates are not `Complete`.
+- Client totals and UI role checks are not authoritative.
+- COD availability always comes from the eligibility engine.
+- Delivery does not imply COD collection.
+- `MOCK` does not certify online payments.
+- Outbox `PUBLISHED` does not by itself prove provider-side email delivery.
+- Legacy `410` routes must not silently reactivate.
+- Protected Hero/Search visuals require reviewed baseline evidence.
+- No production down migration/destructive reset.
+- Documentation and provider/deployment non-claims ship with the feature.
 
-## Phase exit approval template
+## Status authority
 
-প্রতিটি phase exit-এর সময় নিম্নলিখিত fields filled form একটি approval record তৈরি করতে হবে:
-
-```text
-# Phase Exit Approval: <Phase Name>
-
-## Sign-off
-| Role | Name | Date | Decision |
-|------|------|------|----------|
-| Product owner | | | Approved / Rejected / Conditional |
-| Architecture owner | | | Approved / Rejected / Conditional |
-| SQA reviewer | | | Approved / Rejected / Conditional |
-
-## Evidence
-- Commit: <commit hash>
-- Branch: <branch name>
-- SQA re-audit report: <link or path>
-- Gate checklist items:
-  1. All feedback tasks complete — Yes/No
-  2. All canonical docs use consistent vocabulary — Yes/No
-  3. Route/access and mutation/permission matrices source-traceable — Yes/No
-  4. Visual and migration evidence artifacts reviewable — Yes/No
-  5. Dependency graph exact and machine-checkable — Yes/No
-
-## Waivers (if any)
-| Waived item | Reason | Risk | Expiry date |
-|-------------|--------|------|-------------|
-
-## Next phase
-- Phase: <next phase name>
-- Blocked until: <date or condition>
-```
-
-প্রতিটি approval record `<docs/phase-<N>-exit-approval.md>` ফাইলে সংরক্ষণ করতে হবে। SQA reviewer phase gate close করার আগে সব gate item পূরণ হয়েছে কিনা তা verify করবে।
-
-Phase 1 record: [PHASE_1_EXIT_APPROVAL.md](./PHASE_1_EXIT_APPROVAL.md)।
+[Current Project Analysis](./CURRENT_PROJECT_ANALYSIS.md) and this roadmap
+control current phase-level implementation status. `TASK_PLAN.md` is the atomic
+ledger and requires a separate evidence-based row reconciliation; this roadmap
+does not silently rewrite it. Final release authority is the completed
+[Release Checklist](./RELEASE_CHECKLIST.md) against terminal Phase 9 evidence.

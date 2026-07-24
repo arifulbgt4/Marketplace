@@ -5,11 +5,11 @@ import { Stack, Link, Container, Box, Paper } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import SettingsIcon from "@mui/icons-material/Settings";
-import ListAltIcon from "@mui/icons-material/ListAlt";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 
 import routes from "src/global/routes";
 
@@ -51,15 +51,6 @@ const UserLayout: FC<UserLayoutProps> = ({ children }) => {
             />
             <Tab
               component={Link}
-              href={routes.userListing}
-              icon={<ListAltIcon fontSize="small" />}
-              iconPosition="start"
-              label="LISTINGS"
-              value={routes.userListing}
-              sx={{ py: { xs: 2, md: 4 } }}
-            />
-            <Tab
-              component={Link}
               href={routes.userBookmark}
               icon={<BookmarksIcon fontSize="small" />}
               iconPosition="start"
@@ -74,6 +65,15 @@ const UserLayout: FC<UserLayoutProps> = ({ children }) => {
               iconPosition="start"
               label="ORDER"
               value={routes.userOrder}
+              sx={{ py: { xs: 2, md: 4 } }}
+            />
+            <Tab
+              component={Link}
+              href={routes.userNotifications}
+              icon={<NotificationsIcon fontSize="small" />}
+              iconPosition="start"
+              label="NOTIFICATIONS"
+              value={routes.userNotifications}
               sx={{ py: { xs: 2, md: 4 } }}
             />
             <Tab

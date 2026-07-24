@@ -91,6 +91,7 @@ export class UserService {
     const users = await prisma.user.findMany({
       where: { role: role as UserRole },
       orderBy: { createdAt: "desc" },
+      take: 500,
     });
 
     return users.map((u) => ({

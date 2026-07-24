@@ -1,23 +1,10 @@
-import { Box, Container, Grid, Hidden } from "@mui/material";
-import ListSearchFiltersForm from "src/forms/ListSearchFiltersForm";
+import { permanentRedirect } from "next/navigation";
 
-import SearchListingGroup from "src/widgets/SearchListingGroup";
-
-const ListingsSearchPage = () => {
-  return (
-    <Box>
-      <Container>
-        <Grid container columnSpacing={10}>
-          <Grid mdDown implementation="css" component={Hidden} item md={3}>
-            <ListSearchFiltersForm />
-          </Grid>
-          <Grid item xs={12} md={9}>
-            <SearchListingGroup />
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
-  );
-};
-
-export default ListingsSearchPage;
+export default async function RetiredListingsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  permanentRedirect(`/${locale}/products`);
+}

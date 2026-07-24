@@ -1,4 +1,5 @@
 import { FC, useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   IconButton,
   Link,
@@ -19,6 +20,7 @@ import routes from "src/global/routes";
 import { UserLogInProps } from "./Types";
 
 const UserLogIn: FC<UserLogInProps> = () => {
+  const text = useTranslations("Auth");
   const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -30,7 +32,13 @@ const UserLogIn: FC<UserLogInProps> = () => {
   };
   return (
     <>
-      <IconButton onClick={handleOpenNavMenu} sx={{ p: 0 }}>
+      <IconButton
+        onClick={handleOpenNavMenu}
+        sx={{ p: 0 }}
+        aria-label={text("accountMenu")}
+        aria-haspopup="menu"
+        aria-expanded={Boolean(anchorElNav)}
+      >
         <AccountCircleRoundedIcon
           sx={{
             height: 45,

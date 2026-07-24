@@ -38,9 +38,15 @@ export const ColorModeContext = createContext<{
 
 export interface ThemeContextProviderProps {
   children: React.ReactNode;
+  primaryColor?: string;
+  secondaryColor?: string;
 }
 
-const ThemeContextProvider = ({ children }: ThemeContextProviderProps) => {
+const ThemeContextProvider = ({
+  children,
+  primaryColor,
+  secondaryColor,
+}: ThemeContextProviderProps) => {
   const [mode, setMode] = useState<PaletteMode>(DEFAULT_PALETTE_MODE);
   const [locale, setLocale] = useState<SupportedLocales>(DEFAULT_LOCAL);
 
@@ -62,7 +68,11 @@ const ThemeContextProvider = ({ children }: ThemeContextProviderProps) => {
     () =>
       createTheme(
         {
-          palette: palette(mode),
+          palette: {
+            ...palette(mode),
+            ...(primaryColor ? { primary: { main: primaryColor } } : {}),
+            ...(secondaryColor ? { secondary: { main: secondaryColor } } : {}),
+          },
           // spacing: (factor: number) => `${0.5 * factor}rem`,
           typography,
           shadows: shadowsTheme(palette(mode) as PaletteOptions),
@@ -71,7 +81,7 @@ const ThemeContextProvider = ({ children }: ThemeContextProviderProps) => {
         },
         locales[locale]
       ),
-    [mode, locale]
+    [locale, mode, primaryColor, secondaryColor]
   );
 
   return (

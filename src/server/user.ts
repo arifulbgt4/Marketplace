@@ -47,20 +47,3 @@ export const updateUser = async ({
 
   return res;
 };
-
-export const getUserListings = cache(async () => {
-  const session = await getAuthSession();
-
-  if (!session) return [];
-
-  const listings = await prisma.listing.findMany({
-    where: { userId: session.userId },
-    include: {
-      category: true,
-      _count: { select: { reviews: true } },
-    },
-    orderBy: { createdAt: "desc" },
-  });
-
-  return listings;
-});

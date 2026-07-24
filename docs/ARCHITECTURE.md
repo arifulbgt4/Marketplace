@@ -1,263 +1,405 @@
 # Marketplace Architecture
 
-## Status
+## Document status
 
-এই document target architecture-এর planning baseline। এখানে বর্ণিত module বা schema এখনো implement হয়েছে ধরে নেওয়া যাবে না। Current implementation-এর সত্যতা `CURRENT_PROJECT_ANALYSIS.md`-এ নথিভুক্ত।
+এই document 2026-07-25 তারিখে বর্তমান source tree, Prisma schema,
+migrations এবং route handlers-এর implementation audit থেকে তৈরি। এটি আর
+শুধু target plan নয়; এখানে তিন ধরনের statement আলাদা করা হয়েছে:
 
-## Target system shape
+- **Implemented fact** — repository source বা migration-এ উপস্থিত।
+- **Deployment-dependent** — code path আছে, কিন্তু environment/provider/scheduler
+  configure এবং live verification প্রয়োজন।
+- **Known gap** — repository-তে automation, proof বা production adapter নেই।
 
-Target হবে per-business deployable modular monolith। একই Next.js application storefront, customer account এবং admin surface serve করবে; business rules domain modules-এ থাকবে; PostgreSQL authoritative store হবে।
+Canonical evidence:
+
+- `src/app/api/**/route.ts`
+- `src/lib/services/**`
+- `src/modules/**`
+- `prisma/schema.prisma`
+- `prisma/migrations/**`
+
+## System shape
+
+Marketplace একটি reusable, single-business **modular monolith**। একটি Next.js
+application storefront, customer account, admin/operations UI এবং JSON APIs
+serve করে। PostgreSQL authoritative store এবং Prisma persistence boundary।
+এটি runtime multi-tenant SaaS বা multi-vendor settlement platform নয়।
 
 ```mermaid
 flowchart TB
-    Store["Storefront and customer account"]
-    Admin["Admin panel"]
-    Boundary["Validated Route Handlers or Server Actions"]
+    Browser["Storefront, customer account and admin browser"]
+    Next["Next.js App Router"]
+    API["Validated Route Handlers"]
+    Auth["NextAuth session and server-side RBAC"]
+    Domain["Domain/application services"]
+    DB["PostgreSQL through Prisma"]
+    Outbox["Transactional OutboxEvent"]
+    Worker["Authenticated outbox worker"]
+    InApp["In-app notification publisher"]
+    SMTP["SMTP mailer"]
+    Payment["Payment adapter registry"]
 
-    Store --> Boundary
-    Admin --> Boundary
-
-    Boundary --> Identity["Identity and authorization"]
-    Boundary --> Catalog["Catalog and inventory"]
-    Boundary --> Checkout["Cart, pricing and checkout"]
-    Boundary --> Orders["Orders and fulfillment"]
-    Boundary --> Payments["Payment orchestration"]
-    Boundary --> Settings["Business settings and content"]
-    Boundary --> Notify["Notifications and reporting"]
-
-    Payments --> COD["Cash on Delivery"]
-    Payments --> Gateway["Online payment adapters"]
-    Orders --> Shipping["Delivery adapters"]
-    Catalog --> Storage["Media storage adapter"]
-
-    Identity --> DB["PostgreSQL via Prisma"]
-    Catalog --> DB
-    Checkout --> DB
-    Orders --> DB
-    Payments --> DB
-    Settings --> DB
-    Notify --> DB
+    Browser --> Next
+    Next --> API
+    API --> Auth
+    API --> Domain
+    Domain --> DB
+    Domain --> Outbox
+    Outbox --> Worker
+    Worker --> InApp
+    Worker --> SMTP
+    Domain --> Payment
+    Payment --> Domain
 ```
 
-## Core decisions
+## Runtime and deployment boundary
 
-### Single-business core
+| Concern        | Implemented fact                                           | Deployment-dependent or gap                                                 |
+| -------------- | ---------------------------------------------------------- | --------------------------------------------------------------------------- |
+| Web runtime    | Next.js 15 App Router, React 18, Node engine `22.x`        | Hosting topology and production URL are not verified here                   |
+| Database       | PostgreSQL datasource, Prisma 5.6, additive SQL migrations | Production database, pooling, HA and replica configuration are not verified |
+| Authentication | NextAuth credential provider with JWT session              | External identity providers are not implemented                             |
+| UI             | MUI-based storefront/admin implementation                  | MUI is not an architectural requirement                                     |
+| Payment        | COD plus signed `MOCK` adapter contract                    | No production online payment provider is implemented or verified            |
+| Notification   | In-app publisher and SMTP adapter                          | Scheduler invocation and live SMTP acceptance are not verified              |
+| Storage        | Product media stores validated URL metadata                | Upload/object-storage adapter is not part of the audited API                |
+| Search         | PostgreSQL/Prisma catalog queries and suggestions          | Dedicated search engine is not implemented                                  |
 
-প্রতিটি deployment একটি business-এর জন্য। Reusability configuration এবং adapters থেকে আসবে, runtime multi-tenancy থেকে নয়। ভবিষ্যতে SaaS control plane দরকার হলে সেটি আলাদা architecture decision হবে।
+## Module boundaries
 
-### Multi-vendor is optional
+| Module              | Primary implementation                                                                                              | Responsibility                                                                          |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| Identity/account    | `src/lib/auth.ts`, `authz.ts`, `services/account.ts`                                                                | Registration, credential authentication, verification, recovery, session invalidation   |
+| Customer            | `services/user.ts`, `address.ts`, `wishlist.ts`, `notification.ts`                                                  | Profile, owned addresses, wishlist, notifications/preferences                           |
+| Catalog             | `services/product.ts`, `category.ts`, `catalog.ts`                                                                  | Products, variants, media metadata, categories and public catalog reads                 |
+| Inventory           | `services/inventory.ts`                                                                                             | Balance, reservation, commit, release, adjustment and append-oriented ledger            |
+| Cart/pricing        | `services/cart.ts`, `pricing.ts`, `money.ts`                                                                        | Signed guest identity, customer merge, server-authoritative totals                      |
+| Checkout            | `services/checkout.ts`, `cod-eligibility.ts`                                                                        | Checkout snapshot, address/delivery/coupon revalidation, payment eligibility, placement |
+| Payment             | `payment-adapter.ts`, `payment-lifecycle.ts`, `payment-reconciliation.ts`, `payment-refund.ts`, `cod-collection.ts` | Provider boundary, webhook reconciliation, COD collection, refunds                      |
+| Order               | `services/order-query.ts`, `order-transition.ts`, `order-cancellation.ts`                                           | Owned/staff reads, versioned status transitions and cancellation                        |
+| Fulfillment         | `shipment.ts`, `order-return.ts`, `order-compensation.ts`                                                           | Shipment allocation/status, returns and idempotent resource compensation                |
+| Administration      | `customer-admin.ts`, `admin-dashboard.ts`, `admin-reporting.ts`                                                     | Customer operations, KPIs, audit and exports                                            |
+| Settings/content    | `business-settings.ts`, `content-section.ts`                                                                        | Business/branding/payment/COD settings and revisioned homepage sections                 |
+| Reviews/support     | `product-review.ts`, `support-request.ts`                                                                           | Verified-purchase reviews, moderation and customer support workflow                     |
+| Notification/outbox | `outbox.ts`, publishers and mailers                                                                                 | Durable event claim/retry, in-app projection and transactional email                    |
+| Audit               | `audit.ts` plus transactional `AuditLog` writes                                                                     | Actor/target metadata for sensitive mutations                                           |
 
-Core catalog business-owned। `admin` বা `catalog_manager` product manage করবে। External seller onboarding, KYC, commission, payout, disputes এবং seller settlement core backlog-এর অংশ নয়। এগুলো future seller bounded context।
-
-### Modular monolith before microservices
-
-Authentication, catalog, checkout, order এবং payment আলাদা logical modules হবে, কিন্তু initial deployment একটি application এবং database। Transactional correctness ও operational simplicity microservice decomposition-এর চেয়ে গুরুত্বপূর্ণ।
-
-### UI design policy
-
-বর্তমান homepage visual composition template-এর protected identity। বিশেষ করে Hero এবং Search section-এর hierarchy, composition, spacing এবং responsive character baseline screenshot-এর সঙ্গে সামঞ্জস্যপূর্ণ রাখতে হবে। তবে copy, product terminology, dynamic data, search fields/behavior, localization এবং accessibility implementation business requirements অনুযায়ী বদলানো যাবে।
-
-Homepage ছাড়া product listing/detail, cart, checkout, customer account, authentication এবং admin surface business ও product needs অনুযায়ী redesign করা যাবে। MUI বর্তমান implementation stack মাত্র; target architecture MUI বা অন্য কোনো design system বাধ্যতামূলক করে না। Team MUI, অন্য design system অথবা custom components ব্যবহার করতে পারবে, যদি experience coherent, accessible এবং maintainable থাকে।
-
-## Proposed modules
-
-| Module | Responsibility |
-|---|---|
-| Identity | Registration, login, verification, password recovery, account state |
-| Authorization | Role এবং resource-level policies |
-| Customer | Profile, addresses, preferences |
-| Catalog | Product, variants, media, category, public queries |
-| Inventory | Balances, reservations, commits, releases, adjustments |
-| Wishlist | Customer-product saved relationship |
-| Cart | Guest/customer cart lifecycle |
-| Pricing | Currency-safe subtotal, discount, coupon, tax, shipping total |
-| Checkout | Address, delivery quote, payment eligibility, finalization |
-| Payment | Payment attempts, adapters, webhooks, COD collection, refunds |
-| Order | Immutable order snapshots, statuses, history, cancellation, return |
-| Fulfillment | Shipment, carrier, tracking, delivery status |
-| Settings | Business, branding, payment, delivery এবং operational rules |
-| Content | Homepage sections এবং localized content |
-| Notification | Outbox, email, in-app events, customer preferences |
-| Reporting | Operational KPIs এবং exports |
-| Audit | Sensitive changes-এর actor এবং metadata |
-
-## Layering rules
-
-প্রতিটি domain module-এর recommended internal layers:
+### Dependency direction
 
 ```text
-UI page/widget/form
-    -> Route Handler or Server Action
-        -> validation and authorization
-            -> domain/application service
-                -> repository/Prisma transaction
-                    -> database or external adapter
+Page/form
+  -> Route Handler
+    -> authentication + validation
+      -> application/domain service
+        -> Prisma transaction and/or adapter
+          -> PostgreSQL / provider
 ```
 
-- UI কখনো authoritative total বা permission সিদ্ধান্ত নেবে না।
-- Route Handler/Server Action complex Prisma mutation সরাসরি করবে না।
-- Domain service Next.js response object জানবে না।
-- External provider response canonical domain types-এ normalize হবে।
-- Read model প্রয়োজনমতো optimized হতে পারে, কিন্তু mutation domain invariant bypass করবে না।
+Rules reflected by the implementation:
 
-## Data rules
+1. Client totals, role claims and entity ownership are not authoritative.
+2. Domain services return `Result<T>` or throw normalized application errors;
+   route handlers translate them to HTTP.
+3. Multi-record commerce mutations use Prisma transactions.
+4. External provider code is behind adapters.
+5. Durable downstream work is written as `OutboxEvent` inside the originating
+   transaction where the service uses the outbox contract.
 
-### Money
+Some older CRUD routes still parse JSON directly or use less uniform error
+handling. Those exceptions are recorded under **Known implementation gaps**.
 
-- Money `Float` হবে না।
-- Prisma `Decimal` অথবা integer minor units ব্যবহার হবে।
-- প্রতিটি monetary aggregate-এর সঙ্গে ISO currency থাকবে।
-- Order totals immutable snapshot হবে।
-- Client-submitted price কখনো authoritative নয়।
+## Request, authentication and authorization flow
 
-### Status separation
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant R as Route Handler
+    participant A as Auth/RBAC
+    participant S as Domain Service
+    participant P as Prisma/PostgreSQL
 
-Order, payment এবং fulfillment status আলাদা থাকবে। একটি order delivered হলেও COD payment collection pending থাকতে পারে; system এটি anomaly হিসেবে report করবে, একই status field দিয়ে ঢেকে দেবে না।
+    C->>R: HTTP request
+    R->>A: Read active NextAuth session
+    A-->>R: userId, role, account status or null
+    R->>S: validated input and identity
+    S->>S: enforce role, ownership and state policy
+    S->>P: read or transactional mutation
+    P-->>S: persisted result
+    S-->>R: Result or normalized error
+    R-->>C: JSON plus HTTP/cache headers
+```
 
-### Historical retention
+Implemented roles:
 
-- Product update পুরোনো order item বদলাবে না।
-- Customer/product hard delete financial history cascade করবে না।
-- Archive বা anonymization policy ব্যবহার হবে।
-- Payment events, status history এবং audit records append-oriented হবে।
+- `user` — own profile/address/cart/checkout/order/review/wishlist/notification.
+- `admin` — full business administration and sensitive settings.
+- `support` — operational order, shipment, return, review, customer read and
+  support-request access; cannot change business/payment settings except
+  explicitly permitted COD reads/previews.
+- `catalog_manager` — product, category, media and inventory management.
 
-### Transaction boundaries
+Authentication uses active account status and `sessionVersion`. Suspending a
+customer increments the version so existing JWT sessions become invalid on the
+next server validation. UI route protection is supplementary; API services
+enforce RBAC/ownership again.
 
-Checkout finalization transaction অন্তত নিচের operations coordinate করবে:
+## Core transaction flows
 
-1. Idempotency key claim।
-2. Cart এবং checkout version revalidation।
-3. Product price/visibility/stock revalidation।
-4. Coupon eligibility revalidation।
-5. Inventory reserve/commit।
-6. Order এবং item snapshots create।
-7. Payment attempt বা COD pending-collection record create।
-8. Reliable outbox event persist।
+### Checkout and order placement
 
-Failure হলে partial order বা silent stock loss থাকা যাবে না।
+```mermaid
+sequenceDiagram
+    participant C as Customer
+    participant X as CheckoutCoordinator
+    participant DB as Serializable DB transaction
+    participant PA as Payment adapter
 
-## Security architecture
+    C->>X: checkoutSessionId, UUID idempotencyKey, paymentMethod
+    X->>DB: claim/read idempotency record
+    DB->>DB: lock and revalidate checkout, cart version and ownership
+    DB->>DB: revalidate product, price, stock, delivery and coupon
+    DB->>DB: create Order and immutable OrderItem snapshots
+    DB->>DB: reserve/commit inventory and coupon usage
+    alt COD
+        DB->>DB: Payment = PENDING_COLLECTION
+    else online
+        X->>PA: createIntent through configured adapter
+        PA-->>X: providerRef and optional clientSecret
+        DB->>DB: Payment = PENDING
+    end
+    DB->>DB: initial status history, audit, outbox and idempotent response
+    DB-->>C: order/payment result
+```
 
-- Deny-by-default authorization policy।
-- Session-এ typed user ID, role এবং account status।
-- Admin layout protection যথেষ্ট নয়; প্রতিটি mutation server-side policy enforce করবে।
-- Webhook signature verification এবং event idempotency বাধ্যতামূলক।
-- Secrets environment-এ থাকবে; admin UI secret value ফেরত দেবে না।
-- Customer শুধু নিজের profile, address, cart, wishlist, order এবং notification access করবে।
-- Sensitive admin action audit হবে।
-- Distributed deployment-এর rate limiting shared store-backed হবে।
+Placement checks `IdempotencyKey` before and inside the transaction and stores
+the response for replay. `Order.idempotencyKey` is also unique. Order items keep
+SKU, product name, unit price, quantity and total snapshots; later catalog edits
+do not change those values.
 
-## Configuration architecture
+### Order, fulfillment and cancellation
 
-| Layer | Examples | Storage |
-|---|---|---|
-| Secrets | Payment secret, SMTP password, storage secret | Environment/secret manager |
-| Business identity | Name, legal name, contact, address | Database settings |
-| Commerce policy | Currency, tax, order rules | Database settings |
-| Payment rules | Enabled methods, COD constraints | Database settings |
-| Delivery rules | Zones, rates, free shipping | Database tables/settings |
-| Branding | Logo, colors, favicon, SEO defaults | Database plus media storage |
-| Content | Homepage sections, localized text | Database content models |
-| Feature flags | Optional modules | Validated configuration |
+- Order and fulfillment status are separate and versioned by
+  `Order.statusVersion`.
+- Each accepted transition appends `OrderStatusHistory`.
+- Cancellation uses a policy (`order_policy` setting), actor role, ownership,
+  fulfillment state and customer time window.
+- Cancellation updates unpaid payment attempts, compensates inventory/coupon
+  resources idempotently, audits the decision and creates outbox events.
+- Paid/collected cancellation does not silently refund; it marks
+  `refundRequired` and emits a refund-requested event for explicit operator
+  handling.
 
-## External adapters
+### Payment webhook reconciliation
 
-Payment, storage, email এবং shipping provider-এর জন্য interface/adapter ব্যবহার হবে। Provider-specific identifiers persistence-এ রাখা যাবে, কিন্তু provider response সরাসরি storefront বা core order logic-এ leak করবে না।
+```mermaid
+sequenceDiagram
+    participant Provider as MOCK provider/test sender
+    participant W as Payment webhook route
+    participant A as Signed adapter
+    participant R as Reconciliation service
+    participant DB as Serializable transaction
 
-## Caching and events
+    Provider->>W: raw JSON + x-mock-signature
+    W->>A: raw bytes and normalized headers
+    A->>A: HMAC SHA-256 and strict payload validation
+    A-->>R: eventId, providerRef, amount, status
+    R->>DB: lookup event idempotency key
+    DB->>DB: amount and lifecycle policy check
+    DB->>DB: compare-and-set Payment status
+    DB->>DB: PaymentEvent, Order state/payment state, audit, outbox
+    DB-->>R: applied, duplicate no-op or ignored out-of-order result
+    R-->>Provider: safe JSON response
+```
 
-- Product/catalog read caching explicit invalidation policyসহ হবে।
-- Business settings bounded cache ব্যবহার করতে পারে।
-- Cart, checkout, payment এবং inventory mutation cached response-এর উপর নির্ভর করবে না।
-- Reliable outbox order/payment/fulfillment transaction-এর সঙ্গে event persist করবে।
-- Notification এবং analytics consumer idempotent হবে।
+The route caps raw payloads at 64 KiB. `MOCK_PAYMENT_WEBHOOK_SECRET` must be at
+least 32 characters. Duplicate event IDs are idempotent; terminal and
+out-of-order transitions do not regress a payment.
 
-## Future extension boundaries
+### COD collection and refunds
 
-- Multi-vendor seller, commission, payout।
-- Multiple warehouses।
-- Multi-currency catalog pricing।
-- Subscription products।
-- Advanced tax provider।
-- Search engine adapter।
-- Native mobile client/API separation।
+- COD eligibility is evaluated separately from order state and considers global
+  enablement, amount, zones, blocked products/categories, item quantity and
+  optional verified-phone policy.
+- COD orders start with payment `PENDING_COLLECTION`; staff collection uses a
+  required `Idempotency-Key` and records `COLLECTED` independently of order and
+  fulfillment status.
+- Refunds accept positive two-decimal amounts, reserve cumulative
+  `Payment.refundedAmount` with compare-and-set semantics, prevent concurrent
+  over-refund, append `PaymentEvent`, update order payment status, audit and
+  enqueue an outbox event.
+- COD refunds are manual references; non-COD refunds call the registered
+  adapter. In this repository that online adapter is only `MOCK`.
 
-এই extension-গুলোর জন্য current core-এ অপ্রয়োজনীয় tables বা abstractions আগে থেকে যোগ করা হবে না; তবে order snapshots, adapters এবং module boundaries extension বন্ধ করবে না।
+## Outbox and notification flow
 
----
+```mermaid
+flowchart LR
+    Tx["Domain transaction"] --> Event["OutboxEvent PENDING"]
+    Trigger["POST /api/internal/outbox\nBearer worker secret"] --> Claim
+    Event --> Claim["Conditional claim\nPROCESSING + lock"]
+    Claim --> InApp["Idempotent in-app upsert"]
+    InApp --> Email["Preference-aware SMTP publisher"]
+    Email --> Success["PUBLISHED"]
+    Claim --> Retry["PENDING with availableAt"]
+    Retry --> Claim
+    Claim --> Failed["FAILED after max attempts"]
+```
+
+Implemented worker behavior:
+
+- `OUTBOX_WORKER_SECRET` is required and compared through SHA-256 digests with
+  `timingSafeEqual`.
+- Batch size is bounded to 1–100.
+- Claims use conditional updates and can reclaim stale `PROCESSING` locks.
+- Attempts increment on claim; failures expose only
+  `Publisher delivery failed`.
+- In-app notification is first and idempotent through unique
+  `Notification.sourceEventId`; SMTP runs last.
+- Commerce email supports order, payment and shipment event families and uses a
+  deterministic message ID.
+
+Deployment-dependent: no cron/scheduler definition in this repository invokes
+the worker. Without an external authenticated trigger, events remain pending.
+
+## Email flows
+
+Two implemented flows intentionally differ:
+
+1. **Account verification/recovery:** request route prepares a one-time token
+   and calls `AccountNotificationService` directly. In non-production without
+   SMTP it returns a preview URL; in production missing SMTP is treated as
+   unavailable. Request endpoints keep enumeration-safe accepted responses.
+2. **Commerce notification:** order/payment/shipment events go through the
+   transactional outbox, user preferences, template builder and SMTP mailer.
+   Missing SMTP is network-silent; configured SMTP rejection makes the worker
+   retry.
+
+No live SMTP server or delivery receipt was verified by this documentation
+audit.
+
+## Data and consistency rules
+
+- Monetary commerce fields use Prisma `Decimal`; `Money` performs
+  currency-aware arithmetic.
+- `OrderStatus`, `PaymentStatus` and `FulfillmentStatus` are independent.
+- Inventory requires `0 <= reserved <= onHand`.
+- Guest cart identity is a signed HttpOnly cookie; a cart has exactly one of
+  `userId` or `sessionToken`.
+- Order, payment, resource-release, outbox, notification and support updates
+  use unique keys/versioning to make retries safe.
+- Audit/outbox payloads should contain operational identifiers, not secrets.
+- Support public responses return only acceptance/reference/status metadata;
+  customer PII is staff-gated.
+
+## Configuration and customization
+
+| Layer             | Storage                                  | Examples                                                               |
+| ----------------- | ---------------------------------------- | ---------------------------------------------------------------------- |
+| Secrets           | Environment/secret manager               | NextAuth, DB URLs, SMTP password, webhook secret, outbox worker secret |
+| Business identity | `BusinessSettings` key `business`        | Name, legal name, support contact, currency, locale, timezone          |
+| Branding          | `BusinessSettings` key `branding`        | Logo/favicon URLs, colors, SEO, social links                           |
+| Payment methods   | `BusinessSettings` key `payment_methods` | COD/online enabled state, label, description, online provider key      |
+| COD rules         | `BusinessSettings` key `cod_rules`       | Amount, zone/product/category/item/phone rules                         |
+| Delivery          | `DeliveryZone`, `DeliveryMethod`         | Geography, price, free-shipping and weight windows                     |
+| Homepage content  | `ContentSection` revisions               | Lower-page announcement/collection/rich-text/banner/trust sections     |
+
+Homepage Hero and Search composition remain protected. `ContentSectionService`
+rejects `hero`, `search`, `search-banner`, `hero-search` and matching prefixed
+keys. Other surfaces and design-system choices may evolve per business.
+
+## Legacy retirement boundary
+
+The property/rental `Listing`, listing `Review`, `Message` and `Bookmark`
+storage remains for compatibility/migration history, but peer messaging is not
+a supported B2C workflow. Support uses `SupportRequest`.
+
+Explicit HTTP retirement contracts:
+
+- `GET|POST /api/listings` → `410`, successor `/api/catalog`.
+- `GET|POST /api/reviews` → `410`, successor
+  `/api/products/{productId}/reviews`.
+- `POST /api/orders` → `410`, successor `/api/checkout/place`.
+
+The replacement header includes `Deprecation: true`, `Cache-Control: no-store`
+and a successor `Link`.
+
+## Security boundaries
+
+- Secrets are environment-only and are not accepted in settings JSON.
+- Credential passwords are bcrypt hashed; reset/verification tokens are
+  one-time, 64-hex values with expiry.
+- Webhook and worker endpoints use independent non-session authentication.
+- Staff PII responses use private/no-store where the newer routes implement
+  that contract.
+- Catalog, suggestions, reviews, coupon, delivery, registration, verification,
+  recovery and support intake have bounded in-memory rate limits.
+- Current rate limiting is process-local; distributed deployments require a
+  shared store or edge/provider enforcement.
+- Admin/support/catalog-manager permissions are checked in services, not only
+  navigation middleware.
+
+## Known implementation gaps and risks
+
+1. Only `MOCK` online payment is registered; production gateway behavior is
+   unverified.
+2. The repository has no deployed scheduler definition for the outbox worker.
+3. SMTP configuration and live delivery are unverified.
+4. Rate limits are in-memory and therefore neither shared nor durable across
+   instances.
+5. API error envelopes are not fully uniform. Notably the checkout
+   payment-method route has a raw `error.message` fallback, while some older
+   routes parse malformed JSON outside normalized error handling.
+6. No automated retention/pruning job exists for tokens, checkout sessions,
+   notifications, audit logs, outbox rows or legacy records.
+7. No backup/restore automation or production-like restore rehearsal is present.
+8. Several foreign keys cascade from `User`/`Order` into financial history.
+   Operational policy must prohibit hard deletion until a separate archival and
+   anonymization migration is approved.
+9. The catalog stores media URLs but no audited upload/object-storage endpoint
+   exists.
 
 ## ADR-001: Single-business modular monolith
 
-### Status
+### Status and history
 
-Accepted and approved (2026-07-05). Evidence commit: `df3a95d`.
-
-### Context
-
-বর্তমান codebase একটি property/rental listing marketplace starter। লক্ষ্য হলো একে configurable single-business B2C marketplace-এ রূপান্তর করা। নিম্নলিখিত architectural decisions নেওয়া প্রয়োজন:
-
-1. Deployment model: per-business deployable vs multi-tenant SaaS
-2. Seller model: single-business vs multi-vendor marketplace
-3. Service decomposition: monolith vs microservices
-4. Design scope: protected homepage identity vs business-specific surface redesign
-5. Messaging/support: keep, remove, or redesign the existing peer-chat model
+Accepted and approved on 2026-07-05. Original evidence commit recorded in the
+planning document: `df3a95d`. This section preserves the architecture governance
+decision while the preceding sections describe the implemented state as of
+2026-07-25.
 
 ### Decision
 
-| # | Decision | Rationale |
-|---|----------|-----------|
-| 1 | **Per-business deployable modular monolith** — প্রতিটি deployment একটি business-এর জন্য; reusability configuration/adapter থেকে আসে | Multi-tenant SaaS-এর control plane, tenant isolation এবং billing overhead core scope-এর বাইরে; পরে পৃথক bounded context হিসেবে যোগ করা যাবে |
-| 2 | **Single-business core** — catalog business-owned; `admin` এবং `catalog_manager` roles product manage করে | Multi-vendor-এর seller KYC, commission, payout, disputes scope-এর বাইরে; future bounded context |
-| 3 | **Modular monolith first** — Authentication, catalog, checkout, order, payment আলাদা logical modules; single application + database deployment | Transactional correctness ও operational simplicity microservice decomposition-এর চেয়ে গুরুত্বপূর্ণ; পরে module isolation প্রয়োজনে separable |
-| 4 | **Protect homepage visual identity, keep other surfaces flexible** — homepage composition এবং বিশেষভাবে Hero/Search visual baseline preserve হবে; অন্য screens business-fit redesign করতে পারবে; কোনো design system বাধ্যতামূলক নয় | Reusable B2C template-এর recognizable homepage থাকবে, কিন্তু catalog, checkout, account এবং admin UX business requirements অনুযায়ী evolve করতে পারবে |
-| 5 | **Replace peer messaging with support/contact flow** — বর্তমান `Message` model দুই customer-এর মধ্যে direct chat অনুমতি দেয়, যা B2C scenario-এ customer expectation নয় | Support ticket/contact form দিয়ে replace করলে customer expectation clearer হয় এবং moderation simpler হয় |
-
-### Alternatives considered
-
-| Alternative | Pros | Cons | Why rejected |
-|-------------|------|------|--------------|
-| Multi-tenant SaaS | Single deployment serves all businesses | Tenant isolation, billing, feature gating complexity | Core scope-এর বাইরে; future extension |
-| Multi-vendor marketplace | Multiple sellers per platform | KYC, commission, payout, disputes, seller dashboard | Core scope-এর বাইরে; future bounded context |
-| Microservices | Independent deployability, team scaling | Transactional complexity, network overhead, operational cost | 1–2 developer team-এর জন্য premature; modular monolith later separable |
-| Unrestricted homepage redesign | Maximum visual freedom | Template identity এবং approved Hero/Search composition হারায় | Homepage protected; lower/other surfaces already যথেষ্ট design freedom পায় |
-| MUI-only policy | Existing component reuse সহজ | Future business requirements এবং alternative UI architecture সীমিত করে | MUI current stack, architectural mandate নয় |
-| Keep peer messaging | Existing code reuse | Customer confusion, moderation complexity, no clear B2C use case | Mock implementation incomplete; replaces with simpler support flow |
+| Decision          | Accepted position                                                                               |
+| ----------------- | ----------------------------------------------------------------------------------------------- |
+| Deployment model  | Per-business deployable; reusability comes from configuration and adapters, not runtime tenants |
+| Seller model      | Business-owned catalog; multi-vendor KYC, commission, payout and settlement are outside core    |
+| Service shape     | Modular monolith before microservices                                                           |
+| Design scope      | Preserve homepage/Hero/Search identity; other screens and design systems remain flexible        |
+| Messaging/support | Retire peer chat and use a B2C support/contact workflow                                         |
 
 ### Consequences
 
 Positive:
-- One application to deploy, test, and monitor
-- Transactional integrity across domains (cart → stock → payment → order)
-- Existing homepage identity, i18n এবং auth selectively preserved and reused
-- Other surfaces এবং design-system choice business needs অনুযায়ী evolve করতে পারে
-- Clear module boundaries for future extraction
 
-Negative:
-- Single deployment = single point of failure (mitigated by standard HA practices)
-- Module boundary enforcement is manual (lint rules, import conventions)
-- All domains scale together (no independent scaling)
+- One application and authoritative database simplify commerce transactions.
+- Module boundaries can later be extracted without paying premature
+  distributed-system cost.
+- A business can customize brand, catalog, delivery, payment rules and content.
 
-### Migration posture
+Trade-offs:
 
-- New Product model parallel to Listing; Listing remains read-only during transition
-- Feature flags control old vs new code paths
-- Migration tasks: P1-08 (data migration strategy), P3-17 (seed and legacy backfill)
+- Modules scale and deploy together.
+- Boundary enforcement depends on code review and tests.
+- A single deployment is one failure domain unless the hosting platform adds HA.
 
-### Unresolved decisions
+### Alternatives rejected
 
-1. **Notification provider abstraction timing** — Phase 2-তে interface define হবে, implementation Phase 8-তে।
-2. **Tax calculation** — Manual tax class বনাম third-party provider decision Phase 3/4-এ হবে।
-3. **Search engine**: PostgreSQL full-text vs dedicated search provider — Phase 3 performance test-এর পরে সিদ্ধান্ত।
+- Runtime multi-tenant SaaS core.
+- Multi-vendor seller settlement in the reusable baseline.
+- Immediate microservice decomposition.
+- Blanket UI preservation or an MUI-only mandate.
+- Reusing the legacy peer-to-peer `Message` workflow.
 
-### Decision metadata
-
-| Field | Value |
-|-------|-------|
-| ADR ID | ADR-001 |
-| Title | Single-business modular monolith architecture |
-| Date | 2026-07-05 |
-| Owner | Architecture owner |
-| Status | Accepted and approved |
-| Approved by | Ariful Islam (product directive); Codex architecture review |
-| Evidence commit | `df3a95d` |
-| Design-policy amendment | 2026-07-05 product directive: homepage/Hero/Search protected; other surfaces and design-system choice flexible |
+Future changes to these decisions require a new ADR; editing this implementation
+snapshot does not silently replace ADR-001.

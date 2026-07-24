@@ -13,8 +13,9 @@ describe("route access table", () => {
     ["/", "public"],
     ["/l", "public"],
     ["/l/house-1", "public"],
-    ["/l/create", "customer"],
-    ["/l/edit/house-1", "customer"],
+    ["/l/create", "public"],
+    ["/l/edit/house-1", "public"],
+    ["/merchant/legacy-host", "public"],
     ["/products/item-1", "public"],
     ["/cart", "public"],
     ["/forgot-password", "public"],
@@ -22,6 +23,11 @@ describe("route access table", () => {
     ["/checkout", "customer"],
     ["/u/account", "customer"],
     ["/admin/products", "catalog"],
+    ["/admin/orders", "operations"],
+    ["/admin/orders/order-1", "operations"],
+    ["/admin/returns/return-1", "operations"],
+    ["/admin/support", "operations"],
+    ["/admin/support/request-1", "operations"],
     ["/admin/coupons", "admin"],
   ] as const)("classifies %s as %s", (pathname, access) => {
     expect(classifyRoute(pathname)).toBe(access);
@@ -92,6 +98,38 @@ describe("environment and account notification boundaries", () => {
       envSchema.safeParse({
         ...requiredEnvironment,
         SMTP_HOST: "smtp.example.com",
+      }).success,
+    ).toBe(false);
+  });
+
+  it("validates internal outbox worker secrets and batch bounds", () => {
+    expect(
+      envSchema.safeParse({
+        ...requiredEnvironment,
+        OUTBOX_WORKER_SECRET: "too-short",
+      }).success,
+    ).toBe(false);
+    expect(
+      envSchema.safeParse({
+        ...requiredEnvironment,
+        OUTBOX_WORKER_SECRET:
+          "outbox-worker-secret-with-at-least-32-characters",
+        OUTBOX_WORKER_BATCH_SIZE: 101,
+      }).success,
+    ).toBe(false);
+  });
+
+  it("treats an empty mock webhook secret as disabled and rejects weak secrets", () => {
+    expect(
+      envSchema.safeParse({
+        ...requiredEnvironment,
+        MOCK_PAYMENT_WEBHOOK_SECRET: "",
+      }).success,
+    ).toBe(true);
+    expect(
+      envSchema.safeParse({
+        ...requiredEnvironment,
+        MOCK_PAYMENT_WEBHOOK_SECRET: "too-short",
       }).success,
     ).toBe(false);
   });

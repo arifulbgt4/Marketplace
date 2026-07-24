@@ -1,119 +1,30 @@
-import { NextResponse } from "next/server";
-import { v4 as uuidv4 } from "uuid";
+import { NextRequest, NextResponse } from "next/server";
+import { legacyFeatureRetiredResponse } from "src/lib/legacy-retirement";
+import { orderQueryService } from "src/lib/services/order-query";
 
-import { prisma } from "src/lib/prisma";
-import { getAuthSession } from "src/lib/authz";
-import { orderSchema } from "src/lib/validations";
-import { Money } from "src/lib/money";
-
-export async function GET() {
-  try {
-    const session = await getAuthSession();
-    if (!session) {
-      return NextResponse.json(
-        { status: "error", message: "Unauthorized" },
-        { status: 401 },
-      );
-    }
-
-    const orders = await prisma.order.findMany({
-      where: { userId: session.userId },
-      include: {
-        listing: {
-          select: {
-            id: true,
-            title: true,
-            slug: true,
-            images: true,
-            price: true,
-          },
-        },
-      },
-      orderBy: { createdAt: "desc" },
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const result = await orderQueryService.listCustomerOrders({
+    orderStatus:
+      searchParams.get("orderStatus") ||
+      searchParams.get("status") ||
+      undefined,
+    paymentStatus: searchParams.get("paymentStatus") || undefined,
+    fulfillmentStatus: searchParams.get("fulfillmentStatus") || undefined,
+    page: searchParams.get("page") || undefined,
+    limit: searchParams.get("limit") || undefined,
+  });
+  if (!result.success) {
+    return NextResponse.json(result.error.toSafeJSON(), {
+      status: result.error.statusCode,
     });
-
-    return NextResponse.json({
-      status: "success",
-      orders,
-    });
-  } catch (error) {
-    console.error("Failed to fetch orders:", error);
-    return NextResponse.json(
-      { status: "error", message: "Failed to fetch orders" },
-      { status: 500 },
-    );
   }
+  return NextResponse.json(result.data);
 }
 
-export async function POST(req: Request) {
-  try {
-    const session = await getAuthSession();
-    if (!session) {
-      return NextResponse.json(
-        { status: "error", message: "Unauthorized" },
-        { status: 401 },
-      );
-    }
-
-    const body = await req.json();
-    const result = orderSchema.safeParse(body);
-
-    if (!result.success) {
-      return NextResponse.json(
-        {
-          status: "error",
-          message: "Validation failed",
-          errors: result.error.flatten().fieldErrors,
-        },
-        { status: 400 },
-      );
-    }
-
-    const { listingId, startDate, endDate, guests } = result.data;
-
-    const listing = await prisma.listing.findUnique({
-      where: { id: listingId },
-    });
-
-    if (!listing) {
-      return NextResponse.json(
-        { status: "error", message: "Listing not found" },
-        { status: 404 },
-      );
-    }
-
-    const nights = Math.ceil(
-      (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24),
-    );
-    const totalPrice = Money.fromDecimal(listing.price.toString()).multiply(
-      nights,
-    ).amount;
-
-    const order = await prisma.order.create({
-      data: {
-        orderNo: `ORD-${uuidv4().slice(0, 8).toUpperCase()}`,
-        startDate,
-        endDate,
-        totalPrice,
-        guests: guests || 1,
-        userId: session.userId,
-        listingId,
-      },
-      include: {
-        listing: true,
-        user: { select: { id: true, name: true, email: true } },
-      },
-    });
-
-    return NextResponse.json({
-      status: "success",
-      order,
-    });
-  } catch (error) {
-    console.error("Failed to create order:", error);
-    return NextResponse.json(
-      { status: "error", message: "Failed to create order" },
-      { status: 500 },
-    );
-  }
+export async function POST() {
+  return legacyFeatureRetiredResponse({
+    feature: "Property booking orders",
+    replacement: "/api/checkout/place",
+  });
 }

@@ -2,7 +2,10 @@ import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { Prisma, PrismaClient } from "@prisma/client";
 import { randomUUID } from "crypto";
 
-const authState = vi.hoisted(() => ({ userId: "" }));
+const authState = vi.hoisted(() => ({
+  userId: "",
+  role: "user" as "user" | "admin" | "support" | "catalog_manager",
+}));
 vi.mock("src/lib/authz", async (importOriginal) => {
   const actual = await importOriginal<typeof import("src/lib/authz")>();
   return {
@@ -12,7 +15,7 @@ vi.mock("src/lib/authz", async (importOriginal) => {
         ? {
             userId: authState.userId,
             sessionId: "integration",
-            role: "user" as const,
+            role: authState.role,
             accountStatus: "active" as const,
             permissions: [],
             isSystem: false,
@@ -26,6 +29,8 @@ vi.mock("src/lib/authz", async (importOriginal) => {
 import { inventoryService } from "src/lib/services/inventory";
 import { checkoutCoordinator } from "src/lib/services/checkout";
 import { accountService } from "src/lib/services/account";
+import { orderCancellationService } from "src/lib/services/order-cancellation";
+import { orderReturnService } from "src/lib/services/order-return";
 import { compare } from "bcryptjs";
 
 const run = process.env.RUN_DB_TESTS === "true";
@@ -45,6 +50,7 @@ const ids = {
 describe.skipIf(!run)("database transaction boundaries", () => {
   beforeAll(async () => {
     authState.userId = ids.user;
+    authState.role = "user";
     await db.user.create({
       data: {
         id: ids.user,
@@ -215,6 +221,121 @@ describe.skipIf(!run)("database transaction boundaries", () => {
         where: { referenceType: "order", variantId: ids.variant },
       }),
     ).toBe(1);
+  });
+
+  it("cancels once and compensates committed stock idempotently", async () => {
+    authState.role = "user";
+    const order = await db.order.findFirstOrThrow({
+      where: { idempotencyKey: { not: null }, userId: ids.user },
+      select: { id: true, statusVersion: true },
+    });
+    const first = await orderCancellationService.cancel(order.id, {
+      reason: "Integration cancellation",
+      expectedVersion: order.statusVersion,
+    });
+    expect(first.success).toBe(true);
+    const second = await orderCancellationService.cancel(order.id, {
+      reason: "Integration cancellation retry",
+      expectedVersion: order.statusVersion + 1,
+    });
+    expect(second.success).toBe(false);
+
+    const inventory = await db.inventory.findUniqueOrThrow({
+      where: { variantId: ids.variant },
+    });
+    expect(inventory.onHand).toBe(10);
+    expect(
+      await db.resourceRelease.count({
+        where: { orderId: order.id, type: "INVENTORY" },
+      }),
+    ).toBe(1);
+    expect(
+      await db.payment.count({
+        where: { orderId: order.id, status: "CANCELLED" },
+      }),
+    ).toBe(1);
+  });
+
+  it("coordinates a delivered return, restock and refund request", async () => {
+    authState.role = "user";
+    await db.inventory.update({
+      where: { variantId: ids.variant },
+      data: { onHand: { decrement: 1 } },
+    });
+    const order = await db.order.create({
+      data: {
+        orderNo: `RET-${randomUUID()}`,
+        status: "confirmed",
+        statusVersion: 1,
+        fulfillmentStatus: "DELIVERED",
+        paymentStatus: "COLLECTED",
+        paymentMethod: "cod",
+        totalPrice: new Prisma.Decimal(10),
+        subtotal: new Prisma.Decimal(10),
+        currency: "USD",
+        userId: ids.user,
+        placedAt: new Date(),
+        items: {
+          create: {
+            variantId: ids.variant,
+            productId: ids.product,
+            sku: `INT-${ids.variant}`,
+            productName: "Integration Product",
+            unitPrice: new Prisma.Decimal(10),
+            totalPrice: new Prisma.Decimal(10),
+            quantity: 1,
+          },
+        },
+        payments: {
+          create: {
+            amount: new Prisma.Decimal(10),
+            currency: "USD",
+            status: "COLLECTED",
+            provider: "CASH_ON_DELIVERY",
+          },
+        },
+      },
+      include: { items: true },
+    });
+
+    const requested = await orderReturnService.request(order.id, {
+      reason: "Integration return",
+      items: [{ orderItemId: order.items[0].id, quantity: 1 }],
+    });
+    expect(requested.success).toBe(true);
+    if (!requested.success) throw requested.error;
+    const returnId = (requested.data as { id: string }).id;
+
+    authState.role = "admin";
+    for (const status of ["APPROVED", "RECEIVED", "COMPLETED"] as const) {
+      const decision = await orderReturnService.decide(returnId, {
+        status,
+        resolutionNote: `Integration ${status.toLowerCase()}`,
+      });
+      expect(decision.success).toBe(true);
+    }
+    authState.role = "user";
+
+    expect(
+      (
+        await db.inventory.findUniqueOrThrow({
+          where: { variantId: ids.variant },
+        })
+      ).onHand,
+    ).toBe(10);
+    expect(
+      await db.outboxEvent.count({
+        where: {
+          aggregateId: order.id,
+          eventType: "payment.refund_requested",
+        },
+      }),
+    ).toBe(1);
+    const completed = await db.order.findUniqueOrThrow({
+      where: { id: order.id },
+      select: { fulfillmentStatus: true },
+    });
+    expect(completed.fulfillmentStatus).toBe("RETURNED");
   });
 
   it("enforces identity and single-default/primary constraints in PostgreSQL", async () => {

@@ -1,5 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { codEligibilityEngine } from "src/lib/services/cod-eligibility";
+import {
+  codEligibilityEngine,
+  codEligibilityPreviewSchema,
+} from "src/lib/services/cod-eligibility";
 import { paymentRegistry } from "src/lib/services/payment-adapter";
 
 // Mock prisma client
@@ -215,14 +218,78 @@ describe("COD Eligibility Engine", () => {
       subtotal: 150,
       currency: "USD" as const,
       country: "US",
-      items: [
-        { productId: "prod-ok", categoryId: "cat-ok", quantity: 1 },
-      ],
+      items: [{ productId: "prod-ok", categoryId: "cat-ok", quantity: 1 }],
     };
 
     const result = await codEligibilityEngine.evaluate(context);
     expect(result.eligible).toBe(true);
     expect(result.reasonCode).toBeNull();
+  });
+
+  it("does not match a region-scoped zone when region is missing", async () => {
+    mockPrisma.businessSettings.findUnique.mockResolvedValue({
+      key: "cod_rules",
+      value: { enabled: true, allowedZoneIds: ["dhaka-only"] },
+    });
+    mockPrisma.deliveryZone.findMany.mockResolvedValue([
+      {
+        id: "dhaka-only",
+        countries: ["BD"],
+        regions: ["Dhaka"],
+        postalCodes: [],
+        isActive: true,
+      },
+    ]);
+
+    const result = await codEligibilityEngine.evaluate({
+      userId: "user-1",
+      subtotal: 50,
+      currency: "USD",
+      country: "BD",
+      items: [],
+    });
+
+    expect(result).toMatchObject({
+      eligible: false,
+      reasonCode: "COD_ZONE_NOT_ALLOWED",
+    });
+  });
+
+  it("fails closed when COD settings cannot be loaded", async () => {
+    mockPrisma.businessSettings.findUnique.mockRejectedValue(
+      new Error("database unavailable"),
+    );
+
+    const result = await codEligibilityEngine.evaluate({
+      userId: "user-1",
+      subtotal: 50,
+      currency: "USD",
+      country: "BD",
+      items: [],
+    });
+
+    expect(result).toMatchObject({
+      eligible: false,
+      reasonCode: "COD_GLOBALLY_DISABLED",
+      ruleVersion: "unavailable",
+    });
+  });
+
+  it("validates an admin COD preview payload", () => {
+    expect(
+      codEligibilityPreviewSchema.parse({
+        subtotal: 75,
+        currency: "BDT",
+        country: "BD",
+        items: [],
+      }),
+    ).toMatchObject({ subtotal: 75, currency: "BDT", country: "BD" });
+    expect(
+      codEligibilityPreviewSchema.safeParse({
+        subtotal: -1,
+        country: "Bangladesh",
+      }).success,
+    ).toBe(false);
   });
 });
 
@@ -237,7 +304,7 @@ describe("Payment Adapters Registry", () => {
 
   it("throws error for unsupported gateway", () => {
     expect(() => paymentRegistry.getAdapter("STRIPE")).toThrow(
-      "Unsupported payment provider: STRIPE"
+      "Unsupported payment provider",
     );
   });
 });

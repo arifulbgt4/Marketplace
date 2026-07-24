@@ -16,6 +16,18 @@ const optionalString = z
   .optional()
   .transform((value) => value || undefined);
 
+const optionalWorkerSecret = z.preprocess(
+  (value) =>
+    typeof value === "string" && value.trim() === "" ? undefined : value,
+  z.string().trim().min(32).optional(),
+);
+
+const optionalWebhookSecret = z.preprocess(
+  (value) =>
+    typeof value === "string" && value.trim() === "" ? undefined : value,
+  z.string().trim().min(32).optional(),
+);
+
 const schema = z
   .object({
     NEXTAUTH_SECRET: z.string().min(32),
@@ -28,6 +40,32 @@ const schema = z
     SMTP_USER: optionalString,
     SMTP_PASSWORD: optionalString,
     SMTP_FROM: optionalString,
+    MOCK_PAYMENT_WEBHOOK_SECRET: optionalWebhookSecret,
+    OUTBOX_WORKER_SECRET: optionalWorkerSecret,
+    OUTBOX_WORKER_BATCH_SIZE: z.coerce
+      .number()
+      .int()
+      .min(1)
+      .max(100)
+      .default(25),
+    OUTBOX_WORKER_MAX_ATTEMPTS: z.coerce
+      .number()
+      .int()
+      .min(1)
+      .max(20)
+      .default(5),
+    OUTBOX_WORKER_RETRY_DELAY_MS: z.coerce
+      .number()
+      .int()
+      .min(1_000)
+      .max(24 * 60 * 60 * 1_000)
+      .default(30_000),
+    OUTBOX_WORKER_LOCK_TIMEOUT_MS: z.coerce
+      .number()
+      .int()
+      .min(10_000)
+      .max(60 * 60 * 1_000)
+      .default(5 * 60_000),
   })
   .superRefine((environment, context) => {
     const configured = [

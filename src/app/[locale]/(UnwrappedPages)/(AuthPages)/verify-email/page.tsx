@@ -11,8 +11,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 export default function VerifyEmailPage() {
+  const t = useTranslations("Auth");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -29,11 +31,11 @@ export default function VerifyEmailPage() {
         body: JSON.stringify({ email }),
       });
       const data = await response.json();
-      if (!response.ok) throw new Error(data.message || "Request failed");
+      if (!response.ok) throw new Error(data.message || t("requestFailed"));
       setMessage(data.message);
       setPreviewUrl(data.previewUrl || "");
     } catch (caught) {
-      setError(caught instanceof Error ? caught.message : "Request failed");
+      setError(caught instanceof Error ? caught.message : t("requestFailed"));
     } finally {
       setSubmitting(false);
     }
@@ -43,14 +45,14 @@ export default function VerifyEmailPage() {
     <Container maxWidth="xs" sx={{ py: 8 }}>
       <Paper sx={{ p: 4 }}>
         <Stack spacing={2}>
-          <Typography variant="h4">Verify your email</Typography>
+          <Typography variant="h4">{t("verifyTitle")}</Typography>
           <Typography color="text.secondary">
-            Enter your signup email to receive a new one-use verification link.
+            {t("verifyDescription")}
           </Typography>
           {message && <Alert severity="success">{message}</Alert>}
           {error && <Alert severity="error">{error}</Alert>}
           <TextField
-            label="Email"
+            label={t("email")}
             type="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
@@ -61,14 +63,14 @@ export default function VerifyEmailPage() {
             onClick={resend}
             disabled={submitting || !email.trim()}
           >
-            {submitting ? "Sending..." : "Resend verification link"}
+            {submitting ? t("sending") : t("resendLink")}
           </Button>
           {previewUrl && (
             <Button component="a" href={previewUrl} variant="outlined">
-              Open development verification link
+              {t("openDevLink")}
             </Button>
           )}
-          <Link href="/signin">Back to sign in</Link>
+          <Link href="/signin">{t("backToSignIn")}</Link>
         </Stack>
       </Paper>
     </Container>

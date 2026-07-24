@@ -2,7 +2,7 @@
   "name": "marketplace",
   "version": "1.0.0",
   "private": true,
-  "description": "A modern, full-stack marketplace application built with Next.js, TypeScript, PostgreSQL, and Material-UI. Features internationalization, authentication, and a comprehensive design system.",
+  "description": "A configurable, reusable B2C marketplace built with Next.js, TypeScript, PostgreSQL and Prisma, with catalog, checkout, COD, online payment adapters, orders and administration.",
   "scripts": {
     "env:check": "node scripts/validate-env.mjs",
     "dev": "pnpm env:check && prisma generate && next dev",
@@ -39,7 +39,12 @@
     "health": "pnpm db:status && echo '✅ Database check complete'",
     "test": "vitest",
     "test:run": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:unit": "vitest run --exclude src/__tests__/database.integration.test.ts",
+    "test:integration": "RUN_DB_TESTS=true vitest run src/__tests__/database.integration.test.ts",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:update": "playwright test e2e/visual-contract.spec.ts --update-snapshots",
+    "test:a11y": "playwright test e2e/accessibility.spec.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.11.0",
@@ -73,6 +78,8 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
+    "@playwright/test": "^1.61.1",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
@@ -81,9 +88,10 @@
     "@types/node": "^22.12.0",
     "@types/nodemailer": "8.0.1",
     "@types/react": "^18.3.0",
-    "@types/react-dom": "^18.3.0",
     "@types/react-date-range": "^1.4.7",
+    "@types/react-dom": "^18.3.0",
     "@typescript-eslint/parser": "8.42.0",
+    "@vitest/coverage-v8": "^4.1.9",
     "eslint": "8.57.1",
     "eslint-config-next": "15.5.16",
     "jsdom": "^29.1.1",
@@ -98,29 +106,25 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/arifulbgt4/MuiStory"
+    "url": "https://github.com/arifulbgt4/Marketplace"
   },
   "bugs": {
-    "url": "https://github.com/arifulbgt4/MuiStory/issues"
+    "url": "https://github.com/arifulbgt4/Marketplace/issues"
   },
   "keywords": [
-    "react",
-    "javascript",
-    "boilerplate",
-    "reactjs",
+    "b2c",
+    "commerce",
+    "cash-on-delivery",
+    "catalog",
+    "checkout",
     "nextjs",
-    "boilerplate-template",
-    "mui",
-    "next",
-    "boilerplate-application",
-    "boilerplate-front-end",
-    "muiv5",
-    "nextjs13",
-    "mui-material"
+    "prisma",
+    "postgresql",
+    "marketplace-template"
   ],
   "engines": {
     "node": "22.x"
   },
-  "readme": "ERROR: No README data found!",
+  "readme": "README.md",
   "_id": "Marketplace@1.0.0"
 }

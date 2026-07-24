@@ -12,8 +12,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 function RecoveryForm() {
+  const t = useTranslations("Auth");
   const token = useSearchParams().get("token") || "";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,11 +35,11 @@ function RecoveryForm() {
         body: JSON.stringify({ email }),
       });
       const data = await response.json();
-      if (!response.ok) throw new Error(data.message || "Request failed");
+      if (!response.ok) throw new Error(data.message || t("requestFailed"));
       setMessage(data.message);
       setPreviewUrl(data.previewUrl || "");
     } catch (caught) {
-      setError(caught instanceof Error ? caught.message : "Request failed");
+      setError(caught instanceof Error ? caught.message : t("requestFailed"));
     } finally {
       setSubmitting(false);
     }
@@ -53,10 +55,10 @@ function RecoveryForm() {
         body: JSON.stringify({ token, password, confirmPassword }),
       });
       const data = await response.json();
-      if (!response.ok) throw new Error(data.message || "Reset failed");
-      setMessage("Password reset complete. You can now sign in.");
+      if (!response.ok) throw new Error(data.message || t("resetFailed"));
+      setMessage(t("resetComplete"));
     } catch (caught) {
-      setError(caught instanceof Error ? caught.message : "Reset failed");
+      setError(caught instanceof Error ? caught.message : t("resetFailed"));
     } finally {
       setSubmitting(false);
     }
@@ -66,14 +68,14 @@ function RecoveryForm() {
     <Paper sx={{ p: 4 }}>
       <Stack spacing={2}>
         <Typography variant="h4">
-          {token ? "Choose a new password" : "Reset your password"}
+          {token ? t("newPasswordTitle") : t("resetTitle")}
         </Typography>
         {message && <Alert severity="success">{message}</Alert>}
         {error && <Alert severity="error">{error}</Alert>}
         {!token ? (
           <>
             <TextField
-              label="Email"
+              label={t("email")}
               type="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
@@ -84,26 +86,26 @@ function RecoveryForm() {
               onClick={requestReset}
               disabled={submitting || !email.trim()}
             >
-              {submitting ? "Sending..." : "Send reset instructions"}
+              {submitting ? t("sending") : t("sendReset")}
             </Button>
             {previewUrl && (
               <Button component="a" href={previewUrl} variant="outlined">
-                Open development reset link
+                {t("openResetLink")}
               </Button>
             )}
           </>
         ) : (
           <>
             <TextField
-              label="New password"
+              label={t("newPassword")}
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              helperText="Use at least 12 characters"
+              helperText={t("passwordHint")}
               required
             />
             <TextField
-              label="Confirm password"
+              label={t("confirmPassword")}
               type="password"
               value={confirmPassword}
               onChange={(event) => setConfirmPassword(event.target.value)}
@@ -118,20 +120,21 @@ function RecoveryForm() {
                 password !== confirmPassword
               }
             >
-              {submitting ? "Resetting..." : "Reset password"}
+              {submitting ? t("resetting") : t("resetPassword")}
             </Button>
           </>
         )}
-        <Link href="/signin">Back to sign in</Link>
+        <Link href="/signin">{t("backToSignIn")}</Link>
       </Stack>
     </Paper>
   );
 }
 
 export default function ForgotPasswordPage() {
+  const common = useTranslations("Common");
   return (
     <Container maxWidth="xs" sx={{ py: 8 }}>
-      <Suspense fallback={<Typography>Loading...</Typography>}>
+      <Suspense fallback={<Typography>{common("loading")}</Typography>}>
         <RecoveryForm />
       </Suspense>
     </Container>

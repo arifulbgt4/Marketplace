@@ -10,25 +10,17 @@ import {
   Box,
   Modal,
   Container,
-  Tab,
 } from "@mui/material";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";
 import CloseIcon from "@mui/icons-material/Close";
 import TranslateIcon from "@mui/icons-material/Translate";
 
 import { languages as languagesData } from "src/global/staticData";
-import routes from "src/global/routes";
 import { LanguageOptions } from "src/global/types";
-import { locales } from "src/global/staticData";
 import Language from "src/components/Language";
 
 import { HeaderLanguageProps } from "./Types";
 
 const HeaderLanguage: FC<HeaderLanguageProps> = () => {
-  const [currency, setCurrency] = useState();
-  const [value, setValue] = useState("1");
   const [open, setOpen] = useState(false);
   const [language, setLanguage] = useState<LanguageOptions>({
     key: "",
@@ -43,8 +35,7 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
 
   const defaultLang = useMemo(() => {
     return languagesData.filter((d) => d.key === locale)[0];
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [locale]);
 
   //---------------------------------------------------//
   // Controling Language and Currency modal open/close //
@@ -55,18 +46,12 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
   // replace language on modale close
   const handleCloseLangModal = useCallback(() => {
     setOpen((prev) => !prev);
-    // For next-intl v4, we need to construct the URL with the locale prefix
-    const newPath = `/${language.key}${pathName}`;
-    router.replace(newPath);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [language, pathName]);
-
-  const handleChange = useCallback(
-    (event: React.SyntheticEvent, newValue: string) => {
-      setValue(newValue);
-    },
-    []
-  );
+    if (language.key && language.key !== locale) {
+      const pathWithoutLocale =
+        pathName.replace(/^\/(en|af|am|ar|hy|as|az|bn)(?=\/|$)/, "") || "/";
+      router.replace(`/${language.key}${pathWithoutLocale}`);
+    }
+  }, [language.key, locale, pathName, router]);
 
   return (
     <Box mr={{ md: 2 }}>
@@ -135,143 +120,60 @@ const HeaderLanguage: FC<HeaderLanguageProps> = () => {
               height="100%"
               p={{ xs: 1, md: 2 }}
             >
-              <TabContext value={value}>
-                <Stack>
-                  <TabList onChange={handleChange}>
-                    <Tab sx={{ pl: 0 }} label="Language and region" value="1" />
-                    <Tab label="Currency" value="2" />
-                  </TabList>
-                </Stack>
-                <TabPanel sx={{ px: 0 }} value="1">
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <Typography variant="h5">Selected languages</Typography>
+              <Stack gap={3}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <Typography variant="h5">Selected language</Typography>
+                  </Grid>
+                  <Grid item container spacing={2} pb={2}>
+                    <Grid
+                      item
+                      xs={6}
+                      md={3}
+                      display="flex"
+                      flexDirection="row"
+                      alignItems="center"
+                      gap={1.25}
+                    >
+                      <Language
+                        name={language?.name || defaultLang?.name}
+                        langKey={language?.key || defaultLang?.key}
+                        eng={language?.eng || defaultLang?.eng}
+                        isActive
+                      />
                     </Grid>
-                    <Grid item container spacing={2} pb={2}>
+                  </Grid>
+                </Grid>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <Typography variant="h5">Choose a language</Typography>
+                  </Grid>
+                  <Grid item container spacing={1}>
+                    {languagesData?.map((lang: LanguageOptions) => (
                       <Grid
                         item
                         xs={6}
                         md={3}
+                        key={lang.key}
                         display="flex"
                         flexDirection="row"
                         alignItems="center"
                         gap={1.25}
                       >
                         <Language
-                          name={language?.name || defaultLang?.name}
-                          langKey={language?.key || defaultLang?.key}
-                          eng={language?.eng || defaultLang?.eng}
-                          isActive
+                          name={lang.name}
+                          langKey={lang.key}
+                          eng={lang.eng}
+                          isActive={Boolean(
+                            (language?.key || defaultLang?.key) === lang.key,
+                          )}
+                          onClick={() => setLanguage(lang)}
                         />
                       </Grid>
-                    </Grid>
+                    ))}
                   </Grid>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <Typography variant="h5">Choose a language</Typography>
-                    </Grid>
-                    <Grid item container spacing={1}>
-                      {languagesData?.map((lang: LanguageOptions, index) => (
-                        <Grid
-                          item
-                          xs={6}
-                          md={3}
-                          key={index}
-                          display="flex"
-                          flexDirection="row"
-                          alignItems="center"
-                          gap={1.25}
-                        >
-                          <Language
-                            name={lang.name}
-                            langKey={lang.key}
-                            eng={lang.eng}
-                            isActive={Boolean(
-                              (language?.key || defaultLang?.key) === lang.key
-                            )}
-                            onClick={() => setLanguage(lang)}
-                          />
-                        </Grid>
-                      ))}
-                    </Grid>
-                  </Grid>
-                </TabPanel>
-                <TabPanel sx={{ px: 0 }} value="2">
-                  <Stack pb={4} gap={3}>
-                    <Typography variant="h5">Selected Currency</Typography>
-                    <Grid container spacing={2}>
-                      <Grid
-                        item
-                        xs={6}
-                        md={3}
-                        display="flex"
-                        flexDirection="row"
-                        alignItems="center"
-                        gap={1.25}
-                      >
-                        {/* <CounttryLanRegion
-                          currencie={
-                            Object.values(currency?.currencies)[0]?.name
-                          }
-                          currenciesName={`${
-                            Object.keys(currency?.currencies)[0]
-                          }
-                                 - ${
-                                   Object.values(currency?.currencies)[0].symbol
-                                 }`}
-                          flag={currency?.flag}
-                          currenciesSymbole={
-                            Object.values(currency?.currencies)[0].symbol
-                          }
-                          isActive
-                        /> */}
-                      </Grid>
-                    </Grid>
-                  </Stack>
-                  <Stack gap={3}>
-                    <Typography variant="h5">
-                      Choose a language and region
-                    </Typography>
-                    {/* <Grid container spacing={1}>
-                      {countris.map((country: any, index) => {
-                        if (country?.currencies) {
-                          const currencies: any = Object.values(
-                            country?.currencies
-                          );
-                          console.log("currencies", currencies[0]);
-
-                          return (
-                            <Grid
-                              item
-                              xs={6}
-                              md={3}
-                              key={index}
-                              display="flex"
-                              flexDirection="row"
-                              alignItems="center"
-                              gap={1}
-                            >
-                              <CounttryLanRegion
-                                indexCoun={index}
-                                currencie={currencies[0]?.name}
-                                currenciesName={`${
-                                  Object.keys(country?.currencies)[0]
-                                } - ${currencies[0].symbol}`}
-                                flag={country?.flag}
-                                currenciesSymbole={currencies[0].symbol}
-                                isActive={Boolean(
-                                  currency?.cca2 === country?.cca2
-                                )}
-                                onClick={() => setCurrency(country)}
-                              />
-                            </Grid>
-                          );
-                        }
-                      })}
-                    </Grid> */}
-                  </Stack>
-                </TabPanel>
-              </TabContext>
+                </Grid>
+              </Stack>
             </Box>
           </Container>
         </Stack>

@@ -1,7 +1,10 @@
-import SocilalForm from "src/forms/SocialForm";
+import { permanentRedirect } from "next/navigation";
 
-const Social = () => {
-  return <SocilalForm />;
-};
-
-export default Social;
+export default async function RetiredSocialSettingsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  permanentRedirect(`/${locale}/u/setting`);
+}

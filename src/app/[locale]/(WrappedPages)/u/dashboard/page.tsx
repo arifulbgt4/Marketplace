@@ -1,191 +1,140 @@
-import { Box, Grid } from "@mui/material";
-import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
-import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
-import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
-import CurrencyBitcoinIcon from "@mui/icons-material/CurrencyBitcoin";
+"use client";
 
-import DashBoardWidget from "src/widgets/DashBoardWidget";
-import SellStatistics from "src/widgets/SellStatistics";
-import VisitorStatistic from "src/widgets/VisitorStatistic";
-import UserStatistic from "src/widgets/UserStatistic";
-import UserSellStatistic from "src/widgets/UserSellStatiStics";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import {
+  Alert,
+  Avatar,
+  Button,
+  Grid,
+  Paper,
+  Skeleton,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { useTranslations } from "next-intl";
 
-const weekSellData = {
-  weekLebel: ["Sat", "Sun", "Mun", "Tue", "Wed", "Thu", "Fri"],
-  weekData: [121, 454, 231, 56, 675, 234, 543],
-  weekGrow: -12,
-  weekNewSell: 25,
-  weekTotalSell: 5678,
+type Profile = {
+  name: string;
+  email: string;
+  image: string | null;
+  phone: string | null;
 };
 
-const monthSellData = {
-  monthData: [
-    121, 454, 231, 56, 675, 234, 543, 121, 454, 231, 56, 675, 234, 543, 121,
-    454, 231, 56, 675, 234, 543, 121, 454, 231, 56, 675, 234, 543, 454, 831,
-  ],
-  monthLabel: [
-    "Nov/18",
-    "Nov/19",
-    "Nov/20",
-    "Nov/21",
-    "Nov/22",
-    "Nov/23",
-    "Nov/24",
-    "Nov/25",
-    "Nov/26",
-    "Nov/27",
-    "Nov/28",
-    "Nov/29",
-    "Nov/30",
-    "Dec/1",
-    "Dec/2",
-    "Dec/3",
-    "Dec/4",
-    "Dec/5",
-    "Dec/6",
-    "Dec/7",
-    "Dec/8",
-    "Dec/9",
-    "Dec/10",
-    "Dec/11",
-    "Dec/12",
-    "Dec/13",
-    "Dec/14",
-    "Dec/15",
-    "Dec/16",
-    "Nov/17",
-  ],
-  monthGrow: 23,
-  monthNewSell: 48,
-  monthTotalSell: 45678,
+type Order = {
+  id: string;
+  orderStatus: string;
+  fulfillmentStatus: string;
 };
 
-const yearSellData = {
-  yrData: [
-    4000, 3000, 2000, 2780, 1890, 2390, 3490, 4000, 3000, 2000, 2780, 1890,
-  ],
-  yrLebel: [
-    "Dec",
-    "Jan",
-    "Feb",
-    "March",
-    "April",
-    "May",
-    "Jun",
-    "July",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-  ],
-  YrGrow: 30,
-  YrNewSell: 343,
-  YrTotalSell: 1456781,
-};
+export default function CustomerDashboardPage() {
+  const t = useTranslations("Account");
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [wishlistCount, setWishlistCount] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-const visitorData = {
-  xLabels: [
-    "Page A",
-    "Page B",
-    "Page C",
-    "Page D",
-    "Page E",
-    "Page F",
-    "Page G",
-    "Page H",
-    "Page I",
-    "Page J",
-    "Page K",
-    "Page L",
-    "Page M",
-    "Page N",
-  ],
-  uData: [
-    0, 900, 700, 1580, 1190, 1790, 700, 2750, 700, 2900, 700, 1890, 3290, 2990,
-  ],
-  visitors: 345678,
-};
-const genderValue = {
-  male: 65,
-  female: 35,
-};
+  useEffect(() => {
+    Promise.all([
+      fetch("/api/profile"),
+      fetch("/api/orders?limit=100"),
+      fetch("/api/wishlist"),
+    ])
+      .then(async (responses) => {
+        const payloads = await Promise.all(
+          responses.map((response) => response.json()),
+        );
+        const failedIndex = responses.findIndex((response) => !response.ok);
+        if (failedIndex >= 0) {
+          throw new Error(payloads[failedIndex].message ?? t("loadError"));
+        }
+        setProfile(payloads[0]);
+        setOrders(payloads[1].orders ?? []);
+        setWishlistCount(payloads[2].items?.length ?? 0);
+      })
+      .catch((loadError) =>
+        setError(
+          loadError instanceof Error ? loadError.message : t("loadError"),
+        ),
+      )
+      .finally(() => setLoading(false));
+  }, [t]);
 
-const userStatisticData = {
-  uData: [
-    3000, 2450, 2000, 2780, 1890, 2390, 2490, 3000, 2000, 2780, 1890, 2393,
-    3000,
-  ],
-  pData: [
-    2090, 2590, 3000, 2200, 2000, 2980, 1990, 2590, 3200, 2650, 2200, 2980,
-    2700,
-  ],
-  xLabels: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
-};
+  if (loading) {
+    return <Skeleton variant="rounded" height={320} />;
+  }
 
-const userWeeklyData = {
-  data: [2, 5, 8, 4, 2],
-  xAxis: ["1", "2", "3", "4", "5"],
-  impar: 12.345,
-  yearGroth: 4.5,
-};
+  const metrics = [
+    { label: t("totalOrders"), value: orders.length, href: "/u/order" },
+    {
+      label: t("activeOrders"),
+      value: orders.filter((order) =>
+        ["pending", "confirmed"].includes(order.orderStatus),
+      ).length,
+      href: "/u/order",
+    },
+    {
+      label: t("delivered"),
+      value: orders.filter((order) => order.fulfillmentStatus === "DELIVERED")
+        .length,
+      href: "/u/order",
+    },
+    { label: t("wishlist"), value: wishlistCount, href: "/u/bookmark" },
+  ];
 
-const DashboardPage = () => {
   return (
-    <Box>
-      <Grid container spacing={4}>
-        <Grid item container md={8} xs={12} spacing={4}>
-          <Grid item xs={12} md={6}>
-            <DashBoardWidget
-              icon={BusinessCenterIcon}
-              totalItem="Total Product"
-              totalValue={932}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <DashBoardWidget
-              icon={InsertDriveFileIcon}
-              totalItem="Total Order"
-              totalValue={654}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <DashBoardWidget
-              icon={MonetizationOnIcon}
-              totalItem="Total Sell"
-              totalValue={854}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <DashBoardWidget
-              icon={CurrencyBitcoinIcon}
-              totalItem="Total Customer"
-              totalValue={754}
-            />
-          </Grid>
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <VisitorStatistic visitorData={visitorData} />
-        </Grid>
-        <Grid item xs={12}>
-          <SellStatistics
-            weekSellData={weekSellData}
-            monthSellData={monthSellData}
-            yearSellData={yearSellData}
-          />
-        </Grid>
+    <Stack spacing={4}>
+      {error ? <Alert severity="error">{error}</Alert> : null}
+      <Paper sx={{ p: 3 }}>
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          alignItems={{ xs: "flex-start", sm: "center" }}
+          spacing={2}
+        >
+          <Avatar
+            src={profile?.image ?? undefined}
+            sx={{ width: 64, height: 64 }}
+          >
+            {profile?.name?.slice(0, 1)}
+          </Avatar>
+          <div>
+            <Typography variant="h4">
+              {profile
+                ? t("welcome", { name: profile.name })
+                : t("welcomeGuest")}
+            </Typography>
+            <Typography color="text.secondary">
+              {profile?.email}
+              {profile?.phone ? ` · ${profile.phone}` : ""}
+            </Typography>
+          </div>
+          <Button
+            component={Link}
+            href="/u/setting"
+            variant="outlined"
+            sx={{ ml: { sm: "auto" } }}
+          >
+            {t("editProfile")}
+          </Button>
+        </Stack>
+      </Paper>
 
-        <Grid item xs={12} md={3}>
-          <UserStatistic genderValue={genderValue} />
-        </Grid>
-        <Grid item md={9} xs={12}>
-          <UserSellStatistic
-            userStatisticData={userStatisticData}
-            userWeeklyData={userWeeklyData}
-          />
-        </Grid>
+      <Grid container spacing={3}>
+        {metrics.map((metric) => (
+          <Grid item xs={12} sm={6} lg={3} key={metric.label}>
+            <Paper sx={{ p: 3, height: "100%" }}>
+              <Typography color="text.secondary">{metric.label}</Typography>
+              <Typography variant="h3" my={1}>
+                {metric.value}
+              </Typography>
+              <Button component={Link} href={metric.href} size="small">
+                {t("view")}
+              </Button>
+            </Paper>
+          </Grid>
+        ))}
       </Grid>
-    </Box>
+    </Stack>
   );
-};
-
-export default DashboardPage;
+}

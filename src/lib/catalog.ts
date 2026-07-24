@@ -63,12 +63,13 @@ export const optionSchema = z.object({
   name: z.string().min(1).max(50),
   values: z
     .array(z.string().min(1).max(100))
-    .min(1, "At least one option value is required"),
+    .min(1, "At least one option value is required")
+    .max(100),
 });
 
 export const optionUpdateSchema = z.object({
   name: z.string().min(1).max(50).optional(),
-  values: z.array(z.string().min(1).max(100)).min(1).optional(),
+  values: z.array(z.string().min(1).max(100)).min(1).max(100).optional(),
 });
 
 export const productMediaSchema = z.object({
@@ -107,25 +108,44 @@ export const categoryUpdateSchema = z.object({
   isActive: z.boolean().optional(),
 });
 
-export const catalogSearchSchema = z.object({
-  query: z.string().optional(),
-  categoryId: z.string().uuid().optional(),
-  minPrice: z.number().min(0).optional(),
-  maxPrice: z.number().min(0).optional(),
-  sort: z
-    .enum([
-      "price_asc",
-      "price_desc",
-      "name_asc",
-      "name_desc",
-      "newest",
-      "oldest",
-    ])
-    .optional()
-    .default("newest"),
-  availability: z.enum(["in_stock", "out_of_stock"]).optional(),
-  page: z.number().int().min(1).default(1),
-  limit: z.number().int().min(1).max(100).default(24),
+export const catalogSearchSchema = z
+  .object({
+    query: z.string().trim().max(100).optional(),
+    categoryId: z.string().uuid().optional(),
+    minPrice: z.coerce.number().min(0).optional(),
+    maxPrice: z.coerce.number().min(0).optional(),
+    sort: z
+      .enum([
+        "price_asc",
+        "price_desc",
+        "name_asc",
+        "name_desc",
+        "newest",
+        "oldest",
+      ])
+      .optional()
+      .default("newest"),
+    availability: z.enum(["in_stock", "out_of_stock"]).optional(),
+    page: z.coerce.number().int().min(1).max(10_000).default(1),
+    limit: z.coerce.number().int().min(1).max(100).default(24),
+  })
+  .superRefine((value, context) => {
+    if (
+      value.minPrice !== undefined &&
+      value.maxPrice !== undefined &&
+      value.minPrice > value.maxPrice
+    ) {
+      context.addIssue({
+        code: "custom",
+        path: ["maxPrice"],
+        message: "Maximum price must be greater than or equal to minimum price",
+      });
+    }
+  });
+
+export const catalogSuggestionSchema = z.object({
+  query: z.string().trim().min(2).max(100),
+  limit: z.coerce.number().int().min(1).max(10).default(8),
 });
 
 export const inventoryAdjustSchema = z.object({
@@ -151,6 +171,7 @@ export type ProductMediaInput = z.infer<typeof productMediaSchema>;
 export type CategoryInput = z.infer<typeof categorySchema>;
 export type CategoryUpdateInput = z.infer<typeof categoryUpdateSchema>;
 export type CatalogSearchInput = z.infer<typeof catalogSearchSchema>;
+export type CatalogSuggestionInput = z.infer<typeof catalogSuggestionSchema>;
 export type InventoryAdjustInput = z.infer<typeof inventoryAdjustSchema>;
 export type InventoryReserveInput = z.infer<typeof inventoryReserveSchema>;
 

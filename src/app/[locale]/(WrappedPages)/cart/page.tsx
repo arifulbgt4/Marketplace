@@ -20,6 +20,8 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
+import { formatMoney } from "src/lib/i18n";
 
 interface CartItem {
   id: string;
@@ -36,9 +38,13 @@ interface Cart {
   id: string;
   items: CartItem[];
   subtotal: number;
+  currency?: string;
 }
 
 export default function CartPage() {
+  const locale = useLocale();
+  const t = useTranslations("Cart");
+  const common = useTranslations("Common");
   const [cart, setCart] = useState<Cart | null>(null);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState<string | null>(null);
@@ -104,19 +110,19 @@ export default function CartPage() {
     <Container maxWidth="md" sx={{ py: 4 }}>
       <Stack direction="row" alignItems="center" spacing={1} mb={3}>
         <ShoppingCartIcon />
-        <Typography variant="h4">Shopping Cart</Typography>
+        <Typography variant="h4">{t("title")}</Typography>
       </Stack>
 
       {!cart || cart.items.length === 0 ? (
         <Paper sx={{ p: 6, textAlign: "center" }}>
           <Typography variant="h6" color="text.secondary" gutterBottom>
-            Your cart is empty
+            {t("emptyTitle")}
           </Typography>
           <Typography variant="body2" color="text.secondary" mb={3}>
-            Browse products and add items to your cart
+            {t("emptyDescription")}
           </Typography>
           <Button variant="contained" LinkComponent={Link} href="/products">
-            Browse Products
+            {common("browseProducts")}
           </Button>
         </Paper>
       ) : (
@@ -131,6 +137,8 @@ export default function CartPage() {
                     "https://placehold.co/100x100?text=No+Image"
                   }
                   alt={item.productName}
+                  loading="lazy"
+                  decoding="async"
                   sx={{
                     width: 100,
                     height: 100,
@@ -144,7 +152,7 @@ export default function CartPage() {
                     {item.productName}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    SKU: {item.sku}
+                    {common("sku", { sku: item.sku })}
                   </Typography>
                   <Typography
                     variant="body1"
@@ -152,12 +160,17 @@ export default function CartPage() {
                     color="primary"
                     mt={1}
                   >
-                    ${Number(item.unitPrice).toFixed(2)}
+                    {formatMoney(
+                      item.unitPrice,
+                      cart.currency ?? "USD",
+                      locale,
+                    )}
                   </Typography>
                 </Box>
                 <Stack direction="row" alignItems="center" spacing={1}>
                   <IconButton
                     size="small"
+                    aria-label={t("decreaseQuantity")}
                     onClick={() =>
                       updateQuantity(item.variantId, item.quantity - 1)
                     }
@@ -183,6 +196,7 @@ export default function CartPage() {
                   />
                   <IconButton
                     size="small"
+                    aria-label={t("increaseQuantity")}
                     onClick={() =>
                       updateQuantity(item.variantId, item.quantity + 1)
                     }
@@ -192,6 +206,7 @@ export default function CartPage() {
                   </IconButton>
                   <IconButton
                     color="error"
+                    aria-label={t("removeItem")}
                     onClick={() => removeItem(item.variantId)}
                     disabled={updating === item.variantId}
                   >
@@ -210,11 +225,17 @@ export default function CartPage() {
             alignItems="center"
           >
             <Button color="error" variant="outlined" onClick={clearCart}>
-              Clear Cart
+              {t("clear")}
             </Button>
             <Box textAlign="right">
               <Typography variant="h5" fontWeight={700}>
-                Total: ${(cart.subtotal || 0).toFixed(2)}
+                {t("total", {
+                  amount: formatMoney(
+                    cart.subtotal || 0,
+                    cart.currency ?? "USD",
+                    locale,
+                  ),
+                })}
               </Typography>
               <Button
                 variant="contained"
@@ -223,7 +244,7 @@ export default function CartPage() {
                 LinkComponent={Link}
                 href="/checkout"
               >
-                Proceed to Checkout
+                {t("checkout")}
               </Button>
             </Box>
           </Stack>

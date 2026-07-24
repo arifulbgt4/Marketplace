@@ -26,6 +26,8 @@ import {
 } from "src/lib/checkout";
 import { codEligibilityEngine } from "src/lib/services/cod-eligibility";
 import { paymentRegistry } from "src/lib/services/payment-adapter";
+import { paymentSettingsFromValue } from "src/lib/services/business-settings";
+import { recordInitialOrderStateInTransaction } from "src/lib/services/order-transition";
 
 const CHECKOUT_TTL_MS = 30 * 60 * 1000;
 
@@ -243,10 +245,13 @@ export class CheckoutCoordinator {
         where: { id },
       });
       if (!checkout) return fail(new NotFoundError("CheckoutSession", id));
-      if (checkout.userId !== session.userId) return fail(new AuthorizationError());
+      if (checkout.userId !== session.userId)
+        return fail(new AuthorizationError());
 
       const address = checkout.shippingAddressId
-        ? await prisma.address.findUnique({ where: { id: checkout.shippingAddressId } })
+        ? await prisma.address.findUnique({
+            where: { id: checkout.shippingAddressId },
+          })
         : null;
 
       const cart = await prisma.cart.findUnique({
@@ -254,10 +259,10 @@ export class CheckoutCoordinator {
         include: {
           items: {
             include: {
-              variant: { include: { product: true } }
-            }
-          }
-        }
+              variant: { include: { product: true } },
+            },
+          },
+        },
       });
 
       if (!cart) return fail(new NotFoundError("Cart", checkout.cartId));
@@ -269,26 +274,54 @@ export class CheckoutCoordinator {
         country: address?.country ?? "",
         region: address?.state ?? undefined,
         postalCode: address?.postalCode ?? undefined,
-        items: cart.items.map(item => ({
+        items: cart.items.map((item) => ({
           productId: item.productId,
           categoryId: item.variant.product.categoryId,
-          quantity: item.quantity
-        }))
+          quantity: item.quantity,
+        })),
       };
 
       const codResult = await codEligibilityEngine.evaluate(codContext);
+      const paymentSetting = await prisma.businessSettings.findUnique({
+        where: { key: "payment_methods" },
+        select: { value: true },
+      });
+      const paymentSettings = paymentSettingsFromValue(paymentSetting?.value);
+      let onlineProviderAvailable = false;
+      if (
+        paymentSettings.onlinePayment.enabled &&
+        paymentSettings.onlinePayment.provider
+      ) {
+        try {
+          paymentRegistry.getAdapter(paymentSettings.onlinePayment.provider);
+          onlineProviderAvailable = true;
+        } catch {
+          onlineProviderAvailable = false;
+        }
+      }
 
       return ok([
         {
           code: "cod",
-          eligible: codResult.eligible,
-          reasonCode: codResult.reasonCode
+          label: paymentSettings.cashOnDelivery.label,
+          description: paymentSettings.cashOnDelivery.description,
+          eligible:
+            paymentSettings.cashOnDelivery.enabled && codResult.eligible,
+          reasonCode: paymentSettings.cashOnDelivery.enabled
+            ? codResult.reasonCode
+            : "PAYMENT_METHOD_DISABLED",
         },
         {
           code: "online",
-          eligible: true,
-          reasonCode: null
-        }
+          label: paymentSettings.onlinePayment.label,
+          description: paymentSettings.onlinePayment.description,
+          eligible: onlineProviderAvailable,
+          reasonCode: onlineProviderAvailable
+            ? null
+            : paymentSettings.onlinePayment.enabled
+              ? "PAYMENT_PROVIDER_UNAVAILABLE"
+              : "PAYMENT_METHOD_DISABLED",
+        },
       ]);
     } catch (error) {
       return fail(asAppError(error));
@@ -329,6 +362,23 @@ export class CheckoutCoordinator {
                 parsed.checkoutSessionId,
               );
             this.assertActiveSession(checkout, session.userId);
+            const paymentSetting = await tx.businessSettings.findUnique({
+              where: { key: "payment_methods" },
+              select: { value: true },
+            });
+            const paymentSettings = paymentSettingsFromValue(
+              paymentSetting?.value,
+            );
+            if (
+              (parsed.paymentMethod === "cod" &&
+                !paymentSettings.cashOnDelivery.enabled) ||
+              (parsed.paymentMethod === "online" &&
+                !paymentSettings.onlinePayment.enabled)
+            ) {
+              throw new BusinessRuleError(
+                "The selected payment method is disabled",
+              );
+            }
 
             const cart = await tx.cart.findUnique({
               where: { id: checkout.cartId },
@@ -459,9 +509,7 @@ export class CheckoutCoordinator {
             }
 
             const paymentStatus =
-              parsed.paymentMethod === "cod"
-                ? "PENDING_COLLECTION"
-                : "PENDING";
+              parsed.paymentMethod === "cod" ? "PENDING_COLLECTION" : "PENDING";
             const fulfillmentStatus = "UNFULFILLED";
 
             const orderNo = `ORD-${uuidv4().slice(0, 8).toUpperCase()}`;
@@ -469,6 +517,7 @@ export class CheckoutCoordinator {
               data: {
                 orderNo,
                 status: "pending",
+                statusVersion: 1,
                 paymentStatus,
                 fulfillmentStatus,
                 totalPrice: checkout.totalAmount,
@@ -510,24 +559,39 @@ export class CheckoutCoordinator {
                 },
               },
             });
+            await recordInitialOrderStateInTransaction(tx, {
+              orderId: order.id,
+              orderNo,
+              userId: session.userId,
+              orderStatus: order.status,
+              fulfillmentStatus: order.fulfillmentStatus,
+              paymentStatus: order.paymentStatus,
+            });
 
             const paymentProvider =
               parsed.paymentMethod === "cod"
                 ? "CASH_ON_DELIVERY"
-                : "ONLINE_MOCK";
+                : paymentSettings.onlinePayment.provider;
+            if (!paymentProvider) {
+              throw new BusinessRuleError(
+                "The online payment provider is not configured",
+              );
+            }
 
             let providerRef: string | null = null;
             let clientSecret: string | null = null;
 
             if (parsed.paymentMethod === "online") {
-              const adapter = paymentRegistry.getAdapter("MOCK");
+              const adapter = paymentRegistry.getAdapter(paymentProvider);
               const intentResult = await adapter.createIntent({
                 orderId: orderNo,
                 amount: Number(checkout.totalAmount),
                 currency,
               });
               if (!intentResult.success) {
-                throw new BusinessRuleError("Failed to initiate online payment");
+                throw new BusinessRuleError(
+                  "Failed to initiate online payment",
+                );
               }
               providerRef = intentResult.data.providerRef;
               clientSecret = intentResult.data.clientSecret ?? null;
@@ -798,7 +862,9 @@ export class CheckoutCoordinator {
     if (coupon.minOrderAmount && subtotal < Number(coupon.minOrderAmount))
       throw new BusinessRuleError("Coupon minimum order amount is not met");
     if (coupon.usagePerUser) {
-      const count = await tx.couponUsage.count({ where: { couponId, userId } });
+      const count = await tx.couponUsage.count({
+        where: { couponId, userId, releasedAt: null },
+      });
       if (count >= coupon.usagePerUser)
         throw new BusinessRuleError("Coupon per-user limit reached");
     }

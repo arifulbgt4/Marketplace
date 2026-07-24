@@ -7,9 +7,14 @@
 
 # testing
 /coverage
+/playwright-report
+/test-results
+/blob-report
+/e2e/visual-contract.spec.ts-snapshots
 
 # next.js
 /.next/
+/.next-*/
 /out/
 
 # production

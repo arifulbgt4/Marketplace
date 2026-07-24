@@ -1,4 +1,5 @@
-export type RouteAccess = "public" | "customer" | "catalog" | "admin";
+export type RouteAccess =
+  "public" | "customer" | "catalog" | "operations" | "admin";
 
 const EXACT_PUBLIC = new Set([
   "/",
@@ -23,6 +24,14 @@ const isWithin = (pathname: string, root: string) =>
 
 export function classifyRoute(pathname: string): RouteAccess {
   if (
+    isWithin(pathname, "/admin/orders") ||
+    isWithin(pathname, "/admin/returns") ||
+    isWithin(pathname, "/admin/shipments") ||
+    isWithin(pathname, "/admin/support")
+  ) {
+    return "operations";
+  }
+  if (
     isWithin(pathname, "/admin/products") ||
     isWithin(pathname, "/admin/categories") ||
     isWithin(pathname, "/admin/inventory")
@@ -40,12 +49,7 @@ export function classifyRoute(pathname: string): RouteAccess {
   }
   if (EXACT_PUBLIC.has(pathname) || isWithin(pathname, "/products"))
     return "public";
-  if (
-    pathname === "/l" ||
-    (isWithin(pathname, "/l") &&
-      !isWithin(pathname, "/l/create") &&
-      !isWithin(pathname, "/l/edit"))
-  ) {
+  if (isWithin(pathname, "/l") || isWithin(pathname, "/merchant")) {
     return "public";
   }
   return "customer";
